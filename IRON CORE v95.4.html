@@ -11,7 +11,7 @@
 <meta name="theme-color" content="#020617">
 <link rel="icon" type="image/png" href="app-icon.png">
 <link rel="apple-touch-icon" href="app-icon.png">
-<title>Mise - v95.4.35</title>
+<title>Mise - v95.4.129</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -437,8 +437,12 @@ position: relative;
 flex: 1;
 min-height: 0;
 overflow-x: hidden;
-overflow-y: auto;
+overflow-y: hidden;
 -webkit-overflow-scrolling: touch;
+touch-action: pan-x;
+}
+.mission-briefing-touch.is-scrollable {
+overflow-y: auto;
 touch-action: pan-y;
 }
 .mission-briefing-flip-scene {
@@ -787,6 +791,446 @@ max-width: 100%;
 color: #fecaca;
 }
 .macro-tube-label-mini { font-size: 11px; font-weight: 800; color: var(--muted); margin-top: 6px; line-height: 1.25; letter-spacing: 0.04em; text-transform: uppercase; text-align: center; width: 100%; }
+.roadmap-tubes-card {
+margin: 10px 0 12px;
+padding: 12px 10px 10px;
+border-radius: 16px;
+border: 1px solid rgba(148,163,184,0.26);
+background: linear-gradient(165deg, rgba(30,41,59,0.7), rgba(15,23,42,0.95));
+box-shadow: var(--shadow-levitate), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+.roadmap-tubes-kicker {
+font-size: 9px;
+font-weight: 900;
+letter-spacing: .12em;
+text-transform: uppercase;
+text-align: center;
+color: var(--muted);
+margin-bottom: 8px;
+}
+.roadmap-tubes-grid {
+display: grid;
+grid-template-columns: repeat(3, minmax(90px, 1fr));
+grid-template-areas:
+"chest weight biceps"
+"thigh waist shoulders";
+align-items: start;
+justify-items: center;
+gap: 10px 12px;
+}
+.roadmap-mini--pos-chest { grid-area: chest; }
+.roadmap-mini--pos-thigh { grid-area: thigh; }
+.roadmap-mini--pos-biceps { grid-area: biceps; }
+.roadmap-mini--pos-shoulders { grid-area: shoulders; }
+.roadmap-mini--pos-weight { grid-area: weight; }
+.roadmap-mini--pos-waist { grid-area: waist; }
+.roadmap-mini {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 5px;
+width: 56px;
+justify-content: flex-start;
+}
+.roadmap-mini--weight { width: 74px; }
+.roadmap-mini--gauge-proto {
+width: 112px;
+}
+.roadmap-mini-cap {
+font-size: 9px;
+font-weight: 800;
+line-height: 1.18;
+text-align: center;
+min-height: 38px;
+display: flex;
+flex-direction: column;
+justify-content: flex-end;
+gap: 1px;
+}
+.roadmap-mini-cap-goal { color: var(--tube-color, #e2e8f0); }
+.roadmap-mini-cap strong { color: #e2e8f0; font-size: 11px; font-weight: 900; }
+.roadmap-mini-shell {
+position: relative;
+width: 48px;
+height: 108px;
+border-radius: 14px;
+border: 1px solid rgba(148,163,184,0.35);
+--tube-color: rgba(245,158,11,0.95);
+background: linear-gradient(180deg, rgba(2,6,23,0.72), rgba(15,23,42,0.92));
+overflow: hidden;
+box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -6px 16px rgba(0,0,0,0.35);
+}
+.roadmap-mini-shell--good {
+box-shadow:
+inset 0 1px 0 rgba(255,255,255,0.06),
+inset 0 -6px 16px rgba(0,0,0,0.35),
+0 0 0 1px rgba(34,197,94,0.5),
+0 0 14px rgba(34,197,94,0.35);
+}
+.roadmap-mini-shell--bad {
+box-shadow:
+inset 0 1px 0 rgba(255,255,255,0.06),
+inset 0 -6px 16px rgba(0,0,0,0.35),
+0 0 0 1px rgba(239,68,68,0.55),
+0 0 16px rgba(239,68,68,0.4);
+}
+.roadmap-gauge {
+position: absolute;
+inset: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.roadmap-gauge-svg {
+width: 94%;
+height: 94%;
+overflow: visible;
+}
+.roadmap-mini-shell--gauge {
+width: 124px;
+height: 124px;
+border-radius: 50%;
+border: 1px solid rgba(190, 24, 93, 0.45);
+background:
+radial-gradient(circle at 50% 38%, rgba(30, 41, 59, 0.72), rgba(2, 6, 23, 0.95)),
+linear-gradient(165deg, rgba(76, 5, 25, 0.45), rgba(30, 4, 20, 0.72));
+overflow: hidden;
+}
+#roadmap-shell-thigh.roadmap-mini-shell--gauge {
+border-color: rgba(217,70,239,0.55);
+background:
+radial-gradient(circle at 50% 38%, rgba(67, 20, 86, 0.72), rgba(2, 6, 23, 0.95)),
+linear-gradient(165deg, rgba(124, 58, 237, 0.35), rgba(34, 6, 59, 0.72));
+}
+#roadmap-shell-shoulders.roadmap-mini-shell--gauge {
+border-color: rgba(34,211,238,0.58);
+background:
+radial-gradient(circle at 50% 38%, rgba(8, 47, 73, 0.72), rgba(2, 6, 23, 0.95)),
+linear-gradient(165deg, rgba(6, 182, 212, 0.28), rgba(8, 47, 73, 0.72));
+box-shadow:
+inset 0 1px 0 rgba(255,255,255,0.06),
+inset 0 -6px 16px rgba(0,0,0,0.35),
+0 0 0 1px rgba(34,211,238,0.68),
+0 0 20px rgba(34,211,238,0.48);
+}
+#roadmap-shell-shoulders.roadmap-gauge-shell--good {
+box-shadow:
+inset 0 1px 0 rgba(255,255,255,0.06),
+inset 0 -6px 16px rgba(0,0,0,0.35),
+0 0 0 1px rgba(34,211,238,0.85),
+0 0 26px rgba(34,211,238,0.66);
+}
+.roadmap-mini-shell--gauge::after,
+.roadmap-mini-shell--gauge::before { display: none; }
+.roadmap-mini-shell--gauge .roadmap-gauge {
+align-items: center;
+justify-content: center;
+padding: 0;
+}
+.roadmap-mini-shell--gauge .roadmap-gauge-svg {
+width: 92%;
+height: 92%;
+}
+.roadmap-mini-shell--gauge .roadmap-mini-val {
+top: 84%;
+font-size: 11px;
+}
+.roadmap-gauge-needle {
+transform-origin: 50% 78%;
+transition: transform .35s ease;
+filter: drop-shadow(0 0 6px rgba(248,250,252,0.55));
+}
+.roadmap-mini-shell--gauge .roadmap-gauge-needle {
+transform-origin: 50% 74%;
+}
+.roadmap-gauge-needle-wobble {
+transform-origin: 50% 74%;
+animation: roadmapNeedleWobble 1.8s ease-in-out infinite;
+}
+@keyframes roadmapNeedleWobble {
+0%, 100% { transform: rotate(-1.05deg); }
+50% { transform: rotate(1.05deg); }
+}
+.roadmap-gauge-shell--good {
+box-shadow:
+inset 0 1px 0 rgba(255,255,255,0.06),
+inset 0 -6px 16px rgba(0,0,0,0.35),
+0 0 0 1px var(--tube-color),
+0 0 18px var(--tube-color);
+}
+.roadmap-gauge-shell--bad {
+box-shadow:
+inset 0 1px 0 rgba(255,255,255,0.06),
+inset 0 -6px 16px rgba(0,0,0,0.35),
+0 0 0 1px rgba(136,19,55,0.7),
+0 0 20px rgba(190,24,93,0.45);
+}
+.roadmap-mini-shell::after {
+content: "";
+position: absolute;
+left: 10%;
+right: 10%;
+bottom: 0;
+height: 26%;
+background: radial-gradient(ellipse 75% 65% at 50% 100%, var(--tube-color), transparent 72%);
+filter: blur(6px);
+opacity: 0.32;
+pointer-events: none;
+}
+.roadmap-mini-shell::before {
+content: "";
+position: absolute;
+left: -16%;
+right: -16%;
+bottom: 6%;
+height: 32%;
+background:
+radial-gradient(ellipse 34% 24% at 20% 84%, color-mix(in srgb, var(--tube-color) 72%, white 28%), transparent 74%),
+radial-gradient(ellipse 40% 26% at 52% 78%, color-mix(in srgb, var(--tube-color) 70%, white 30%), transparent 76%),
+radial-gradient(ellipse 34% 24% at 82% 84%, color-mix(in srgb, var(--tube-color) 72%, white 28%), transparent 74%);
+filter: blur(4px);
+opacity: 0.62;
+mix-blend-mode: screen;
+pointer-events: none;
+transform-origin: 50% 100%;
+animation: roadmapShellSmoke 3.4s ease-in-out infinite;
+}
+.roadmap-mini--weight .roadmap-mini-shell { width: 66px; height: 138px; border-color: rgba(245,158,11,0.45); margin-top: 0; }
+.roadmap-mini--weight .roadmap-mini-shell {
+box-shadow:
+inset 0 1px 0 rgba(255,255,255,0.08),
+inset 0 -8px 18px rgba(0,0,0,0.38),
+0 0 0 1px rgba(245,158,11,0.58),
+0 0 18px rgba(245,158,11,0.46),
+0 0 28px rgba(217,119,6,0.26);
+}
+#roadmap-shell-waist {
+border-color: rgba(190,24,93,0.62);
+box-shadow:
+inset 0 1px 0 rgba(255,255,255,0.08),
+inset 0 -7px 16px rgba(0,0,0,0.36),
+0 0 0 1px rgba(190,24,93,0.72),
+0 0 22px rgba(190,24,93,0.56),
+0 0 32px rgba(136,19,55,0.28);
+}
+#roadmap-shell-waist.roadmap-mini-shell {
+width: 56px;
+height: 122px;
+}
+.roadmap-mini-fill {
+position: absolute;
+left: 0;
+right: 0;
+bottom: 0;
+height: 0%;
+transition: height .45s ease;
+background: linear-gradient(180deg, rgba(245,158,11,0.95), rgba(217,119,6,0.32));
+box-shadow: inset 0 0 10px rgba(254,215,170,0.25), 0 0 12px rgba(245,158,11,0.25);
+overflow: visible;
+isolation: isolate;
+}
+.roadmap-mini-fill--hold {
+transition: height .35s ease, bottom .35s ease;
+}
+.roadmap-mini-fill::before {
+content: "";
+position: absolute;
+left: -12%;
+right: -12%;
+top: -12%;
+height: clamp(14px, 36%, 30px);
+background:
+radial-gradient(ellipse 46% 30% at 18% 84%, color-mix(in srgb, var(--tube-color) 78%, white 22%), transparent 72%),
+radial-gradient(ellipse 50% 32% at 82% 82%, color-mix(in srgb, var(--tube-color) 76%, white 24%), transparent 74%),
+radial-gradient(ellipse 38% 26% at 50% 70%, rgba(255,255,255,0.44), transparent 72%);
+filter: blur(3.2px);
+mix-blend-mode: screen;
+opacity: 1;
+transform-origin: 50% 86%;
+animation: roadmapSmokeSurface 3.2s ease-in-out infinite;
+}
+.roadmap-mini-fill::after {
+content: "";
+position: absolute;
+left: -12%;
+right: -12%;
+top: -6%;
+height: clamp(8px, 22%, 18px);
+background:
+radial-gradient(ellipse 70% 44% at 50% 88%, color-mix(in srgb, var(--tube-color) 68%, white 32%), transparent 70%),
+radial-gradient(ellipse 44% 32% at 18% 82%, rgba(255,255,255,0.34), transparent 76%),
+radial-gradient(ellipse 44% 32% at 82% 82%, rgba(255,255,255,0.3), transparent 76%);
+opacity: 1;
+pointer-events: none;
+filter: blur(1.8px);
+mix-blend-mode: screen;
+transform-origin: 50% 100%;
+animation: roadmapSmokeSurfaceFine 2.6s ease-in-out infinite;
+}
+@keyframes roadmapSmokeEdge {
+0% { transform: translateX(-2.2%) translateY(6%) skewX(-8deg) scale(0.98, 0.96) rotate(-1.2deg); opacity: 0.84; }
+25% { transform: translateX(2.6%) translateY(-2%) skewX(7deg) scale(1.08, 1.04) rotate(1.4deg); opacity: 1; }
+50% { transform: translateX(-1.8%) translateY(-6%) skewX(-6deg) scale(1.12, 1.08) rotate(-1deg); opacity: 0.96; }
+75% { transform: translateX(2.4%) translateY(-1%) skewX(6deg) scale(1.05, 1.03) rotate(1deg); opacity: 1; }
+100% { transform: translateX(-2.2%) translateY(6%) skewX(-8deg) scale(0.98, 0.96) rotate(-1.2deg); opacity: 0.84; }
+}
+@keyframes roadmapSmokeShimmer {
+0% { transform: translateX(-1.4%) translateY(3%) scale(0.96, 0.94); opacity: 0.72; }
+50% { transform: translateX(1.6%) translateY(-4%) scale(1.08, 1.08); opacity: 0.95; }
+100% { transform: translateX(-1.4%) translateY(3%) scale(0.96, 0.94); opacity: 0.72; }
+}
+@keyframes roadmapSmokeSurface {
+0% { transform: translateX(-3.2%) translateY(3%) skewX(-5deg) scale(0.98,0.95); opacity: 0.82; }
+50% { transform: translateX(3.6%) translateY(-4.5%) skewX(6deg) scale(1.08,1.06); opacity: 1; }
+100% { transform: translateX(-3.2%) translateY(3%) skewX(-5deg) scale(0.98,0.95); opacity: 0.82; }
+}
+@keyframes roadmapSmokeSurfaceFine {
+0% { transform: translateX(-1.8%) translateY(1.2%) scale(0.98); opacity: 0.74; }
+50% { transform: translateX(1.8%) translateY(-2.6%) scale(1.06); opacity: 0.92; }
+100% { transform: translateX(-1.8%) translateY(1.2%) scale(0.98); opacity: 0.74; }
+}
+@keyframes roadmapShellSmoke {
+0% { transform: translateX(-2.2%) translateY(3%) skewX(-4deg) scale(0.96,0.94); opacity: 0.52; }
+50% { transform: translateX(2.4%) translateY(-3%) skewX(5deg) scale(1.06,1.04); opacity: 0.72; }
+100% { transform: translateX(-2.2%) translateY(3%) skewX(-4deg) scale(0.96,0.94); opacity: 0.52; }
+}
+@keyframes roadmapIdleSmoke {
+0% { transform: translateX(-1.6%) translateY(4%) skewX(-4deg) scale(0.98,0.95); opacity: 0.26; }
+50% { transform: translateX(1.9%) translateY(-5%) skewX(5deg) scale(1.06,1.04); opacity: 0.44; }
+100% { transform: translateX(-1.6%) translateY(4%) skewX(-4deg) scale(0.98,0.95); opacity: 0.26; }
+}
+@keyframes roadmapIdleSmokeDrift {
+0% { transform: translate(-5%, 8%) skewX(-8deg) scale(0.94,0.92) rotate(-1.4deg); opacity: 0.22; }
+14% { transform: translate(-1%, 0%) skewX(5deg) scale(1.02,0.98) rotate(0.6deg); opacity: 0.36; }
+27% { transform: translate(3%, -12%) skewX(-7deg) scale(1.06,1.03) rotate(-1deg); opacity: 0.42; }
+41% { transform: translate(-2%, -24%) skewX(6deg) scale(1.1,1.09) rotate(0.8deg); opacity: 0.48; }
+58% { transform: translate(4%, -38%) skewX(-5deg) scale(1.15,1.14) rotate(-0.6deg); opacity: 0.43; }
+73% { transform: translate(-3%, -52%) skewX(7deg) scale(1.2,1.18) rotate(0.9deg); opacity: 0.36; }
+88% { transform: translate(2%, -66%) skewX(-4deg) scale(1.24,1.22) rotate(-0.5deg); opacity: 0.24; }
+100% { transform: translate(-1%, -78%) skewX(3deg) scale(1.28,1.26) rotate(0.4deg); opacity: 0.12; }
+}
+.roadmap-mini-strop {
+position: absolute;
+left: 0;
+right: 0;
+bottom: 78%;
+border-top: 1px dashed rgba(248,250,252,0.6);
+opacity: 0.7;
+}
+.roadmap-mini-strop--hold {
+bottom: 50%;
+border-top: 1px solid rgba(74,222,128,0.85);
+box-shadow: 0 0 10px rgba(74,222,128,0.35);
+}
+.roadmap-mini-val {
+position: absolute;
+left: 50%;
+top: 50%;
+transform: translate(-50%, -50%);
+font-size: 10px;
+font-weight: 900;
+color: #f8fafc;
+text-shadow: 0 0 8px rgba(0,0,0,0.9);
+white-space: nowrap;
+}
+.roadmap-mini-val--neutral {
+color: #e2e8f0;
+text-shadow: 0 0 8px rgba(0,0,0,0.9);
+animation: none;
+}
+.roadmap-mini-val--good {
+color: #22c55e;
+animation: roadmapDeltaPulse 0.86s ease-in-out infinite;
+text-shadow:
+0 0 10px rgba(187,247,208,0.95),
+0 0 20px rgba(34,197,94,0.9),
+0 0 30px rgba(21,128,61,0.8),
+0 1px 2px #000;
+}
+.roadmap-mini-val--bad {
+color: #ef4444;
+animation: roadmapDeltaPulse 0.86s ease-in-out infinite;
+text-shadow:
+0 0 10px rgba(254,202,202,0.95),
+0 0 20px rgba(248,113,113,0.95),
+0 0 34px rgba(127,29,29,0.9),
+0 1px 2px #000;
+}
+.roadmap-mini-val--zone-ok {
+color: #22c55e;
+text-shadow:
+0 0 10px rgba(187,247,208,0.95),
+0 0 18px rgba(34,197,94,0.85),
+0 1px 2px #000;
+animation: none;
+}
+.roadmap-mini-val--zone-mid {
+color: #f59e0b;
+animation: roadmapDeltaPulse 1.0s ease-in-out infinite;
+text-shadow:
+0 0 10px rgba(254,240,138,0.95),
+0 0 18px rgba(245,158,11,0.85),
+0 1px 2px #000;
+}
+.roadmap-mini-val--zone-warn {
+color: #fb923c;
+animation: roadmapDeltaPulse 0.86s ease-in-out infinite;
+text-shadow:
+0 0 12px rgba(254,215,170,0.95),
+0 0 22px rgba(249,115,22,0.9),
+0 1px 2px #000;
+}
+/* U valcu Vaha/Pas nechavame zeleny pulz bez zare. */
+#roadmap-val-w.roadmap-mini-val--good,
+#roadmap-val-waist.roadmap-mini-val--good {
+text-shadow: 0 1px 2px rgba(0,0,0,0.85);
+animation: none;
+}
+@keyframes roadmapDeltaPulse {
+0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.95; }
+}
+.roadmap-mini-label {
+font-size: 11px;
+font-weight: 900;
+letter-spacing: .03em;
+text-transform: none;
+color: #cbd5e1;
+text-align: center;
+}
+.roadmap-mini--gauge-proto .roadmap-mini-cap-goal {
+font-size: 12.6px;
+line-height: 1;
+}
+.roadmap-mini--gauge-proto .roadmap-mini-cap {
+min-height: 42px;
+}
+.roadmap-mini--gauge-proto .roadmap-mini-label {
+font-size: 12.6px;
+line-height: 1.05;
+}
+.roadmap-mini--weight .roadmap-mini-cap-goal,
+.roadmap-mini--pos-waist .roadmap-mini-cap-goal {
+font-size: 12.6px;
+line-height: 1;
+}
+.roadmap-mini--weight .roadmap-mini-cap,
+.roadmap-mini--pos-waist .roadmap-mini-cap {
+min-height: 42px;
+}
+.roadmap-mini--weight .roadmap-mini-label,
+.roadmap-mini--pos-waist .roadmap-mini-label {
+font-size: 12.6px;
+line-height: 1.05;
+}
+.roadmap-mini-sub {
+font-size: 10px;
+font-weight: 800;
+color: var(--muted);
+text-align: center;
+line-height: 1.2;
+min-height: 14px;
+}
 @keyframes rotateStar3D {
 from { transform: rotateY(0deg); }
 to { transform: rotateY(360deg); }
@@ -813,12 +1257,12 @@ box-shadow: var(--shadow-levitate);
 .star-count-top { font-size: 10px; font-weight: 900; color: var(--text); margin-bottom: 8px; text-transform: uppercase; }
 .star-visual-stack { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px; min-height: 26px; margin-bottom: 10px; }
 .mini-star { 
-width: 24px; height: 24px; margin-left: -10px; position: relative; 
+width: 28px; height: 28px; margin-left: -11px; position: relative; 
 display: flex; align-items: center; justify-content: center;
 animation: starPulse 2s ease-in-out infinite;
 }
 .mini-star svg { width: 100%; height: 100%; filter: drop-shadow(0 0 5px rgba(255,255,255,0.4)); }
-.mini-star .star-num { position: absolute; font-size: 10px; font-weight: 900; color: black; z-index: 10; }
+.mini-star .star-num { position: absolute; font-size: 10px; font-weight: 900; color: #f8fafc; text-shadow: 0 0 6px rgba(0,0,0,0.9); z-index: 10; }
 .star-legend-wrap { position: relative; width: 28px; height: 28px; flex-shrink: 0; }
 .star-legend-wrap svg { width: 100%; height: 100%; filter: drop-shadow(0 0 8px rgba(255,255,255,0.35)); }
 .star-legend-num { position: absolute; bottom: -2px; right: -4px; font-size: 9px; font-weight: 900; color: #0f172a; background: rgba(255,255,255,0.85); padding: 0 3px; border-radius: 4px; line-height: 1.2; }
@@ -836,11 +1280,11 @@ display: inline-flex; align-items: center; justify-content: center;
 filter: drop-shadow(0 0 12px rgba(255,255,255,0.15));
 }
 .rank-mega-star-btn:active { transform: scale(0.96); }
-.rank-mega-star-btn .rank-mega-svg { width: 42px; height: 42px; }
+.rank-mega-star-btn .rank-mega-svg { width: 48px; height: 48px; }
 .rank-mega-star-btn .star-3d { animation: none; }
 .rank-mega-star--green .rank-mega-svg { color: var(--green-neon); }
 .rank-mega-star--gold .rank-mega-svg { color: var(--gold-deep); }
-.rank-mega-star--gold .rank-mega-svg path { stroke: rgba(255,255,255,0.5); stroke-width: 0.6px; }
+.rank-mega-star--gold .rank-mega-svg path { stroke: currentColor; stroke-width: 1.05px; }
 .rank-mega-star-num {
 position: absolute; bottom: -2px; right: -4px;
 min-width: 18px; text-align: center;
@@ -935,6 +1379,10 @@ overscroll-behavior-x: contain;
 overflow-x: hidden;
 touch-action: pan-y;
 }
+.graph-outer.graph-outer--locked {
+overflow-x: hidden;
+touch-action: pan-y;
+}
 .graph-inner { height: 100%; position: relative; }
 .graph-wrapper.graph-wrapper--kcal .graph-outer { height: auto; min-height: 0; }
 .graph-wrapper.graph-wrapper--kcal .graph-inner { height: auto; }
@@ -1017,7 +1465,7 @@ background: linear-gradient(165deg, rgba(30, 41, 59, 0.45) 0%, #0f172a 55%, #0c1
 color: white;
 border: 2px solid var(--ui-border);
 padding: 16px; border-radius: 12px; width: 100%; font-size: 16px; box-sizing: border-box;
-margin-bottom: 12px; outline: none; -webkit-appearance: none;
+margin-bottom: 12px; outline: none; -webkit-appearance: none; appearance: none;
 box-shadow:
 inset 0 2px 6px rgba(0, 0, 0, 0.42),
 inset 0 -1px 0 rgba(255, 255, 255, 0.04),
@@ -2417,7 +2865,7 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 </div>
 </div>
 <p class="mission-briefing-hint" id="mission-briefing-counter">—</p>
-<p class="mission-briefing-hint">Potáhni prstem doleva = starší den, doprava = novější — karta se otočí kolem svislé osy. Na PC: šipky ← →. Uložená hlášení nad 30 dnů se mažou.</p>
+<p class="mission-briefing-hint">Potáhni prstem zleva doprava = starší den, zprava doleva = novější — karta se otočí kolem svislé osy. Na PC: šipky ← →. Rolování se zapne jen když se obsah nevejde na kartu.</p>
 </div>
 </div>
 <div class="container">
@@ -2457,7 +2905,7 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <h1 style="margin: 0;"><span class="brand-wordmark"><span class="header-brand-iron">IRON</span><span class="brand-sep-el" aria-hidden="true"></span><span class="header-brand-core">CORE</span></span></h1>
 <div style="width: 220px; height: 1px; background: rgba(255,255,255,0.4); z-index: 10; margin: 12px 0; transform: translateZ(50px);"></div>
 <div style="z-index: 10; font-size: 10px; font-weight: 900; letter-spacing: 4px; color: var(--text); text-transform: uppercase; transform: translateZ(45px); text-shadow: 0 8px 12px rgba(0,0,0,0.6);">STRENGTH LOG | ULTIMATE GLASS</div>
-<div id="app-info" class="version-tag">-- | v95.4.35 · čistá data</div>
+<div id="app-info" class="version-tag">-- | v95.4.129 · čistá data</div>
 </div>
 <div class="stats-grid">
 <div class="stat-box" style="border-color: var(--pink); background: rgba(236, 72, 153, 0.1);">
@@ -2512,6 +2960,133 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <div id="recomp-bubble" class="recomp-bubble" role="dialog" aria-label="Signál hubnutí tuku">
 <button type="button" class="recomp-bubble-close" id="recomp-bubble-close" aria-label="Zavřít">×</button>
 <div id="recomp-bubble-body"></div>
+</div>
+</div>
+<div id="roadmap-tubes-card" class="roadmap-tubes-card">
+<div class="roadmap-tubes-kicker">Roadmap válce do cíle</div>
+<div class="roadmap-tubes-grid">
+<div class="roadmap-mini roadmap-mini--weight roadmap-mini--pos-weight" style="--tube-color: rgba(245,158,11,0.95);">
+<div class="roadmap-mini-cap"><div class="roadmap-mini-cap-goal">Cíl</div><strong id="roadmap-cap-w">0 kg</strong></div>
+<div class="roadmap-mini-shell" id="roadmap-shell-w" style="--tube-color: rgba(245,158,11,0.95);">
+<div class="roadmap-mini-strop" id="roadmap-strop-w"></div>
+<div class="roadmap-mini-fill" id="roadmap-fill-w"></div>
+<div class="roadmap-mini-val" id="roadmap-val-w">—</div>
+</div>
+<div class="roadmap-mini-label" style="color:rgba(245,158,11,0.95)">Váha</div>
+<div class="roadmap-mini-sub" id="roadmap-sub-w"></div>
+</div>
+<div class="roadmap-mini roadmap-mini--pos-waist" style="--tube-color: #be185d;">
+<div class="roadmap-mini-cap"><div class="roadmap-mini-cap-goal">Cíl</div><strong id="roadmap-cap-waist">0 cm</strong></div>
+<div class="roadmap-mini-shell" id="roadmap-shell-waist" style="--tube-color: #be185d;"><div class="roadmap-mini-strop" id="roadmap-strop-waist"></div><div class="roadmap-mini-fill" id="roadmap-fill-waist" style="background:linear-gradient(180deg,#be185d,rgba(190,24,93,0.3));"></div><div class="roadmap-mini-val" id="roadmap-val-waist">—</div></div>
+<div class="roadmap-mini-label" style="color:#be185d">Pas</div>
+<div class="roadmap-mini-sub" id="roadmap-sub-waist"></div>
+</div>
+<div class="roadmap-mini roadmap-mini--gauge-proto roadmap-mini--pos-chest" style="--tube-color: #be185d;">
+<div class="roadmap-mini-cap"><div class="roadmap-mini-cap-goal">Cíl</div><strong id="roadmap-cap-chest">0 cm</strong></div>
+<div class="roadmap-mini-shell roadmap-mini-shell--gauge" id="roadmap-shell-chest" style="--tube-color: #be185d;">
+<div class="roadmap-gauge" id="roadmap-gauge-chest">
+<svg class="roadmap-gauge-svg" viewBox="0 0 100 100" aria-label="Tachometr hrudníku">
+<defs>
+<linearGradient id="gaugeChestArc" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0%" stop-color="#000000"/>
+<stop offset="100%" stop-color="#000000"/>
+</linearGradient>
+</defs>
+<circle cx="50" cy="50" r="49.4" fill="rgba(190,24,93,0.22)" stroke="rgba(248,250,252,0.28)" stroke-width="1.2"/>
+<path d="M 17.3 16 A 49.4 49.4 0 0 1 82.7 16 L 50 76 Z" fill="url(#gaugeChestArc)" fill-opacity="0.95" stroke="rgba(0,0,0,0.95)" stroke-width="1.1"/>
+<line x1="50" y1="4.8" x2="50" y2="12.8" stroke="rgba(100,116,139,0.95)" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="35.6" y1="6.0" x2="38.0" y2="13.1" stroke="rgba(100,116,139,0.95)" stroke-width="1.45" stroke-linecap="round"/>
+<line x1="64.4" y1="6.0" x2="62.0" y2="13.1" stroke="rgba(100,116,139,0.95)" stroke-width="1.45" stroke-linecap="round"/>
+<line x1="21.9" y1="13.1" x2="26.0" y2="19.9" stroke="rgba(100,116,139,0.95)" stroke-width="1.35" stroke-linecap="round"/>
+<line x1="78.1" y1="13.1" x2="74.0" y2="19.9" stroke="rgba(100,116,139,0.95)" stroke-width="1.35" stroke-linecap="round"/>
+<g id="roadmap-gauge-needle-chest" class="roadmap-gauge-needle">
+<g class="roadmap-gauge-needle-wobble">
+<line x1="50" y1="74" x2="50" y2="17.2" stroke="#881337" stroke-width="3.2" stroke-linecap="round"/>
+<circle cx="50" cy="74" r="4.6" fill="#881337"/>
+</g>
+</g>
+</svg>
+</div>
+<div class="roadmap-mini-val" id="roadmap-val-chest">—</div>
+</div>
+<div class="roadmap-mini-label" style="color:#be185d">Hrudník</div>
+<div class="roadmap-mini-sub" id="roadmap-sub-chest"></div>
+</div>
+<div class="roadmap-mini roadmap-mini--gauge-proto roadmap-mini--pos-thigh" style="--tube-color: #d946ef;">
+<div class="roadmap-mini-cap"><div class="roadmap-mini-cap-goal">Cíl</div><strong id="roadmap-cap-thigh">0 cm</strong></div>
+<div class="roadmap-mini-shell roadmap-mini-shell--gauge" id="roadmap-shell-thigh" style="--tube-color: #d946ef;">
+<div class="roadmap-gauge" id="roadmap-gauge-thigh">
+<svg class="roadmap-gauge-svg" viewBox="0 0 100 100" aria-label="Tachometr stehna">
+<circle cx="50" cy="50" r="49.4" fill="rgba(124,58,237,0.22)" stroke="rgba(248,250,252,0.28)" stroke-width="1.2"/>
+<path d="M 17.3 16 A 49.4 49.4 0 0 1 82.7 16 L 50 76 Z" fill="#000000" fill-opacity="0.95" stroke="rgba(0,0,0,0.95)" stroke-width="1.1"/>
+<line x1="50" y1="4.8" x2="50" y2="12.8" stroke="rgba(100,116,139,0.95)" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="35.6" y1="6.0" x2="38.0" y2="13.1" stroke="rgba(100,116,139,0.95)" stroke-width="1.45" stroke-linecap="round"/>
+<line x1="64.4" y1="6.0" x2="62.0" y2="13.1" stroke="rgba(100,116,139,0.95)" stroke-width="1.45" stroke-linecap="round"/>
+<line x1="21.9" y1="13.1" x2="26.0" y2="19.9" stroke="rgba(100,116,139,0.95)" stroke-width="1.35" stroke-linecap="round"/>
+<line x1="78.1" y1="13.1" x2="74.0" y2="19.9" stroke="rgba(100,116,139,0.95)" stroke-width="1.35" stroke-linecap="round"/>
+<g id="roadmap-gauge-needle-thigh" class="roadmap-gauge-needle">
+<g class="roadmap-gauge-needle-wobble">
+<line x1="50" y1="74" x2="50" y2="17.2" stroke="#a21caf" stroke-width="3.2" stroke-linecap="round"/>
+<circle cx="50" cy="74" r="4.6" fill="#a21caf"/>
+</g>
+</g>
+</svg>
+</div>
+<div class="roadmap-mini-val" id="roadmap-val-thigh">—</div>
+</div>
+<div class="roadmap-mini-label" style="color:#d946ef">Stehno</div>
+<div class="roadmap-mini-sub" id="roadmap-sub-thigh"></div>
+</div>
+<div class="roadmap-mini roadmap-mini--gauge-proto roadmap-mini--pos-biceps" style="--tube-color: #8b5cf6;">
+<div class="roadmap-mini-cap"><div class="roadmap-mini-cap-goal">Cíl</div><strong id="roadmap-cap-biceps">0 cm</strong></div>
+<div class="roadmap-mini-shell roadmap-mini-shell--gauge" id="roadmap-shell-biceps" style="--tube-color: #8b5cf6;">
+<div class="roadmap-gauge" id="roadmap-gauge-biceps">
+<svg class="roadmap-gauge-svg" viewBox="0 0 100 100" aria-label="Tachometr bicepsu">
+<circle cx="50" cy="50" r="49.4" fill="rgba(139,92,246,0.22)" stroke="rgba(248,250,252,0.28)" stroke-width="1.2"/>
+<path d="M 17.3 16 A 49.4 49.4 0 0 1 82.7 16 L 50 76 Z" fill="#000000" fill-opacity="0.95" stroke="rgba(0,0,0,0.95)" stroke-width="1.1"/>
+<line x1="50" y1="4.8" x2="50" y2="12.8" stroke="rgba(100,116,139,0.95)" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="35.6" y1="6.0" x2="38.0" y2="13.1" stroke="rgba(100,116,139,0.95)" stroke-width="1.45" stroke-linecap="round"/>
+<line x1="64.4" y1="6.0" x2="62.0" y2="13.1" stroke="rgba(100,116,139,0.95)" stroke-width="1.45" stroke-linecap="round"/>
+<line x1="21.9" y1="13.1" x2="26.0" y2="19.9" stroke="rgba(100,116,139,0.95)" stroke-width="1.35" stroke-linecap="round"/>
+<line x1="78.1" y1="13.1" x2="74.0" y2="19.9" stroke="rgba(100,116,139,0.95)" stroke-width="1.35" stroke-linecap="round"/>
+<g id="roadmap-gauge-needle-biceps" class="roadmap-gauge-needle">
+<g class="roadmap-gauge-needle-wobble">
+<line x1="50" y1="74" x2="50" y2="17.2" stroke="#6d28d9" stroke-width="3.2" stroke-linecap="round"/>
+<circle cx="50" cy="74" r="4.6" fill="#6d28d9"/>
+</g>
+</g>
+</svg>
+</div>
+<div class="roadmap-mini-val" id="roadmap-val-biceps">—</div>
+</div>
+<div class="roadmap-mini-label" style="color:#8b5cf6">Biceps</div>
+<div class="roadmap-mini-sub" id="roadmap-sub-biceps"></div>
+</div>
+<div class="roadmap-mini roadmap-mini--gauge-proto roadmap-mini--pos-shoulders" style="--tube-color: #22d3ee;">
+<div class="roadmap-mini-cap"><div class="roadmap-mini-cap-goal">Cíl</div><strong id="roadmap-cap-shoulders">0 cm</strong></div>
+<div class="roadmap-mini-shell roadmap-mini-shell--gauge" id="roadmap-shell-shoulders" style="--tube-color: #22d3ee;">
+<div class="roadmap-gauge" id="roadmap-gauge-shoulders">
+<svg class="roadmap-gauge-svg" viewBox="0 0 100 100" aria-label="Tachometr ramen">
+<circle cx="50" cy="50" r="49.4" fill="rgba(34,211,238,0.22)" stroke="rgba(248,250,252,0.28)" stroke-width="1.2"/>
+<path d="M 17.3 16 A 49.4 49.4 0 0 1 82.7 16 L 50 76 Z" fill="#000000" fill-opacity="0.95" stroke="rgba(0,0,0,0.95)" stroke-width="1.1"/>
+<line x1="50" y1="4.8" x2="50" y2="12.8" stroke="rgba(100,116,139,0.95)" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="35.6" y1="6.0" x2="38.0" y2="13.1" stroke="rgba(100,116,139,0.95)" stroke-width="1.45" stroke-linecap="round"/>
+<line x1="64.4" y1="6.0" x2="62.0" y2="13.1" stroke="rgba(100,116,139,0.95)" stroke-width="1.45" stroke-linecap="round"/>
+<line x1="21.9" y1="13.1" x2="26.0" y2="19.9" stroke="rgba(100,116,139,0.95)" stroke-width="1.35" stroke-linecap="round"/>
+<line x1="78.1" y1="13.1" x2="74.0" y2="19.9" stroke="rgba(100,116,139,0.95)" stroke-width="1.35" stroke-linecap="round"/>
+<g id="roadmap-gauge-needle-shoulders" class="roadmap-gauge-needle">
+<g class="roadmap-gauge-needle-wobble">
+<line x1="50" y1="74" x2="50" y2="17.2" stroke="#0e7490" stroke-width="3.2" stroke-linecap="round"/>
+<circle cx="50" cy="74" r="4.6" fill="#0e7490"/>
+</g>
+</g>
+</svg>
+</div>
+<div class="roadmap-mini-val" id="roadmap-val-shoulders">—</div>
+</div>
+<div class="roadmap-mini-label" style="color:#22d3ee">Ramena</div>
+<div class="roadmap-mini-sub" id="roadmap-sub-shoulders"></div>
+</div>
 </div>
 </div>
 <div id="toggle-measure-btn" class="toggle-btn toggle-measure" onclick="window.toggleMeasureArea()">
@@ -3890,6 +4465,42 @@ localStorage.setItem(KEY, JSON.stringify(D));
 }
 D.lastLogDate = todayDate;
 D.logs = (ensureDay(todayDate).mealEntries || []).slice();
+
+/* Local test seed (weights + measures from screenshots). Runs only on localhost and only when history is empty. */
+var LOCAL_TEST_DAY_SEED = {
+"2026-03-09": { w: 115.1, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
+"2026-03-17": { w: 115.0, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
+"2026-03-18": { w: 115.0, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
+"2026-03-19": { w: 115.0, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
+"2026-03-20": { w: 115.0, waist: 126, chest: 124, thigh: 69, biceps: 41, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
+"2026-03-23": { w: 117.0, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
+"2026-03-24": { w: 116.3, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
+"2026-03-25": { w: 115.7, waist: 127, chest: 125, thigh: 67, biceps: 41, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
+"2026-03-26": { w: 115.2, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
+"2026-03-27": { w: 115.0, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
+"2026-03-28": { w: 114.7, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
+"2026-03-29": { w: 115.3, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
+"2026-03-30": { w: 114.8, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
+"2026-03-31": { w: 114.6, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
+"2026-04-01": { w: 115.0, waist: 130, chest: 130, thigh: 68, biceps: 42, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
+"2026-04-02": { w: 115.3, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
+"2026-04-04": { w: 114.7, waist: 128, chest: 130, thigh: 69, biceps: 43, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
+"2026-04-05": { w: 114.5, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" }
+};
+function maybeApplyLocalTestSeed() {
+var isLocalHost = location.hostname === "127.0.0.1" || location.hostname === "localhost";
+if (!isLocalHost) return;
+var hasAnyWeight = Object.keys(D.days || {}).some(function(k) { return Number((D.days[k] || {}).w) > 0; });
+if (hasAnyWeight) return;
+Object.keys(LOCAL_TEST_DAY_SEED).forEach(function(k) {
+D.days[k] = Object.assign({}, LOCAL_TEST_DAY_SEED[k]);
+});
+D.start = 115.1;
+D.final = Number(D.final) > 0 ? D.final : 95;
+if (!D.lastLogDate) D.lastLogDate = "2026-04-05";
+try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (e) {}
+}
+maybeApplyLocalTestSeed();
 if (typeof D.chartScrollK !== 'number' || isNaN(D.chartScrollK)) D.chartScrollK = null;
 if (typeof D.chartScrollW !== 'number' || isNaN(D.chartScrollW)) D.chartScrollW = null;
 if (typeof D.labBmr !== 'number' || isNaN(D.labBmr)) D.labBmr = 0;
@@ -4662,6 +5273,50 @@ sync();
 }, "RESET");
 };
 
+function tubeClamp01(n) { return Math.max(0, Math.min(1, Number(n) || 0)); }
+function tubeHexToRgb(hex) {
+var h = String(hex || '').replace('#', '');
+if (h.length === 3) h = h.split('').map(function(ch){ return ch + ch; }).join('');
+if (!/^[0-9a-fA-F]{6}$/.test(h)) return { r: 255, g: 255, b: 255 };
+return { r: parseInt(h.slice(0,2), 16), g: parseInt(h.slice(2,4), 16), b: parseInt(h.slice(4,6), 16) };
+}
+function tubeMixHex(a, b, t) {
+var ca = tubeHexToRgb(a), cb = tubeHexToRgb(b), x = tubeClamp01(t);
+return {
+r: Math.round(ca.r + (cb.r - ca.r) * x),
+g: Math.round(ca.g + (cb.g - ca.g) * x),
+b: Math.round(ca.b + (cb.b - ca.b) * x)
+};
+}
+function tubeProgressColor(progress01) {
+var x = tubeClamp01(progress01);
+var c;
+if (x <= 0.5) {
+// Spodni polovina valce: nebrzdit jidlo, drzet zelenou.
+c = tubeHexToRgb('#22c55e');
+} else if (x <= 0.66) {
+c = tubeMixHex('#22c55e', '#3b82f6', (x - 0.5) / 0.16);
+} else if (x <= 0.82) {
+c = tubeMixHex('#3b82f6', '#f59e0b', (x - 0.66) / 0.16);
+} else if (x <= 0.92) {
+c = tubeMixHex('#f59e0b', '#f97316', (x - 0.82) / 0.10);
+} else {
+c = tubeMixHex('#f97316', '#7f1d1d', (x - 0.92) / 0.08);
+}
+return 'rgb(' + c.r + ',' + c.g + ',' + c.b + ')';
+}
+function applyTubeProgressTone(el, progress01) {
+if (!el) return;
+var c = tubeProgressColor(progress01);
+el.style.color = c;
+el.style.textShadow = '0 0 10px ' + c + ', 0 1px 2px #000';
+}
+function clearTubeProgressTone(el) {
+if (!el) return;
+el.style.color = '';
+el.style.textShadow = '';
+}
+
 function updateMacroTubeUI(prefix, curRaw, tgtRaw) {
 var cur = Math.max(0, Number(curRaw) || 0);
 var tgtNum = Math.round(Number(tgtRaw));
@@ -4676,6 +5331,7 @@ if(!isFinite(tgtNum) || tgtNum <= 0) {
 tgtEl.textContent = '—';
 gramsEl.textContent = Math.round(cur) + ' g';
 gramsEl.classList.toggle('macro-grams--warn', false);
+clearTubeProgressTone(gramsEl);
 fillEl.style.height = '0%';
 overEl.style.display = 'none';
 overEl.style.height = '0';
@@ -4686,6 +5342,8 @@ var tgt = tgtNum;
 tgtEl.textContent = String(tgt);
 gramsEl.textContent = Math.round(cur) + ' g';
 gramsEl.classList.toggle('macro-grams--warn', cur > tgt);
+if (cur > tgt) clearTubeProgressTone(gramsEl);
+else applyTubeProgressTone(gramsEl, cur / tgt);
 var goodH = Math.min(stropPct, (cur / tgt) * stropPct);
 fillEl.style.height = goodH + '%';
 if(cur > tgt) {
@@ -4716,6 +5374,7 @@ if(!isFinite(tgtNum) || tgtNum <= 0) {
 tgtEl.textContent = '—';
 gramsEl.textContent = '—';
 gramsEl.classList.remove('macro-grams--warn', 'macro-grams--kcal-over');
+clearTubeProgressTone(gramsEl);
 if (lblK) lblK.textContent = 'KCAL · zbývá sníst';
 fillEl.style.height = '0%';
 overEl.style.display = 'none';
@@ -4730,10 +5389,12 @@ if (deltaK < 0) {
 gramsEl.textContent = deltaK + ' kcal';
 gramsEl.classList.remove('macro-grams--warn');
 gramsEl.classList.add('macro-grams--kcal-over');
+clearTubeProgressTone(gramsEl);
 if (lblK) lblK.textContent = 'KCAL · nad cílem';
 } else {
 gramsEl.textContent = deltaK + ' kcal';
 gramsEl.classList.remove('macro-grams--kcal-over', 'macro-grams--warn');
+applyTubeProgressTone(gramsEl, eaten / tgt);
 if (lblK) lblK.textContent = 'KCAL · zbývá sníst';
 }
 var goodH = Math.min(stropPct, (eaten / tgt) * stropPct);
@@ -4930,7 +5591,7 @@ if (mode === 0) burnHeroHint.innerHTML = 'Režim <strong style="color:#e2e8f0">g
 else if (mode === 1) burnHeroHint.innerHTML = '<strong style="color:var(--green-neon)">Trénink</strong>: základ výdeje ~1,38× bazál (úroveň aktivity pod tlačítkem to jemně posouvá); sem přidej kcal za sport a pohyb navíc.';
 else burnHeroHint.innerHTML = '<strong style="color:#f472b6">Refeed</strong>: výdej mírně nad gaučingem; jídelní plán řídí sacharidy — klepni na <strong>?</strong> u tlačítka Refeed.';
 }
-document.getElementById('app-info').innerText = new Date().toLocaleDateString('cs-CZ') + " | v95.4.35 · čistá data";
+document.getElementById('app-info').innerText = new Date().toLocaleDateString('cs-CZ') + " | v95.4.129 · čistá data";
 
 var wMacro = wEff > 0 ? wEff : (cw > 0 ? cw : (Number(D.start) > 0 ? Number(D.start) : 0));
 var macroTargets = macroTargetsByContext(effectiveDietStyle, mode, wMacro, target);
@@ -4956,7 +5617,34 @@ if (missionMainEl && missionSubEl && missionLockEl && missionCardEl && missionRe
 var eatenP = Math.round(Number(curDayData.p) || 0);
 var remainKcal = Math.max(0, Math.round((Number(target) || 0) - eatNum));
 var remainP = Math.max(0, Math.round((Number(targetP) || 0) - eatenP));
-if (Number(target) > 0) missionMainEl.textContent = 'Zbývá ' + remainKcal + ' kcal a ' + remainP + ' g B';
+function clamp01(n) { return Math.max(0, Math.min(1, Number(n) || 0)); }
+function hexToRgb(hex) {
+var h = String(hex || '').replace('#', '');
+if (h.length === 3) h = h.split('').map(function(ch){ return ch + ch; }).join('');
+if (!/^[0-9a-fA-F]{6}$/.test(h)) return { r: 255, g: 255, b: 255 };
+return { r: parseInt(h.slice(0,2), 16), g: parseInt(h.slice(2,4), 16), b: parseInt(h.slice(4,6), 16) };
+}
+function rgbToCss(c) {
+return 'rgb(' + Math.round(c.r) + ',' + Math.round(c.g) + ',' + Math.round(c.b) + ')';
+}
+function mixHex(a, b, t) {
+var ca = hexToRgb(a), cb = hexToRgb(b), x = clamp01(t);
+return rgbToCss({
+r: ca.r + (cb.r - ca.r) * x,
+g: ca.g + (cb.g - ca.g) * x,
+b: ca.b + (cb.b - ca.b) * x
+});
+}
+function kcalProgressColor(p) {
+var x = clamp01(p);
+if (x <= 0.25) return mixHex('#22c55e', '#3b82f6', x / 0.25);      // zelena -> modra
+if (x <= 0.5) return mixHex('#3b82f6', '#f59e0b', (x - 0.25) / 0.25); // modra -> zlata
+if (x <= 0.75) return mixHex('#f59e0b', '#f97316', (x - 0.5) / 0.25);  // zlata -> oranzova
+return mixHex('#f97316', '#7f1d1d', (x - 0.75) / 0.25);                // oranzova -> temne ruda
+}
+var kcalProg = (Number(target) > 0) ? clamp01(eatNum / Math.max(1, Number(target))) : 0;
+var eatWordColor = kcalProgressColor(kcalProg);
+if (Number(target) > 0) missionMainEl.innerHTML = 'Zbývá <span style="color:' + eatWordColor + ';font-weight:900;text-shadow:0 0 8px rgba(0,0,0,0.35)">sníst</span>: ' + remainKcal + ' kcal a ' + remainP + ' g B';
 else missionMainEl.textContent = 'Doplň profil (cílová váha / výška / věk) pro přesnou denní misi';
 var modeLabel = mode === 1 ? 'Trénink' : (mode === 2 ? 'Refeed' : 'Gaučing');
 missionSubEl.textContent = 'Záznamů dnes: ' + dayEntries.length + ' • Režim: ' + modeLabel;
@@ -4967,7 +5655,6 @@ missionLockEl.classList.toggle('is-ready', lockReady && !lockAuto);
 missionLockEl.classList.toggle('is-locked', !!lockAuto);
 missionLockEl.textContent = lockAuto ? 'Uzávěrka dne: uzamčeno' : (lockReady ? 'Uzávěrka dne: připraveno' : 'Uzávěrka dne: čeká');
 
-function clamp01(n) { return Math.max(0, Math.min(1, Number(n) || 0)); }
 function macroHit(cur, tgt) {
 if (!(Number(tgt) > 0)) return 1;
 var rel = Math.abs((Number(cur) || 0) - Number(tgt)) / Math.max(1, Number(tgt));
@@ -5034,6 +5721,8 @@ s: parseDayKeyToDate(dt)
 };
 }).filter(function(p) { return p.w > 0; }).sort(function(a,b) { return a.s - b.s; });
 if(Number(D.start) > 0 && (!rawPtsList.length || rawPtsList[0].key !== MISSION_START_KEY)) rawPtsList.unshift({ key: MISSION_START_KEY, w: Number(D.start), mode: 0, dietStyle: "standard", waist:0, chest:0, thigh:0, biceps:0, shoulders:0, e:0, b:0, s: parseDayKeyToDate(MISSION_START_KEY) });
+var rawLastW = rawPtsList.length ? Number(rawPtsList[rawPtsList.length - 1].w || 0) : 0;
+var rawPrevW = (rawPtsList.length > 1) ? Number(rawPtsList[rawPtsList.length - 2].w || 0) : 0;
 
 var ptsList = Object.keys(D.days).map(function(dt) { 
 return { key: dt, d: displayDayKey(dt), w: Number(D.days[dt].w), waist: Number(D.days[dt].waist || 0), chest: Number(D.days[dt].chest || 0), thigh: Number(D.days[dt].thigh || 0), biceps: Number(D.days[dt].biceps || 0), shoulders: Number(D.days[dt].shoulders || 0), s: parseDayKeyToDate(dt) }; 
@@ -5143,6 +5832,7 @@ if (_svgWEmpty) _svgWEmpty.innerHTML = "";
 var _swEmpty = document.getElementById("scroll-w");
 if (_swEmpty) {
 _swEmpty.classList.add("graph-outer--empty");
+_swEmpty.classList.add("graph-outer--locked");
 _swEmpty.scrollLeft = 0;
 }
 return;
@@ -5358,6 +6048,32 @@ var midChest = yPas + measureSpan * 0.25;
 var midThigh = yPas + measureSpan * 0.5;
 var midBiceps = yPas + measureSpan * 0.75;
 var midPas = yPas;
+
+function metricRangeForKey(key) {
+var vals = ptsList.map(function(p) { return Number(p[key]) || 0; }).filter(function(v) { return v > 0; });
+if(!vals.length) return null;
+var mn = Math.min.apply(null, vals), mx = Math.max.apply(null, vals);
+var span = Math.max(0.8, mx - mn);
+var pad = Math.max(0.6, span * 0.24);
+return { min: mn - pad, max: mx + pad };
+}
+var metricRanges = {
+waist: metricRangeForKey("waist"),
+chest: metricRangeForKey("chest"),
+thigh: metricRangeForKey("thigh"),
+biceps: metricRangeForKey("biceps"),
+shoulders: metricRangeForKey("shoulders")
+};
+function mapMetricY(key, value, centerY) {
+var rg = metricRanges[key];
+if(!rg || !(Number(value) > 0)) return centerY;
+var top = Math.max(18, centerY - 22);
+var bottom = Math.min(sH - 24, centerY + 22);
+var den = Math.max(0.001, rg.max - rg.min);
+var ratio = (Number(value) - rg.min) / den;
+ratio = Math.max(0, Math.min(1, ratio));
+return bottom - (ratio * (bottom - top));
+}
 
 function muscleAvg(p) {
 var vals = [];
@@ -5605,19 +6321,26 @@ function weightValueFill(wn, idx) {
 function drawPart(pColor, pPath, pFill, pKey, startY, idx, x, shortLabel) {
     var p = ptsList[idx];
     if(p[pKey] > 0) {
-        var firstVal = ptsList.find(px => px[pKey] > 0)[pKey];
-        var yw = fy(p[pKey]) + (startY - fy(firstVal));
+        var lastMetricIdx = -1;
+        for (var li = ptsList.length - 1; li >= 0; li--) {
+            if (Number(ptsList[li][pKey]) > 0) { lastMetricIdx = li; break; }
+        }
+        var yw = mapMetricY(pKey, p[pKey], startY);
         if(pPath === "") { pPath = "M" + x + "," + yw; pFill = "M" + x + "," + yw; } 
         else { 
             var xprev = fx(idx-1), lastP = ptsList.filter((px, i_idx) => i_idx < idx && px[pKey] > 0).pop();
             if(lastP) {
-                var yw_prev = fy(lastP[pKey]) + (startY - fy(firstVal));
+                var yw_prev = mapMetricY(pKey, lastP[pKey], startY);
                 var cp1x = (xprev + x)/2;
                 pPath += " C " + cp1x + "," + yw_prev + " " + cp1x + "," + yw + " " + x + "," + yw;
                 pFill += " C " + cp1x + "," + yw_prev + " " + cp1x + "," + yw + " " + x + "," + yw;
             }
         }
-        pt += '<circle cx="' + x + '" cy="' + yw + '" r="4" fill="' + pColor + '" stroke="#fff" stroke-width="1.5"/><text x="' + x + '" y="' + (yw+15) + '" fill="' + pColor + '" font-size="9" font-weight="900" text-anchor="middle">' + shortLabel + ': ' + p[pKey] + '</text>';
+        var isLastMetricPoint = (idx === lastMetricIdx);
+        var valueLabel = String(p[pKey]);
+        pt += '<circle cx="' + x + '" cy="' + yw + '" r="3.6" fill="' + pColor + '" stroke="#fff" stroke-width="1.25"/>';
+        pt += '<text x="' + x + '" y="' + (yw+17) + '" fill="' + pColor + '" font-size="9" font-weight="900" text-anchor="middle">' + valueLabel + '</text>';
+        if(isLastMetricPoint) pt += '<text x="' + (x+14) + '" y="' + (yw+17) + '" fill="' + pColor + '" font-size="9" font-weight="900" text-anchor="start">' + shortLabel + '</text>';
     }
     return {p: pPath, f: pFill};
 }
@@ -5631,8 +6354,8 @@ ptsList.forEach(function(p, i) {
         var segColor = (p.w > prev.w) ? "var(--red-dark)" : "var(--gold)"; 
         weightSegments += '<path d="M ' + x0 + ',' + y0 + ' C ' + cp1x + ',' + y0 + ' ' + cp1x + ',' + y + ' ' + x + ',' + y + '" stroke="' + segColor + '" stroke-width="2" fill="none" stroke-linecap="round"/>'; 
     }
-    var resW = drawPart("var(--pink)", waistPath, waistFillPath, "waist", midPas, i, x, "PAS"); waistPath = resW.p; waistFillPath = resW.f;
-    var resC = drawPart("#f472b6", chestPath, chestFillPath, "chest", midChest, i, x, "HRUD"); chestPath = resC.p; chestFillPath = resC.f;
+    var resW = drawPart("#be185d", waistPath, waistFillPath, "waist", midPas, i, x, "PAS"); waistPath = resW.p; waistFillPath = resW.f;
+    var resC = drawPart("#881337", chestPath, chestFillPath, "chest", midChest, i, x, "HRUD"); chestPath = resC.p; chestFillPath = resC.f;
     var resT = drawPart("#d946ef", thighPath, thighFillPath, "thigh", midThigh, i, x, "STEH"); thighPath = resT.p; thighFillPath = resT.f;
     var resB = drawPart("#8b5cf6", bicepsPath, bicepsFillPath, "biceps", midBiceps, i, x, "BIC"); bicepsPath = resB.p; bicepsFillPath = resB.f;
     var resS = drawPart("#22d3ee", shouldersPath, shouldersFillPath, "shoulders", midShoulders, i, x, "RAM"); shouldersPath = resS.p; shouldersFillPath = resS.f;
@@ -5715,8 +6438,8 @@ if(paceNodeIdle) paceNodeIdle.innerHTML = "Tempo: čekám na trend • důvěra 
 }
 
 var measPaths = "";
-if(waistPath) measPaths += '<path d="' + waistPath + '" fill="none" stroke="var(--pink)" stroke-width="2.4" stroke-linecap="round" opacity="0.95"/>';
-if(chestPath) measPaths += '<path d="' + chestPath + '" fill="none" stroke="#f472b6" stroke-width="2" stroke-linecap="round" stroke-dasharray="5,4" opacity="0.85"/>';
+if(waistPath) measPaths += '<path d="' + waistPath + '" fill="none" stroke="#be185d" stroke-width="2.4" stroke-linecap="round" opacity="0.95"/>';
+if(chestPath) measPaths += '<path d="' + chestPath + '" fill="none" stroke="#881337" stroke-width="2" stroke-linecap="round" stroke-dasharray="5,4" opacity="0.9"/>';
 if(thighPath) measPaths += '<path d="' + thighPath + '" fill="none" stroke="#d946ef" stroke-width="2" stroke-linecap="round" stroke-dasharray="5,4" opacity="0.85"/>';
 if(bicepsPath) measPaths += '<path d="' + bicepsPath + '" fill="none" stroke="#8b5cf6" stroke-width="2.2" stroke-linecap="round" opacity="0.9"/>';
 if(shouldersPath) measPaths += '<path d="' + shouldersPath + '" fill="none" stroke="#22d3ee" stroke-width="2.2" stroke-linecap="round" opacity="0.9"/>';
@@ -5726,16 +6449,258 @@ document.getElementById('svg-w').innerHTML = '<svg width="' + sw + '" height="' 
 var scrollWEl = document.getElementById('scroll-w');
 if (scrollWEl) {
 scrollWEl.classList.remove("graph-outer--empty");
+scrollWEl.classList.remove("graph-outer--locked");
+var svgWEl = document.getElementById('svg-w');
+var lockWeightScroll = true;
+if (svgWEl) {
+var innerW = svgWEl.scrollWidth || 0;
+var outerW = scrollWEl.clientWidth || 0;
+lockWeightScroll = !(innerW > (outerW + 1));
+}
+if (lockWeightScroll) scrollWEl.classList.add("graph-outer--locked");
 var savedW = D.chartScrollW;
-if (savedW !== null && typeof savedW === 'number' && !isNaN(savedW)) {
+if (!lockWeightScroll && savedW !== null && typeof savedW === 'number' && !isNaN(savedW)) {
 scrollWEl.scrollLeft = savedW;
-} else if (predEndXForScroll > 0) {
+} else if (!lockWeightScroll && predEndXForScroll > 0) {
 var cw = scrollWEl.clientWidth || scrollWEl.getBoundingClientRect().width || 0;
 scrollWEl.scrollLeft = cw ? Math.max(0, predEndXForScroll - cw + 120) : 0;
 } else {
 scrollWEl.scrollLeft = 0;
 }
 }
+var startW = Number(D.start) > 0 ? Number(D.start) : Number(ptsList[0].w || 0);
+var curW = rawLastW > 0 ? rawLastW : Number(l.w || 0);
+var goalW = Number(D.final || 0);
+var weightProg = 0;
+if (startW > 0 && goalW > 0 && startW > goalW) {
+weightProg = (startW - curW) / (startW - goalW);
+weightProg = Math.max(0, Math.min(1, weightProg));
+}
+var rwFill = document.getElementById("roadmap-fill-w");
+var rwVal = document.getElementById("roadmap-val-w");
+var rwSub = document.getElementById("roadmap-sub-w");
+var rwCap = document.getElementById("roadmap-cap-w");
+if (rwFill) rwFill.style.height = Math.round(78 * weightProg) + "%";
+if (rwSub) rwSub.textContent = "";
+if (rwCap) rwCap.textContent = (goalW > 0 ? goalW.toFixed(1) + " kg" : "—");
+if (rwVal) {
+rwVal.classList.remove("roadmap-mini-val--good", "roadmap-mini-val--bad", "roadmap-mini-val--neutral");
+if (curW > 0 && startW > 0) {
+var dW = curW - startW;
+var absDW = Math.abs(dW);
+var signDW = dW > 0 ? "+" : "";
+rwVal.textContent = signDW + dW.toFixed(1) + " kg";
+if (absDW < 0.05) rwVal.classList.add("roadmap-mini-val--neutral");
+else if (dW < 0) rwVal.classList.add("roadmap-mini-val--good");
+else rwVal.classList.add("roadmap-mini-val--bad");
+} else {
+rwVal.textContent = "—";
+rwVal.classList.add("roadmap-mini-val--neutral");
+}
+}
+if (rwSub) rwSub.textContent = (curW > 0 ? curW.toFixed(1) + " kg" : "—");
+
+function metricSeriesForKey(key) {
+var arr = [];
+ptsList.forEach(function(p) {
+var m = Number(p[key] || 0), w = Number(p.w || 0);
+if (m > 0 && w > 0) arr.push({ m: m, w: w });
+});
+return arr;
+}
+function metricPredAtGoalByRegression(key, goalWeight) {
+var arr = metricSeriesForKey(key);
+if (arr.length < 2 || !(goalWeight > 0)) return null;
+var sx = 0, sy = 0, sxx = 0, sxy = 0, n = arr.length, i;
+for (i = 0; i < n; i++) {
+var x = arr[i].w, yv = arr[i].m;
+sx += x; sy += yv; sxx += x * x; sxy += x * yv;
+}
+var den = (n * sxx - sx * sx);
+if (Math.abs(den) < 1e-6) return null;
+var slope = (n * sxy - sx * sy) / den;
+var intercept = (sy - slope * sx) / n;
+var pred = slope * goalWeight + intercept;
+if (!isFinite(pred)) return null;
+var cur = arr[arr.length - 1].m;
+var start = arr[0].m;
+var lo = Math.min(start, cur) - Math.max(2, Math.abs(start - cur) * 1.2);
+var hi = Math.max(start, cur) + Math.max(2, Math.abs(start - cur) * 1.2);
+pred = Math.max(lo, Math.min(hi, pred));
+return Number(pred.toFixed(1));
+}
+function metricPredAtGoalSafe(key, goalWeight, currentWeight, currentMetric) {
+var curWn = Number(currentWeight) || 0;
+var curMn = Number(currentMetric) || 0;
+var goalWn = Number(goalWeight) || 0;
+if (!(curWn > 0) || !(curMn > 0) || !(goalWn > 0)) return null;
+var lossKg = Math.max(0, curWn - goalWn);
+var dynWaistPerKg = 1.0; // konzervativně fixně: -1 cm pas / -1 kg
+var apRoad = activityProfileForDayKey(getD());
+var dynChestPerKg = 0.35;
+if (apRoad === "sedentary") dynChestPerKg = 0.5; // 10 kg ~= -5 cm
+else if (apRoad === "light") dynChestPerKg = 0.35;
+else dynChestPerKg = 0.25; // cvičící: 10 kg ~= -2.5 cm
+var dynThighPerKg = 0.2;
+if (apRoad === "sedentary") dynThighPerKg = 0.25;
+else if (apRoad === "light") dynThighPerKg = 0.2;
+else dynThighPerKg = 0.1; // cvičící: 10 kg ~= -1 cm
+var fallbackPerKg = {
+waist: dynWaistPerKg,
+chest: dynChestPerKg,
+thigh: dynThighPerKg,
+biceps: 0,
+shoulders: 0.05
+};
+var k = fallbackPerKg[key] || 0.25;
+var fallback = curMn - (lossKg * k);
+var reg = metricPredAtGoalByRegression(key, goalWeight);
+var pred = fallback;
+if (key !== "waist") {
+pred = (reg != null && isFinite(reg)) ? ((reg * 0.65) + (fallback * 0.35)) : fallback;
+}
+if (key === "waist" || key === "chest" || key === "thigh" || key === "biceps" || key === "shoulders") {
+pred = Math.min(pred, curMn);
+}
+var minDrop = (key === "waist") ? 4 : (key === "chest" ? 2 : (key === "thigh" ? 1.5 : 0.8));
+if (key === "waist" || key === "chest" || key === "thigh") {
+pred = Math.min(pred, curMn - Math.min(minDrop, curMn * 0.15));
+}
+pred = Math.max(30, pred);
+return Number(pred.toFixed(1));
+}
+function metricStartCurrent(key) {
+var arr = metricSeriesForKey(key);
+if (!arr.length) return { start: 0, current: 0, prev: 0, count: 0 };
+var last = arr.length - 1;
+var prev = (last > 0) ? arr[last - 1].m : arr[last].m;
+return { start: arr[0].m, current: arr[last].m, prev: prev, count: arr.length };
+}
+function updateRoadmapMini(key, suffix) {
+var data = metricStartCurrent(key);
+var capEl = document.getElementById("roadmap-cap-" + key);
+var fillEl = document.getElementById("roadmap-fill-" + key);
+var valEl = document.getElementById("roadmap-val-" + key);
+var subEl = document.getElementById("roadmap-sub-" + key);
+var shellEl = document.getElementById("roadmap-shell-" + key);
+var stropEl = document.getElementById("roadmap-strop-" + key);
+var isHold = (key === "chest" || key === "thigh" || key === "biceps" || key === "shoulders");
+var needleEl = document.getElementById("roadmap-gauge-needle-" + key);
+if (needleEl) {
+if (!capEl || !valEl || !subEl || !shellEl || !needleEl) return;
+if (!(data.start > 0) || !(data.current > 0)) {
+capEl.textContent = "—";
+valEl.textContent = "—";
+valEl.classList.remove("roadmap-mini-val--good", "roadmap-mini-val--bad", "roadmap-mini-val--zone-ok", "roadmap-mini-val--zone-mid", "roadmap-mini-val--zone-warn");
+valEl.classList.add("roadmap-mini-val--neutral");
+shellEl.classList.remove("roadmap-gauge-shell--good", "roadmap-gauge-shell--bad");
+needleEl.style.transform = "rotate(0deg)";
+subEl.textContent = "—";
+return;
+}
+var gaugeGoalRaw = metricPredAtGoalSafe(key, goalW, curW, data.current);
+var gaugeGoal = (gaugeGoalRaw && gaugeGoalRaw > 0) ? gaugeGoalRaw : data.current;
+capEl.textContent = gaugeGoal.toFixed(1) + suffix;
+var tolGauge = (key === "biceps" || key === "shoulders") ? 1.0 : 1.5;
+var devGauge = data.current - gaugeGoal;
+// Kalibrace budiku podle rysek: +2 cm ~= druha prava ryska.
+// Kladna odchylka (vetsi obvod nez cil) jde doprava.
+var deg = devGauge * 12;
+deg = Math.max(-58, Math.min(58, deg));
+needleEl.style.transform = "rotate(" + deg.toFixed(1) + "deg)";
+var inZone = Math.abs(devGauge) <= tolGauge;
+var signGauge = devGauge > 0 ? "+" : "";
+valEl.textContent = signGauge + devGauge.toFixed(1) + suffix;
+var absDevGauge = Math.abs(devGauge);
+valEl.classList.remove("roadmap-mini-val--good", "roadmap-mini-val--bad", "roadmap-mini-val--neutral", "roadmap-mini-val--zone-ok", "roadmap-mini-val--zone-mid", "roadmap-mini-val--zone-warn");
+if (absDevGauge < 0.5) valEl.classList.add("roadmap-mini-val--zone-ok");
+else if (absDevGauge < 1.5) valEl.classList.add("roadmap-mini-val--zone-mid");
+else if (absDevGauge <= 2) valEl.classList.add("roadmap-mini-val--zone-warn");
+else valEl.classList.add("roadmap-mini-val--bad");
+shellEl.classList.remove("roadmap-gauge-shell--good", "roadmap-gauge-shell--bad", "roadmap-mini-shell--good", "roadmap-mini-shell--bad");
+shellEl.classList.add(inZone ? "roadmap-gauge-shell--good" : "roadmap-gauge-shell--bad");
+subEl.textContent = data.current.toFixed(1) + suffix;
+return;
+}
+if (!capEl || !fillEl || !valEl || !subEl) return;
+if (!(data.start > 0) || !(data.current > 0)) {
+capEl.textContent = "—";
+fillEl.style.height = "0%";
+fillEl.style.bottom = "0%";
+fillEl.classList.remove("roadmap-mini-fill--hold");
+if (stropEl) stropEl.classList.remove("roadmap-mini-strop--hold");
+valEl.textContent = "—";
+valEl.classList.remove("roadmap-mini-val--good", "roadmap-mini-val--bad");
+valEl.classList.add("roadmap-mini-val--neutral");
+if (shellEl) shellEl.classList.remove("roadmap-mini-shell--good", "roadmap-mini-shell--bad");
+subEl.textContent = "—";
+return;
+}
+var planGoalRaw = metricPredAtGoalSafe(key, goalW, curW, data.current);
+var planGoal = (planGoalRaw && planGoalRaw > 0) ? planGoalRaw : data.current;
+var startAnchor = data.start;
+// Hrudnik byva v case "rozkolisany" (tuk vs. sval), proto bereme vyssi anchor,
+// aby valec nepusobil predcasne jako hotovy.
+if (key === "chest") startAnchor = Math.max(data.start, data.current);
+var prog = 0;
+if (isHold) {
+var tol = (key === "biceps" || key === "shoulders") ? 1.0 : 1.5;
+var dev = data.current - planGoal;
+var range = Math.max(2.5, tol * 3);
+var pct = ((dev + range) / (2 * range)) * 100;
+pct = Math.max(8, Math.min(92, pct));
+fillEl.style.height = pct.toFixed(1) + "%";
+fillEl.style.bottom = "0%";
+fillEl.classList.add("roadmap-mini-fill--hold");
+if (stropEl) stropEl.classList.add("roadmap-mini-strop--hold");
+} else {
+var dir = (startAnchor - planGoal) >= 0 ? 1 : -1;
+var denom = Math.max(0.01, Math.abs(startAnchor - planGoal));
+prog = ((startAnchor - data.current) * dir) / denom;
+prog = Math.max(0, Math.min(1.15, prog));
+fillEl.style.height = Math.round(78 * Math.min(1, prog)) + "%";
+fillEl.style.bottom = "0%";
+fillEl.classList.remove("roadmap-mini-fill--hold");
+if (stropEl) stropEl.classList.remove("roadmap-mini-strop--hold");
+}
+capEl.textContent = planGoal.toFixed(1) + suffix;
+var delta = data.current - data.prev;
+var absDelta = Math.abs(delta);
+var sign = delta > 0 ? "+" : "";
+valEl.textContent = sign + delta.toFixed(1) + suffix;
+valEl.classList.remove("roadmap-mini-val--good", "roadmap-mini-val--bad", "roadmap-mini-val--neutral");
+if (absDelta < 0.05) {
+valEl.classList.add("roadmap-mini-val--neutral");
+if (shellEl) shellEl.classList.remove("roadmap-mini-shell--good", "roadmap-mini-shell--bad");
+} else {
+var improve = (key === "biceps" || key === "shoulders") ? (delta > 0) : (delta < 0);
+if (key === "chest") {
+var expectedNow = startAnchor + ((planGoal - startAnchor) * weightProg);
+var tooLow = data.current < (expectedNow - 1.8);
+var apNow = activityProfileForDayKey(getD());
+var lowEffort = (apNow === "sedentary" || apNow === "light");
+improve = !tooLow && !lowEffort;
+}
+if (isHold) {
+var tolHold = (key === "biceps" || key === "shoulders") ? 1.0 : 1.5;
+var devGoal = data.current - planGoal;
+improve = Math.abs(devGoal) <= tolHold;
+var signDev = devGoal > 0 ? "+" : "";
+valEl.textContent = signDev + devGoal.toFixed(1) + suffix;
+}
+valEl.classList.add(improve ? "roadmap-mini-val--good" : "roadmap-mini-val--bad");
+if (shellEl) {
+shellEl.classList.remove("roadmap-mini-shell--good", "roadmap-mini-shell--bad");
+shellEl.classList.add(improve ? "roadmap-mini-shell--good" : "roadmap-mini-shell--bad");
+}
+}
+subEl.textContent = data.current.toFixed(1) + suffix;
+}
+updateRoadmapMini("waist", " cm");
+updateRoadmapMini("chest", " cm");
+updateRoadmapMini("thigh", " cm");
+updateRoadmapMini("biceps", " cm");
+updateRoadmapMini("shoulders", " cm");
 } 
 drawW();
 (function syncRoadmapViewButtons() {
@@ -5828,8 +6793,8 @@ for(var i=0; i<7; i++){
         eatFillPath += " C " + cp1x + "," + yeprev + " " + cp1x + "," + ye + " " + x + "," + ye; 
         burnFillPath += " C " + cp1x + "," + ybprev + " " + cp1x + "," + yb + " " + x + "," + yb; 
     }
-    if(sp>=neonK) st += '<g transform="translate(' + (x-10) + ',' + (fyk(neonK)-10) + ') scale(0.8)"><path class="star-3d" style="filter: var(--neon-green-filter);" d="' + starPath + '" fill="var(--green-neon)"/></g>';
-    if(sp>=goldEff) st += '<g transform="translate(' + (x-12) + ',' + (yb-25) + ')"><path class="star-3d" style="filter: var(--neon-gold-filter);" d="' + starPath + '" fill="var(--gold-deep)" stroke="#fff" stroke-width="1.5"/></g>';
+    if(sp>=neonK) st += '<g transform="translate(' + (x-12.5) + ',' + (fyk(neonK)-12.5) + ') scale(1.0)"><path class="star-3d" style="filter: var(--neon-green-filter);" d="' + starPath + '" fill="none" stroke="var(--green-neon)" stroke-width="1.18" stroke-linejoin="round"/></g>';
+    if(sp>=goldEff) st += '<g transform="translate(' + (x-14.5) + ',' + (yb-27.5) + ') scale(1.16)"><path class="star-3d" style="filter: var(--neon-gold-filter);" d="' + starPath + '" fill="none" stroke="var(--gold-deep)" stroke-width="1.18" stroke-linejoin="round"/></g>';
     gk += '<text x="' + x + '" y="' + (kH-20) + '" fill="#94a3b8" font-size="11" text-anchor="middle">' + ds + '</text><text x="' + x + '" y="' + (ye-24) + '" fill="' + badgeFillK + '" font-size="7.5" font-weight="900" text-anchor="middle" style="text-shadow:0 0 8px rgba(0,0,0,0.5)">' + badgeK + '</text><text x="' + x + '" y="' + (ye-14) + '" fill="var(--gold)" font-size="11" font-weight="900" text-anchor="middle" style="text-shadow:0 0 10px var(--gold)">' + eat + '</text><text x="' + x + '" y="' + (yb+24) + '" fill="var(--green-neon)" font-size="11" font-weight="900" text-anchor="middle" style="text-shadow:0 0 10px var(--green-neon)">' + sp + '</text><circle cx="' + x + '" cy="' + ye + '" r="5" fill="var(--gold)" stroke="#000"/><circle cx="' + x + '" cy="' + yb + '" r="5" fill="var(--green-neon)" stroke="#000"/>';
 }
 
@@ -5938,7 +6903,7 @@ function renderSmallProgressStack(id, smallTotal, color) {
     var h = "";
     var j;
     for(j = 0; j < rem; j++) {
-        h += '<div class="mini-star" style="color:' + color + ';"><svg class="star-3d" viewBox="0 0 24 24"><path fill="currentColor" d="' + starPath + '"/></svg>' + ((j === rem - 1) ? '<span class="star-num">' + rem + '</span>' : '') + '</div>';
+        h += '<div class="mini-star" style="color:' + color + ';"><svg class="star-3d" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.18" stroke-linejoin="round" d="' + starPath + '"/></svg>' + ((j === rem - 1) ? '<span class="star-num">' + rem + '</span>' : '') + '</div>';
     }
     box.innerHTML = h;
 }
@@ -5950,12 +6915,12 @@ var bigNeon = Math.floor(greenTotal / 10), bigGold = Math.floor(goldTotal / 10);
 var rg = document.getElementById('rank-green');
 if(rg) {
     if(bigNeon < 1) rg.innerHTML = '<span class="star-rank-plain">0 velká</span>';
-    else rg.innerHTML = '<button type="button" class="rank-mega-star-btn rank-mega-star--green" onclick="window.showStarInfoBubble(\'green\')" aria-label="Detail neon hvězd"><svg class="star-3d rank-mega-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="' + starPath + '"/></svg><span class="rank-mega-star-num">' + bigNeon + '</span></button>';
+    else rg.innerHTML = '<button type="button" class="rank-mega-star-btn rank-mega-star--green" onclick="window.showStarInfoBubble(\'green\')" aria-label="Detail neon hvězd"><svg class="star-3d rank-mega-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.18" stroke-linejoin="round" d="' + starPath + '"/></svg><span class="rank-mega-star-num">' + bigNeon + '</span></button>';
 }
 var rgo = document.getElementById('rank-gold');
 if(rgo) {
     if(bigGold < 1) rgo.innerHTML = '<span class="star-rank-plain">0 velká</span>';
-    else rgo.innerHTML = '<button type="button" class="rank-mega-star-btn rank-mega-star--gold" onclick="window.showStarInfoBubble(\'gold\')" aria-label="Detail zlatých hvězd"><svg class="star-3d rank-mega-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="' + starPath + '"/></svg><span class="rank-mega-star-num">' + bigGold + '</span></button>';
+    else rgo.innerHTML = '<button type="button" class="rank-mega-star-btn rank-mega-star--gold" onclick="window.showStarInfoBubble(\'gold\')" aria-label="Detail zlatých hvězd"><svg class="star-3d rank-mega-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.18" stroke-linejoin="round" d="' + starPath + '"/></svg><span class="rank-mega-star-num">' + bigGold + '</span></button>';
 }
 document.getElementById('bal-list').innerHTML = bl;
 
@@ -6251,6 +7216,12 @@ macros.innerHTML = '<div class="mb-tgt">Snědeno vs. cíl (B / T / S)</div>' +
 if (rep) rep.textContent = data.report;
 if (pr) pr.textContent = data.praise;
 };
+window.updateMissionBriefingScrollMode = function() {
+var touch = document.getElementById('mission-briefing-touch');
+if (!touch) return;
+var needsScroll = (touch.scrollHeight - touch.clientHeight) > 4;
+touch.classList.toggle('is-scrollable', needsScroll);
+};
 window.updateMissionBriefingCounter = function() {
 var off = window.__missionBriefingOffset || 0;
 var ctr = document.getElementById('mission-briefing-counter');
@@ -6268,6 +7239,7 @@ flip.style.transition = 'none';
 flip.style.transform = 'rotateY(0deg)';
 }
 window.fillMissionBriefingDOM(data);
+window.updateMissionBriefingScrollMode();
 window.updateMissionBriefingCounter();
 };
 window.navigateMissionBriefing = function(delta) {
@@ -6284,6 +7256,7 @@ var flip = document.getElementById('mission-briefing-flip');
 var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 if (!flip || reduceMotion) {
 window.fillMissionBriefingDOM(data);
+window.updateMissionBriefingScrollMode();
 window.updateMissionBriefingCounter();
 return;
 }
@@ -6292,6 +7265,7 @@ flip.style.transition = 'transform ' + t1 + 's cubic-bezier(0.45, 0, 0.2, 1)';
 flip.style.transform = dirOlder ? 'rotateY(-88deg)' : 'rotateY(88deg)';
 setTimeout(function() {
 window.fillMissionBriefingDOM(data);
+window.updateMissionBriefingScrollMode();
 window.updateMissionBriefingCounter();
 flip.style.transition = 'none';
 flip.style.transform = dirOlder ? 'rotateY(88deg)' : 'rotateY(-88deg)';
@@ -6328,7 +7302,7 @@ if (!e.changedTouches || !e.changedTouches[0]) return;
 var dx = e.changedTouches[0].clientX - sx;
 var dy = e.changedTouches[0].clientY - sy;
 if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy) * 1.15) return;
-if (dx < 0) window.navigateMissionBriefing(1);
+if (dx > 0) window.navigateMissionBriefing(1);
 else window.navigateMissionBriefing(-1);
 }, { passive: true });
 }
@@ -6349,12 +7323,12 @@ return;
 }
 if (e.key === 'ArrowLeft') {
 e.preventDefault();
-window.navigateMissionBriefing(1);
+window.navigateMissionBriefing(-1);
 return;
 }
 if (e.key === 'ArrowRight') {
 e.preventDefault();
-window.navigateMissionBriefing(-1);
+window.navigateMissionBriefing(1);
 }
 });
 bindChartScrollPersistence();
