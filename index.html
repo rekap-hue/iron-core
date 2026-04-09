@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="IRON CORE">
 <meta name="theme-color" content="#020617">
 <link rel="icon" type="image/png" href="app-icon.png">
 <link rel="apple-touch-icon" href="app-icon.png">
-<title>Mise - v95.4.129</title>
+<title>Mise - v95.4.134</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -64,9 +64,175 @@ line-height: 1.45;
 -webkit-font-smoothing: antialiased;
 padding: 15px;
 margin: 0;
-padding-bottom: 80px;
+padding-bottom: calc(58px + max(12px, env(safe-area-inset-bottom, 0px)));
 -webkit-tap-highlight-color: transparent;
 overflow-x: hidden;
+}
+.app-bottom-bar {
+position: fixed;
+left: 0;
+right: 0;
+bottom: 0;
+z-index: 180;
+pointer-events: none;
+padding-bottom: max(0px, env(safe-area-inset-bottom, 0px));
+background: linear-gradient(180deg, rgba(2, 6, 23, 0) 0%, rgba(2, 6, 23, 0.82) 38%, rgba(2, 6, 23, 0.96) 100%);
+border-top: 1px solid rgba(245, 158, 11, 0.42);
+box-shadow: 0 -10px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+backdrop-filter: blur(14px);
+-webkit-backdrop-filter: blur(14px);
+}
+.app-bottom-bar-inner {
+max-width: 500px;
+margin: 0 auto;
+padding: 6px 10px 8px;
+display: flex;
+align-items: stretch;
+gap: 8px;
+pointer-events: none;
+}
+.app-bottom-bar-home {
+flex-shrink: 0;
+pointer-events: auto;
+-webkit-tap-highlight-color: transparent;
+min-width: 56px;
+max-width: 64px;
+padding: 5px 6px 6px;
+border-radius: 12px;
+border: 1px solid rgba(245, 158, 11, 0.58);
+background: linear-gradient(165deg, rgba(245, 158, 11, 0.22), rgba(15, 23, 42, 0.94));
+backdrop-filter: blur(12px);
+-webkit-backdrop-filter: blur(12px);
+box-shadow:
+0 6px 18px rgba(245, 158, 11, 0.14),
+var(--shadow-btn),
+inset 0 1px 0 rgba(255, 255, 255, 0.12),
+inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+font-family: var(--font-display);
+font-size: 7.5px;
+font-weight: 900;
+letter-spacing: 0.14em;
+line-height: 1.2;
+color: rgba(255, 247, 237, 0.98);
+text-transform: uppercase;
+text-align: center;
+cursor: pointer;
+text-shadow: 0 0 12px rgba(245, 158, 11, 0.35), 0 1px 2px rgba(0, 0, 0, 0.65);
+}
+.app-bottom-bar-home:active { transform: scale(0.97); }
+.app-bottom-bar-home-line { display: block; letter-spacing: 0.18em; }
+.app-bottom-bar-scroll {
+flex: 1;
+min-width: 0;
+display: flex;
+flex-wrap: nowrap;
+align-items: center;
+gap: 6px;
+overflow-x: auto;
+-webkit-overflow-scrolling: touch;
+overscroll-behavior-x: contain;
+scrollbar-width: none;
+pointer-events: auto;
+padding: 2px 2px 2px 0;
+mask-image: linear-gradient(90deg, #000 92%, transparent 100%);
+-webkit-mask-image: linear-gradient(90deg, #000 92%, transparent 100%);
+}
+.app-bottom-bar-scroll::-webkit-scrollbar { display: none; height: 0; width: 0; }
+.app-bottom-bar-sect {
+flex-shrink: 0;
+-webkit-tap-highlight-color: transparent;
+padding: 7px 11px;
+border-radius: 999px;
+font-size: 10px;
+font-weight: 800;
+letter-spacing: 0.02em;
+cursor: pointer;
+backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
+border: 1px solid rgba(148, 163, 184, 0.38);
+background: linear-gradient(165deg, rgba(51, 65, 85, 0.42), rgba(15, 23, 42, 0.88));
+color: #f1f5f9;
+box-shadow:
+0 4px 14px rgba(0, 0, 0, 0.42),
+inset 0 1px 0 rgba(255, 255, 255, 0.1),
+inset 0 -1px 0 rgba(0, 0, 0, 0.22);
+text-shadow: 0 1px 2px rgba(0, 0, 0, 0.65);
+}
+.app-bottom-bar-sect--progres {
+border-color: rgba(236, 72, 153, 0.55);
+background: linear-gradient(165deg, rgba(236, 72, 153, 0.3), rgba(15, 23, 42, 0.9));
+color: #fce7f3;
+box-shadow:
+0 4px 16px rgba(236, 72, 153, 0.18),
+0 4px 14px rgba(0, 0, 0, 0.45),
+inset 0 1px 0 rgba(255, 255, 255, 0.14),
+inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+text-shadow: 0 0 12px rgba(244, 114, 182, 0.42), 0 1px 2px rgba(0, 0, 0, 0.72);
+}
+.app-bottom-bar-sect--energy {
+border-color: rgba(57, 255, 20, 0.45);
+background: linear-gradient(165deg, rgba(57, 255, 20, 0.2), rgba(15, 23, 42, 0.9));
+color: #ecfccb;
+box-shadow:
+0 4px 16px rgba(57, 255, 20, 0.1),
+0 4px 14px rgba(0, 0, 0, 0.45),
+inset 0 1px 0 rgba(255, 255, 255, 0.12),
+inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+text-shadow: 0 0 10px rgba(57, 255, 20, 0.28), 0 1px 2px rgba(0, 0, 0, 0.7);
+}
+/* META 100 — stejný odstín jako oranžová meta ve váze (mCols #f97316) */
+.app-bottom-bar-sect--mission {
+border-color: rgba(249, 115, 22, 0.62);
+background: linear-gradient(165deg, rgba(249, 115, 22, 0.34), rgba(15, 23, 42, 0.9));
+color: #fff7ed;
+box-shadow:
+0 4px 18px rgba(249, 115, 22, 0.22),
+0 4px 14px rgba(0, 0, 0, 0.45),
+inset 0 1px 0 rgba(255, 255, 255, 0.14),
+inset 0 -1px 0 rgba(0, 0, 0, 0.28);
+text-shadow: 0 0 12px rgba(249, 115, 22, 0.45), 0 1px 2px rgba(0, 0, 0, 0.72);
+}
+.app-bottom-bar-sect--zapis {
+border-color: rgba(34, 211, 238, 0.48);
+background: linear-gradient(165deg, rgba(34, 211, 238, 0.22), rgba(15, 23, 42, 0.9));
+color: #ecfeff;
+box-shadow:
+0 4px 16px rgba(34, 211, 238, 0.1),
+0 4px 14px rgba(0, 0, 0, 0.45),
+inset 0 1px 0 rgba(255, 255, 255, 0.12),
+inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+text-shadow: 0 0 10px rgba(34, 211, 238, 0.28), 0 1px 2px rgba(0, 0, 0, 0.7);
+}
+.app-bottom-bar-sect--profil {
+border-color: rgba(167, 139, 250, 0.52);
+background: linear-gradient(165deg, rgba(167, 139, 250, 0.26), rgba(15, 23, 42, 0.9));
+color: #f5f3ff;
+box-shadow:
+0 4px 16px rgba(167, 139, 250, 0.12),
+0 4px 14px rgba(0, 0, 0, 0.45),
+inset 0 1px 0 rgba(255, 255, 255, 0.12),
+inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+text-shadow: 0 0 10px rgba(167, 139, 250, 0.32), 0 1px 2px rgba(0, 0, 0, 0.7);
+}
+.app-bottom-bar-sect:active { transform: scale(0.97); }
+@media (prefers-reduced-motion: reduce) {
+.app-bottom-bar-home:active,
+.app-bottom-bar-sect:active { transform: none; }
+}
+.app-section-anchor {
+height: 0;
+width: 100%;
+overflow: hidden;
+pointer-events: none;
+}
+#app-section-home,
+#section-roadmap,
+#section-energy,
+#section-mission,
+#section-zapis,
+#section-profile {
+scroll-margin-top: max(12px, env(safe-area-inset-top, 0px));
+scroll-margin-bottom: calc(58px + max(8px, env(safe-area-inset-bottom, 0px)));
 }
 html.app-intro-scroll-lock,
 body.app-intro-scroll-lock {
@@ -810,13 +976,25 @@ margin-bottom: 8px;
 }
 .roadmap-tubes-grid {
 display: grid;
-grid-template-columns: repeat(3, minmax(90px, 1fr));
+grid-template-columns: repeat(3, max-content);
 grid-template-areas:
 "chest weight biceps"
 "thigh waist shoulders";
 align-items: start;
 justify-items: center;
-gap: 10px 12px;
+justify-content: center;
+column-gap: 12px;
+row-gap: 10px;
+width: 100%;
+box-sizing: border-box;
+/* Jemný posun doleva — na mobilu působila 1fr mřížka vizuálně posunutá doprava */
+transform: translateX(-10px);
+}
+@media (max-width: 380px) {
+.roadmap-tubes-grid {
+transform: translateX(-8px);
+column-gap: 10px;
+}
 }
 .roadmap-mini--pos-chest { grid-area: chest; }
 .roadmap-mini--pos-thigh { grid-area: thigh; }
@@ -2869,7 +3047,7 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 </div>
 </div>
 <div class="container">
-<div class="header">
+<div class="header" id="app-section-home">
 <div class="header-bg"></div>
 <div id="header-intro-standin" class="header-intro-standin" aria-hidden="true">
 <div class="header-intro-smoke"></div>
@@ -2905,7 +3083,7 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <h1 style="margin: 0;"><span class="brand-wordmark"><span class="header-brand-iron">IRON</span><span class="brand-sep-el" aria-hidden="true"></span><span class="header-brand-core">CORE</span></span></h1>
 <div style="width: 220px; height: 1px; background: rgba(255,255,255,0.4); z-index: 10; margin: 12px 0; transform: translateZ(50px);"></div>
 <div style="z-index: 10; font-size: 10px; font-weight: 900; letter-spacing: 4px; color: var(--text); text-transform: uppercase; transform: translateZ(45px); text-shadow: 0 8px 12px rgba(0,0,0,0.6);">STRENGTH LOG | ULTIMATE GLASS</div>
-<div id="app-info" class="version-tag">-- | v95.4.129 · čistá data</div>
+<div id="app-info" class="version-tag">-- | v95.4.134 · čistá data</div>
 </div>
 <div class="stats-grid">
 <div class="stat-box" style="border-color: var(--pink); background: rgba(236, 72, 153, 0.1);">
@@ -2924,7 +3102,7 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <div id="bmi-label" class="stat-sub stat-sub--bmi" style="color: var(--accent)">Start — · —</div>
 </div>
 </div>
-<div class="card">
+<div class="card" id="section-roadmap">
 <div class="card-section-title card-section-title--long">Roadmapa váhy & proporcí (Body Recomp)</div>
 <div id="prediction" class="motor-box"> MOTOR: Výpočet...</div>
 <div id="prediction-pace" class="stat-sub" style="margin-top:-8px;margin-bottom:10px;text-align:center;color:var(--pink);font-weight:900;">Tempo: —</div>
@@ -3107,7 +3285,7 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 </div>
 </div>
 </div>
-<div class="card">
+<div class="card" id="section-energy">
 <div class="card-section-title">Energetická bilance</div>
 <div class="graph-wrapper graph-wrapper--kcal">
 <div class="y-axis-fixed" id="y-k"></div>
@@ -3154,7 +3332,7 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 </div>
 </div>
 <div id="macro-title" class="stat-label" style="margin-top: 25px; margin-bottom: 10px; color: var(--muted); text-align: center; font-size: 10px;">Monitoring Maker (Dnešní bilance)</div>
-<div id="daily-mission-card" class="daily-mission">
+<div id="section-mission" class="daily-mission">
 <div class="daily-mission-balance" aria-hidden="true"></div>
 <div class="daily-mission-core" aria-hidden="true"></div>
 <div class="daily-mission-content">
@@ -3256,7 +3434,7 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 </div>
 <div id="fast-info" class="fast-info">Půst není aktivní.</div>
 </div>
-<div class="card burn-hero-card">
+<div class="card burn-hero-card" id="section-zapis">
 <div class="burn-hero-kicker">Výdej energie</div>
 <p class="burn-hero-hint">Zapisuješ jen <strong style="color:var(--green-neon)">pohyb</strong> (spálené kcal). Příjem jídla je v bloku <strong style="color:var(--gold)">Příjem energie</strong> níže.</p>
 <div class="burn-hero-field">
@@ -3340,6 +3518,7 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <div class="history-scroll-container" id="history-kcal-root"></div>
 </div>
 </div>
+<div id="section-profile" class="app-section-anchor" aria-hidden="true"></div>
 <div id="profile-toggle-btn" class="toggle-btn toggle-btn--profile" onclick="window.toggleProfileArea()">
 <span>Profil &amp; nastavení (Hvězdy, BMI, BMR)</span>
 <span id="profile-arrow">▼</span>
@@ -3456,6 +3635,30 @@ return;
 } catch(e) {}
 })();
 try { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; } catch(eSR) {}
+window.scrollAppToTop = function() {
+try {
+var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (reduce) {
+window.scrollTo(0, 0);
+} else {
+window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+document.documentElement.scrollTop = 0;
+document.body.scrollTop = 0;
+} catch(e) {
+try { window.scrollTo(0, 0); } catch(e2) {}
+}
+};
+window.scrollAppToSection = function(sectionId) {
+var el = document.getElementById(sectionId);
+if (!el) return;
+var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+try {
+el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+} catch(e) {
+try { el.scrollIntoView(true); } catch(e2) {}
+}
+};
 var ROADMAP_VIEW_KEY = 'KETO_MASTER_ROADMAP_VIEW';
 var FAV_KEY = 'MISSION_TRACKER_FAVORITES'; 
 var NOTIF_KEY = 'MISSION_TRACKER_NOTIFIED';
@@ -5591,7 +5794,7 @@ if (mode === 0) burnHeroHint.innerHTML = 'Režim <strong style="color:#e2e8f0">g
 else if (mode === 1) burnHeroHint.innerHTML = '<strong style="color:var(--green-neon)">Trénink</strong>: základ výdeje ~1,38× bazál (úroveň aktivity pod tlačítkem to jemně posouvá); sem přidej kcal za sport a pohyb navíc.';
 else burnHeroHint.innerHTML = '<strong style="color:#f472b6">Refeed</strong>: výdej mírně nad gaučingem; jídelní plán řídí sacharidy — klepni na <strong>?</strong> u tlačítka Refeed.';
 }
-document.getElementById('app-info').innerText = new Date().toLocaleDateString('cs-CZ') + " | v95.4.129 · čistá data";
+document.getElementById('app-info').innerText = new Date().toLocaleDateString('cs-CZ') + " | v95.4.134 · čistá data";
 
 var wMacro = wEff > 0 ? wEff : (cw > 0 ? cw : (Number(D.start) > 0 ? Number(D.start) : 0));
 var macroTargets = macroTargetsByContext(effectiveDietStyle, mode, wMacro, target);
@@ -5611,7 +5814,7 @@ var dayEntries = ensureDay(today).mealEntries || [];
 var missionMainEl = document.getElementById('daily-mission-main');
 var missionSubEl = document.getElementById('daily-mission-sub');
 var missionLockEl = document.getElementById('daily-lock-badge');
-var missionCardEl = document.getElementById('daily-mission-card');
+var missionCardEl = document.getElementById('section-mission');
 var missionReportEl = document.getElementById('daily-mission-report');
 if (missionMainEl && missionSubEl && missionLockEl && missionCardEl && missionReportEl) {
 var eatenP = Math.round(Number(curDayData.p) || 0);
@@ -7337,6 +7540,18 @@ render();
 startFirstLaunchExperience();
 setInterval(function() { try { render(); } catch(e){} }, 60000);
 </script>
+<div id="app-bottom-bar" class="app-bottom-bar">
+<div class="app-bottom-bar-inner">
+<button type="button" class="app-bottom-bar-home" onclick="window.scrollAppToTop()" aria-label="Domů — začátek aplikace"><span class="app-bottom-bar-home-line">IRON</span><span class="app-bottom-bar-home-line">CORE</span></button>
+<nav class="app-bottom-bar-scroll" aria-label="Sekce aplikace">
+<button type="button" class="app-bottom-bar-sect app-bottom-bar-sect--progres" onclick="window.scrollAppToSection('section-roadmap')">Progres</button>
+<button type="button" class="app-bottom-bar-sect app-bottom-bar-sect--energy" onclick="window.scrollAppToSection('section-energy')">Energie</button>
+<button type="button" class="app-bottom-bar-sect app-bottom-bar-sect--mission" onclick="window.scrollAppToSection('section-mission')">Mise</button>
+<button type="button" class="app-bottom-bar-sect app-bottom-bar-sect--zapis" onclick="window.scrollAppToSection('section-zapis')">Zápis</button>
+<button type="button" class="app-bottom-bar-sect app-bottom-bar-sect--profil" onclick="window.scrollAppToSection('section-profile')">Profil</button>
+</nav>
+</div>
+</div>
 </body>
 </html>
 
