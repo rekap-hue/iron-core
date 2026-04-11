@@ -11,7 +11,7 @@
 <meta name="theme-color" content="#020617">
 <link rel="icon" type="image/png" href="app-icon.png">
 <link rel="apple-touch-icon" href="app-icon.png">
-<title>Mise - v95.4.134</title>
+<title id="doc-page-title">Mise - v95.4.152</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -506,6 +506,55 @@ font-size: 10px;
 font-weight: 700;
 color: #94a3b8;
 }
+.mission-balance-wrap {
+margin-top: 8px;
+padding-top: 8px;
+border-top: 1px dashed rgba(148,163,184,0.22);
+}
+.mission-balance-head {
+display: flex;
+align-items: baseline;
+justify-content: space-between;
+gap: 10px;
+flex-wrap: wrap;
+}
+.mission-balance-label {
+font-size: 9px;
+font-weight: 800;
+letter-spacing: .06em;
+text-transform: uppercase;
+color: var(--muted);
+display: inline-flex;
+flex-wrap: wrap;
+align-items: baseline;
+gap: 0;
+}
+.mission-balance-label-prefix {
+color: var(--muted);
+font-weight: 800;
+letter-spacing: inherit;
+text-transform: inherit;
+}
+.mission-balance-label-hot {
+font-weight: 900;
+letter-spacing: inherit;
+text-transform: inherit;
+}
+.mission-balance-pct {
+font-size: 18px;
+font-weight: 900;
+letter-spacing: 0.02em;
+line-height: 1.1;
+text-shadow: 0 0 16px currentColor;
+}
+.mission-balance-spark {
+display: block;
+width: 100%;
+max-width: 148px;
+height: auto;
+margin-top: 6px;
+opacity: 0.96;
+}
 .daily-lock-badge {
 margin-top: 8px;
 display: inline-flex;
@@ -659,6 +708,91 @@ border: 1px dashed rgba(245, 158, 11, 0.35);
 }
 .mission-briefing-grid span { color: var(--muted); font-weight: 700; font-size: 9px; text-transform: uppercase; letter-spacing: .06em; }
 .mission-briefing-grid strong { display: block; margin-top: 2px; font-size: 13px; font-weight: 900; color: var(--text); }
+.mission-briefing-grid strong.mb-val { text-shadow: 0 0 12px currentColor; }
+.mission-briefing-grid strong.mb-val--eat { color: var(--gold); }
+.mission-briefing-grid strong.mb-val--tgt { color: var(--pink); }
+.mission-briefing-grid strong.mb-val--burn { color: var(--green-neon); }
+.mission-briefing-grid strong.mb-val--def { color: var(--accent); }
+.mission-briefing-grid strong.mb-val--ent { color: #38bdf8; }
+.mission-briefing-grid .mb-val-row-mode { display: inline; font-weight: 900; }
+.mission-briefing-grid .mb-val-sep { color: var(--muted); font-weight: 800; }
+.mission-briefing-meals {
+margin: 0 0 10px;
+padding: 10px 12px;
+border-radius: 12px;
+background: rgba(56, 189, 248, 0.06);
+border: 1px dashed rgba(56, 189, 248, 0.28);
+}
+.mission-briefing-meals-kicker {
+font-size: 9px;
+font-weight: 800;
+letter-spacing: .06em;
+text-transform: uppercase;
+color: var(--muted);
+margin-bottom: 8px;
+}
+.mission-briefing-meals-empty {
+margin: 0;
+font-size: 10px;
+font-weight: 700;
+color: var(--muted);
+line-height: 1.45;
+}
+.mission-briefing-meals-list {
+list-style: none;
+margin: 0;
+padding: 0;
+}
+.mission-briefing-meal-line {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+gap: 8px;
+padding: 6px 0;
+border-bottom: 1px solid rgba(30, 41, 59, 0.85);
+font-size: 11px;
+}
+.mission-briefing-meal-line:last-child { border-bottom: none; }
+.mission-briefing-meal-line--out .mission-briefing-meal-name { color: #a7f3d0; }
+.mission-briefing-meal-main { flex: 1; min-width: 0; }
+.mission-briefing-meal-name { font-weight: 800; color: var(--text); display: block; word-break: break-word; }
+.mission-briefing-meal-sub { display: block; font-size: 8px; color: var(--muted); font-weight: 700; margin-top: 2px; }
+.mission-briefing-meal-kcal { white-space: nowrap; font-weight: 900; font-size: 11px; }
+.mission-briefing-balance-wrap {
+margin: 0 0 10px;
+padding: 10px 12px 8px;
+border-radius: 12px;
+background: rgba(15, 23, 42, 0.45);
+border: 1px dashed rgba(148, 163, 184, 0.28);
+}
+.mission-briefing-balance-head {
+display: flex;
+align-items: baseline;
+justify-content: space-between;
+gap: 10px;
+flex-wrap: wrap;
+}
+.mission-briefing-balance-label {
+font-size: 9px;
+font-weight: 800;
+letter-spacing: .06em;
+text-transform: uppercase;
+display: inline-flex;
+flex-wrap: wrap;
+align-items: baseline;
+gap: 0;
+}
+.mission-briefing-balance-label .mb-br-prefix { color: var(--muted); font-weight: 800; }
+.mission-briefing-balance-pct {
+font-size: 17px;
+font-weight: 900;
+line-height: 1.1;
+text-shadow: 0 0 14px currentColor;
+}
+.mission-briefing-balance-wrap .mission-balance-spark {
+margin-top: 6px;
+max-width: 100%;
+}
 .mission-briefing-macros {
 display: flex;
 flex-wrap: wrap;
@@ -987,12 +1121,9 @@ column-gap: 12px;
 row-gap: 10px;
 width: 100%;
 box-sizing: border-box;
-/* Jemný posun doleva — na mobilu působila 1fr mřížka vizuálně posunutá doprava */
-transform: translateX(-10px);
 }
 @media (max-width: 380px) {
 .roadmap-tubes-grid {
-transform: translateX(-8px);
 column-gap: 10px;
 }
 }
@@ -1358,6 +1489,11 @@ text-shadow:
 0 0 22px rgba(249,115,22,0.9),
 0 1px 2px #000;
 }
+/* Roadmap budíky: střední/středně-varovatné odchylky bez pulzu — méně „křiku“. */
+.roadmap-tubes-card .roadmap-mini-val--zone-mid,
+.roadmap-tubes-card .roadmap-mini-val--zone-warn {
+animation: none;
+}
 /* U valcu Vaha/Pas nechavame zeleny pulz bez zare. */
 #roadmap-val-w.roadmap-mini-val--good,
 #roadmap-val-waist.roadmap-mini-val--good {
@@ -1408,6 +1544,7 @@ color: var(--muted);
 text-align: center;
 line-height: 1.2;
 min-height: 14px;
+white-space: pre-line;
 }
 @keyframes rotateStar3D {
 from { transform: rotateY(0deg); }
@@ -1514,7 +1651,8 @@ max-height: min(78vh, 520px);
 margin-top: 10px;
 margin-bottom: 12px;
 }
-.graph-wrapper::after {
+/* Skleněný závoj jen u grafu kcal — u váhy/roadmapy bez překryvu křivek */
+.graph-wrapper.graph-wrapper--kcal::after {
 content: "";
 position: absolute;
 bottom: 0; left: 0; right: 0;
@@ -2601,6 +2739,27 @@ box-shadow: 0 0 14px rgba(236, 72, 153, 0.28);
 text-shadow: 0 0 10px rgba(244, 114, 182, 0.4);
 }
 .fast-info { margin-top: 10px; font-size: 11px; font-weight: 800; color: var(--muted); }
+.fast-start-row {
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 10px;
+margin-top: 8px;
+flex-wrap: wrap;
+}
+.fast-start-row #fast-start {
+margin-bottom: 0;
+flex: 0 0 auto;
+}
+.btn-save-mini.fast-start-btn {
+width: auto !important;
+max-width: none !important;
+flex: 0 0 auto !important;
+display: inline-flex !important;
+align-items: center;
+justify-content: center;
+padding: 10px 18px !important;
+}
 .roadmap-graph-block { position: relative; margin-bottom: 12px; }
 .recomp-bubble {
 display: none; position: absolute; left: 50%; top: 48px; transform: translateX(-50%);
@@ -2950,7 +3109,7 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 </div>
 <div class="iron-intro-ctrl">
 <button type="button" id="iron-intro-mute">Zvuk vyp</button>
-<button type="button" id="iron-intro-skip">Přeskočit</button>
+<button type="button" id="iron-intro-skip" data-i18n="intro_skip">Přeskočit</button>
 </div>
 <div class="iron-intro-smoke"></div>
 <div class="iron-intro-storm" aria-hidden="true">
@@ -3005,35 +3164,45 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <div id="coach-title" class="coach-title"></div>
 <div id="coach-text"></div>
 <div class="coach-actions">
-<button type="button" id="coach-skip" class="coach-btn">Přeskočit</button>
-<button type="button" id="coach-next" class="coach-btn next">Další</button>
+<button type="button" id="coach-skip" class="coach-btn" data-i18n="coach_skip">Přeskočit</button>
+<button type="button" id="coach-next" class="coach-btn next" data-i18n="coach_next">Další</button>
 </div>
 </div>
 <div id="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-title" aria-describedby="modal-text" tabindex="-1">
 <div class="modal-box">
-<div id="modal-title" class="modal-title">POTVRZENÍ</div>
-<div id="modal-text" class="modal-text">Opravdu chcete akci provést?</div>
+<div id="modal-title" class="modal-title" data-i18n="modal_title_confirm">POTVRZENÍ</div>
+<div id="modal-text" class="modal-text" data-i18n="modal_default_text">Opravdu chcete akci provést?</div>
 <div class="modal-btns">
-<button id="btn-cancel" class="btn-modal btn-modal-cancel">Zrušit</button>
-<button id="btn-ok" type="button" class="btn-modal btn-modal-ok btn-modal-ok--gold">ZAPSAT</button>
+<button id="btn-cancel" class="btn-modal btn-modal-cancel" data-i18n="btn_cancel">Zrušit</button>
+<button id="btn-ok" type="button" class="btn-modal btn-modal-ok btn-modal-ok--gold" data-i18n="btn_modal_log">ZAPSAT</button>
 </div>
 </div>
 </div>
 <div id="mission-briefing-overlay" aria-hidden="true" onclick="if(event.target===this)window.closeMissionBriefingModal()">
 <div class="mission-briefing-panel">
 <div class="mission-briefing-top">
-<span class="mission-briefing-title">Uzávěrka &amp; historie mise</span>
-<button type="button" class="mission-briefing-close" onclick="window.closeMissionBriefingModal()" aria-label="Zavřít">×</button>
+<span class="mission-briefing-title" data-i18n="mb_title">Uzávěrka &amp; historie mise</span>
+<button type="button" class="mission-briefing-close" onclick="window.closeMissionBriefingModal()" data-i18n-aria="aria_close" aria-label="Zavřít">×</button>
 </div>
 <div id="mission-briefing-touch" class="mission-briefing-touch">
 <div class="mission-briefing-flip-scene">
 <div id="mission-briefing-flip" class="mission-briefing-flip">
 <div id="mission-briefing-card-inner" class="mission-briefing-card-inner">
 <div class="card intake-hero-card mission-briefing-card">
-<div class="intake-hero-kicker" id="mission-briefing-kicker">Hlášení dne</div>
+<div class="intake-hero-kicker" id="mission-briefing-kicker" data-i18n="mb_kicker">Hlášení dne</div>
 <div id="mission-briefing-pill" class="mission-briefing-pill">—</div>
 <div id="mission-briefing-date" class="mission-briefing-hint" style="margin-top:0">—</div>
 <div class="mission-briefing-grid" id="mission-briefing-grid"></div>
+<div id="mission-briefing-balance-wrap" class="mission-briefing-balance-wrap">
+<div class="mission-briefing-balance-head">
+<span class="mission-briefing-balance-label">
+<span class="mb-br-prefix" data-i18n="mb_grid_score_prefix">Skóre mise — </span><span id="mission-briefing-balance-hot" data-i18n="mb_grid_score_balance">rovnováha</span>
+</span>
+<strong id="mission-briefing-balance-pct" class="mission-briefing-balance-pct">0%</strong>
+</div>
+<svg id="mission-briefing-spark-line" class="mission-balance-spark" viewBox="0 0 120 34" width="120" height="34" aria-hidden="true" focusable="false"></svg>
+</div>
+<div id="mission-briefing-meals" class="mission-briefing-meals" aria-live="polite"></div>
 <div class="mission-briefing-macros" id="mission-briefing-macros"></div>
 <div class="mission-briefing-report" id="mission-briefing-report"></div>
 <div class="mission-briefing-praise" id="mission-briefing-praise"></div>
@@ -3043,7 +3212,7 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 </div>
 </div>
 <p class="mission-briefing-hint" id="mission-briefing-counter">—</p>
-<p class="mission-briefing-hint">Potáhni prstem zleva doprava = starší den, zprava doleva = novější — karta se otočí kolem svislé osy. Na PC: šipky ← →. Rolování se zapne jen když se obsah nevejde na kartu.</p>
+<p class="mission-briefing-hint" data-i18n="mb_hint_nav">Potáhni prstem zleva doprava = starší den, zprava doleva = novější — karta se otočí kolem svislé osy. Na PC: šipky ← →. Rolování se zapne jen když se obsah nevejde na kartu.</p>
 </div>
 </div>
 <div class="container">
@@ -3083,87 +3252,87 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <h1 style="margin: 0;"><span class="brand-wordmark"><span class="header-brand-iron">IRON</span><span class="brand-sep-el" aria-hidden="true"></span><span class="header-brand-core">CORE</span></span></h1>
 <div style="width: 220px; height: 1px; background: rgba(255,255,255,0.4); z-index: 10; margin: 12px 0; transform: translateZ(50px);"></div>
 <div style="z-index: 10; font-size: 10px; font-weight: 900; letter-spacing: 4px; color: var(--text); text-transform: uppercase; transform: translateZ(45px); text-shadow: 0 8px 12px rgba(0,0,0,0.6);">STRENGTH LOG | ULTIMATE GLASS</div>
-<div id="app-info" class="version-tag">-- | v95.4.134 · čistá data</div>
+<div id="app-info" class="version-tag">-- | v95.4.150 · čistá data</div>
 </div>
 <div class="stats-grid">
 <div class="stat-box" style="border-color: var(--pink); background: rgba(236, 72, 153, 0.1);">
-<div class="stat-label" style="color: var(--pink)">Cíl Mise</div>
+<div class="stat-label" style="color: var(--pink)" data-i18n="stat_mission_goal">Cíl Mise</div>
 <div id="fi-val" class="stat-val" style="color: var(--text)">—</div>
-<div class="stat-sub" style="color: var(--pink)">Cílová Váha</div>
+<div class="stat-sub" style="color: var(--pink)" data-i18n="stat_target_weight">Cílová Váha</div>
 </div>
 <div class="stat-box" style="border-color: var(--orange); background: rgba(249, 115, 22, 0.1);">
-<div class="stat-label" style="color: var(--orange)">Aktuální Váha</div>
+<div class="stat-label" style="color: var(--orange)" data-i18n="stat_current_weight">Aktuální Váha</div>
 <div id="cur-w" class="stat-val">—</div>
 <div id="waist-display" class="stat-sub" style="color: var(--orange)">Pas: -- cm</div>
 </div>
 <div class="stat-box" style="border-color: var(--accent); background: rgba(167, 139, 250, 0.1);">
-<div class="stat-label" style="color: var(--accent)">BMI Index</div>
+<div class="stat-label" style="color: var(--accent)" data-i18n="stat_bmi">BMI Index</div>
 <div id="bmi-val" class="stat-val bmi-val-wrap" style="color: var(--accent)"><span class="bmi-num">—</span></div>
 <div id="bmi-label" class="stat-sub stat-sub--bmi" style="color: var(--accent)">Start — · —</div>
 </div>
 </div>
 <div class="card" id="section-roadmap">
-<div class="card-section-title card-section-title--long">Roadmapa váhy & proporcí (Body Recomp)</div>
-<div id="prediction" class="motor-box"> MOTOR: Výpočet...</div>
+<div class="card-section-title card-section-title--long" data-i18n="card_roadmap_title">Roadmapa váhy & proporcí (Body Recomp)</div>
+<div id="prediction" class="motor-box" data-i18n="motor_computing"> MOTOR: Výpočet...</div>
 <div id="prediction-pace" class="stat-sub" style="margin-top:-8px;margin-bottom:10px;text-align:center;color:var(--pink);font-weight:900;">Tempo: —</div>
 <div id="recomp-summary" class="trend-summary"></div>
 <div class="graph-controls">
-<button type="button" class="btn-ctrl active" onclick="window.setGraphView(this, 'day')">Denní</button>
-<button type="button" class="btn-ctrl" onclick="window.setGraphView(this, 'week')">Týdenní</button>
-<button type="button" class="btn-ctrl" onclick="window.setGraphView(this, 'month')">Měsíční</button>
+<button type="button" class="btn-ctrl active" onclick="window.setGraphView(this, 'day')" data-i18n="graph_day">Denní</button>
+<button type="button" class="btn-ctrl" onclick="window.setGraphView(this, 'week')" data-i18n="graph_week">Týdenní</button>
+<button type="button" class="btn-ctrl" onclick="window.setGraphView(this, 'month')" data-i18n="graph_month">Měsíční</button>
 </div>
 <div class="roadmap-graph-block">
 <div id="roadmap-graph-wrap" class="graph-wrapper" style="height: 440px;">
 <div class="y-axis-fixed" id="y-w"></div>
 <div class="graph-outer" id="scroll-w"><div class="graph-inner" id="svg-w"></div></div>
-<div id="fat-barometer" class="fat-barometer" title="Klikni pro detail signálu a rozpočet tuku / svalů">
-<div class="fat-barometer-title">Spalování<br>tuku</div>
+<div id="fat-barometer" class="fat-barometer" data-i18n-title="fat_barometer_aria" title="">
+<div class="fat-barometer-title" data-i18n="fat_burn_title_html" data-i18n-html="1">Spalování<br>tuku</div>
 <div id="fat-barometer-fat" class="fat-barometer-fat">—</div>
 <svg id="fat-barometer-svg" width="92" height="58" viewBox="0 0 92 58" aria-hidden="true"></svg>
 <div id="fat-barometer-sub" class="fat-barometer-sub"></div>
 </div>
 </div>
-<div id="meal-day-bubble" class="meal-day-bubble" role="dialog" aria-label="Detail dne — jídla">
-<button type="button" class="meal-day-bubble-close" id="meal-day-bubble-close" aria-label="Zavřít">×</button>
+<div id="meal-day-bubble" class="meal-day-bubble" role="dialog" data-i18n-aria="meal_bubble_aria" aria-label="Detail dne — jídla">
+<button type="button" class="meal-day-bubble-close" id="meal-day-bubble-close" data-i18n-aria="aria_close" aria-label="Zavřít">×</button>
 <div id="meal-day-bubble-body"></div>
 </div>
-<div id="star-info-bubble" class="star-info-bubble" role="dialog" aria-label="Jak se počítají hvězdy">
-<button type="button" class="star-info-bubble-close" id="star-info-bubble-close" aria-label="Zavřít">×</button>
+<div id="star-info-bubble" class="star-info-bubble" role="dialog" data-i18n-aria="star_bubble_aria" aria-label="Jak se počítají hvězdy">
+<button type="button" class="star-info-bubble-close" id="star-info-bubble-close" data-i18n-aria="aria_close" aria-label="Zavřít">×</button>
 <div id="star-info-bubble-body"></div>
 </div>
-<div id="refeed-info-bubble" class="refeed-info-bubble" role="dialog" aria-label="Refeed — co jíst">
-<button type="button" class="refeed-info-bubble-close" id="refeed-info-bubble-close" aria-label="Zavřít">×</button>
+<div id="refeed-info-bubble" class="refeed-info-bubble" role="dialog" data-i18n-aria="refeed_bubble_aria" aria-label="Refeed — co jíst">
+<button type="button" class="refeed-info-bubble-close" id="refeed-info-bubble-close" data-i18n-aria="aria_close" aria-label="Zavřít">×</button>
 <div id="refeed-info-bubble-body"></div>
 </div>
-<div id="recomp-bubble" class="recomp-bubble" role="dialog" aria-label="Signál hubnutí tuku">
-<button type="button" class="recomp-bubble-close" id="recomp-bubble-close" aria-label="Zavřít">×</button>
+<div id="recomp-bubble" class="recomp-bubble" role="dialog" data-i18n-aria="recomp_bubble_aria" aria-label="Signál hubnutí tuku">
+<button type="button" class="recomp-bubble-close" id="recomp-bubble-close" data-i18n-aria="aria_close" aria-label="Zavřít">×</button>
 <div id="recomp-bubble-body"></div>
 </div>
 </div>
 <div id="roadmap-tubes-card" class="roadmap-tubes-card">
-<div class="roadmap-tubes-kicker">Roadmap válce do cíle</div>
+<div class="roadmap-tubes-kicker" data-i18n="roadmap_kicker">Roadmap válce do cíle</div>
 <div class="roadmap-tubes-grid">
 <div class="roadmap-mini roadmap-mini--weight roadmap-mini--pos-weight" style="--tube-color: rgba(245,158,11,0.95);">
-<div class="roadmap-mini-cap"><div class="roadmap-mini-cap-goal">Cíl</div><strong id="roadmap-cap-w">0 kg</strong></div>
+<div class="roadmap-mini-cap"><div class="roadmap-mini-cap-goal" data-i18n="cap_goal">Cíl</div><strong id="roadmap-cap-w">0 kg</strong></div>
 <div class="roadmap-mini-shell" id="roadmap-shell-w" style="--tube-color: rgba(245,158,11,0.95);">
 <div class="roadmap-mini-strop" id="roadmap-strop-w"></div>
 <div class="roadmap-mini-fill" id="roadmap-fill-w"></div>
 <div class="roadmap-mini-val" id="roadmap-val-w">—</div>
 </div>
-<div class="roadmap-mini-label" style="color:rgba(245,158,11,0.95)">Váha</div>
+<div class="roadmap-mini-label" style="color:rgba(245,158,11,0.95)" data-i18n="lbl_weight">Váha</div>
 <div class="roadmap-mini-sub" id="roadmap-sub-w"></div>
 </div>
 <div class="roadmap-mini roadmap-mini--pos-waist" style="--tube-color: #be185d;">
-<div class="roadmap-mini-cap"><div class="roadmap-mini-cap-goal">Cíl</div><strong id="roadmap-cap-waist">0 cm</strong></div>
+<div class="roadmap-mini-cap"><div class="roadmap-mini-cap-goal" data-i18n="cap_prediction">Predikce</div><strong id="roadmap-cap-waist">0 cm</strong></div>
 <div class="roadmap-mini-shell" id="roadmap-shell-waist" style="--tube-color: #be185d;"><div class="roadmap-mini-strop" id="roadmap-strop-waist"></div><div class="roadmap-mini-fill" id="roadmap-fill-waist" style="background:linear-gradient(180deg,#be185d,rgba(190,24,93,0.3));"></div><div class="roadmap-mini-val" id="roadmap-val-waist">—</div></div>
-<div class="roadmap-mini-label" style="color:#be185d">Pas</div>
+<div class="roadmap-mini-label" style="color:#be185d" data-i18n="lbl_waist">Pas</div>
 <div class="roadmap-mini-sub" id="roadmap-sub-waist"></div>
 </div>
 <div class="roadmap-mini roadmap-mini--gauge-proto roadmap-mini--pos-chest" style="--tube-color: #be185d;">
-<div class="roadmap-mini-cap"><div class="roadmap-mini-cap-goal">Cíl</div><strong id="roadmap-cap-chest">0 cm</strong></div>
+<div class="roadmap-mini-cap"><div class="roadmap-mini-cap-goal" data-i18n="cap_prediction">Predikce</div><strong id="roadmap-cap-chest">0 cm</strong></div>
 <div class="roadmap-mini-shell roadmap-mini-shell--gauge" id="roadmap-shell-chest" style="--tube-color: #be185d;">
 <div class="roadmap-gauge" id="roadmap-gauge-chest">
-<svg class="roadmap-gauge-svg" viewBox="0 0 100 100" aria-label="Tachometr hrudníku">
+<svg class="roadmap-gauge-svg" viewBox="0 0 100 100" data-i18n-aria="gauge_chest_aria" aria-label="Tachometr hrudníku">
 <defs>
 <linearGradient id="gaugeChestArc" x1="0" y1="0" x2="1" y2="1">
 <stop offset="0%" stop-color="#000000"/>
@@ -3187,11 +3356,11 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 </div>
 <div class="roadmap-mini-val" id="roadmap-val-chest">—</div>
 </div>
-<div class="roadmap-mini-label" style="color:#be185d">Hrudník</div>
+<div class="roadmap-mini-label" style="color:#be185d" data-i18n="lbl_chest">Hrudník</div>
 <div class="roadmap-mini-sub" id="roadmap-sub-chest"></div>
 </div>
 <div class="roadmap-mini roadmap-mini--gauge-proto roadmap-mini--pos-thigh" style="--tube-color: #d946ef;">
-<div class="roadmap-mini-cap"><div class="roadmap-mini-cap-goal">Cíl</div><strong id="roadmap-cap-thigh">0 cm</strong></div>
+<div class="roadmap-mini-cap"><div class="roadmap-mini-cap-goal" data-i18n="cap_prediction">Predikce</div><strong id="roadmap-cap-thigh">0 cm</strong></div>
 <div class="roadmap-mini-shell roadmap-mini-shell--gauge" id="roadmap-shell-thigh" style="--tube-color: #d946ef;">
 <div class="roadmap-gauge" id="roadmap-gauge-thigh">
 <svg class="roadmap-gauge-svg" viewBox="0 0 100 100" aria-label="Tachometr stehna">
@@ -3212,11 +3381,11 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 </div>
 <div class="roadmap-mini-val" id="roadmap-val-thigh">—</div>
 </div>
-<div class="roadmap-mini-label" style="color:#d946ef">Stehno</div>
+<div class="roadmap-mini-label" style="color:#d946ef" data-i18n="lbl_thigh">Stehno</div>
 <div class="roadmap-mini-sub" id="roadmap-sub-thigh"></div>
 </div>
 <div class="roadmap-mini roadmap-mini--gauge-proto roadmap-mini--pos-biceps" style="--tube-color: #8b5cf6;">
-<div class="roadmap-mini-cap"><div class="roadmap-mini-cap-goal">Cíl</div><strong id="roadmap-cap-biceps">0 cm</strong></div>
+<div class="roadmap-mini-cap"><div class="roadmap-mini-cap-goal" data-i18n="cap_prediction">Predikce</div><strong id="roadmap-cap-biceps">0 cm</strong></div>
 <div class="roadmap-mini-shell roadmap-mini-shell--gauge" id="roadmap-shell-biceps" style="--tube-color: #8b5cf6;">
 <div class="roadmap-gauge" id="roadmap-gauge-biceps">
 <svg class="roadmap-gauge-svg" viewBox="0 0 100 100" aria-label="Tachometr bicepsu">
@@ -3237,11 +3406,11 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 </div>
 <div class="roadmap-mini-val" id="roadmap-val-biceps">—</div>
 </div>
-<div class="roadmap-mini-label" style="color:#8b5cf6">Biceps</div>
+<div class="roadmap-mini-label" style="color:#8b5cf6" data-i18n="lbl_biceps">Biceps</div>
 <div class="roadmap-mini-sub" id="roadmap-sub-biceps"></div>
 </div>
 <div class="roadmap-mini roadmap-mini--gauge-proto roadmap-mini--pos-shoulders" style="--tube-color: #22d3ee;">
-<div class="roadmap-mini-cap"><div class="roadmap-mini-cap-goal">Cíl</div><strong id="roadmap-cap-shoulders">0 cm</strong></div>
+<div class="roadmap-mini-cap"><div class="roadmap-mini-cap-goal" data-i18n="cap_prediction">Predikce</div><strong id="roadmap-cap-shoulders">0 cm</strong></div>
 <div class="roadmap-mini-shell roadmap-mini-shell--gauge" id="roadmap-shell-shoulders" style="--tube-color: #22d3ee;">
 <div class="roadmap-gauge" id="roadmap-gauge-shoulders">
 <svg class="roadmap-gauge-svg" viewBox="0 0 100 100" aria-label="Tachometr ramen">
@@ -3262,90 +3431,99 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 </div>
 <div class="roadmap-mini-val" id="roadmap-val-shoulders">—</div>
 </div>
-<div class="roadmap-mini-label" style="color:#22d3ee">Ramena</div>
+<div class="roadmap-mini-label" style="color:#22d3ee" data-i18n="lbl_shoulders">Ramena</div>
 <div class="roadmap-mini-sub" id="roadmap-sub-shoulders"></div>
 </div>
 </div>
 </div>
 <div id="toggle-measure-btn" class="toggle-btn toggle-measure" onclick="window.toggleMeasureArea()">
-<span>Zapsat váhu a měření</span>
+<span data-i18n="measure_toggle">Zapsat váhu a měření</span>
 <span id="measure-arrow">▼</span>
 </div>
 <div id="measure-area" class="toggle-content">
 <div class="meas-grid">
-<input class="full" type="number" id="in-w" step="0.1" inputmode="decimal" placeholder="Váha doma (kg, stále stejně — např. ráno nacisto)">
-<input type="number" id="in-waist" step="0.1" inputmode="decimal" placeholder="Pas (cm)" style="border-color: var(--pink);">
-<input type="number" id="in-chest" step="0.1" inputmode="decimal" placeholder="Hrudník (cm)" style="border-color: #f472b6;">
-<input type="number" id="in-thigh" step="0.1" inputmode="decimal" placeholder="Stehno (cm)" style="border-color: #d946ef;">
-<input type="number" id="in-biceps" step="0.1" inputmode="decimal" placeholder="Biceps (cm)" style="border-color: #8b5cf6;">
-<input class="full" type="number" id="in-shoulders" step="0.1" inputmode="decimal" placeholder="Ramena (cm)" style="border-color: #22d3ee;">
+<input class="full" type="number" id="in-w" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_in_w" placeholder="Váha doma (kg, stále stejně — např. ráno nacisto)">
+<input type="number" id="in-waist" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_waist" placeholder="Pas (cm)" style="border-color: var(--pink);">
+<input type="number" id="in-chest" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_chest" placeholder="Hrudník (cm)" style="border-color: #f472b6;">
+<input type="number" id="in-thigh" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_thigh" placeholder="Stehno (cm)" style="border-color: #d946ef;">
+<input type="number" id="in-biceps" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_biceps" placeholder="Biceps (cm)" style="border-color: #8b5cf6;">
+<input class="full" type="number" id="in-shoulders" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_shoulders" placeholder="Ramena (cm)" style="border-color: #22d3ee;">
 </div>
 <div style="display:flex; gap:10px;">
-<button onclick="window.saveTodayW()" class="btn btn-gold" style="flex:1">Uložit progres</button>
+<button onclick="window.saveTodayW()" class="btn btn-gold" style="flex:1" data-i18n="btn_save_progress">Uložit progres</button>
 </div>
 </div>
 </div>
 <div class="card" id="section-energy">
-<div class="card-section-title">Energetická bilance</div>
+<div class="card-section-title" data-i18n="energy_card_title">Energetická bilance</div>
 <div class="graph-wrapper graph-wrapper--kcal">
 <div class="y-axis-fixed" id="y-k"></div>
 <div class="graph-outer" id="scroll-k"><div class="graph-inner" id="svg-k"></div></div>
 </div>
 <div class="star-counters">
 <div class="star-box-wrap star-box-green">
-<div class="star-count-top" id="star-neon-caption">Neon Hvězdy (700+)</div>
+<div class="star-count-top" id="star-neon-caption" data-i18n="star_neon_caption">Neon Hvězdy (700+)</div>
 <div id="stack-green" class="star-visual-stack"></div>
 <div class="star-divider"></div>
-<div class="star-rank-bottom">Celoživotní Rank</div>
+<div class="star-rank-bottom" data-i18n="star_rank_life">Celoživotní Rank</div>
 <div id="rank-green" class="star-rank-val"><span class="star-rank-plain">0 velká</span></div>
 </div>
 <div class="star-box-wrap star-box-gold">
-<div class="star-count-top">Legendární elita (<span id="cur-gold-lim">—</span>)</div>
+<div class="star-count-top"><span data-i18n="legend_elite">Legendární elita (</span><span id="cur-gold-lim">—</span>)</div>
 <div id="stack-gold" class="star-visual-stack"></div>
 <div class="star-divider"></div>
-<div class="star-rank-bottom">Legendární Rank</div>
+<div class="star-rank-bottom" data-i18n="star_rank_legend">Legendární Rank</div>
 <div id="rank-gold" class="star-rank-val"><span class="star-rank-plain">0 velká</span></div>
 </div>
 </div>
 <div class="bal-list-scroll-wrap">
-<div class="stat-label" style="font-size:8px;color:var(--muted);margin:0 0 6px;line-height:1.35;font-weight:700;">Náhled posledních 30 dní (datum záznamu). Starší dny zůstávají v paměti — Upravit historii.</div>
+<div class="stat-label" style="font-size:8px;color:var(--muted);margin:0 0 6px;line-height:1.35;font-weight:700;" data-i18n="bal_hint">Náhled posledních 30 dní (datum záznamu). Starší dny zůstávají v paměti — Upravit historii.</div>
 <div id="bal-list" class="bal-list-scroll"></div>
 </div>
 </div>
 <div class="stats-grid">
 <!-- Skleněná výplň pro Příjem, Výdej, Vítězství -->
 <div class="stat-box" style="border-color: var(--gold); background: rgba(245, 158, 11, 0.1);">
-<div class="stat-label" style="color: var(--gold)">Příjem</div>
+<div class="stat-label" style="color: var(--gold)" data-i18n="stat_intake">Příjem</div>
 <div id="stat-eat" class="stat-val">0</div>
 <div class="stat-sub">kcal</div>
 <div id="stat-eat-warn" class="stat-eat-warn" style="display:none" aria-live="polite"></div>
 </div>
 <div class="stat-box" style="border-color: var(--green-neon); background: rgba(57, 255, 20, 0.1);">
-<div class="stat-label" style="color: var(--green-neon)">Celkový výdej</div>
+<div class="stat-label" style="color: var(--green-neon)" data-i18n="stat_burn_total">Celkový výdej</div>
 <div id="stat-burn" class="stat-val">0</div>
 <div id="stat-bmr" class="stat-sub">Bazál 0</div>
 </div>
 <div class="stat-box" style="border-color: var(--accent); background: rgba(167, 139, 250, 0.1);">
-<div class="stat-label" style="color: var(--accent)">Deficit dne</div>
+<div class="stat-label" style="color: var(--accent)" data-i18n="stat_deficit">Deficit dne</div>
 <div id="stat-win" class="stat-val">0</div>
-<div class="stat-sub">po odečtu příjmu</div>
+<div class="stat-sub" data-i18n="stat_deficit_sub">po odečtu příjmu</div>
 </div>
 </div>
-<div id="macro-title" class="stat-label" style="margin-top: 25px; margin-bottom: 10px; color: var(--muted); text-align: center; font-size: 10px;">Monitoring Maker (Dnešní bilance)</div>
+<div id="macro-title" class="stat-label" style="margin-top: 25px; margin-bottom: 10px; color: var(--muted); text-align: center; font-size: 10px;" data-i18n="macro_monitoring">Monitoring Maker (Dnešní bilance)</div>
 <div id="section-mission" class="daily-mission">
 <div class="daily-mission-balance" aria-hidden="true"></div>
 <div class="daily-mission-core" aria-hidden="true"></div>
 <div class="daily-mission-content">
-<div class="daily-mission-kicker">Dnešní mise</div>
-<div id="daily-mission-main" class="daily-mission-main">Načítám cíl dne…</div>
-<div id="daily-mission-sub" class="daily-mission-sub">Čekám na první záznam.</div>
-<button type="button" id="daily-lock-badge" class="daily-lock-badge" onclick="window.openMissionBriefingModal()" aria-label="Otevřít podrobné hlášení uzávěrky dne">Uzávěrka dne: čeká</button>
-<div id="daily-mission-report" class="daily-mission-report">Denní hlášení čeká na první průběžný zápis.</div>
+<div class="daily-mission-kicker" data-i18n="mission_today">Dnešní mise</div>
+<div id="daily-mission-main" class="daily-mission-main" data-i18n="mission_loading">Načítám cíl dne…</div>
+<div id="daily-mission-sub" class="daily-mission-sub" data-i18n="mission_wait">Čekám na první záznam.</div>
+<div id="mission-balance-wrap" class="mission-balance-wrap">
+<div class="mission-balance-head">
+<span class="mission-balance-label">
+<span class="mission-balance-label-prefix" data-i18n="mb_grid_score_prefix">Skóre mise — </span><span id="mission-balance-label-hot" class="mission-balance-label-hot" data-i18n="mb_grid_score_balance">rovnováha</span>
+</span>
+<strong id="mission-balance-pct" class="mission-balance-pct">0%</strong>
+</div>
+<svg id="mission-balance-spark" class="mission-balance-spark" viewBox="0 0 120 34" width="120" height="34" aria-hidden="true" focusable="false"></svg>
+</div>
+<button type="button" id="daily-lock-badge" class="daily-lock-badge" onclick="window.openMissionBriefingModal()" data-i18n-aria="daily_lock_aria" aria-label="Otevřít podrobné hlášení uzávěrky dne">Uzávěrka dne: čeká</button>
+<div id="daily-mission-report" class="daily-mission-report" data-i18n="mission_report_idle">Denní hlášení čeká na první průběžný zápis.</div>
 </div>
 </div>
 <div class="macro-tubes-grid">
 <div class="macro-tube-card">
-<div class="macro-tube-cap">Strop <strong id="p-tube-target">0</strong> g</div>
+<div class="macro-tube-cap"><span data-i18n="macro_cap_ceiling">Strop</span> <strong id="p-tube-target">0</strong> g</div>
 <div class="macro-tube-shell macro-tube--p">
 <div class="macro-tube-inner">
 <div class="macro-tube-strop-line"></div>
@@ -3354,10 +3532,10 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <div class="macro-tube-grams" id="p-tube-grams">0</div>
 </div>
 </div>
-<div class="macro-tube-label-mini" style="color:var(--macro-p)">Bílkoviny</div>
+<div class="macro-tube-label-mini" style="color:var(--macro-p)" data-i18n="macro_p">Bílkoviny</div>
 </div>
 <div class="macro-tube-card">
-<div class="macro-tube-cap">Strop <strong id="f-tube-target">0</strong> g</div>
+<div class="macro-tube-cap"><span data-i18n="macro_cap_ceiling">Strop</span> <strong id="f-tube-target">0</strong> g</div>
 <div class="macro-tube-shell macro-tube--f">
 <div class="macro-tube-inner">
 <div class="macro-tube-strop-line"></div>
@@ -3366,10 +3544,10 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <div class="macro-tube-grams" id="f-tube-grams">0</div>
 </div>
 </div>
-<div class="macro-tube-label-mini" style="color:var(--gold)">Tuky</div>
+<div class="macro-tube-label-mini" style="color:var(--gold)" data-i18n="macro_f">Tuky</div>
 </div>
 <div class="macro-tube-card">
-<div class="macro-tube-cap">Strop <strong id="c-tube-target">0</strong> g</div>
+<div class="macro-tube-cap"><span data-i18n="macro_cap_ceiling">Strop</span> <strong id="c-tube-target">0</strong> g</div>
 <div class="macro-tube-shell macro-tube--c">
 <div class="macro-tube-inner">
 <div class="macro-tube-strop-line"></div>
@@ -3378,12 +3556,12 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <div class="macro-tube-grams" id="c-tube-grams">0</div>
 </div>
 </div>
-<div class="macro-tube-label-mini" style="color:var(--pink)">Sacharidy</div>
+<div class="macro-tube-label-mini" style="color:var(--pink)" data-i18n="macro_c">Sacharidy</div>
 </div>
 </div>
 <div class="macro-tubes-grid macro-tubes-grid--kcal">
 <div class="macro-tube-card macro-tube-card--kcal">
-<div class="macro-tube-cap">Cíl <strong id="k-tube-target">0</strong> kcal</div>
+<div class="macro-tube-cap"><span data-i18n="macro_k_goal">Cíl</span> <strong id="k-tube-target">0</strong> kcal</div>
 <div class="macro-tube-shell macro-tube--k">
 <div class="macro-tube-inner">
 <div class="macro-tube-strop-line"></div>
@@ -3392,18 +3570,18 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <div class="macro-tube-grams" id="k-tube-grams">0</div>
 </div>
 </div>
-<div id="k-tube-remain-label" class="macro-tube-label-mini" style="color:var(--gold)">KCAL · zbývá sníst</div>
+<div id="k-tube-remain-label" class="macro-tube-label-mini" style="color:var(--gold)" data-i18n="macro_k_remain">KCAL · zbývá sníst</div>
 </div>
 </div>
-<p style="font-size:8px;color:var(--muted);text-align:center;margin:10px 0 0;line-height:1.35;font-weight:700;">Červená čára = strop (u makro g shodné s číslem nahoře; u KCAL cílový příjem). Plnění od spodu = snědeno vůči stropu/cíli. U KCAL dole = kolik kcal ještě můžeš sníst. Nad čárou = překročení (červené sklo).</p>
+<p style="font-size:8px;color:var(--muted);text-align:center;margin:10px 0 0;line-height:1.35;font-weight:700;" data-i18n="macro_legend_red_line">Červená čára = strop (u makro g shodné s číslem nahoře; u KCAL cílový příjem). Plnění od spodu = snědeno vůči stropu/cíli. U KCAL dole = kolik kcal ještě můžeš sníst. Nad čárou = překročení (červené sklo).</p>
 <div class="card mode-selector-card">
-<span class="mode-label">Režim dne (Dnešní mise)</span>
+<span class="mode-label" data-i18n="mode_day_label">Režim dne (Dnešní mise)</span>
 <div class="mode-grid">
-<div id="mode-0" class="mode-btn mode-rest" onclick="window.setDayMode(0)"><span class="mode-btn-title">Gaučing</span><span class="mode-btn-rule" aria-hidden="true"></span><span class="mode-btn-sub">rest day</span></div>
+<div id="mode-0" class="mode-btn mode-rest" onclick="window.setDayMode(0)"><span class="mode-btn-title" data-i18n="mode_couch_title">Gaučing</span><span class="mode-btn-rule" aria-hidden="true"></span><span class="mode-btn-sub" data-i18n="mode_couch_sub">rest day</span></div>
 <div class="mode-col mode-col--train">
-<div id="mode-1" class="mode-btn mode-train" onclick="window.setDayMode(1)"><span class="mode-btn-title">TRÉNINK | PRÁCE</span><span class="mode-btn-rule" aria-hidden="true"></span><span class="mode-btn-sub">běžný pracovní den default</span></div>
-<label for="quick-activity" class="mode-train-activity-label">Úroveň aktivity</label>
-<select id="quick-activity" class="mode-train-activity-select" title="Platí u režimu Trénink — jemně mění násobič výdeje" onchange="window.setQuickActivity(this.value)">
+<div id="mode-1" class="mode-btn mode-train" onclick="window.setDayMode(1)"><span class="mode-btn-title" data-i18n="mode_train_title">TRÉNINK | PRÁCE</span><span class="mode-btn-rule" aria-hidden="true"></span><span class="mode-btn-sub" data-i18n="mode_train_sub">běžný pracovní den default</span></div>
+<label for="quick-activity" class="mode-train-activity-label" data-i18n="activity_label">Úroveň aktivity</label>
+<select id="quick-activity" class="mode-train-activity-select" data-i18n-title="activity_title" title="" onchange="window.setQuickActivity(this.value)">
 <option value="">— výchozí: běžný pracovní den —</option>
 <option value="sedentary">Sedavé (1,20×) — doma/PC, minimum kroků</option>
 <option value="light">Lehká (1,38×) — procházka ~3 km, lehký úklid</option>
@@ -3413,47 +3591,47 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <option value="very_active">Velmi aktivní (1,78×) — celodenní těžká práce / velmi hodně kroků</option>
 </select>
 </div>
-<div id="mode-2" class="mode-btn mode-refeed" onclick="window.setDayMode(2)"><span class="mode-btn-title">Refeed day</span><span class="mode-btn-rule" aria-hidden="true"></span><span class="mode-btn-sub">komplexní sacharidy — ne tuky a cukry</span><button type="button" class="mode-refeed-help" onclick="event.stopPropagation(); window.showRefeedInfoBubble();" aria-label="Co jíst u refeedu">?</button></div>
+<div id="mode-2" class="mode-btn mode-refeed" onclick="window.setDayMode(2)"><span class="mode-btn-title" data-i18n="mode_refeed_title">Refeed day</span><span class="mode-btn-rule" aria-hidden="true"></span><span class="mode-btn-sub" data-i18n="mode_refeed_sub">komplexní sacharidy — ne tuky a cukry</span><button type="button" class="mode-refeed-help" onclick="event.stopPropagation(); window.showRefeedInfoBubble();" data-i18n-aria="refeed_help_aria" aria-label="Co jíst u refeedu">?</button></div>
 </div>
-<span class="mode-label" style="margin-top:12px;">Styl stravy</span>
+<span class="mode-label" style="margin-top:12px;" data-i18n="diet_style_label">Styl stravy</span>
 <div class="diet-grid">
 <div id="diet-keto" class="diet-btn diet-keto" onclick="window.setDietStyle('keto')">Keto</div>
 <div id="diet-lowcarb" class="diet-btn diet-lowcarb" onclick="window.setDietStyle('lowcarb')">Low Carb</div>
 <div id="diet-standard" class="diet-btn diet-standard" onclick="window.setDietStyle('standard')">Standard</div>
 </div>
-<span class="mode-label" style="margin-top:12px;">Přerušovaný půst</span>
+<span class="mode-label" style="margin-top:12px;" data-i18n="fasting_label">Přerušovaný půst</span>
 <div class="fast-grid">
 <div id="fast-16:8" class="fast-btn" onclick="window.setFastProtocol('16:8')">16:8</div>
 <div id="fast-18:6" class="fast-btn" onclick="window.setFastProtocol('18:6')">18:6</div>
 <div id="fast-20:4" class="fast-btn" onclick="window.setFastProtocol('20:4')">20:4</div>
 <div id="fast-23:1" class="fast-btn" onclick="window.setFastProtocol('23:1')">OMAD 23:1</div>
 </div>
-<div style="display:flex; gap:8px; margin-top:8px;">
-<input type="time" id="fast-start" style="margin-bottom:0;">
-<button onclick="window.saveFastStart()" class="btn-save-mini" style="width:auto !important; padding:10px 12px !important;">Start</button>
+<div class="fast-start-row">
+<input type="time" id="fast-start">
+<button type="button" onclick="window.saveFastStart()" class="btn-save-mini fast-start-btn" data-i18n="fast_start_btn">Start</button>
 </div>
 <div id="fast-info" class="fast-info">Půst není aktivní.</div>
 </div>
 <div class="card burn-hero-card" id="section-zapis">
-<div class="burn-hero-kicker">Výdej energie</div>
+<div class="burn-hero-kicker" data-i18n="burn_kicker">Výdej energie</div>
 <p class="burn-hero-hint">Zapisuješ jen <strong style="color:var(--green-neon)">pohyb</strong> (spálené kcal). Příjem jídla je v bloku <strong style="color:var(--gold)">Příjem energie</strong> níže.</p>
 <div class="burn-hero-field">
 <label id="burn-kcal-label" for="in-k">Kolik kcal jsi přidal pohybem?</label>
-<input type="number" id="in-k" inputmode="numeric" min="1" placeholder="např. 350" autocomplete="off">
+<input type="number" id="in-k" inputmode="numeric" min="1" data-i18n-placeholder="burn_ph_kcal" placeholder="např. 350" autocomplete="off">
 </div>
-<button type="button" class="burn-hero-orb" onclick="window.addTodayK('out')" aria-label="Zapsat pohyb — přidat kcal do výdeje">
-<span class="burn-hero-orb-text">Zapsat<br>pohyb<span class="burn-hero-orb-sub">Neon hvězdy ↑</span></span>
+<button type="button" class="burn-hero-orb" onclick="window.addTodayK('out')" data-i18n-aria="burn_orb_aria" aria-label="Zapsat pohyb — přidat kcal do výdeje">
+<span class="burn-hero-orb-text" id="burn-hero-orb-text"><span data-i18n="burn_orb_line1">Zapsat</span><br><span data-i18n="burn_orb_line2">pohyb</span><span class="burn-hero-orb-sub" data-i18n="burn_orb_sub">Neon hvězdy ↑</span></span>
 </button>
 </div>
 <div class="card intake-hero-card">
-<div class="intake-hero-kicker">Příjem energie</div>
+<div class="intake-hero-kicker" data-i18n="intake_kicker">Příjem energie</div>
 <p class="intake-hero-hint">Zapisuješ <strong style="color:var(--gold)">jídlo a makra</strong> (B/T/S). Výdej pohybu je v bloku výše.</p>
 <div class="intake-hero-panel">
-<div class="intake-hero-section-label">Dnešní historie záznamů</div>
+<div class="intake-hero-section-label" data-i18n="intake_history_label">Dnešní historie záznamů</div>
 <div id="log-list" style="margin-bottom:12px;"></div>
-<button onclick="window.popLog()" class="btn btn-undo" style="margin-top: 0;">Smazat poslední záznam ↩</button>
+<button onclick="window.popLog()" class="btn btn-undo" style="margin-top: 0;" data-i18n="btn_undo_last">Smazat poslední záznam ↩</button>
 </div>
-<div class="intake-hero-section-label">Rychlý zápis jídla</div>
+<div class="intake-hero-section-label" data-i18n="intake_quick_label">Rychlý zápis jídla</div>
 <div class="intake-hero-form">
 <div class="intake-hero-form-row">
 <input type="text" id="manual-food-name" placeholder="Název jídla…" style="flex:2; font-size:13px;">
@@ -3464,19 +3642,19 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <input type="number" id="manual-food-f" inputmode="decimal" step="any" lang="cs" autocomplete="off" placeholder="T" style="flex:1; border-color: var(--gold);">
 <input type="number" id="manual-food-c" inputmode="decimal" step="any" lang="cs" autocomplete="off" placeholder="S" style="flex:1; border-color: var(--pink);">
 </div>
-<button type="button" class="intake-hero-pill intake-hero-pill--commit" onclick="window.addManualMeal()"><span class="intake-pill-bubbles" aria-hidden="true"><span class="macro-bubble" style="--x:5%;--s:3px;--d:4.8s;--delay:0s;--drift:2px"></span><span class="macro-bubble" style="--x:12%;--s:4px;--d:5.6s;--delay:0.3s;--drift:-2px"></span><span class="macro-bubble" style="--x:20%;--s:3px;--d:5.1s;--delay:1.1s;--drift:3px"></span><span class="macro-bubble" style="--x:28%;--s:5px;--d:6.2s;--delay:0.6s;--drift:-1px"></span><span class="macro-bubble" style="--x:36%;--s:3px;--d:4.4s;--delay:2s;--drift:-3px"></span><span class="macro-bubble" style="--x:44%;--s:4px;--d:5.9s;--delay:0.2s;--drift:2px"></span><span class="macro-bubble" style="--x:52%;--s:3px;--d:5.4s;--delay:1.4s;--drift:1px"></span><span class="macro-bubble" style="--x:60%;--s:4px;--d:6.5s;--delay:0.8s;--drift:-2px"></span><span class="macro-bubble" style="--x:68%;--s:3px;--d:4.9s;--delay:2.6s;--drift:4px"></span><span class="macro-bubble" style="--x:76%;--s:5px;--d:5.7s;--delay:0.5s;--drift:-3px"></span><span class="macro-bubble" style="--x:84%;--s:3px;--d:5.2s;--delay:1.8s;--drift:2px"></span><span class="macro-bubble" style="--x:92%;--s:4px;--d:6s;--delay:0.1s;--drift:-1px"></span></span><span class="intake-pill-label">Zapsat do příjmu</span></button>
+<button type="button" class="intake-hero-pill intake-hero-pill--commit" onclick="window.addManualMeal()"><span class="intake-pill-bubbles" aria-hidden="true"><span class="macro-bubble" style="--x:5%;--s:3px;--d:4.8s;--delay:0s;--drift:2px"></span><span class="macro-bubble" style="--x:12%;--s:4px;--d:5.6s;--delay:0.3s;--drift:-2px"></span><span class="macro-bubble" style="--x:20%;--s:3px;--d:5.1s;--delay:1.1s;--drift:3px"></span><span class="macro-bubble" style="--x:28%;--s:5px;--d:6.2s;--delay:0.6s;--drift:-1px"></span><span class="macro-bubble" style="--x:36%;--s:3px;--d:4.4s;--delay:2s;--drift:-3px"></span><span class="macro-bubble" style="--x:44%;--s:4px;--d:5.9s;--delay:0.2s;--drift:2px"></span><span class="macro-bubble" style="--x:52%;--s:3px;--d:5.4s;--delay:1.4s;--drift:1px"></span><span class="macro-bubble" style="--x:60%;--s:4px;--d:6.5s;--delay:0.8s;--drift:-2px"></span><span class="macro-bubble" style="--x:68%;--s:3px;--d:4.9s;--delay:2.6s;--drift:4px"></span><span class="macro-bubble" style="--x:76%;--s:5px;--d:5.7s;--delay:0.5s;--drift:-3px"></span><span class="macro-bubble" style="--x:84%;--s:3px;--d:5.2s;--delay:1.8s;--drift:2px"></span><span class="macro-bubble" style="--x:92%;--s:4px;--d:6s;--delay:0.1s;--drift:-1px"></span></span><span class="intake-pill-label" data-i18n="intake_commit">Zapsat do příjmu</span></button>
 </div>
-<div class="intake-hero-section-label">Rutina a oblíbená</div>
+<div class="intake-hero-section-label" data-i18n="intake_routines">Rutina a oblíbená</div>
 <div class="meal-scroll-area intake-hero-routines">
 <div id="routine-list-content" class="quick-menu-col"></div>
 </div>
 <div class="intake-hero-footer">
 <div class="toggle-btn toggle-food-manual" onclick="window.toggleManualFoodArea()">
-<span>Ruční zápis oblíbeného jídla</span>
+<span data-i18n="intake_manual_toggle">Ruční zápis oblíbeného jídla</span>
 <span id="manual-food-arrow">▼</span>
 </div>
 <div id="manual-food-area" class="toggle-content">
-<div class="intake-hero-section-label" style="margin-top:10px;">Přidat do oblíbených</div>
+<div class="intake-hero-section-label" style="margin-top:10px;" data-i18n="intake_fav_add">Přidat do oblíbených</div>
 <div class="intake-hero-form" style="margin-bottom:4px;">
 <div class="intake-hero-form-row">
 <input type="text" id="fav-food-name" placeholder="Název (např. Protein)…" style="flex:2; font-size:13px;">
@@ -3487,8 +3665,8 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <input type="number" id="fav-food-f" inputmode="decimal" step="any" lang="cs" autocomplete="off" placeholder="T" style="flex:1; border-color: var(--gold);">
 <input type="number" id="fav-food-c" inputmode="decimal" step="any" lang="cs" autocomplete="off" placeholder="S" style="flex:1; border-color: var(--pink);">
 </div>
-<button type="button" id="btn-add-manual-meal" class="intake-hero-pill intake-hero-pill--fav" onclick="window.addToFavorites()"><span class="intake-pill-sparkles" aria-hidden="true"><span class="intake-spark" style="--sx:14%;--sy:32%;--delay:0s;--tw:3.9s">⋆</span><span class="intake-spark" style="--sx:38%;--sy:58%;--delay:0.7s;--tw:4.2s">⋆</span><span class="intake-spark" style="--sx:62%;--sy:28%;--delay:1.1s;--tw:3.5s">⋆</span><span class="intake-spark" style="--sx:82%;--sy:48%;--delay:0.4s;--tw:4s">⋆</span><span class="intake-spark" style="--sx:28%;--sy:68%;--delay:1.6s;--tw:3.7s">⋆</span><span class="intake-spark" style="--sx:52%;--sy:42%;--delay:0.2s;--tw:4.1s">⋆</span></span><span class="intake-pill-label">Uložit do oblíbených</span></button>
-<button type="button" class="intake-hero-pill intake-hero-pill--ai intake-hero-pill--ai-rich" onclick="window.pickFoodPhoto()"><span class="intake-pill-sparkles" aria-hidden="true"><span class="intake-spark" style="--sx:12%;--sy:34%;--delay:0s;--tw:3.85s">⋆</span><span class="intake-spark" style="--sx:36%;--sy:56%;--delay:0.65s;--tw:4.15s">⋆</span><span class="intake-spark" style="--sx:60%;--sy:30%;--delay:1.05s;--tw:3.55s">⋆</span><span class="intake-spark" style="--sx:84%;--sy:50%;--delay:0.35s;--tw:3.95s">⋆</span><span class="intake-spark" style="--sx:26%;--sy:66%;--delay:1.55s;--tw:3.75s">⋆</span><span class="intake-spark" style="--sx:50%;--sy:44%;--delay:0.18s;--tw:4.05s">⋆</span></span><span class="intake-pill-label">Vyfotit jídlo (AI)</span></button>
+<button type="button" id="btn-add-manual-meal" class="intake-hero-pill intake-hero-pill--fav" onclick="window.addToFavorites()"><span class="intake-pill-sparkles" aria-hidden="true"><span class="intake-spark" style="--sx:14%;--sy:32%;--delay:0s;--tw:3.9s">⋆</span><span class="intake-spark" style="--sx:38%;--sy:58%;--delay:0.7s;--tw:4.2s">⋆</span><span class="intake-spark" style="--sx:62%;--sy:28%;--delay:1.1s;--tw:3.5s">⋆</span><span class="intake-spark" style="--sx:82%;--sy:48%;--delay:0.4s;--tw:4s">⋆</span><span class="intake-spark" style="--sx:28%;--sy:68%;--delay:1.6s;--tw:3.7s">⋆</span><span class="intake-spark" style="--sx:52%;--sy:42%;--delay:0.2s;--tw:4.1s">⋆</span></span><span class="intake-pill-label" data-i18n="btn_fav_save">Uložit do oblíbených</span></button>
+<button type="button" class="intake-hero-pill intake-hero-pill--ai intake-hero-pill--ai-rich" onclick="window.pickFoodPhoto()"><span class="intake-pill-sparkles" aria-hidden="true"><span class="intake-spark" style="--sx:12%;--sy:34%;--delay:0s;--tw:3.85s">⋆</span><span class="intake-spark" style="--sx:36%;--sy:56%;--delay:0.65s;--tw:4.15s">⋆</span><span class="intake-spark" style="--sx:60%;--sy:30%;--delay:1.05s;--tw:3.55s">⋆</span><span class="intake-spark" style="--sx:84%;--sy:50%;--delay:0.35s;--tw:3.95s">⋆</span><span class="intake-spark" style="--sx:26%;--sy:66%;--delay:1.55s;--tw:3.75s">⋆</span><span class="intake-spark" style="--sx:50%;--sy:44%;--delay:0.18s;--tw:4.05s">⋆</span></span><span class="intake-pill-label" data-i18n="btn_ai_photo">Vyfotit jídlo (AI)</span></button>
 </div>
 <input type="file" id="food-photo-input" accept="image/*" capture="environment" style="display:none" aria-hidden="true">
 <p style="font-size:9px;color:var(--muted);margin-top:10px;line-height:1.35">Fotka se odešle do Google Gemini (klíč v profilu). AI odhadne kcal a makra; po potvrzení se zapíše do dnešního příjmu, grafu a historie.</p>
@@ -3520,23 +3698,28 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 </div>
 <div id="section-profile" class="app-section-anchor" aria-hidden="true"></div>
 <div id="profile-toggle-btn" class="toggle-btn toggle-btn--profile" onclick="window.toggleProfileArea()">
-<span>Profil &amp; nastavení (Hvězdy, BMI, BMR)</span>
+<span data-i18n="profile_toggle">Profil &amp; nastavení (Hvězdy, BMI, BMR)</span>
 <span id="profile-arrow">▼</span>
 </div>
 <div id="profile-area" class="toggle-content">
 <div id="profile-card" class="card profile-hero-card profile-hero--unset">
-<div class="profile-hero-kicker">Profil &amp; nastavení</div>
-<p class="profile-hero-hint">BMI, BMR, hvězdy a AI — data zůstávají v tomto prohlížeči.</p>
-<div class="profile-hero-section-label">Pohlaví</div>
+<div class="profile-hero-kicker" data-i18n="profile_kicker">Profil &amp; nastavení</div>
+<p class="profile-hero-hint" data-i18n="profile_hint">BMI, BMR, hvězdy a AI — data zůstávají v tomto prohlížeči.</p>
+<div class="profile-hero-section-label" data-i18n="profile_lang">Jazyk rozhraní</div>
+<div class="gender-grid" style="margin-bottom:10px;">
+<button type="button" id="lang-cs" class="gender-btn" onclick="window.setUiLang('cs')" data-i18n="lang_cs">Čeština</button>
+<button type="button" id="lang-en" class="gender-btn" onclick="window.setUiLang('en')" data-i18n="lang_en">English</button>
+</div>
+<div class="profile-hero-section-label" data-i18n="profile_gender">Pohlaví</div>
 <div class="gender-grid">
-<div id="g-male" class="gender-btn" onclick="window.setGender('male')">Muž</div>
-<div id="g-female" class="gender-btn" onclick="window.setGender('female')">Žena</div>
+<div id="g-male" class="gender-btn" onclick="window.setGender('male')" data-i18n="gender_male">Muž</div>
+<div id="g-female" class="gender-btn" onclick="window.setGender('female')" data-i18n="gender_female">Žena</div>
 </div>
 <div class="profile-grid-2">
-<input type="number" id="p-start" step="0.1" inputmode="decimal" placeholder="Start váha">
-<input type="number" id="p-final" step="0.1" inputmode="decimal" placeholder="Cílová váha">
-<input type="number" id="p-age" inputmode="numeric" placeholder="Věk">
-<input type="number" id="p-height" inputmode="numeric" placeholder="Výška">
+<input type="number" id="p-start" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_start_w" placeholder="Start váha">
+<input type="number" id="p-final" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_target_w" placeholder="Cílová váha">
+<input type="number" id="p-age" inputmode="numeric" data-i18n-placeholder="ph_age" placeholder="Věk">
+<input type="number" id="p-height" inputmode="numeric" data-i18n-placeholder="ph_height" placeholder="Výška">
 </div>
 <div class="profile-inset-block">
 <div class="profile-hero-section-label">BMR / aktivita (InBody nebo odhad)</div>
@@ -3611,8 +3794,8 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <p style="font-size:9px;color:var(--muted);margin:0 0 10px;line-height:1.45;font-weight:700;">Stejné intro jako při prvním spuštění (včetně videa z nastavení výše). Průvodce se nespustí. Při přehrání se stránka srovná nahoru (kvůli přesnému přechodu loga do hlavičky). <strong style="color:var(--text);font-weight:800;">Wordmark IRON | CORE je typograficky stejný jako v hlavičce aplikace</strong> — při závěru intra je vodorovně uprostřed obrazovky, stejná značka jako nahoře v aplikaci.</p>
 <button type="button" onclick="window.previewIntroExperience()" class="btn btn-outline" style="width:100%;border-color:rgba(56,189,248,0.55);color:#67e8f9;font-weight:900;padding:12px;font-size:11px">Přehrát intro</button>
 </div>
-<button onclick="window.saveProfile()" class="btn btn-gold" style="margin-top:10px">Uložit profil</button>
-<button onclick="window.askReset()" class="btn btn-outline" style="margin-top:10px">Reset Dat ⚠</button>
+<button onclick="window.saveProfile()" class="btn btn-gold" style="margin-top:10px" data-i18n="btn_save_profile">Uložit profil</button>
+<button onclick="window.askReset()" class="btn btn-outline" style="margin-top:10px" data-i18n="btn_reset_data">Reset Dat ⚠</button>
 </div>
 </div>
 </div>
@@ -3634,6 +3817,793 @@ return;
 }
 } catch(e) {}
 })();
+var APP_VERSION_TAG = 'v95.4.152';
+var I18N = {
+cs: {
+doc_title: 'Mise — Iron Core',
+app_info_clean: 'čistá data',
+nav_home_aria: 'Domů — začátek aplikace',
+nav_sections_aria: 'Sekce aplikace',
+nav_progress: 'Progres',
+nav_energy: 'Energie',
+nav_mission: 'Mise',
+nav_log: 'Zápis',
+nav_profile: 'Profil',
+stat_mission_goal: 'Cíl Mise',
+stat_target_weight: 'Cílová Váha',
+stat_current_weight: 'Aktuální Váha',
+stat_waist_prefix: 'Pas:',
+stat_pas_line: 'Pas: {v} cm',
+stat_bic_line: 'Biceps: {v} cm',
+stat_shoulders_short: 'Ramena:',
+stat_bmi: 'BMI Index',
+card_roadmap_title: 'Roadmapa váhy & proporcí (Body Recomp)',
+motor_computing: ' MOTOR: Výpočet…',
+graph_day: 'Denní',
+graph_week: 'Týdenní',
+graph_month: 'Měsíční',
+fat_burn_title_html: 'Spalování<br>tuku',
+fat_barometer_aria: 'Klikni pro detail signálu a rozpočet tuku / svalů',
+roadmap_kicker: 'Roadmap válce do cíle',
+cap_goal: 'Cíl',
+cap_prediction: 'Predikce',
+lbl_weight: 'Váha',
+lbl_waist: 'Pas',
+lbl_chest: 'Hrudník',
+lbl_thigh: 'Stehno',
+lbl_biceps: 'Biceps',
+lbl_shoulders: 'Ramena',
+measure_toggle: 'Zapsat váhu a měření',
+btn_save_progress: 'Uložit progres',
+energy_card_title: 'Energetická bilance',
+star_neon_caption: 'Neon Hvězdy (700+)',
+star_rank_life: 'Celoživotní Rank',
+star_rank_legend: 'Legendární Rank',
+star_big_suffix: 'velká',
+bal_hint: 'Náhled posledních 30 dní (datum záznamu). Starší dny zůstávají v paměti — Upravit historii.',
+stat_intake: 'Příjem',
+stat_burn_total: 'Celkový výdej',
+stat_bmr_prefix: 'Bazál',
+stat_deficit: 'Deficit dne',
+stat_deficit_sub: 'po odečtu příjmu',
+macro_monitoring: 'Monitoring Maker (Dnešní bilance)',
+mission_today: 'Dnešní mise',
+mission_loading: 'Načítám cíl dne…',
+mission_wait: 'Čekám na první záznam.',
+macro_cap_ceiling: 'Strop',
+macro_p: 'Bílkoviny',
+macro_f: 'Tuky',
+macro_c: 'Sacharidy',
+macro_k_goal: 'Cíl',
+macro_k_remain: 'KCAL · zbývá sníst',
+macro_k_over: 'KCAL · nad cílem',
+mode_day_label: 'Režim dne (Dnešní mise)',
+diet_style_label: 'Styl stravy',
+fasting_label: 'Přerušovaný půst',
+burn_kicker: 'Výdej energie',
+burn_hint: 'Zapisuješ jen <strong style="color:var(--green-neon)">pohyb</strong> (spálené kcal). Příjem jídla je v bloku <strong style="color:var(--gold)">Příjem energie</strong> níže.',
+burn_label_m: 'Kolik kcal jsi přidal pohybem?',
+burn_label_f: 'Kolik kcal jsi přidala pohybem?',
+intake_kicker: 'Příjem energie',
+intake_hint: 'Zapisuješ <strong style="color:var(--gold)">jídlo a makra</strong> (B/T/S). Výdej pohybu je v bloku výše.',
+intake_history_label: 'Dnešní historie záznamů',
+btn_undo_last: 'Smazat poslední záznam ↩',
+intake_quick_label: 'Rychlý zápis jídla',
+intake_commit: 'Zapsat do příjmu',
+intake_routines: 'Rutina a oblíbená',
+intake_manual_toggle: 'Ruční zápis oblíbeného jídla',
+intake_fav_add: 'Přidat do oblíbených',
+btn_fav_save: 'Uložit do oblíbených',
+btn_ai_photo: 'Vyfotit jídlo (AI)',
+hist_toggle: 'Upravit historii (Váha, Pas & Kalorie)',
+hist_show_older: 'Zobrazit starší dny',
+btn_apply: 'Použít',
+hist_weight_edit: 'Historie váhy & proporcí úprava',
+hist_kcal_edit: 'Historie kalorií úprava',
+profile_toggle: 'Profil & nastavení (Hvězdy, BMI, BMR)',
+profile_kicker: 'Profil & nastavení',
+profile_hint: 'BMI, BMR, hvězdy a AI — data zůstávají v tomto prohlížeči.',
+profile_lang: 'Jazyk rozhraní',
+lang_cs: 'Čeština',
+lang_en: 'English',
+profile_gender: 'Pohlaví',
+gender_male: 'Muž',
+gender_female: 'Žena',
+ph_start_w: 'Start váha',
+ph_target_w: 'Cílová váha',
+ph_age: 'Věk',
+ph_height: 'Výška',
+btn_save_profile: 'Uložit profil',
+btn_reset_data: 'Reset Dat ⚠',
+common_now: 'Teď',
+common_start: 'Start',
+tooltip_weight_delta: 'Změna od startovní váhy mise (ne oproti cílové {goal} — pokud není cíl, jde o váhu)',
+tooltip_gauge_cap: 'Predikce při {goal} kg — baseline z prvních 14 dní měření; u obvodů se cíl mění jen při novém historickém maximu (ne při denním výkyvu).',
+tooltip_gauge_cap_no_w: 'Predikce při cílové váze: baseline 14 dní, update jen při novém max.',
+tooltip_gauge_val: 'Teď − predikce: kolik cm jsi nad/pod modelem při cílové váze',
+tooltip_gauge_chest: 'Odchylka od predikce při cílové váze — u hrudníku/stehna je běžná větší rozptyl (tuk, měření). Barvy jsou proto mírnější než u bicepsu.',
+motor_goal: ' MOTOR: Cíl {date} ({eta} dní • {pace})',
+motor_watch: ' MOTOR: Sledujeme progres…',
+pace_adaptive: 'adaptivní tempo',
+pace_line: 'Tempo: {rate} kg/týden • ETA: O {fast} / R {mid} / K {slow} dní • důvěra {conf}<br>Odhad: tuk <span style="color:{fatColor};font-weight:900">{fat}</span> • svaly <span style="color:{muscleColor};font-weight:900">{muscle}</span>',
+pace_idle: 'Tempo: čekám na trend • důvěra {conf}<br>Odhad: tuk <span style="color:{fatColor};font-weight:900">{fat}</span> • svaly <span style="color:{muscleColor};font-weight:900">{muscle}</span>',
+mission_remain: 'Zbývá <span style="color:{color};font-weight:900;text-shadow:0 0 8px rgba(0,0,0,0.35)">sníst</span>: {kcal} kcal a {p} g B',
+mission_fill_profile: 'Doplň profil (cílová váha / výška / věk) pro přesnou denní misi',
+mission_entries: 'Záznamů dnes: {n} • Režim: {mode}',
+mode_train: 'Trénink',
+mode_refeed: 'Refeed',
+mode_couch: 'Gaučing',
+lock_done: 'Uzávěrka dne: uzamčeno',
+lock_ready: 'Uzávěrka dne: připraveno',
+lock_wait: 'Uzávěrka dne: čeká',
+report_a: 'Nejprve doplň profil. Pak dostaneš přesné denní hodnocení mise.',
+report_b: 'Skvěle. Příjem a výdej jsou v rovnováze pro redukci tuku.',
+report_c: 'Dobrá práce. Jsi blízko vrcholu, drž tempo a dolaď makra.',
+report_d: 'Mise běží. Přidávej průběžné zápisy a srovnávej příjem s výdejem.',
+report_e: 'Den je připraven. První zápis spustí misi naplno.',
+stat_bmr_line: 'Bazál {bmr} · režim {tdee} + pohyb {move}',
+macro_title_base: 'Monitoring Maker',
+macro_tail_targets: ' • cíle z {w}',
+macro_weight_missing: '— (doplň profil / váhu)',
+ph_in_w: 'Váha doma (kg, stále stejně — např. ráno nacisto)',
+ph_waist: 'Pas (cm)',
+ph_chest: 'Hrudník (cm)',
+ph_thigh: 'Stehno (cm)',
+ph_biceps: 'Biceps (cm)',
+ph_shoulders: 'Ramena (cm)',
+coach_skip: 'Přeskočit',
+coach_next: 'Další',
+placeholder_kcal: 'kcal',
+placeholder_food: 'Název jídla…',
+legend_elite: 'Legendární elita (',
+star_rank_plain: '0 velká',
+burn_hint_couch: 'Režim <strong style="color:#e2e8f0">gaučing</strong>: výdej počítáme jako velmi nízký NEAT (vaření, základní chůze v bytě). Sem zapisuj jen <strong style="color:var(--green-neon)">kcal navíc</strong> za skutečný pohyb (procházka, kardio…).',
+burn_hint_train: '<strong style="color:var(--green-neon)">Trénink</strong>: základ výdeje ~1,38× bazál (úroveň aktivity pod tlačítkem to jemně posouvá); sem přidej kcal za sport a pohyb navíc.',
+burn_hint_refeed: '<strong style="color:#f472b6">Refeed</strong>: výdej mírně nad gaučingem; jídelní plán řídí sacharidy — klepni na <strong>?</strong> u tlačítka Refeed.',
+modal_title_confirm: 'Potvrzení',
+modal_default_text: 'Opravdu chcete akci provést?',
+btn_cancel: 'Zrušit',
+btn_modal_log: 'Zapsat',
+btn_modal_delete: 'Smazat',
+modal_add_ai_meal: 'Přidat „{name}“ — {kcal} kcal, B{p} / T{f} / S{c} ?',
+modal_save_progress_q: 'Zapsat dnešní progres do paměti?',
+modal_save_entry_q: 'Uložit {type} ({kcal} kcal)?',
+modal_entry_food: 'Jídlo',
+modal_entry_move: 'Pohyb',
+modal_remove_fav: 'Smazat jídlo ze seznamu?',
+modal_undo_entry: 'Smazat: {name} ({kcal} kcal)?',
+modal_save_profile_q: 'Uložit profil?',
+modal_reset_all_q: 'SMAZAT VŠE?',
+modal_history_w_q: 'Data dne {date}?',
+modal_history_k_q: 'Kcal dne {date}?',
+modal_reset_day_q: 'Reset dne {date}?',
+flash_need_value: 'Zadej aspoň jednu hodnotu.',
+mb_title: 'Uzávěrka & historie mise',
+aria_close: 'Zavřít',
+mb_kicker: 'Hlášení dne',
+mb_hint_nav: 'Potáhni prstem zleva doprava = starší den, zprava doleva = novější — karta se otočí kolem svislé osy. Na PC: šipky ← →. Rolování se zapne jen když se obsah nevejde na kartu.',
+mb_grid_eat: 'Příjem',
+mb_grid_tgt: 'Cíl dne',
+mb_grid_burn: 'Celkový výdej',
+mb_grid_def: 'Deficit dne',
+mb_grid_entries: 'Záznamů',
+mb_grid_score: 'Skóre mise — rovnováha',
+mb_grid_score_prefix: 'Skóre mise — ',
+mb_grid_score_balance: 'rovnováha',
+mb_grid_mode_style: 'Režim · styl',
+mb_meals_title: 'Záznamy dne (jídlo / pohyb)',
+mb_macros_vs: 'Snědeno vs. cíl (B / T / S)',
+mb_arrow_tgt: '→ cíl',
+mb_suffix_today: ' · dnes',
+mb_counter_today: 'Den {n} / 30 · dnes',
+mb_counter_past: 'Den {n} / 30 · před {days} dny',
+lock_hist_data: 'Historie — kompletní přehled uzávěrky',
+lock_hist_no: 'Historie — základní přehled dne',
+lock_hist_data_tip: 'Automatický štítek: ten den byly záznamy jídel, platný cíl kcal a snědeno aspoň cca 82 % cíle. Slouží jen k přehledu v historii, ne jako „známka“.',
+lock_hist_no_tip: 'Automatický štítek: u tohoto dne nebyl splněn práh uzávěrky (např. bez cíle kcal, méně zápisů nebo příjem pod cca 82 % cíle). Nejde o chybu ani nedodělek — jen o jiný typ přehledu.',
+praise_0: 'Doplň profil (váha, výška, věk) — pak tu uvidíš přesnější pochvaly i analýzu.',
+praise_1: 'Den čeká na první zápis. Malý krok stačí — mise pak dostane jasný tvar.',
+praise_2: 'Špičkový den. Příjem a výdej držíš v pásmu, kde tělo může spalovat pohodlně.',
+praise_2_refeed: ' Refeed má svá pravidla — drž sacharidy v centru.',
+praise_3: 'Solidní výkon. Jsi blízko ideální rovnováze — makra doladíš dalšími zápisy.',
+praise_3_refeed: ' Refeed má svá pravidla — drž sacharidy v centru.',
+praise_4: 'Drž směr. Každý zápis ti ukáže vzorce — pokračuj v pravidelnosti.',
+praise_4_refeed: ' Refeed má svá pravidla — drž sacharidy v centru.',
+coach_s1_t: 'Krok 1/4 • Měření',
+coach_s1_x: 'Otevři blok a zapiš váhu a obvody — základ grafů a trendů.',
+coach_s2_t: 'Krok 2/4 • Jídlo',
+coach_s2_x: 'Ruční zápis jídla nebo foto AI — promítá se do bilance.',
+coach_s3_t: 'Krok 3/4 • Režim dne',
+coach_s3_x: 'Gaučing = nízký výdej, trénink = 1,38× bazál, refeed = řízené sacharidy (viz ?).',
+coach_s4_t: 'Krok 4/4 • Profil',
+coach_s4_x: 'Tady API klíč, intro video a uložení profilu.',
+coach_done: 'Dokončit',
+coach_flash_done: 'Průvodce hotov. IRON CORE je připraven.',
+chart_axis_kcal: '{n} kcal',
+chart_pill_goal_tip: 'Cíl: BMR + kredit z pohybu (0–500 kcal: 50 %, 500–1200: 25 %, nad 1200: 10 %) — při velkém součtu pohybů neroste příjem tak rychle jako deficit.',
+chart_today_goal: 'Dnes cíl: {n}',
+chart_today_min: 'Dnes min: {n}',
+chart_limit_lbl: 'LIMIT:',
+chart_neon_lbl: 'NEON:',
+bal_lbl_in: 'Příjem',
+bal_lbl_move: 'Pohyb',
+bal_lbl_win: 'Vítěz',
+bal_g_ceiling: 'g (strop)',
+stack_none: 'Zatím nic',
+stack_10: '10/10 → +1 velká · nový cyklus',
+aria_star_neon: 'Detail neon hvězd',
+aria_star_gold: 'Detail zlatých hvězd',
+star_neon_dyn: 'Neon Hvězdy ({k}+)',
+log_out: 'výdej',
+log_macros_unknown: 'makra —',
+hist_w_kg: 'Váha (kg)',
+hist_waist: 'Pas (cm)',
+hist_chest: 'Hrudník (cm)',
+hist_thigh: 'Stehno (cm)',
+hist_biceps: 'Biceps (cm)',
+hist_shoulders: 'Ramena (cm)',
+hist_food: 'Jídlo',
+hist_move: 'Pohyb',
+hist_save: 'Uložit',
+hist_reset: 'Reset',
+meal_sum: 'Souhrn dne: příjem {eat} kcal · pohyb {burn} kcal · makra B {p} / T {f} / S {c} g',
+meal_none_detail: 'Žádný podrobný záznam jídel (jen souhrnné hodnoty dne).',
+meal_move_line: 'Pohyb / výdej',
+refeed_h3: 'Refeed — nezastavit progres',
+refeed_muted: 'Cíl je doplnit <strong>komplexní sacharidy</strong> a výkon, ne udělat den tuku a rychlých cukrů. Platí styl: <strong>{style}</strong> (jemně dle dnešního dne v datech).',
+refeed_keto_yes: '<span class="refeed-info-good">Spíš ano:</span> řízený objem komplexních sacharidů kolem tréninku (rýže, brambory, oves), bílkoviny drž. Tuk v refeed den <strong>nepřehánět</strong> — není to den „másla navíc“.',
+refeed_keto_no: '<span class="refeed-info-bad">Určitě ne!</span> med, cukr, sladké pečivo, sladké nápoje — vyhodí z ketózy a snadno přejíš prázdné kcal.',
+refeed_low_yes: '<span class="refeed-info-good">Spíš ano:</span> celozrnné přílohy, ovoce s mírou, kvalitní sacharidy (rýže, brambory, kroupy).',
+refeed_low_no: '<span class="refeed-info-bad">Určitě ne!</span> bílé pečivo, sladké limonády, smažené, dezerty — prázdné kcal a chutě na další dny.',
+refeed_std_yes: '<span class="refeed-info-good">Spíš ano:</span> komplexní sacharidy (rýže, brambory, oves, celozrnné pečivo), ovoce, zelenina; drž se denního cíle kcal.',
+refeed_std_no: '<span class="refeed-info-bad">Určitě ne!</span> přehnaný tuk ve fast foodu, litry cukru v pití, alkohol — typicky nejvíc brzdí redukci.',
+refeed_li1: 'Refeed = glykogen a výkon, ne cheat day.',
+refeed_li2: 'Tuky a jednoduché cukry v ten den nejsou „náhrada“ za sacharidy.',
+refeed_footer: 'Makro stropy v aplikaci berou refeed v úvahu — neřež si je nahodile mimo plán.',
+star_green_h3: 'Neonové hvězdy ({k}+ kcal pohybu / den)',
+star_green_p1: 'Za každý <strong>kalendářní den</strong>, kdy máš v bilanci zapsaný pohyb aspoň <span class="star-info-k">{k}</span> kcal, dostaneš <strong>1 malou</strong> neonovou hvězdu — jde o pohyb nad bazál (hodnota „Pohyb“ u dne).',
+star_green_p2: '<strong>Velká</strong> neonová = každých <strong>10 malých</strong> (celoživotně). Pod rankem se ukáže velká hvězda s číslem, kolik jich máš.',
+star_green_p3: 'Stav: <span class="star-info-k">{small} malých</span> · <span class="star-info-k">{big} velká</span> · do další velké zbývá <strong>{next}</strong> malých (v běžícím cyklu 1–10).',
+star_gold_h3: 'Zlaté hvězdy ({k}+ kcal pohybu / den)',
+star_gold_p1: 'Stejný princip jako neon — <strong>1 malá za den</strong>, ve kterém máš pohyb aspoň <span class="star-info-z">{k}</span> kcal (minimum podle pohlaví je {minK} kcal; výš můžeš v profilu).',
+star_gold_p2: '<strong>Velká</strong> zlatá = každých <strong>10 malých</strong>. Velká hvězda s číslem pod „Legendární Rank“.',
+star_gold_p3: 'Stav: <span class="star-info-z">{small} malých</span> · <span class="star-info-z">{big} velká</span> · do další velké zbývá <strong>{next}</strong> malých.',
+star_footer: 'Pohyb = hodnota „Pohyb“ u dne (kcal nad bazál, kterou zapisuješ v aplikaci).',
+intro_skip: 'Přeskočit',
+fav_badge: 'OBLÍBENÉ',
+fav_noname: 'Bez názvu',
+fav_save: 'Uložit',
+fav_remove_aria: 'Smazat oblíbené jídlo',
+fast_idle: 'Půst není aktivní.',
+fast_running: 'Půst běží ({proto}) • do konce: {time}',
+fast_feeding: 'Jídelní okno ({proto}) • zbývá: {time}',
+fast_no_timer: 'Bez časovaného půstu • Sacharidy: {cur}/{max} g',
+fast_carbs_line: ' • Sacharidy: {cur}/{max} g',
+notif_fast_start: 'Půst začal',
+notif_fast_start_body: 'Váš půst právě začal, tělo regeneruje.',
+notif_feed_window: 'Jídelní okno',
+notif_feed_body: 'Zbývá cca 1 hodina jídelního okna, nezapomeň na bílkoviny.',
+notif_carb_title: 'Sacharidy přes limit',
+notif_carb_body: 'Máš {cur} g S, cíl je max {max} g. První krok: odkrojit zdroje cukru.',
+gemini_err: 'API chyba',
+gemini_empty: 'Prázdná odpověď AI',
+gemini_bad_kcal: 'Neplatné kcal v odpovědi',
+gemini_no_json: 'AI nevrátila JSON',
+flash_analyzing: 'Analyzuji fotku…',
+flash_need_key: 'V profilu ulož API klíč Google Gemini (AI Studio), pak znovu vyfoť.',
+flash_read_err: 'Chyba čtení souboru',
+flash_photo_ai: 'Foto AI: ',
+ai_photo_name_fallback: 'Foto jídlo',
+bmi_cat_under: 'Podváha',
+bmi_cat_norm: 'Norma',
+bmi_cat_over: 'Nadváha',
+bmi_cat_ob1: 'Obezita I',
+bmi_cat_ob2: 'Obezita II',
+bmi_cat_ob3: 'Obezita III',
+bmi_lbl_start: 'Start {start} · {cat}',
+bmi_title_ref_down: 'BMI lepší než referenční maximum (start, nejvyšší váha v historii, případně váha u InBody)',
+bmi_title_ref_up: 'BMI nad referenčním maximem — zkontroluj záznamy nebo zadanou referenční váhu',
+bmi_title_ref_flat: 'BMI na úrovni referenčního maxima',
+bmi_title_start_down: 'BMI pod startovým BMI z profilu',
+bmi_title_start_up: 'BMI nad startovým BMI z profilu',
+bmi_title_start_flat: 'BMI u startového BMI',
+p_gold_limit_lbl: 'Limit Zlaté Hvězdy (min. {min} kcal)',
+intro_note_own: 'Vlastní intro (uložené v prohlížeči) je aktivní. Na webu/mobilu zadej níže URL nebo nahraj iron-core-intro.mp4 do repa.',
+intro_note_url: 'Intro se načítá ze zadané cesty/URL — vhodné pro GitHub Pages a iPhone.',
+intro_note_default: 'Bez videa v prohlížeči běží stylizované intro. Na telefonu z webu nahraj iron-core-intro.mp4 vedle index.html (nebo zadej URL níže). Doporučeno do 5 s, max 16 MB.',
+macro_legend_red_line: 'Červená čára = strop (u makro g shodné s číslem nahoře; u KCAL cílový příjem). Plnění od spodu = snědeno vůči stropu/cíli. U KCAL dole = kolik kcal ještě můžeš sníst. Nad čárou = překročení (červené sklo).',
+mission_report_idle: 'Denní hlášení čeká na první průběžný zápis.',
+burn_ph_kcal: 'např. 350',
+burn_orb_line1: 'Zapsat',
+burn_orb_line2: 'pohyb',
+burn_orb_sub: 'Neon hvězdy ↑',
+burn_orb_aria: 'Zapsat pohyb — přidat kcal do výdeje',
+mode_couch_title: 'Gaučing',
+mode_couch_sub: 'rest day',
+mode_train_title: 'TRÉNINK | PRÁCE',
+mode_train_sub: 'běžný pracovní den default',
+mode_refeed_sub: 'komplexní sacharidy — ne tuky a cukry',
+mode_refeed_title: 'Refeed day',
+fast_start_btn: 'Start',
+activity_label: 'Úroveň aktivity',
+activity_title: 'Platí u režimu Trénink — jemně mění násobič výdeje',
+act_default: '— výchozí: běžný pracovní den —',
+act_sedentary: 'Sedavé (1,20×) — doma/PC, minimum kroků',
+act_light: 'Lehká (1,38×) — procházka ~3 km, lehký úklid',
+act_moderate: 'Běžný pracovní den (1,55×) — procházka ~5 km, běžný den na nohou',
+act_active: 'Aktivní (1,68×) — 8+ km, náročnější sport, fyzická práce',
+act_strength: 'Silový 4× týdně ~80 min (1,66×) — posilovna + běžný pohyb',
+act_very: 'Velmi aktivní (1,78×) — celodenní těžká práce / velmi hodně kroků',
+daily_lock_aria: 'Otevřít podrobné hlášení uzávěrky dne',
+refeed_help_aria: 'Co jíst u refeedu',
+meal_bubble_aria: 'Detail dne — jídla',
+star_bubble_aria: 'Jak se počítají hvězdy',
+refeed_bubble_aria: 'Refeed — co jíst',
+recomp_bubble_aria: 'Signál hubnutí tuku',
+gauge_chest_aria: 'Tachometr hrudníku',
+kcal_warn_1: 'Nad dnešním cílem — trénink není volná jízda.',
+kcal_warn_2: 'Nad cílem — refeed má taky horní mez.',
+kcal_warn_0: 'Nad cílem — u gaučingu je strop nižší.',
+common_max: 'max',
+macro_7d_avg: ' kg (7d Ø)',
+style_keto: 'Keto',
+style_lowcarb: 'Low carb',
+style_standard: 'Standard'
+},
+en: {
+doc_title: 'Mission — Iron Core',
+app_info_clean: 'clean data',
+nav_home_aria: 'Home — top of app',
+nav_sections_aria: 'App sections',
+nav_progress: 'Progress',
+nav_energy: 'Energy',
+nav_mission: 'Mission',
+nav_log: 'Log',
+nav_profile: 'Profile',
+stat_mission_goal: 'Mission goal',
+stat_target_weight: 'Target weight',
+stat_current_weight: 'Current weight',
+stat_waist_prefix: 'Waist:',
+stat_pas_line: 'Waist: {v} cm',
+stat_bic_line: 'Biceps: {v} cm',
+stat_shoulders_short: 'Shoulders:',
+stat_bmi: 'BMI',
+card_roadmap_title: 'Weight & proportions roadmap (Body Recomp)',
+motor_computing: ' ENGINE: Calculating…',
+graph_day: 'Day',
+graph_week: 'Week',
+graph_month: 'Month',
+fat_burn_title_html: 'Fat<br>burn',
+fat_barometer_aria: 'Tap for fat / muscle signal detail',
+roadmap_kicker: 'Roadmap tubes to goal',
+cap_goal: 'Goal',
+cap_prediction: 'Forecast',
+lbl_weight: 'Weight',
+lbl_waist: 'Waist',
+lbl_chest: 'Chest',
+lbl_thigh: 'Thigh',
+lbl_biceps: 'Biceps',
+lbl_shoulders: 'Shoulders',
+measure_toggle: 'Log weight & measurements',
+btn_save_progress: 'Save progress',
+energy_card_title: 'Energy balance',
+star_neon_caption: 'Neon stars (700+)',
+star_rank_life: 'Lifetime rank',
+star_rank_legend: 'Legend rank',
+star_big_suffix: 'large',
+bal_hint: 'Last 30 days preview (log date). Older days stay stored — Edit history.',
+stat_intake: 'Intake',
+stat_burn_total: 'Total burn',
+stat_bmr_prefix: 'BMR',
+stat_deficit: 'Daily deficit',
+stat_deficit_sub: 'after intake',
+macro_monitoring: 'Macro monitor (Today)',
+mission_today: 'Today’s mission',
+mission_loading: 'Loading daily target…',
+mission_wait: 'Waiting for the first log.',
+macro_cap_ceiling: 'Ceiling',
+macro_p: 'Protein',
+macro_f: 'Fat',
+macro_c: 'Carbs',
+macro_k_goal: 'Goal',
+macro_k_remain: 'KCAL · left to eat',
+macro_k_over: 'KCAL · over goal',
+mode_day_label: 'Day mode (Mission)',
+diet_style_label: 'Diet style',
+fasting_label: 'Intermittent fasting',
+burn_kicker: 'Energy output',
+burn_hint: 'Log only <strong style="color:var(--green-neon)">activity</strong> (kcal burned). Food intake is under <strong style="color:var(--gold)">Energy intake</strong> below.',
+burn_label_m: 'How many kcal did you add from activity?',
+burn_label_f: 'How many kcal did you add from activity?',
+intake_kicker: 'Energy intake',
+intake_hint: 'Log <strong style="color:var(--gold)">food and macros</strong> (P/F/C). Activity is in the block above.',
+intake_history_label: 'Today’s log history',
+btn_undo_last: 'Undo last entry ↩',
+intake_quick_label: 'Quick meal log',
+intake_commit: 'Log to intake',
+intake_routines: 'Routines & favorites',
+intake_manual_toggle: 'Manual favorite meal',
+intake_fav_add: 'Add to favorites',
+btn_fav_save: 'Save to favorites',
+btn_ai_photo: 'Photo meal (AI)',
+hist_toggle: 'Edit history (Weight, Waist & Calories)',
+hist_show_older: 'Show older days',
+btn_apply: 'Apply',
+hist_weight_edit: 'Weight & proportions history',
+hist_kcal_edit: 'Calorie history edit',
+profile_toggle: 'Profile & settings (Stars, BMI, BMR)',
+profile_kicker: 'Profile & settings',
+profile_hint: 'BMI, BMR, stars & AI — data stays in this browser.',
+profile_lang: 'Interface language',
+lang_cs: 'Čeština',
+lang_en: 'English',
+profile_gender: 'Gender',
+gender_male: 'Male',
+gender_female: 'Female',
+ph_start_w: 'Start weight',
+ph_target_w: 'Target weight',
+ph_age: 'Age',
+ph_height: 'Height',
+btn_save_profile: 'Save profile',
+btn_reset_data: 'Reset data ⚠',
+common_now: 'Now',
+common_start: 'Start',
+tooltip_weight_delta: 'Change from mission start weight (not vs. target {goal})',
+tooltip_gauge_cap: 'Forecast at {goal} kg — baseline from the first 14 days; circumference targets update only on a new historical max (not daily noise).',
+tooltip_gauge_cap_no_w: 'Forecast at goal weight: 14-day baseline; updates only on new max.',
+tooltip_gauge_val: 'Now minus forecast: cm above/below the model at goal weight.',
+tooltip_gauge_chest: 'Deviation from forecast — chest/thigh often vary more (fat, measurement). Colors are softer than biceps.',
+motor_goal: ' ENGINE: Goal {date} ({eta} d • {pace})',
+motor_watch: ' ENGINE: Tracking progress…',
+pace_adaptive: 'adaptive pace',
+pace_line: 'Pace: {rate} kg/wk • ETA: F {fast} / R {mid} / S {slow} d • conf. {conf}<br>Est.: fat <span style="color:{fatColor};font-weight:900">{fat}</span> • muscle <span style="color:{muscleColor};font-weight:900">{muscle}</span>',
+pace_idle: 'Pace: waiting for trend • conf. {conf}<br>Est.: fat <span style="color:{fatColor};font-weight:900">{fat}</span> • muscle <span style="color:{muscleColor};font-weight:900">{muscle}</span>',
+mission_remain: 'Left to <span style="color:{color};font-weight:900;text-shadow:0 0 8px rgba(0,0,0,0.35)">eat</span>: {kcal} kcal & {p} g P',
+mission_fill_profile: 'Complete profile (target weight / height / age) for an accurate daily mission.',
+mission_entries: 'Logs today: {n} • Mode: {mode}',
+mode_train: 'Training',
+mode_refeed: 'Refeed',
+mode_couch: 'Rest',
+lock_done: 'Day close: locked',
+lock_ready: 'Day close: ready',
+lock_wait: 'Day close: waiting',
+report_a: 'Complete your profile first. Then you’ll get a precise daily score.',
+report_b: 'Great. Intake and burn line up for fat loss.',
+report_c: 'Good work. Near the top — keep pace and tune macros.',
+report_d: 'Mission running. Keep logging and balance intake vs. burn.',
+report_e: 'Day is ready. First log kicks the mission into gear.',
+stat_bmr_line: 'BMR {bmr} · mode {tdee} + activity {move}',
+macro_title_base: 'Macro monitor',
+macro_tail_targets: ' • targets from {w}',
+macro_weight_missing: '— (fill profile / weight)',
+ph_in_w: 'Home weight (kg — same conditions, e.g. morning)',
+ph_waist: 'Waist (cm)',
+ph_chest: 'Chest (cm)',
+ph_thigh: 'Thigh (cm)',
+ph_biceps: 'Biceps (cm)',
+ph_shoulders: 'Shoulders (cm)',
+coach_skip: 'Skip',
+coach_next: 'Next',
+placeholder_kcal: 'kcal',
+placeholder_food: 'Food name…',
+legend_elite: 'Legend elite (',
+star_rank_plain: '0 large',
+burn_hint_couch: '<strong style="color:#e2e8f0">Rest day</strong>: burn is a very low NEAT baseline. Log only <strong style="color:var(--green-neon)">extra kcal</strong> from real activity (walk, cardio…).',
+burn_hint_train: '<strong style="color:var(--green-neon)">Training</strong>: base burn ~1.38× BMR (activity level nudges this); add kcal from workouts here.',
+burn_hint_refeed: '<strong style="color:#f472b6">Refeed</strong>: burn slightly above rest; carbs drive the plan — tap <strong>?</strong> on Refeed.',
+modal_title_confirm: 'Confirmation',
+modal_default_text: 'Do you really want to proceed?',
+btn_cancel: 'Cancel',
+btn_modal_log: 'Log',
+btn_modal_delete: 'Delete',
+modal_add_ai_meal: 'Add “{name}” — {kcal} kcal, B{p} / T{f} / S{c} ?',
+modal_save_progress_q: 'Save today’s progress?',
+modal_save_entry_q: 'Save {type} ({kcal} kcal)?',
+modal_entry_food: 'Meal',
+modal_entry_move: 'Activity',
+modal_remove_fav: 'Remove food from the list?',
+modal_undo_entry: 'Delete: {name} ({kcal} kcal)?',
+modal_save_profile_q: 'Save profile?',
+modal_reset_all_q: 'DELETE EVERYTHING?',
+modal_history_w_q: 'Save data for {date}?',
+modal_history_k_q: 'Save kcal for {date}?',
+modal_reset_day_q: 'Reset {date}?',
+flash_need_value: 'Enter at least one value.',
+mb_title: 'Day close & mission history',
+aria_close: 'Close',
+mb_kicker: 'Day report',
+mb_hint_nav: 'Swipe left→older day, right→newer — the card flips on the vertical axis. Desktop: ← →. Scrolling only if content overflows.',
+mb_grid_eat: 'Intake',
+mb_grid_tgt: 'Daily target',
+mb_grid_burn: 'Total burn',
+mb_grid_def: 'Daily deficit',
+mb_grid_entries: 'Entries',
+mb_grid_score: 'Mission score — balance',
+mb_grid_score_prefix: 'Mission score — ',
+mb_grid_score_balance: 'balance',
+mb_grid_mode_style: 'Mode · style',
+mb_meals_title: 'Day log (meals / activity)',
+mb_macros_vs: 'Eaten vs. target (P / F / C)',
+mb_arrow_tgt: '→ target',
+mb_suffix_today: ' · today',
+mb_counter_today: 'Day {n} / 30 · today',
+mb_counter_past: 'Day {n} / 30 · {days} days ago',
+lock_hist_data: 'History — full close-out snapshot',
+lock_hist_no: 'History — quick day overview',
+lock_hist_data_tip: 'Automatic label: that day had meal logs, a valid kcal target, and intake at least ~82% of target. For your records only — not a grade.',
+lock_hist_no_tip: 'Automatic label: this day did not meet the close-out threshold (e.g. no kcal target, fewer logs, or intake below ~82% of target). Not a mistake or unfinished task — just a different overview.',
+praise_0: 'Fill in your profile (weight, height, age) — then you’ll see richer praise and analysis.',
+praise_1: 'The day is waiting for the first log. One small step is enough.',
+praise_2: 'Top day. Intake and burn sit in a range where your body can burn comfortably.',
+praise_2_refeed: ' Refeed has rules — keep carbs in focus.',
+praise_3: 'Solid work. You’re near the ideal balance — tune macros with more logs.',
+praise_3_refeed: ' Refeed has rules — keep carbs in focus.',
+praise_4: 'Stay the course. Every log shows patterns — keep the rhythm.',
+praise_4_refeed: ' Refeed has rules — keep carbs in focus.',
+coach_s1_t: 'Step 1/4 • Measurements',
+coach_s1_x: 'Open the block and log weight and circumferences — the base for charts and trends.',
+coach_s2_t: 'Step 2/4 • Food',
+coach_s2_x: 'Manual meal or AI photo — it flows into the balance.',
+coach_s3_t: 'Step 3/4 • Day mode',
+coach_s3_x: 'Rest = low burn, training ≈ 1.38× BMR, refeed = planned carbs (see ?).',
+coach_s4_t: 'Step 4/4 • Profile',
+coach_s4_x: 'API key, intro video, and saving your profile.',
+coach_done: 'Done',
+coach_flash_done: 'Tour complete. IRON CORE is ready.',
+chart_axis_kcal: '{n} kcal',
+chart_pill_goal_tip: 'Target: BMR + credit from activity (0–500 kcal: 50%, 500–1200: 25%, above 1200: 10%) — with lots of logged activity, intake doesn’t rise as fast as the deficit.',
+chart_today_goal: 'Today target: {n}',
+chart_today_min: 'Today min: {n}',
+chart_limit_lbl: 'LIMIT:',
+chart_neon_lbl: 'NEON:',
+bal_lbl_in: 'Intake',
+bal_lbl_move: 'Activity',
+bal_lbl_win: 'Winner',
+bal_g_ceiling: 'g (ceiling)',
+stack_none: 'Nothing yet',
+stack_10: '10/10 → +1 large · new cycle',
+aria_star_neon: 'Neon stars details',
+aria_star_gold: 'Gold stars details',
+star_neon_dyn: 'Neon stars ({k}+)',
+log_out: 'burn',
+log_macros_unknown: 'macros —',
+hist_w_kg: 'Weight (kg)',
+hist_waist: 'Waist (cm)',
+hist_chest: 'Chest (cm)',
+hist_thigh: 'Thigh (cm)',
+hist_biceps: 'Biceps (cm)',
+hist_shoulders: 'Shoulders (cm)',
+hist_food: 'Food',
+hist_move: 'Activity',
+hist_save: 'Save',
+hist_reset: 'Reset',
+meal_sum: 'Day summary: intake {eat} kcal · activity {burn} kcal · macros P {p} / F {f} / C {c} g',
+meal_none_detail: 'No detailed meal entries (only day totals).',
+meal_move_line: 'Activity / burn',
+refeed_h3: 'Refeed — keep progress',
+refeed_muted: 'The goal is to add <strong>complex carbs</strong> and performance, not a day of fat and fast sugar. Style: <strong>{style}</strong> (lightly, from today’s data).',
+refeed_keto_yes: '<span class="refeed-info-good">Rather yes:</span> structured complex carbs around training (rice, potatoes, oats), keep protein. On refeed day don’t <strong>overdo fat</strong> — it’s not “extra butter day”.',
+refeed_keto_no: '<span class="refeed-info-bad">Definitely not!</span> honey, sugar, pastries, sweet drinks — kicks you out of ketosis and easy empty kcal.',
+refeed_low_yes: '<span class="refeed-info-good">Rather yes:</span> whole grains, fruit in moderation, quality carbs (rice, potatoes, groats).',
+refeed_low_no: '<span class="refeed-info-bad">Definitely not!</span> white bread, sweet sodas, fried food, desserts — empty kcal and cravings.',
+refeed_std_yes: '<span class="refeed-info-good">Rather yes:</span> complex carbs (rice, potatoes, oats, whole grains), fruit, vegetables; stay near your daily kcal target.',
+refeed_std_no: '<span class="refeed-info-bad">Definitely not!</span> excessive fat from fast food, sugar-loaded drinks, alcohol — usually what slows fat loss most.',
+refeed_li1: 'Refeed = glycogen and performance, not a cheat day.',
+refeed_li2: 'Fats and simple sugars that day are not a “substitute” for carbs.',
+refeed_footer: 'In-app macro ceilings already respect refeed — don’t slash them randomly off-plan.',
+star_green_h3: 'Neon stars ({k}+ kcal activity / day)',
+star_green_p1: 'For every <strong>calendar day</strong> where logged activity is at least <span class="star-info-k">{k}</span> kcal, you get <strong>1 small</strong> neon star — the “Activity” value for that day.',
+star_green_p2: '<strong>Large</strong> neon = every <strong>10 small</strong> (lifetime). A large star with a count appears under the rank.',
+star_green_p3: 'Status: <span class="star-info-k">{small} small</span> · <span class="star-info-k">{big} large</span> · <strong>{next}</strong> small to the next large (cycle 1–10).',
+star_gold_h3: 'Gold stars ({k}+ kcal activity / day)',
+star_gold_p1: 'Same idea as neon — <strong>1 small per day</strong> when activity is at least <span class="star-info-z">{k}</span> kcal (gender minimum is {minK} kcal; you can raise it in profile).',
+star_gold_p2: '<strong>Large</strong> gold = every <strong>10 small</strong>. Large star with count under “Legend rank”.',
+star_gold_p3: 'Status: <span class="star-info-z">{small} small</span> · <span class="star-info-z">{big} large</span> · <strong>{next}</strong> small to the next large.',
+star_footer: 'Activity = the “Activity” value for the day (kcal above baseline that you log).',
+intro_skip: 'Skip',
+fav_badge: 'FAVORITE',
+fav_noname: 'Untitled',
+fav_save: 'Save',
+fav_remove_aria: 'Remove favorite meal',
+fast_idle: 'Fasting is not active.',
+fast_running: 'Fasting ({proto}) • ends in: {time}',
+fast_feeding: 'Eating window ({proto}) • left: {time}',
+fast_no_timer: 'No timed fast • Carbs: {cur}/{max} g',
+fast_carbs_line: ' • Carbs: {cur}/{max} g',
+notif_fast_start: 'Fast started',
+notif_fast_start_body: 'Your fast just started — recovery mode.',
+notif_feed_window: 'Eating window',
+notif_feed_body: 'About 1 hour of eating window left — don’t skip protein.',
+notif_carb_title: 'Carbs over limit',
+notif_carb_body: 'You have {cur} g C, max target is {max} g. First step: cut sugar sources.',
+gemini_err: 'API error',
+gemini_empty: 'Empty AI response',
+gemini_bad_kcal: 'Invalid kcal in response',
+gemini_no_json: 'AI did not return JSON',
+flash_analyzing: 'Analyzing photo…',
+flash_need_key: 'Save your Google Gemini API key in Profile, then try again.',
+flash_read_err: 'File read error',
+flash_photo_ai: 'Photo AI: ',
+ai_photo_name_fallback: 'Photo meal',
+bmi_cat_under: 'Underweight',
+bmi_cat_norm: 'Normal',
+bmi_cat_over: 'Overweight',
+bmi_cat_ob1: 'Obesity I',
+bmi_cat_ob2: 'Obesity II',
+bmi_cat_ob3: 'Obesity III',
+bmi_lbl_start: 'Start {start} · {cat}',
+bmi_title_ref_down: 'BMI better than reference max (start, highest weight in history, or InBody weight)',
+bmi_title_ref_up: 'BMI above reference max — check logs or reference weight',
+bmi_title_ref_flat: 'BMI at reference max',
+bmi_title_start_down: 'BMI below profile start BMI',
+bmi_title_start_up: 'BMI above profile start BMI',
+bmi_title_start_flat: 'BMI at profile start BMI',
+p_gold_limit_lbl: 'Gold star limit (min. {min} kcal)',
+intro_note_own: 'Custom intro (stored in browser) is active. On web/mobile set URL below or add iron-core-intro.mp4 to the repo.',
+intro_note_url: 'Intro loads from the path/URL — good for GitHub Pages and iPhone.',
+intro_note_default: 'Without a browser-stored video, the styled intro runs. On phone from the web, place iron-core-intro.mp4 next to index.html (or set URL below). Recommended ≤5 s, max 16 MB.',
+macro_legend_red_line: 'Red line = ceiling (macro g matches the number above; for KCAL it’s your intake target). Fill from bottom = eaten vs ceiling/target. At the bottom of KCAL: how much you can still eat. Above the line = over (red glass).',
+mission_report_idle: 'Daily report waits for your first log.',
+burn_ph_kcal: 'e.g. 350',
+burn_orb_line1: 'Log',
+burn_orb_line2: 'activity',
+burn_orb_sub: 'Neon stars ↑',
+burn_orb_aria: 'Log activity — add kcal to burn',
+mode_couch_title: 'Rest',
+mode_couch_sub: 'rest day',
+mode_train_title: 'TRAINING | WORK',
+mode_train_sub: 'default workday',
+mode_refeed_sub: 'complex carbs — not fats & sugar',
+mode_refeed_title: 'Refeed day',
+fast_start_btn: 'Start',
+activity_label: 'Activity level',
+activity_title: 'Applies in Training mode — nudges the burn multiplier',
+act_default: '— default: typical workday —',
+act_sedentary: 'Sedentary (1.20×) — home/PC, few steps',
+act_light: 'Light (1.38×) — ~3 km walk, light chores',
+act_moderate: 'Typical workday (1.55×) — ~5 km walk, on your feet',
+act_active: 'Active (1.68×) — 8+ km, harder sport, physical job',
+act_strength: 'Strength 4×/wk ~80 min (1.66×) — gym + daily movement',
+act_very: 'Very active (1.78×) — all-day heavy work / very high steps',
+daily_lock_aria: 'Open detailed day-close report',
+refeed_help_aria: 'What to eat on refeed',
+meal_bubble_aria: 'Day detail — meals',
+star_bubble_aria: 'How stars work',
+refeed_bubble_aria: 'Refeed — what to eat',
+recomp_bubble_aria: 'Fat-loss signal',
+gauge_chest_aria: 'Chest gauge',
+kcal_warn_1: 'Over today’s target — training isn’t a free pass.',
+kcal_warn_2: 'Over target — refeed has an upper bound too.',
+kcal_warn_0: 'Over target — rest mode has a lower ceiling.',
+common_max: 'max',
+macro_7d_avg: ' kg (7d avg)',
+style_keto: 'Keto',
+style_lowcarb: 'Low carb',
+style_standard: 'Standard'
+}
+};
+function getUiLang() {
+try {
+if (typeof D !== 'undefined' && D && D.uiLang === 'en') return 'en';
+} catch (e) {}
+return 'cs';
+}
+function tr(key, vars) {
+var lang = getUiLang();
+var raw = (I18N[lang] && I18N[lang][key]) || (I18N.cs && I18N.cs[key]) || key;
+if (vars && typeof raw === 'string') {
+raw = raw.replace(/\{(\w+)\}/g, function(_, name) {
+return vars[name] != null ? String(vars[name]) : '';
+});
+}
+return raw;
+}
+function missionBalanceHexFromPct(pct) {
+var t = Math.max(0, Math.min(1, Number(pct) / 100));
+var r0 = 220, g0 = 38, b0 = 38;
+var r1 = 20, g1 = 83, b1 = 45;
+return 'rgb(' +
+Math.round(r0 + (r1 - r0) * t) + ',' +
+Math.round(g0 + (g1 - g0) * t) + ',' +
+Math.round(b0 + (b1 - b0) * t) + ')';
+}
+function renderMissionSparklineSVG(svgEl, points, strokeColor) {
+if (!svgEl || !points || points.length < 2) return;
+var w = 120, h = 34, padL = 4, padR = 12, padY = 5;
+var n = points.length;
+var minV = Math.min.apply(null, points);
+var maxV = Math.max.apply(null, points);
+var span = Math.max(1, maxV - minV);
+var pts = [];
+for (var i = 0; i < n; i++) {
+var x = padL + (i / (n - 1)) * (w - padL - padR);
+var nv = (points[i] - minV) / span;
+var y = padY + (1 - nv) * (h - 2 * padY);
+pts.push({ x: x, y: y });
+}
+var d = 'M ' + pts.map(function(p) { return p.x.toFixed(2) + ' ' + p.y.toFixed(2); }).join(' L ');
+var ax = pts[n - 1].x, ay = pts[n - 1].y;
+var px = pts[n - 2].x, py = pts[n - 2].y;
+var ang = Math.atan2(ay - py, ax - px);
+var tipX = ax + Math.cos(ang) * 5;
+var tipY = ay + Math.sin(ang) * 5;
+var baseX = ax - Math.cos(ang) * 2.5;
+var baseY = ay - Math.sin(ang) * 2.5;
+var perp = ang + Math.PI / 2;
+var wing = 3.2;
+var a1x = baseX + Math.cos(perp) * wing;
+var a1y = baseY + Math.sin(perp) * wing;
+var a2x = baseX - Math.cos(perp) * wing;
+var a2y = baseY - Math.sin(perp) * wing;
+svgEl.innerHTML =
+'<path fill="none" stroke="' + strokeColor + '" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="' + d + '"/>' +
+'<polygon points="' + tipX.toFixed(2) + ',' + tipY.toFixed(2) + ' ' + a1x.toFixed(2) + ',' + a1y.toFixed(2) + ' ' + a2x.toFixed(2) + ',' + a2y.toFixed(2) + '" fill="' + strokeColor + '"/>';
+}
+function applyI18n() {
+var lg = getUiLang();
+try {
+document.documentElement.lang = lg === 'en' ? 'en' : 'cs';
+} catch (e) {}
+var ti = document.getElementById('doc-page-title');
+if (ti) ti.textContent = tr('doc_title') + ' · ' + APP_VERSION_TAG;
+document.querySelectorAll('[data-i18n]').forEach(function(el) {
+var k = el.getAttribute('data-i18n');
+if (!k) return;
+if (el.getAttribute('data-i18n-html') === '1') el.innerHTML = tr(k);
+else el.textContent = tr(k);
+});
+document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+var k = el.getAttribute('data-i18n-placeholder');
+if (k) el.placeholder = tr(k);
+});
+document.querySelectorAll('[data-i18n-title]').forEach(function(el) {
+var k = el.getAttribute('data-i18n-title');
+if (k) el.title = tr(k);
+});
+document.querySelectorAll('[data-i18n-aria]').forEach(function(el) {
+var k = el.getAttribute('data-i18n-aria');
+if (k) el.setAttribute('aria-label', tr(k));
+});
+refreshActivitySelectI18n();
+syncLangToggle();
+}
+function refreshActivitySelectI18n() {
+var sel = document.getElementById('quick-activity');
+if (!sel) return;
+var v = sel.value;
+var opts = [
+['', 'act_default'],
+['sedentary', 'act_sedentary'],
+['light', 'act_light'],
+['moderate', 'act_moderate'],
+['active', 'act_active'],
+['strength_4x80', 'act_strength'],
+['very_active', 'act_very']
+];
+sel.innerHTML = opts.map(function(o) {
+return '<option value="' + o[0] + '">' + tr(o[1]) + '</option>';
+}).join('');
+var okVal = false;
+for (var oi = 0; oi < sel.options.length; oi++) {
+if (sel.options[oi].value === v) { okVal = true; break; }
+}
+if (okVal) sel.value = v;
+}
+function syncLangToggle() {
+var a = document.getElementById('lang-cs');
+var b = document.getElementById('lang-en');
+if (!a || !b) return;
+var lg = getUiLang();
+a.classList.toggle('active', lg === 'cs');
+b.classList.toggle('active', lg === 'en');
+}
+window.setUiLang = function(lang) {
+if (typeof D === 'undefined' || !D) return;
+D.uiLang = (lang === 'en') ? 'en' : 'cs';
+try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (e) {}
+applyI18n();
+if (typeof render === 'function') try { render(); } catch (e2) {}
+};
 try { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; } catch(eSR) {}
 window.scrollAppToTop = function() {
 try {
@@ -3726,14 +4696,16 @@ return migrated;
 function applyModalOkVariant(btnText) {
 var ok = document.getElementById('btn-ok');
 if (!ok) return;
-var raw = String(btnText == null ? 'ZAPSAT' : btnText).trim();
+var defLog = tr('btn_modal_log');
+var raw = String(btnText == null ? defLog : btnText).trim();
 var u = raw.toUpperCase();
-var wine = (u === 'SMAZAT' || u === 'RESET');
+var del = tr('btn_modal_delete').toUpperCase();
+var wine = (u === del || u === 'SMAZAT' || u === 'DELETE');
 ok.classList.toggle('btn-modal-ok--wine', wine);
 ok.classList.toggle('btn-modal-ok--gold', !wine);
 }
 function openModal(text, callback, btnText) {
-if (btnText === undefined) btnText = "ZAPSAT";
+if (btnText === undefined) btnText = tr('btn_modal_log');
 document.getElementById('modal-text').innerText = text;
 var okBtn = document.getElementById('btn-ok');
 okBtn.innerText = btnText;
@@ -3777,10 +4749,10 @@ var btnNext = document.getElementById('coach-next');
 var btnSkip = document.getElementById('coach-skip');
 if(!bubble || !title || !text || !btnNext || !btnSkip) return;
 var steps = [
-{ sel: '#toggle-measure-btn', title: 'Krok 1/4 • Měření', txt: 'Otevři blok a zapiš váhu a obvody — základ grafů a trendů.' },
-{ sel: '#btn-add-manual-meal', title: 'Krok 2/4 • Jídlo', txt: 'Ruční zápis jídla nebo foto AI — promítá se do bilance.' },
-{ sel: '#mode-1', title: 'Krok 3/4 • Režim dne', txt: 'Gaučing = nízký výdej, trénink = 1,38× bazál, refeed = řízené sacharidy (viz ?).' },
-{ sel: '#profile-toggle-btn', title: 'Krok 4/4 • Profil', txt: 'Tady API klíč, intro video a uložení profilu.' }
+{ sel: '#toggle-measure-btn', title: tr('coach_s1_t'), txt: tr('coach_s1_x') },
+{ sel: '#btn-add-manual-meal', title: tr('coach_s2_t'), txt: tr('coach_s2_x') },
+{ sel: '#mode-1', title: tr('coach_s3_t'), txt: tr('coach_s3_x') },
+{ sel: '#profile-toggle-btn', title: tr('coach_s4_t'), txt: tr('coach_s4_x') }
 ];
 var idx = 0;
 var onScrollOrResize = function(){ position(); };
@@ -3803,7 +4775,7 @@ window.removeEventListener('scroll', onScrollOrResize, true);
 if(done) {
 D.onboardingDone = true;
 localStorage.setItem(KEY, JSON.stringify(D));
-flashNote('Průvodce hotov. IRON CORE je připraven.', 'var(--green-neon)', 'black');
+flashNote(tr('coach_flash_done'), 'var(--green-neon)', 'black');
 }
 }
 function position() {
@@ -3835,7 +4807,7 @@ var st = steps[idx];
 if(!st) return;
 title.innerText = st.title;
 text.innerText = st.txt;
-btnNext.innerText = (idx === steps.length - 1) ? 'Dokončit' : 'Další';
+btnNext.innerText = (idx === steps.length - 1) ? tr('coach_done') : tr('coach_next');
 bubble.classList.add('show');
 prepareCoachStepPanels();
 var target = document.querySelector(st.sel);
@@ -4482,27 +5454,27 @@ contents: [{ parts: [
 generationConfig: { temperature: 0.2, responseMimeType: 'application/json' }
 })
 }).then(function(r) { return r.json(); }).then(function(data) {
-if(data.error) throw new Error(data.error.message || 'API chyba');
+if(data.error) throw new Error(data.error.message || tr('gemini_err'));
 var parts = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts;
 var text = parts && parts[0] && parts[0].text;
-if(!text) throw new Error('Prázdná odpověď AI');
+if(!text) throw new Error(tr('gemini_empty'));
 var j;
 try {
 j = JSON.parse(String(text).trim());
 } catch(parseErr) {
 var m = String(text).match(/\{[\s\S]*\}/);
-if(!m) throw new Error('AI nevrátila JSON');
+if(!m) throw new Error(tr('gemini_no_json'));
 j = JSON.parse(m[0]);
 }
 var kcal = parseInt(j.kcal, 10), p = parseInt(j.p, 10) || 0, ff = parseInt(j.f, 10) || 0, c = parseInt(j.c, 10) || 0;
-if(isNaN(kcal) || kcal <= 0) throw new Error('Neplatné kcal v odpovědi');
-var label = (j.name && String(j.name).trim()) ? String(j.name).trim() : 'Foto jídlo';
-openModal('Přidat „' + label + '“ — ' + kcal + ' kcal, B' + p + ' / T' + ff + ' / S' + c + ' ?', function() {
+if(isNaN(kcal) || kcal <= 0) throw new Error(tr('gemini_bad_kcal'));
+var label = (j.name && String(j.name).trim()) ? String(j.name).trim() : tr('ai_photo_name_fallback');
+openModal(tr('modal_add_ai_meal', { name: label, kcal: kcal, p: p, f: ff, c: c }), function() {
 commitKcalLog('in', kcal, label + ' (AI)', {p: p, f: ff, c: c});
-}, 'ZAPSAT');
+}, tr('btn_modal_log'));
 }).catch(function(err) {
 console.error(err);
-flashNote('Foto AI: ' + (err.message || 'chyba'), 'var(--red)', 'white');
+flashNote(tr('flash_photo_ai') + (err.message || tr('gemini_err')), 'var(--red)', 'white');
 });
 }
 
@@ -4512,15 +5484,15 @@ ev.target.value = '';
 if(!f || !/^image\//.test(f.type || '')) return;
 var key = (D.geminiApiKey || '').trim();
 if(!key) {
-flashNote('V profilu ulož API klíč Google Gemini (AI Studio), pak znovu vyfoť.', 'var(--gold-deep)', '#0f172a');
+flashNote(tr('flash_need_key'), 'var(--gold-deep)', '#0f172a');
 return;
 }
-flashNote('Analyzuji fotku…', 'var(--accent)', 'white');
+flashNote(tr('flash_analyzing'), 'var(--accent)', 'white');
 var reader = new FileReader();
 reader.onload = function() {
 var dataUrl = reader.result;
 var base64 = String(dataUrl).split(',')[1];
-if(!base64) { flashNote('Chyba čtení souboru', 'var(--red)', 'white'); return; }
+if(!base64) { flashNote(tr('flash_read_err'), 'var(--red)', 'white'); return; }
 runGeminiFoodAnalysis(key, base64, f.type || 'image/jpeg');
 };
 reader.onerror = function() { flashNote('Nelze přečíst soubor', 'var(--red)', 'white'); };
@@ -4629,7 +5601,8 @@ introVideoOverlayPos: "bottom",
 logs: [],
 lastLogDate: "",
 chartScrollK: null,
-chartScrollW: null
+chartScrollW: null,
+uiLang: 'cs'
 };
 
 function toBool(v, fallback) {
@@ -4659,6 +5632,8 @@ else if (Number(D.start) > 0 && Number(D.age) > 0 && Number(D.height) > 0) D.pro
 }
 D.introVideoOverlayLogo = toBool(D.introVideoOverlayLogo, true);
 D.introVideoOverlayPos = (D.introVideoOverlayPos === 'center' || D.introVideoOverlayPos === 'top') ? D.introVideoOverlayPos : 'bottom';
+D.metricGoalPredV2 = (D.metricGoalPredV2 && typeof D.metricGoalPredV2 === "object") ? D.metricGoalPredV2 : {};
+if (D.uiLang !== 'en' && D.uiLang !== 'cs') D.uiLang = 'cs';
 D.lastLogDate = toDayKey(D.lastLogDate) || getD();
 var todayDate = getD();
 var sameLogDayAsToday = (D.lastLogDate === todayDate);
@@ -4988,13 +5963,13 @@ return t;
 }
 
 function missionPraiseFromScore(meetScore, entriesCount, target, mode) {
-if (!(Number(target) > 0)) return 'Doplň profil (váha, výška, věk) — pak tu uvidíš přesnější pochvaly i analýzu.';
-if (entriesCount === 0) return 'Den čeká na první zápis. Malý krok stačí — mise pak dostane jasný tvar.';
+if (!(Number(target) > 0)) return tr('praise_0');
+if (entriesCount === 0) return tr('praise_1');
 var m = Number(mode) || 0;
-var modeHint = m === 2 ? ' Refeed má svá pravidla — drž sacharidy v centru.' : '';
-if (meetScore >= 0.9) return 'Špičkový den. Příjem a výdej držíš v pásmu, kde tělo může spalovat pohodlně.' + modeHint;
-if (meetScore >= 0.62) return 'Solidní výkon. Jsi blízko ideální rovnováze — makra doladíš dalšími zápisy.' + modeHint;
-return 'Drž směr. Každý zápis ti ukáže vzorce — pokračuj v pravidelnosti.' + modeHint;
+var sfx = m === 2 ? tr('praise_2_refeed') : '';
+if (meetScore >= 0.9) return tr('praise_2') + sfx;
+if (meetScore >= 0.62) return tr('praise_3') + sfx;
+return tr('praise_4') + sfx;
 }
 
 function computeMissionBriefing(dayKey) {
@@ -5029,15 +6004,15 @@ var rightFillPct = Math.round(50 * burnScore);
 var meetScore = clamp01((Math.min(leftFillPct, rightFillPct) / 50) * (1 - Math.min(1, Math.abs(leftFillPct - rightFillPct) / 36)));
 var report;
 if (!(Number(target) > 0)) {
-report = 'Nejprve doplň profil. Pak dostaneš přesné denní hodnocení mise.';
+report = tr('report_a');
 } else if (meetScore >= 0.9) {
-report = 'Skvěle. Příjem a výdej jsou v rovnováze pro redukci tuku.';
+report = tr('report_b');
 } else if (meetScore >= 0.62) {
-report = 'Dobrá práce. Jsi blízko vrcholu, drž tempo a dolaď makra.';
+report = tr('report_c');
 } else if (dayEntries.length > 0) {
-report = 'Mise běží. Přidávej průběžné zápisy a srovnávej příjem s výdejem.';
+report = tr('report_d');
 } else {
-report = 'Den je připraven. První zápis spustí misi naplno.';
+report = tr('report_e');
 }
 var praise = missionPraiseFromScore(meetScore, dayEntries.length, target, mode);
 var lockReady = dayEntries.length > 0 && Number(target) > 0 && (eatNum >= Math.max(300, Math.round(Number(target) * 0.82)));
@@ -5046,10 +6021,10 @@ var lockAuto = (dayKey === todayK) && lockReady && (new Date()).getHours() >= 21
 var lockLabel, lockKind;
 if (dayKey < todayK) {
 lockKind = 'past';
-lockLabel = lockReady ? 'Historie — den s daty' : 'Historie — bez uzávěrky';
+lockLabel = lockReady ? tr('lock_hist_data') : tr('lock_hist_no');
 } else {
 lockKind = lockAuto ? 'locked' : (lockReady ? 'ready' : 'wait');
-lockLabel = lockAuto ? 'Uzávěrka dne: uzamčeno' : (lockReady ? 'Uzávěrka dne: připraveno' : 'Uzávěrka dne: čeká');
+lockLabel = lockAuto ? tr('lock_done') : (lockReady ? tr('lock_ready') : tr('lock_wait'));
 }
 return {
 dayKey: dayKey,
@@ -5067,7 +6042,7 @@ targetP: targetP,
 targetF: targetF,
 targetC: targetC,
 mode: mode,
-modeLabel: mode === 1 ? 'Trénink' : (mode === 2 ? 'Refeed' : 'Gaučing'),
+modeLabel: mode === 1 ? tr('mode_train') : (mode === 2 ? tr('mode_refeed') : tr('mode_couch')),
 dietStyle: effectiveDietStyle,
 entriesCount: dayEntries.length,
 meetScorePct: Math.round(meetScore * 100),
@@ -5076,6 +6051,7 @@ report: report,
 praise: praise,
 lockLabel: lockLabel,
 lockKind: lockKind,
+pastBriefingComplete: dayKey < todayK ? lockReady : null,
 leftFillPct: leftFillPct,
 rightFillPct: rightFillPct,
 hasTarget: Number(target) > 0
@@ -5096,9 +6072,9 @@ delete D.days[k].missionReport;
 }
 
 function dayModeLabel(mode) {
-if (mode === 1) return 'Tr\u00e9nink';
-if (mode === 2) return 'Refeed';
-return 'Gau\u010ding';
+if (mode === 1) return tr('mode_train');
+if (mode === 2) return tr('mode_refeed');
+return tr('mode_couch');
 }
 function dayModeColor(mode) {
 if (mode === 1) return '#4ade80';
@@ -5113,9 +6089,9 @@ return 'bal-mode-badge bal-mode-badge--volno';
 
 function kcalOvereatWarnHtml(mode) {
 var m = Number(mode) || 0;
-if(m === 1) return 'Nad dnešním cílem — trénink není volná jízda.';
-if(m === 2) return 'Nad cílem — refeed má taky horní mez.';
-return 'Nad cílem — u gaučingu je strop nižší.';
+if(m === 1) return tr('kcal_warn_1');
+if(m === 2) return tr('kcal_warn_2');
+return tr('kcal_warn_0');
 }
 
 function sumEnergyBalanceForRange(startDate, endDate) {
@@ -5250,7 +6226,7 @@ var thigh = parseFloat(document.getElementById('in-thigh').value.replace(',','.'
 var biceps = parseFloat(document.getElementById('in-biceps').value.replace(',','.'));
 var shoulders = parseFloat(document.getElementById('in-shoulders').value.replace(',','.'));
 if(!isNaN(v) || !isNaN(waist) || !isNaN(chest) || !isNaN(thigh) || !isNaN(biceps) || !isNaN(shoulders)) {
-openModal("Zapsat dnešní progres do paměti?", function() {
+openModal(tr("modal_save_progress_q"), function() {
 var t = getD(); var dayObj = ensureDay(t);
 if(!isNaN(v)) D.days[t].w = v;
 if(!isNaN(waist)) dayObj.waist = waist;
@@ -5268,7 +6244,7 @@ if (val === undefined) val = null;
 if (src === undefined) src = null;
 var v = (val !== null) ? val : parseInt(document.getElementById('in-k').value);
 if(!isNaN(v) && v !== 0) {
-openModal("Uložit " + (src || (type === 'in' ? 'Jídlo' : 'Pohyb')) + " (" + v + " kcal)?", function() {
+openModal(tr("modal_save_entry_q", { type: src || (type === 'in' ? tr('modal_entry_food') : tr('modal_entry_move')), kcal: v }), function() {
 commitKcalLog(type, v, src, macros);
 }); }
 };
@@ -5313,7 +6289,7 @@ renderRoutine();
 }
 };
 
-window.removeFavorite = function(index) { openModal("Smazat jídlo ze seznamu?", function() { MY_FAVORITES.splice(index, 1); localStorage.setItem(FAV_KEY, JSON.stringify(MY_FAVORITES)); renderRoutine(); }, "SMAZAT"); };
+window.removeFavorite = function(index) { openModal(tr("modal_remove_fav"), function() { MY_FAVORITES.splice(index, 1); localStorage.setItem(FAV_KEY, JSON.stringify(MY_FAVORITES)); renderRoutine(); }, tr("btn_modal_delete")); };
 
 window.popLog = function() { 
 var t = getD(); 
@@ -5321,7 +6297,7 @@ var dayObj = ensureDay(t);
 var entries = dayObj.mealEntries || []; 
 if(!entries.length) return; 
 var last = entries[0]; 
-openModal("Smazat: " + last.n + " (" + last.v + " kcal)?", function() { 
+openModal(tr("modal_undo_entry", { name: last.n, kcal: last.v }), function() { 
 if(D.days[t]) { 
 if(last.type === 'in') { 
 D.days[t].e = Math.max(0, (Number(D.days[t].e)||0) - last.v); 
@@ -5335,7 +6311,7 @@ D.days[t].c = Math.max(0, (Number(D.days[t].c)||0) - (Number(last.macros.c)||0))
 entries.shift(); 
 D.logs = entries.slice(); 
 sync(); 
-}, "SMAZAT"); 
+}, tr("btn_modal_delete")); 
 };
 
 function renderRoutine() {
@@ -5349,9 +6325,9 @@ var info = document.createElement('div');
 info.className = 'info';
 var label = document.createElement('span');
 label.className = 'meal-time';
-label.textContent = 'OBLÍBENÉ';
+label.textContent = tr('fav_badge');
 info.appendChild(label);
-info.appendChild(document.createTextNode((m.n || 'Bez názvu') + ' '));
+info.appendChild(document.createTextNode((m.n || tr('fav_noname')) + ' '));
 var macroSmall = document.createElement('small');
 macroSmall.style.color = 'var(--muted)';
 macroSmall.textContent = '(' + (m.p || 0) + 'B / ' + (m.f || 0) + 'T / ' + (m.c || 0) + 'S)';
@@ -5367,7 +6343,7 @@ var saveBtn = document.createElement('button');
 saveBtn.className = 'btn-save-mini';
 saveBtn.style.width = 'auto';
 saveBtn.style.padding = '8px 15px';
-saveBtn.textContent = 'Uložit';
+saveBtn.textContent = tr('fav_save');
 saveBtn.addEventListener('click', function() {
 window.addTodayK('in', Number(m.k) || 0, m.n || 'Jídlo', { p: Number(m.p) || 0, f: Number(m.f) || 0, c: Number(m.c) || 0 });
 });
@@ -5379,7 +6355,7 @@ kcal.textContent = Number(m.k) || 0;
 
 var removeBtn = document.createElement('button');
 removeBtn.type = 'button';
-removeBtn.setAttribute('aria-label', 'Smazat oblíbené jídlo');
+removeBtn.setAttribute('aria-label', tr('fav_remove_aria'));
 removeBtn.style.background = 'none';
 removeBtn.style.border = 'none';
 removeBtn.style.color = 'var(--red)';
@@ -5398,7 +6374,7 @@ root.appendChild(row);
 });
 }
 
-window.saveProfile = function() { openModal("Uložit profil?", function() {
+window.saveProfile = function() { openModal(tr("modal_save_profile_q"), function() {
 var ps = parseFloat(String(document.getElementById('p-start').value).replace(',','.'));
 D.start = (!isNaN(ps) && ps > 0) ? ps : 0;
 var pf = parseFloat(String(document.getElementById('p-final').value).replace(',','.'));
@@ -5419,7 +6395,7 @@ if (pInbMode) D.bmrInBodyMode = (pInbMode.value === 'fixed') ? 'fixed' : 'adapti
 var pIntroX = document.getElementById('p-intro-video-external'); D.introVideoExternalPath = pIntroX ? String(pIntroX.value || '').trim() : '';
 D.profileHeaderSaved = true;
 sync(); }); };
-window.askReset = function() { openModal("SMAZAT VŠE?", function() { try { localStorage.removeItem(KEY); LEGACY_DATA_KEYS.forEach(function(k) { localStorage.removeItem(k); }); localStorage.removeItem(NOTIF_KEY); localStorage.removeItem(FAV_KEY); localStorage.removeItem(ROADMAP_VIEW_KEY); } catch(e) {} location.reload(); }, "SMAZAT"); };
+window.askReset = function() { openModal(tr("modal_reset_all_q"), function() { try { localStorage.removeItem(KEY); LEGACY_DATA_KEYS.forEach(function(k) { localStorage.removeItem(k); }); localStorage.removeItem(NOTIF_KEY); localStorage.removeItem(FAV_KEY); localStorage.removeItem(ROADMAP_VIEW_KEY); } catch(e) {} location.reload(); }, tr("btn_modal_delete")); };
 
 window.saveHistoryW = function(dt, idW, idWaist, idChest, idThigh, idBiceps, idShoulders) { 
 var v = parseFloat(document.getElementById(idW).value.replace(',','.')); 
@@ -5430,8 +6406,8 @@ var biceps = parseFloat(document.getElementById(idBiceps).value.replace(',','.')
 var shoulders = parseFloat(document.getElementById(idShoulders).value.replace(',','.'));
 var hasAny =
 !isNaN(v) || !isNaN(waist) || !isNaN(chest) || !isNaN(thigh) || !isNaN(biceps) || !isNaN(shoulders);
-if(!hasAny) { flashNote('Zadej aspoň jednu hodnotu.', 'var(--pink)', 'white'); return; }
-openModal("Data dne " + displayDayKey(dt) + "?", function() { 
+if(!hasAny) { flashNote(tr('flash_need_value'), 'var(--pink)', 'white'); return; }
+openModal(tr("modal_history_w_q", { date: displayDayKey(dt) }), function() { 
 var d = normDt(dt); var dayObj = ensureDay(d);
 if(!isNaN(v)) dayObj.w=v;
 if(!isNaN(waist)) dayObj.waist=waist;
@@ -5444,11 +6420,11 @@ sync();
 
 window.saveHistoryK = function(dt, idE, idB) { 
 var e = parseInt(document.getElementById(idE).value)||0, b = parseInt(document.getElementById(idB).value)||0; 
-openModal("Kcal dne " + displayDayKey(dt) + "?", function() { var d = normDt(dt); var dayObj = ensureDay(d); dayObj.e=e; dayObj.b=b; sync(); }); 
+openModal(tr("modal_history_k_q", { date: displayDayKey(dt) }), function() { var d = normDt(dt); var dayObj = ensureDay(d); dayObj.e=e; dayObj.b=b; sync(); }); 
 };
 window.resetHistoryDay = function(dt, scope) {
 var d = normDt(dt);
-openModal("Reset dne " + displayDayKey(d) + "?", function() {
+openModal(tr("modal_reset_day_q", { date: displayDayKey(d) }), function() {
 var dayObj = ensureDay(d);
 if(scope === 'k') {
 dayObj.e = 0;
@@ -5578,7 +6554,7 @@ tgtEl.textContent = '—';
 gramsEl.textContent = '—';
 gramsEl.classList.remove('macro-grams--warn', 'macro-grams--kcal-over');
 clearTubeProgressTone(gramsEl);
-if (lblK) lblK.textContent = 'KCAL · zbývá sníst';
+if (lblK) lblK.textContent = tr('macro_k_remain');
 fillEl.style.height = '0%';
 overEl.style.display = 'none';
 overEl.style.height = '0';
@@ -5593,12 +6569,12 @@ gramsEl.textContent = deltaK + ' kcal';
 gramsEl.classList.remove('macro-grams--warn');
 gramsEl.classList.add('macro-grams--kcal-over');
 clearTubeProgressTone(gramsEl);
-if (lblK) lblK.textContent = 'KCAL · nad cílem';
+if (lblK) lblK.textContent = tr('macro_k_over');
 } else {
 gramsEl.textContent = deltaK + ' kcal';
 gramsEl.classList.remove('macro-grams--kcal-over', 'macro-grams--warn');
 applyTubeProgressTone(gramsEl, eaten / tgt);
-if (lblK) lblK.textContent = 'KCAL · zbývá sníst';
+if (lblK) lblK.textContent = tr('macro_k_remain');
 }
 var goodH = Math.min(stropPct, (eaten / tgt) * stropPct);
 fillEl.style.height = goodH + '%';
@@ -5657,11 +6633,11 @@ if(pgkEl && !isUserEditingField(pgkEl)) pgkEl.value = D.geminiApiKey || '';
 var ivn = document.getElementById('intro-video-note');
 if(ivn) {
 if(D.introVideoData && /^data:video\//.test(D.introVideoData)) {
-ivn.innerText = 'Vlastní intro (uložené v prohlížeči) je aktivní. Na webu/mobilu zadej níže URL nebo nahraj iron-core-intro.mp4 do repa.';
+ivn.innerText = tr('intro_note_own');
 } else if(D.introVideoExternalPath) {
-ivn.innerText = 'Intro se načítá ze zadané cesty/URL — vhodné pro GitHub Pages a iPhone.';
+ivn.innerText = tr('intro_note_url');
 } else {
-ivn.innerText = 'Bez videa v prohlížeči běží stylizované intro. Na telefonu z webu nahraj iron-core-intro.mp4 vedle index.html (nebo zadej URL níže). Doporučeno do 5 s, max 16 MB.';
+ivn.innerText = tr('intro_note_default');
 }
 }
 var pIntroExt = document.getElementById('p-intro-video-external');
@@ -5681,7 +6657,7 @@ if(pHeightEl && !isUserEditingField(pHeightEl)) pHeightEl.value = (Number(D.heig
 var pGoldEl = document.getElementById('p-gold-lim');
 var minGoldProf = (D.gender === 'female') ? 450 : 1000;
 var pGoldLbl = document.getElementById('p-gold-lim-label');
-if(pGoldLbl) pGoldLbl.textContent = 'Limit Zlaté Hvězdy (min. ' + minGoldProf + ' kcal)';
+if(pGoldLbl) pGoldLbl.textContent = tr('p_gold_limit_lbl', { min: minGoldProf });
 if(pGoldEl) {
 pGoldEl.min = String(minGoldProf);
 if(!isUserEditingField(pGoldEl)) pGoldEl.value = (Number(D.goldLimit) >= minGoldProf) ? D.goldLimit : '';
@@ -5727,13 +6703,13 @@ var bmiStartStr = isFinite(bmiStartNum) && bmiStartNum > 0 ? bmiStartNum.toFixed
 
 document.getElementById('fi-val').innerText = (Number(D.final) > 0) ? D.final.toFixed(1) : '—';
 document.getElementById('cur-w').innerText = (cw > 0) ? cw.toFixed(1) : '—';
-var pasLine = "Pas: " + (cWaist ? cWaist : "--") + " cm";
+var pasLine = tr('stat_pas_line', { v: cWaist ? String(cWaist) : "--" });
 if (cWaist && maxWaistHist && cWaist < maxWaistHist - 0.25) pasLine += " ↓";
-if (maxWaistHist) pasLine += " · max " + maxWaistHist;
-var bicLine = "Biceps: " + (cBiceps ? cBiceps : "--") + " cm";
+if (maxWaistHist) pasLine += " · " + tr('common_max') + " " + maxWaistHist;
+var bicLine = tr('stat_bic_line', { v: cBiceps ? String(cBiceps) : "--" });
 if (cBiceps && maxBicepsHist && cBiceps < maxBicepsHist - 0.25) bicLine += " ↓";
-if (maxBicepsHist) bicLine += " · max " + maxBicepsHist;
-document.getElementById('waist-display').innerText = pasLine + " | " + bicLine + " | Ramena: " + (cShoulders ? cShoulders : "--") + " cm";
+if (maxBicepsHist) bicLine += " · " + tr('common_max') + " " + maxBicepsHist;
+document.getElementById('waist-display').innerText = pasLine + " | " + bicLine + " | " + tr('stat_shoulders_short') + " " + (cShoulders ? cShoulders : "--") + " cm";
 var worstW = baselineWorstWeightKg(today);
 var worstBmi = worstW != null ? bmiFromWeightKg(worstW) : bmiStartNum;
 var eps = 0.04;
@@ -5741,16 +6717,16 @@ var trendHtml = '';
 if (isFinite(bmiNum) && bmiNum > 0) {
 if (worstW != null && isFinite(worstBmi) && worstBmi > 0) {
 if (bmiNum < worstBmi - eps) {
-trendHtml = '<span class="bmi-trend bmi-trend--down" title="BMI lepší než referenční maximum (start, nejvyšší váha v historii, případně váha u InBody)">↓</span>';
+trendHtml = '<span class="bmi-trend bmi-trend--down" title="' + tr('bmi_title_ref_down').replace(/"/g, '&quot;') + '">↓</span>';
 } else if (bmiNum > worstBmi + eps) {
-trendHtml = '<span class="bmi-trend bmi-trend--up" title="BMI nad referenčním maximem — zkontroluj záznamy nebo zadanou referenční váhu">↑</span>';
+trendHtml = '<span class="bmi-trend bmi-trend--up" title="' + tr('bmi_title_ref_up').replace(/"/g, '&quot;') + '">↑</span>';
 } else {
-trendHtml = '<span class="bmi-trend bmi-trend--flat" title="BMI na úrovni referenčního maxima">→</span>';
+trendHtml = '<span class="bmi-trend bmi-trend--flat" title="' + tr('bmi_title_ref_flat').replace(/"/g, '&quot;') + '">→</span>';
 }
 } else if (isFinite(bmiStartNum) && bmiStartNum > 0) {
-if (bmiNum < bmiStartNum - eps) trendHtml = '<span class="bmi-trend bmi-trend--down" title="BMI pod startovým BMI z profilu">↓</span>';
-else if (bmiNum > bmiStartNum + eps) trendHtml = '<span class="bmi-trend bmi-trend--up" title="BMI nad startovým BMI z profilu">↑</span>';
-else trendHtml = '<span class="bmi-trend bmi-trend--flat" title="BMI u startového BMI">→</span>';
+if (bmiNum < bmiStartNum - eps) trendHtml = '<span class="bmi-trend bmi-trend--down" title="' + tr('bmi_title_start_down').replace(/"/g, '&quot;') + '">↓</span>';
+else if (bmiNum > bmiStartNum + eps) trendHtml = '<span class="bmi-trend bmi-trend--up" title="' + tr('bmi_title_start_up').replace(/"/g, '&quot;') + '">↑</span>';
+else trendHtml = '<span class="bmi-trend bmi-trend--flat" title="' + tr('bmi_title_start_flat').replace(/"/g, '&quot;') + '">→</span>';
 }
 }
 var bmiValEl = document.getElementById('bmi-val');
@@ -5758,14 +6734,14 @@ if (bmiValEl) bmiValEl.innerHTML = '<span class="bmi-num">' + bmi + '</span>' + 
 var bmiLbl = document.getElementById('bmi-label');
 var cat = '—';
 if(isFinite(bmiNum) && bmiNum > 0) {
-if(bmiNum < 18.5) cat = 'Podváha';
-else if(bmiNum < 25) cat = 'Norma';
-else if(bmiNum < 30) cat = 'Nadváha';
-else if(bmiNum < 35) cat = 'Obezita I';
-else if(bmiNum < 40) cat = 'Obezita II';
-else cat = 'Obezita III';
+if(bmiNum < 18.5) cat = tr('bmi_cat_under');
+else if(bmiNum < 25) cat = tr('bmi_cat_norm');
+else if(bmiNum < 30) cat = tr('bmi_cat_over');
+else if(bmiNum < 35) cat = tr('bmi_cat_ob1');
+else if(bmiNum < 40) cat = tr('bmi_cat_ob2');
+else cat = tr('bmi_cat_ob3');
 }
-if(bmiLbl) bmiLbl.innerText = 'Start ' + bmiStartStr + ' · ' + cat;
+if(bmiLbl) bmiLbl.innerText = tr('bmi_lbl_start', { start: bmiStartStr, cat: cat });
 document.getElementById('cur-gold-lim').innerText = String(effectiveGoldStarThresholdKcal()) + '+';
 var eatNum = Number(curDayData.e) || 0;
 var eatEl = document.getElementById('stat-eat');
@@ -5784,17 +6760,22 @@ eatWarnEl.textContent = '';
 var moveToday = Number(curDayData.b || 0);
 var burnTotal = tdee + moveToday;
 document.getElementById('stat-burn').innerText = burnTotal;
-document.getElementById('stat-bmr').innerText = "Bazál " + bEff + " · režim " + tdee + " + pohyb " + moveToday;
+document.getElementById('stat-bmr').innerText = tr('stat_bmr_line', { bmr: bEff, tdee: tdee, move: moveToday });
 document.getElementById('stat-win').innerText = Math.max(0, (tdee + (curDayData.b || 0)) - (curDayData.e || 0));
 var burnKcalLbl = document.getElementById('burn-kcal-label');
-if (burnKcalLbl) burnKcalLbl.textContent = D.gender === 'female' ? 'Kolik kcal jsi přidala pohybem?' : 'Kolik kcal jsi přidal pohybem?';
+if (burnKcalLbl) burnKcalLbl.textContent = D.gender === 'female' ? tr('burn_label_f') : tr('burn_label_m');
+var inKPl = document.getElementById('in-k');
+if (inKPl) inKPl.placeholder = tr('burn_ph_kcal');
 var burnHeroHint = document.getElementById('burn-hero-hint');
 if (burnHeroHint) {
-if (mode === 0) burnHeroHint.innerHTML = 'Režim <strong style="color:#e2e8f0">gaučing</strong>: výdej počítáme jako velmi nízký NEAT (vaření, základní chůze v bytě). Sem zapisuj jen <strong style="color:var(--green-neon)">kcal navíc</strong> za skutečný pohyb (procházka, kardio…).';
-else if (mode === 1) burnHeroHint.innerHTML = '<strong style="color:var(--green-neon)">Trénink</strong>: základ výdeje ~1,38× bazál (úroveň aktivity pod tlačítkem to jemně posouvá); sem přidej kcal za sport a pohyb navíc.';
-else burnHeroHint.innerHTML = '<strong style="color:#f472b6">Refeed</strong>: výdej mírně nad gaučingem; jídelní plán řídí sacharidy — klepni na <strong>?</strong> u tlačítka Refeed.';
+if (mode === 0) burnHeroHint.innerHTML = tr('burn_hint_couch');
+else if (mode === 1) burnHeroHint.innerHTML = tr('burn_hint_train');
+else burnHeroHint.innerHTML = tr('burn_hint_refeed');
 }
-document.getElementById('app-info').innerText = new Date().toLocaleDateString('cs-CZ') + " | v95.4.134 · čistá data";
+var intakeHeroHintEl = document.getElementById('intake-hero-hint');
+if (intakeHeroHintEl) intakeHeroHintEl.innerHTML = tr('intake_hint');
+var locUi = getUiLang() === 'en' ? 'en-US' : 'cs-CZ';
+document.getElementById('app-info').innerText = new Date().toLocaleDateString(locUi) + " | " + APP_VERSION_TAG + " · " + tr('app_info_clean');
 
 var wMacro = wEff > 0 ? wEff : (cw > 0 ? cw : (Number(D.start) > 0 ? Number(D.start) : 0));
 var macroTargets = macroTargetsByContext(effectiveDietStyle, mode, wMacro, target);
@@ -5803,12 +6784,13 @@ updateMacroTubeUI('p', curDayData.p, targetP);
 updateMacroTubeUI('f', curDayData.f, targetF);
 updateMacroTubeUI('c', curDayData.c, targetC);
 updateKcalTubeUI(eatNum, target);
-var macroTitle = "Monitoring Maker";
+var macroTitle = tr('macro_title_base');
 if(effectiveDietStyle === "keto") macroTitle += " (Keto)";
 else if(effectiveDietStyle === "lowcarb") macroTitle += " (Low Carb)";
 else macroTitle += " (Standard)";
-macroTitle += mode === 1 ? " • Trénink" : (mode === 2 ? " • Refeed" : " • Gaučing");
-macroTitle += " • cíle z " + (wEff > 0 ? (wEff.toFixed(1) + " kg (7d Ø)") : "— (doplň profil / váhu)");
+macroTitle += mode === 1 ? (" • " + tr('mode_train')) : (mode === 2 ? (" • " + tr('mode_refeed')) : (" • " + tr('mode_couch')));
+var wpart = wEff > 0 ? (wEff.toFixed(1) + tr('macro_7d_avg')) : tr('macro_weight_missing');
+macroTitle += tr('macro_tail_targets', { w: wpart });
 document.getElementById('macro-title').innerText = macroTitle;
 var dayEntries = ensureDay(today).mealEntries || [];
 var missionMainEl = document.getElementById('daily-mission-main');
@@ -5847,16 +6829,16 @@ return mixHex('#f97316', '#7f1d1d', (x - 0.75) / 0.25);                // oranzo
 }
 var kcalProg = (Number(target) > 0) ? clamp01(eatNum / Math.max(1, Number(target))) : 0;
 var eatWordColor = kcalProgressColor(kcalProg);
-if (Number(target) > 0) missionMainEl.innerHTML = 'Zbývá <span style="color:' + eatWordColor + ';font-weight:900;text-shadow:0 0 8px rgba(0,0,0,0.35)">sníst</span>: ' + remainKcal + ' kcal a ' + remainP + ' g B';
-else missionMainEl.textContent = 'Doplň profil (cílová váha / výška / věk) pro přesnou denní misi';
-var modeLabel = mode === 1 ? 'Trénink' : (mode === 2 ? 'Refeed' : 'Gaučing');
-missionSubEl.textContent = 'Záznamů dnes: ' + dayEntries.length + ' • Režim: ' + modeLabel;
+if (Number(target) > 0) missionMainEl.innerHTML = tr('mission_remain', { color: eatWordColor, kcal: remainKcal, p: remainP });
+else missionMainEl.textContent = tr('mission_fill_profile');
+var modeLabel = mode === 1 ? tr('mode_train') : (mode === 2 ? tr('mode_refeed') : tr('mode_couch'));
+missionSubEl.textContent = tr('mission_entries', { n: dayEntries.length, mode: modeLabel });
 var hourNow = (new Date()).getHours();
 var lockReady = dayEntries.length > 0 && Number(target) > 0 && (eatNum >= Math.max(300, Math.round(Number(target) * 0.82)));
 var lockAuto = lockReady && hourNow >= 21;
 missionLockEl.classList.toggle('is-ready', lockReady && !lockAuto);
 missionLockEl.classList.toggle('is-locked', !!lockAuto);
-missionLockEl.textContent = lockAuto ? 'Uzávěrka dne: uzamčeno' : (lockReady ? 'Uzávěrka dne: připraveno' : 'Uzávěrka dne: čeká');
+missionLockEl.textContent = lockAuto ? tr('lock_done') : (lockReady ? tr('lock_ready') : tr('lock_wait'));
 
 function macroHit(cur, tgt) {
 if (!(Number(tgt) > 0)) return 1;
@@ -5880,17 +6862,42 @@ if (meetScore >= 0.9) missionCardEl.style.setProperty('--mission-core-glow', 'rg
 else if (meetScore >= 0.62) missionCardEl.style.setProperty('--mission-core-glow', 'rgba(245,158,11,0.42)');
 else missionCardEl.style.setProperty('--mission-core-glow', 'rgba(148,163,184,0.2)');
 
+var meetPctRound = Math.round(meetScore * 100);
+var balCol = missionBalanceHexFromPct(meetPctRound);
+var pctBalEl = document.getElementById('mission-balance-pct');
+var hotBalEl = document.getElementById('mission-balance-label-hot');
+var sparkBalEl = document.getElementById('mission-balance-spark');
+if (hotBalEl) hotBalEl.style.color = balCol;
+if (pctBalEl) {
+pctBalEl.textContent = meetPctRound + '%';
+pctBalEl.style.color = balCol;
+}
+if (sparkBalEl) {
+var sparkPts = [];
+for (var si = 6; si >= 0; si--) {
+var dSpark = new Date();
+dSpark.setDate(dSpark.getDate() - si);
+var dkSp = dayKeyFromDate(dSpark);
+try {
+sparkPts.push(computeMissionBriefing(dkSp).meetScorePct);
+} catch (eSp) {
+sparkPts.push(0);
+}
+}
+renderMissionSparklineSVG(sparkBalEl, sparkPts, balCol);
+}
+
 var report;
 if (!(Number(target) > 0)) {
-report = 'Nejprve doplň profil. Pak dostaneš přesné denní hodnocení mise.';
+report = tr('report_a');
 } else if (meetScore >= 0.9) {
-report = 'Skvěle. Příjem a výdej jsou v rovnováze pro redukci tuku.';
+report = tr('report_b');
 } else if (meetScore >= 0.62) {
-report = 'Dobrá práce. Jsi blízko vrcholu, drž tempo a dolaď makra.';
+report = tr('report_c');
 } else if (dayEntries.length > 0) {
-report = 'Mise běží. Přidávej průběžné zápisy a srovnávej příjem s výdejem.';
+report = tr('report_d');
 } else {
-report = 'Den je připraven. První zápis spustí misi naplno.';
+report = tr('report_e');
 }
 missionReportEl.textContent = report;
 var dayObjMission = ensureDay(today);
@@ -6005,16 +7012,44 @@ function slicePtsListByViewRange(points, view) {
     if (view === 'day' || !points.length) return points;
     var last = points[points.length - 1];
     if (!last || !last.s) return points;
-    var endY = last.s.getFullYear(), endMo = last.s.getMonth(), endD = last.s.getDate();
-    var endMidnight = new Date(endY, endMo, endD);
-    var span = view === 'week' ? 7 : 30;
-    var startMidnight = new Date(endY, endMo, endD - (span - 1));
-    startMidnight.setHours(0, 0, 0, 0);
-    return points.filter(function(p) {
-        if (!p.s) return false;
-        var d = new Date(p.s.getFullYear(), p.s.getMonth(), p.s.getDate());
-        return d >= startMidnight && d <= endMidnight;
-    });
+    // Uživatelské pravidlo:
+    // - týdenní: poslední + bod cca 7 dní zpět
+    // - ostatní nedenní: první + poslední
+    if (view === 'week') {
+        if (points.length < 2) return points;
+        var endMidnight = new Date(last.s.getFullYear(), last.s.getMonth(), last.s.getDate());
+        var target = new Date(endMidnight.getFullYear(), endMidnight.getMonth(), endMidnight.getDate() - 7);
+        var best = null;
+        var bestDist = Infinity;
+        // Preferuj body před cílovým dnem (historicky zpět).
+        points.forEach(function(p) {
+            if (!p.s || p === last) return;
+            var d = new Date(p.s.getFullYear(), p.s.getMonth(), p.s.getDate());
+            if (d > endMidnight) return;
+            var dist = Math.abs(d - target);
+            if (d <= target && dist < bestDist) {
+                best = p;
+                bestDist = dist;
+            }
+        });
+        // Když nic před target není, vezmi nejbližší bod k target.
+        if (!best) {
+            points.forEach(function(p) {
+                if (!p.s || p === last) return;
+                var d = new Date(p.s.getFullYear(), p.s.getMonth(), p.s.getDate());
+                var dist = Math.abs(d - target);
+                if (dist < bestDist) {
+                    best = p;
+                    bestDist = dist;
+                }
+            });
+        }
+        if (!best) best = points[points.length - 2];
+        return (best && best.key !== last.key) ? [best, last] : [last];
+    }
+    // month (a případné další nedenní režimy): první + poslední
+    if (points.length >= 2) return [points[0], points[points.length - 1]];
+    return points;
 }
 
 var cvGraph = window.currentView || 'day';
@@ -6088,7 +7123,7 @@ function fmtHoursMinutes(totalMinutes) {
     var m = totalMinutes % 60;
     return h + "h " + String(m).padStart(2, "0") + "m";
 }
-var fastInfo = "Půst není aktivní.";
+var fastInfo = tr('fast_idle');
 var proto = parseProtocol(D.fasting && D.fasting.protocol);
 var inFastNow = false, remainNow = 0;
 if(proto) {
@@ -6115,23 +7150,23 @@ if(proto) {
     }
     inFastNow = inFast;
     remainNow = remain;
-    if(inFast) fastInfo = "Půst běží (" + D.fasting.protocol + ") • do konce: " + fmtHoursMinutes(remain);
-    else fastInfo = "Jídelní okno (" + D.fasting.protocol + ") • zbývá: " + fmtHoursMinutes(remain);
+    if(inFast) fastInfo = tr('fast_running', { proto: D.fasting.protocol, time: fmtHoursMinutes(remain) });
+    else fastInfo = tr('fast_feeding', { proto: D.fasting.protocol, time: fmtHoursMinutes(remain) });
     if((effectiveDietStyle === "keto" || effectiveDietStyle === "lowcarb") && !inFast) {
         var carbsNow = Number(curDayData.c || 0);
-        fastInfo += " • Sacharidy: " + carbsNow + "/" + targetC + " g";
+        fastInfo += tr('fast_carbs_line', { cur: carbsNow, max: targetC });
     }
     var todayNotiKeyBase = today + "|" + (D.fasting.protocol || "") + "|" + (D.fasting.start || "20:00");
     if(inFast && remain <= 1) {
-        maybeNotify("fast_start|" + todayNotiKeyBase, "Půst začal", "Váš půst právě začal, tělo regeneruje.");
+        maybeNotify("fast_start|" + todayNotiKeyBase, tr('notif_fast_start'), tr('notif_fast_start_body'));
     }
     if(!inFast && remain <= 60) {
-        maybeNotify("feed_1h|" + todayNotiKeyBase, "Jídelní okno", "Zbývá cca 1 hodina jídelního okna, nezapomeň na bílkoviny.");
+        maybeNotify("feed_1h|" + todayNotiKeyBase, tr('notif_feed_window'), tr('notif_feed_body'));
     }
 }
 if(!proto && (effectiveDietStyle === "keto" || effectiveDietStyle === "lowcarb")) {
 var csn = Number(curDayData.c || 0);
-fastInfo = "Bez časovaného půstu • Sacharidy: " + csn + "/" + targetC + " g";
+fastInfo = tr('fast_no_timer', { cur: csn, max: targetC });
 }
 document.getElementById("fast-info").innerText = fastInfo;
 
@@ -6141,7 +7176,7 @@ if(carbLimitSmart != null && inEatingForCarbs) {
     var carbsLive = Number(curDayData.c || 0);
     var carbKey = "carb_smart|" + today + "|" + (effectiveDietStyle || "") + "|" + mode + "|" + carbLimitSmart;
     if(carbsLive > carbLimitSmart) {
-        smartCarbNotify(carbKey, "Sacharidy přes limit", "Máš " + carbsLive + " g S, cíl je max " + carbLimitSmart + " g. První krok: odkrojit zdroje cukru.");
+        smartCarbNotify(carbKey, tr('notif_carb_title'), tr('notif_carb_body', { cur: carbsLive, max: carbLimitSmart }));
     } else if(NOTIFIED[carbKey]) {
         delete NOTIFIED[carbKey];
         localStorage.setItem(NOTIF_KEY, JSON.stringify(NOTIFIED));
@@ -6456,10 +7491,9 @@ var yL = ""; for(var v=Math.floor(minV); v<=maxV; v+=2) yL += '<div style="posit
 mstones.forEach(function(m, idx) { var c = m===D.final?mCols[5]:mCols[idx%5]; yL += '<div style="position:absolute; top:' + (fy(m)-14) + 'px; left:5px; color:' + c + '; font-size:10px; font-weight:900; background:#000; padding:2px 6px; border-radius:4px; border:1px solid ' + c + '; z-index:101;">META ' + m + '</div>'; });
 document.getElementById('y-w').innerHTML = yL;
 
-var gk="", weightSegments="", waistPath="", chestPath="", thighPath="", bicepsPath="", shouldersPath="", pt="", pr="", pill="", predGoalTxt="", weightFillPath="", waistFillPath="", chestFillPath="", thighFillPath="", bicepsFillPath="", shouldersFillPath="";
+var gk="", weightSegments="", waistPath="", chestPath="", thighPath="", bicepsPath="", shouldersPath="", pt="", pr="", pill="", predGoalTxt="", waistFillPath="", chestFillPath="", thighFillPath="", bicepsFillPath="", shouldersFillPath="";
 mstones.forEach(function(m, idx) { gk += '<line x1="0" y1="' + fy(m) + '" x2="' + sw + '" y2="' + fy(m) + '" stroke="' + (m===D.final?mCols[5]:mCols[idx%5]) + '" stroke-width="1" stroke-dasharray="5,4" opacity="0.4"/>'; });
 
-weightFillPath = "M" + fx(0) + "," + fy(ptsList[0].w);
 waistFillPath = ""; chestFillPath = ""; thighFillPath = ""; bicepsFillPath = ""; shouldersFillPath = "";
 
 function nearestMetaColor(kg) {
@@ -6553,7 +7587,6 @@ ptsList.forEach(function(p, i) {
     if(i > 0) { 
         var prev = ptsList[i-1], x0 = fx(i-1), y0 = fy(prev.w); 
         var cp1x = (x0 + x)/2;
-        weightFillPath += " C " + cp1x + "," + y0 + " " + cp1x + "," + y + " " + x + "," + y;
         var segColor = (p.w > prev.w) ? "var(--red-dark)" : "var(--gold)"; 
         weightSegments += '<path d="M ' + x0 + ',' + y0 + ' C ' + cp1x + ',' + y0 + ' ' + cp1x + ',' + y + ' ' + x + ',' + y + '" stroke="' + segColor + '" stroke-width="2" fill="none" stroke-linecap="round"/>'; 
     }
@@ -6591,7 +7624,6 @@ ptsList.forEach(function(p, i) {
 });
 
 function closeFill(fPath, lastIdx, pKey) { if(fPath === "") return ""; var firstIdx = ptsList.findIndex(p => p[pKey] > 0); return fPath + " L " + fx(lastIdx) + "," + sH + " L " + fx(firstIdx) + "," + sH + " Z"; }
-weightFillPath += " L " + fx(ptsList.length-1) + "," + sH + " L " + fx(0) + "," + sH + " Z";
 waistFillPath = closeFill(waistFillPath, ptsList.length-1, "waist");
 chestFillPath = closeFill(chestFillPath, ptsList.length-1, "chest");
 thighFillPath = closeFill(thighFillPath, ptsList.length-1, "thigh");
@@ -6626,18 +7658,19 @@ if(eta > 0){
     pr='<line x1="' + x_start + '" y1="' + y_start + '" x2="' + x_end + '" y2="' + y_end + '" stroke="var(--gold)" stroke-width="2" stroke-dasharray="8,5" opacity="0.75"/>'; 
     pill = '<g class="pred-head-marker"><circle r="4.5" cx="0" cy="0" fill="rgba(15,23,42,0.92)" stroke="var(--gold)" stroke-width="2"/><animateMotion dur="' + predPillDur + '" repeatCount="indefinite" path="' + predPathLoop + '" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.82 0.22;0.2 0.45 0.75 1"/></g>';
     predGoalTxt = '<text x="' + x_end + '" y="' + (sH - 15) + '" fill="var(--gold)" font-size="10" font-weight="800" text-anchor="middle" style="text-shadow:0 0 5px rgba(0,0,0,0.9)">' + goalDateLabel + '</text>';
-    var paceTxt = 'adaptivní tempo';
-    document.getElementById('prediction').innerText = " MOTOR: Cíl " + td.toLocaleDateString('cs-CZ') + " (" + eta + " dní • " + paceTxt + ")"; 
+    var paceTxt = tr('pace_adaptive');
+    var locPred = getUiLang() === 'en' ? 'en-US' : 'cs-CZ';
+    document.getElementById('prediction').innerText = tr('motor_goal', { date: td.toLocaleDateString(locPred), eta: String(eta), pace: paceTxt });
     var paceNode = document.getElementById('prediction-pace');
     if(paceNode) {
     var etaFast = Math.max(1, Math.round((l.w - D.final) / Math.max(0.01, activeRate * 1.22)));
     var etaSlow = Math.max(1, Math.round((l.w - D.final) / Math.max(0.01, activeRate * 0.78)));
-    paceNode.innerHTML = "Tempo: " + (activeRate * 7).toFixed(2) + " kg/týden • ETA: O " + etaFast + " / R " + eta + " / K " + etaSlow + " dní • důvěra " + confLabel + "<br>Odhad: tuk <span style='color:" + fatColor + ";font-weight:900'>" + fatTxt + "</span> • svaly <span style='color:" + muscleColor + ";font-weight:900'>" + muscleTxt + "</span>";
+    paceNode.innerHTML = tr('pace_line', { rate: (activeRate * 7).toFixed(2), fast: String(etaFast), mid: String(eta), slow: String(etaSlow), conf: confLabel, fatColor: fatColor, fat: fatTxt, muscleColor: muscleColor, muscle: muscleTxt });
     }
-} else { document.getElementById('prediction').innerText = " MOTOR: Sledujeme progres..."; }
+} else { document.getElementById('prediction').innerText = tr('motor_watch'); }
 if(eta <= 0) {
 var paceNodeIdle = document.getElementById('prediction-pace');
-if(paceNodeIdle) paceNodeIdle.innerHTML = "Tempo: čekám na trend • důvěra " + confLabel + "<br>Odhad: tuk <span style='color:" + fatColor + ";font-weight:900'>" + fatTxt + "</span> • svaly <span style='color:" + muscleColor + ";font-weight:900'>" + muscleTxt + "</span>";
+if(paceNodeIdle) paceNodeIdle.innerHTML = tr('pace_idle', { conf: confLabel, fatColor: fatColor, fat: fatTxt, muscleColor: muscleColor, muscle: muscleTxt });
 }
 
 var measPaths = "";
@@ -6647,8 +7680,8 @@ if(thighPath) measPaths += '<path d="' + thighPath + '" fill="none" stroke="#d94
 if(bicepsPath) measPaths += '<path d="' + bicepsPath + '" fill="none" stroke="#8b5cf6" stroke-width="2.2" stroke-linecap="round" opacity="0.9"/>';
 if(shouldersPath) measPaths += '<path d="' + shouldersPath + '" fill="none" stroke="#22d3ee" stroke-width="2.2" stroke-linecap="round" opacity="0.9"/>';
 
-var defs = '<defs>' + weightGradDefs + '<linearGradient id="gradW" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--gold)" stop-opacity="0.2"/><stop offset="35%" stop-color="var(--gold)" stop-opacity="0"/></linearGradient></defs>';
-document.getElementById('svg-w').innerHTML = '<svg width="' + sw + '" height="' + sH + '" overflow="visible" style="overflow:visible">' + defs + gk + pr + '<path d="' + weightFillPath + '" fill="url(#gradW)" />' + weightSegments + measPaths + pt + predGoalTxt + pill + '</svg>';
+var defs = '<defs>' + weightGradDefs + '</defs>';
+document.getElementById('svg-w').innerHTML = '<svg width="' + sw + '" height="' + sH + '" overflow="visible" style="overflow:visible">' + defs + gk + pr + weightSegments + measPaths + pt + predGoalTxt + pill + '</svg>';
 var scrollWEl = document.getElementById('scroll-w');
 if (scrollWEl) {
 scrollWEl.classList.remove("graph-outer--empty");
@@ -6684,15 +7717,16 @@ var rwVal = document.getElementById("roadmap-val-w");
 var rwSub = document.getElementById("roadmap-sub-w");
 var rwCap = document.getElementById("roadmap-cap-w");
 if (rwFill) rwFill.style.height = Math.round(78 * weightProg) + "%";
-if (rwSub) rwSub.textContent = "";
 if (rwCap) rwCap.textContent = (goalW > 0 ? goalW.toFixed(1) + " kg" : "—");
 if (rwVal) {
 rwVal.classList.remove("roadmap-mini-val--good", "roadmap-mini-val--bad", "roadmap-mini-val--neutral");
+rwVal.removeAttribute("title");
 if (curW > 0 && startW > 0) {
 var dW = curW - startW;
 var absDW = Math.abs(dW);
 var signDW = dW > 0 ? "+" : "";
 rwVal.textContent = signDW + dW.toFixed(1) + " kg";
+rwVal.setAttribute("title", tr("tooltip_weight_delta", { goal: goalW > 0 ? goalW.toFixed(1) + " kg" : (getUiLang() === "en" ? "n/a" : "nevyplněno") }));
 if (absDW < 0.05) rwVal.classList.add("roadmap-mini-val--neutral");
 else if (dW < 0) rwVal.classList.add("roadmap-mini-val--good");
 else rwVal.classList.add("roadmap-mini-val--bad");
@@ -6701,15 +7735,91 @@ rwVal.textContent = "—";
 rwVal.classList.add("roadmap-mini-val--neutral");
 }
 }
-if (rwSub) rwSub.textContent = (curW > 0 ? curW.toFixed(1) + " kg" : "—");
+if (rwSub) {
+rwSub.textContent = (curW > 0 ? (tr("common_now") + " " + curW.toFixed(1) + " kg\n" + tr("common_start") + " " + (startW > 0 ? startW.toFixed(1) + " kg" : "—")) : "—");
+}
 
 function metricSeriesForKey(key) {
 var arr = [];
-ptsList.forEach(function(p) {
+// Roadmap budíky a predikce musí brát celou historii, ne jen aktuální výřez grafu.
+rawPtsList.forEach(function(p) {
 var m = Number(p[key] || 0), w = Number(p.w || 0);
 if (m > 0 && w > 0) arr.push({ m: m, w: w });
 });
 return arr;
+}
+var BASELINE_WINDOW_MS_IC = 14 * 24 * 60 * 60 * 1000;
+var METRIC_V2_KEYS_IC = { chest: 1, thigh: 1, biceps: 1, shoulders: 1 };
+function metricRegressionRowsAtGoal(rows, goalWeight, useClamp) {
+var n = rows.length;
+if (n < 2 || !(goalWeight > 0)) return null;
+var sx = 0, sy = 0, sxx = 0, sxy = 0, j;
+for (j = 0; j < n; j++) {
+var x = rows[j].w, yv = rows[j].m;
+sx += x; sy += yv; sxx += x * x; sxy += x * yv;
+}
+var den = n * sxx - sx * sx;
+if (Math.abs(den) < 1e-6) return null;
+var slope = (n * sxy - sx * sy) / den;
+var intercept = (sy - slope * sx) / n;
+var pred = slope * goalWeight + intercept;
+if (!isFinite(pred)) return null;
+if (useClamp !== false) {
+var st = rows[0].m, cur = rows[n - 1].m;
+var lo = Math.min(st, cur) - Math.max(2, Math.abs(st - cur) * 1.2);
+var hi = Math.max(st, cur) + Math.max(2, Math.abs(st - cur) * 1.2);
+pred = Math.max(lo, Math.min(hi, pred));
+}
+return Number(pred.toFixed(1));
+}
+function metricPointsChronoForKey(key) {
+var arr = [];
+rawPtsList.forEach(function(p) {
+var m = Number(p[key] || 0), w = Number(p.w || 0);
+if (m > 0 && w > 0) arr.push({ m: m, w: w, s: p.s });
+});
+arr.sort(function(a, b) { return a.s - b.s; });
+return arr;
+}
+function tryMetricGoalPredV2(key, goalWn, curMn) {
+if (!METRIC_V2_KEYS_IC[key]) return null;
+D.metricGoalPredV2 = D.metricGoalPredV2 || {};
+var pts = metricPointsChronoForKey(key);
+if (pts.length < 2) return null;
+var t0 = pts[0].s;
+var baselineRows = [];
+var i;
+for (i = 0; i < pts.length; i++) {
+if ((pts[i].s - t0) <= BASELINE_WINDOW_MS_IC) baselineRows.push(pts[i]);
+}
+if (baselineRows.length < 2) return null;
+var baselinePred = metricRegressionRowsAtGoal(baselineRows, goalWn, true);
+if (baselinePred == null || !isFinite(baselinePred)) return null;
+var maxHist = 0;
+for (i = 0; i < pts.length; i++) if (pts[i].m > maxHist) maxHist = pts[i].m;
+var peakM = Math.max(maxHist, curMn);
+var entry = D.metricGoalPredV2[key];
+var changed = false;
+if (!entry || typeof entry.v !== "number" || !isFinite(entry.v)) {
+D.metricGoalPredV2[key] = { v: baselinePred, maxM: peakM };
+changed = true;
+} else {
+var oldMax = entry.maxM || 0;
+if (peakM > oldMax + 0.001) {
+var fullUnc = metricRegressionRowsAtGoal(pts, goalWn, false);
+if (fullUnc != null && isFinite(fullUnc)) entry.v = Math.max(entry.v, fullUnc);
+entry.maxM = peakM;
+D.metricGoalPredV2[key] = entry;
+changed = true;
+} else {
+entry.maxM = Math.max(oldMax, peakM);
+D.metricGoalPredV2[key] = entry;
+}
+}
+if (changed) {
+try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (e) {}
+}
+return D.metricGoalPredV2[key].v;
 }
 function metricPredAtGoalByRegression(key, goalWeight) {
 var arr = metricSeriesForKey(key);
@@ -6737,6 +7847,10 @@ var curWn = Number(currentWeight) || 0;
 var curMn = Number(currentMetric) || 0;
 var goalWn = Number(goalWeight) || 0;
 if (!(curWn > 0) || !(curMn > 0) || !(goalWn > 0)) return null;
+var v2pred = tryMetricGoalPredV2(key, goalWn, curMn);
+if (v2pred != null && isFinite(v2pred)) {
+return Math.max(30, Number(Number(v2pred).toFixed(1)));
+}
 var lossKg = Math.max(0, curWn - goalWn);
 var dynWaistPerKg = 1.0; // konzervativně fixně: -1 cm pas / -1 kg
 var apRoad = activityProfileForDayKey(getD());
@@ -6793,7 +7907,9 @@ if (needleEl) {
 if (!capEl || !valEl || !subEl || !shellEl || !needleEl) return;
 if (!(data.start > 0) || !(data.current > 0)) {
 capEl.textContent = "—";
+capEl.removeAttribute("title");
 valEl.textContent = "—";
+valEl.removeAttribute("title");
 valEl.classList.remove("roadmap-mini-val--good", "roadmap-mini-val--bad", "roadmap-mini-val--zone-ok", "roadmap-mini-val--zone-mid", "roadmap-mini-val--zone-warn");
 valEl.classList.add("roadmap-mini-val--neutral");
 shellEl.classList.remove("roadmap-gauge-shell--good", "roadmap-gauge-shell--bad");
@@ -6804,25 +7920,33 @@ return;
 var gaugeGoalRaw = metricPredAtGoalSafe(key, goalW, curW, data.current);
 var gaugeGoal = (gaugeGoalRaw && gaugeGoalRaw > 0) ? gaugeGoalRaw : data.current;
 capEl.textContent = gaugeGoal.toFixed(1) + suffix;
-var tolGauge = (key === "biceps" || key === "shoulders") ? 1.0 : 1.5;
+capEl.setAttribute("title", goalW > 0 ? tr("tooltip_gauge_cap", { goal: goalW.toFixed(1) }) : tr("tooltip_gauge_cap_no_w"));
+// Hrudník/stehno: při úbytku tuku bývá odchylka i několik cm — úzké prahy působily zbytečně trestně.
+var gaugeBands = (key === "chest" || key === "thigh")
+? { tolShell: 9, ok: 2.5, mid: 6, warn: 12 }
+: (key === "biceps" || key === "shoulders")
+? { tolShell: 2.2, ok: 0.6, mid: 1.6, warn: 2.8 }
+: { tolShell: 1.5, ok: 0.5, mid: 1.5, warn: 2.2 };
 var devGauge = data.current - gaugeGoal;
-// Kalibrace budiku podle rysek: +2 cm ~= druha prava ryska.
-// Kladna odchylka (vetsi obvod nez cil) jde doprava.
-var deg = devGauge * 12;
-deg = Math.max(-58, Math.min(58, deg));
+// Úhel: škála podle metriky — ±warn cm = plný rozsah ručičky uvnitř oblouku (ne fixní 12°/cm).
+var GAUGE_DEG_MAX = 48;
+var fullScaleCm = Math.max(gaugeBands.warn, 0.01);
+var deg = (devGauge / fullScaleCm) * GAUGE_DEG_MAX;
+deg = Math.max(-GAUGE_DEG_MAX, Math.min(GAUGE_DEG_MAX, deg));
 needleEl.style.transform = "rotate(" + deg.toFixed(1) + "deg)";
-var inZone = Math.abs(devGauge) <= tolGauge;
+var absDevGauge = Math.abs(devGauge);
+var inZone = absDevGauge <= gaugeBands.tolShell;
 var signGauge = devGauge > 0 ? "+" : "";
 valEl.textContent = signGauge + devGauge.toFixed(1) + suffix;
-var absDevGauge = Math.abs(devGauge);
+valEl.setAttribute("title", (key === "chest" || key === "thigh") ? tr("tooltip_gauge_chest") : tr("tooltip_gauge_val"));
 valEl.classList.remove("roadmap-mini-val--good", "roadmap-mini-val--bad", "roadmap-mini-val--neutral", "roadmap-mini-val--zone-ok", "roadmap-mini-val--zone-mid", "roadmap-mini-val--zone-warn");
-if (absDevGauge < 0.5) valEl.classList.add("roadmap-mini-val--zone-ok");
-else if (absDevGauge < 1.5) valEl.classList.add("roadmap-mini-val--zone-mid");
-else if (absDevGauge <= 2) valEl.classList.add("roadmap-mini-val--zone-warn");
+if (absDevGauge < gaugeBands.ok) valEl.classList.add("roadmap-mini-val--zone-ok");
+else if (absDevGauge < gaugeBands.mid) valEl.classList.add("roadmap-mini-val--zone-mid");
+else if (absDevGauge < gaugeBands.warn) valEl.classList.add("roadmap-mini-val--zone-warn");
 else valEl.classList.add("roadmap-mini-val--bad");
 shellEl.classList.remove("roadmap-gauge-shell--good", "roadmap-gauge-shell--bad", "roadmap-mini-shell--good", "roadmap-mini-shell--bad");
 shellEl.classList.add(inZone ? "roadmap-gauge-shell--good" : "roadmap-gauge-shell--bad");
-subEl.textContent = data.current.toFixed(1) + suffix;
+subEl.textContent = tr("common_now") + " " + data.current.toFixed(1) + suffix + "\n" + tr("common_start") + " " + data.start.toFixed(1) + suffix;
 return;
 }
 if (!capEl || !fillEl || !valEl || !subEl) return;
@@ -6897,7 +8021,14 @@ shellEl.classList.remove("roadmap-mini-shell--good", "roadmap-mini-shell--bad");
 shellEl.classList.add(improve ? "roadmap-mini-shell--good" : "roadmap-mini-shell--bad");
 }
 }
+if (key === "waist") {
+if (data.current > 0) {
+var startWaistLine = data.start > 0 ? data.start.toFixed(1) + suffix : "—";
+subEl.textContent = tr("common_now") + " " + data.current.toFixed(1) + suffix + "\n" + tr("common_start") + " " + startWaistLine;
+} else subEl.textContent = "—";
+} else {
 subEl.textContent = data.current.toFixed(1) + suffix;
+}
 }
 updateRoadmapMini("waist", " cm");
 updateRoadmapMini("chest", " cm");
@@ -6949,12 +8080,12 @@ return false;
 var yLK = "";
 for (var kGrid = 0; kGrid <= maxK; kGrid += 500) {
 if (skipGridKcalLabel(kGrid)) continue;
-yLK += '<div class="kcal-axis-gridnum" style="top:' + (fyk(kGrid) - 7) + 'px;">' + kGrid + ' kcal</div>';
+yLK += '<div class="kcal-axis-gridnum" style="top:' + (fyk(kGrid) - 7) + 'px;">' + tr('chart_axis_kcal', { n: kGrid }) + '</div>';
 }
-yLK += '<div class="kcal-axis-pill" style="top:' + (fyk(target) - 8) + 'px; color:var(--pink); background:rgba(236,72,153,0.3); border:1px solid var(--pink);" title="Cíl: BMR + kredit z pohybu (0–500 kcal: 50 %, 500–1200: 25 %, nad 1200: 10 %) — při velkém součtu pohybů neroste příjem tak rychle jako deficit.">Dnes cíl: ' + target + '</div>';
-yLK += '<div class="kcal-axis-pill" style="top:' + (fyk(minLimit) - 8) + 'px; color:var(--red); background:rgba(239,68,68,0.3); border:1px solid var(--red);">Dnes min: ' + minLimit + '</div>';
-yLK += '<div class="kcal-axis-pill" style="top:' + (fyk(goldEff) - 8) + 'px; color:var(--gold-deep); background:rgba(255,157,0,0.3); border:1px solid var(--gold-deep);">LIMIT: ' + goldEff + '</div>';
-yLK += '<div class="kcal-axis-pill" style="top:' + (fyk(neonK) - 8) + 'px; color:var(--green-neon); background:rgba(57, 255, 20, 0.2); border:1px solid var(--green-neon); opacity:0.95;">NEON: ' + neonK + '</div>';
+yLK += '<div class="kcal-axis-pill" style="top:' + (fyk(target) - 8) + 'px; color:var(--pink); background:rgba(236,72,153,0.3); border:1px solid var(--pink);" title="' + String(tr('chart_pill_goal_tip')).replace(/"/g, '&quot;') + '">' + tr('chart_today_goal', { n: target }) + '</div>';
+yLK += '<div class="kcal-axis-pill" style="top:' + (fyk(minLimit) - 8) + 'px; color:var(--red); background:rgba(239,68,68,0.3); border:1px solid var(--red);">' + tr('chart_today_min', { n: minLimit }) + '</div>';
+yLK += '<div class="kcal-axis-pill" style="top:' + (fyk(goldEff) - 8) + 'px; color:var(--gold-deep); background:rgba(255,157,0,0.3); border:1px solid var(--gold-deep);">' + tr('chart_limit_lbl') + ' ' + goldEff + '</div>';
+yLK += '<div class="kcal-axis-pill" style="top:' + (fyk(neonK) - 8) + 'px; color:var(--green-neon); background:rgba(57, 255, 20, 0.2); border:1px solid var(--green-neon); opacity:0.95;">' + tr('chart_neon_lbl') + ' ' + neonK + '</div>';
 document.getElementById('y-k').innerHTML = yLK;
 
 var gk="", eatPath="", burnPath="", st="", bl="", greenTotal=0, goldTotal=0;
@@ -7088,19 +8219,19 @@ balDayKeys.forEach(function(dayKey) {
     var mtR = macroTargetsByContext(dietR, modeR, wkg, tKR);
     var badgeBal = dayModeLabel(modeR);
     var badgeCls = dayModeBadgeClass(modeR);
-    bl += '<div class="balance-row" role="button" tabindex="0" onclick="window.showDayMealBubble(\'' + dayKey + '\')"><div class="bal-date">' + ds + '<span class="' + badgeCls + '">' + badgeBal + '</span></div><div class="bal-vals"><div class="bal-val-box"><div class="bal-val-label">Příjem</div><div class="bal-val-num" style="color:var(--gold)">' + eat + '</div></div><div class="bal-val-box"><div class="bal-val-label">Pohyb</div><div class="bal-val-num" style="color:var(--green-neon)">' + sp + '</div></div><div class="bal-val-box"><div class="bal-val-label">Vítěz</div><div class="bal-val-num" style="color:var(--accent)">' + Math.max(0,(tdeeR+sp)-eat) + '</div></div></div><div class="bal-macros-row"><span class="bm-p">B ' + pm + '/' + mtR.p + '</span><span class="bm-f">T ' + fm + '/' + mtR.f + '</span><span class="bm-c">S ' + cm + '/' + mtR.c + '</span> <span style="color:var(--muted);font-weight:700">g (strop)</span></div></div>';
+    bl += '<div class="balance-row" role="button" tabindex="0" onclick="window.showDayMealBubble(\'' + dayKey + '\')"><div class="bal-date">' + ds + '<span class="' + badgeCls + '">' + badgeBal + '</span></div><div class="bal-vals"><div class="bal-val-box"><div class="bal-val-label">' + tr('bal_lbl_in') + '</div><div class="bal-val-num" style="color:var(--gold)">' + eat + '</div></div><div class="bal-val-box"><div class="bal-val-label">' + tr('bal_lbl_move') + '</div><div class="bal-val-num" style="color:var(--green-neon)">' + sp + '</div></div><div class="bal-val-box"><div class="bal-val-label">' + tr('bal_lbl_win') + '</div><div class="bal-val-num" style="color:var(--accent)">' + Math.max(0,(tdeeR+sp)-eat) + '</div></div></div><div class="bal-macros-row"><span class="bm-p">B ' + pm + '/' + mtR.p + '</span><span class="bm-f">T ' + fm + '/' + mtR.f + '</span><span class="bm-c">S ' + cm + '/' + mtR.c + '</span> <span style="color:var(--muted);font-weight:700">' + tr('bal_g_ceiling') + '</span></div></div>';
 });
 
 function renderSmallProgressStack(id, smallTotal, color) {
     var box = document.getElementById(id);
     if(!box) return;
     if(!smallTotal || smallTotal < 1) {
-        box.innerHTML = '<span style="color:var(--muted); font-size:9px;">Zatím nic</span>';
+        box.innerHTML = '<span style="color:var(--muted); font-size:9px;">' + tr('stack_none') + '</span>';
         return;
     }
     var rem = smallTotal % 10;
     if(rem === 0) {
-        box.innerHTML = '<span style="color:var(--muted); font-size:9px; line-height:1.35;">10/10 → +1 velká · nový cyklus</span>';
+        box.innerHTML = '<span style="color:var(--muted); font-size:9px; line-height:1.35;">' + tr('stack_10') + '</span>';
         return;
     }
     var h = "";
@@ -7117,13 +8248,13 @@ renderSmallProgressStack('stack-gold', goldTotal, 'var(--gold-deep)');
 var bigNeon = Math.floor(greenTotal / 10), bigGold = Math.floor(goldTotal / 10);
 var rg = document.getElementById('rank-green');
 if(rg) {
-    if(bigNeon < 1) rg.innerHTML = '<span class="star-rank-plain">0 velká</span>';
-    else rg.innerHTML = '<button type="button" class="rank-mega-star-btn rank-mega-star--green" onclick="window.showStarInfoBubble(\'green\')" aria-label="Detail neon hvězd"><svg class="star-3d rank-mega-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.18" stroke-linejoin="round" d="' + starPath + '"/></svg><span class="rank-mega-star-num">' + bigNeon + '</span></button>';
+    if(bigNeon < 1) rg.innerHTML = '<span class="star-rank-plain">' + tr('star_rank_plain') + '</span>';
+    else rg.innerHTML = '<button type="button" class="rank-mega-star-btn rank-mega-star--green" onclick="window.showStarInfoBubble(\'green\')" aria-label="' + String(tr('aria_star_neon')).replace(/"/g, '&quot;') + '"><svg class="star-3d rank-mega-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.18" stroke-linejoin="round" d="' + starPath + '"/></svg><span class="rank-mega-star-num">' + bigNeon + '</span></button>';
 }
 var rgo = document.getElementById('rank-gold');
 if(rgo) {
-    if(bigGold < 1) rgo.innerHTML = '<span class="star-rank-plain">0 velká</span>';
-    else rgo.innerHTML = '<button type="button" class="rank-mega-star-btn rank-mega-star--gold" onclick="window.showStarInfoBubble(\'gold\')" aria-label="Detail zlatých hvězd"><svg class="star-3d rank-mega-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.18" stroke-linejoin="round" d="' + starPath + '"/></svg><span class="rank-mega-star-num">' + bigGold + '</span></button>';
+    if(bigGold < 1) rgo.innerHTML = '<span class="star-rank-plain">' + tr('star_rank_plain') + '</span>';
+    else rgo.innerHTML = '<button type="button" class="rank-mega-star-btn rank-mega-star--gold" onclick="window.showStarInfoBubble(\'gold\')" aria-label="' + String(tr('aria_star_gold')).replace(/"/g, '&quot;') + '"><svg class="star-3d rank-mega-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.18" stroke-linejoin="round" d="' + starPath + '"/></svg><span class="rank-mega-star-num">' + bigGold + '</span></button>';
 }
 document.getElementById('bal-list').innerHTML = bl;
 
@@ -7143,27 +8274,30 @@ scrollKEl.scrollLeft = (typeof savedK === 'number' && !isNaN(savedK)) ? savedK :
 } 
 drawK();
 var starNeonCap = document.getElementById('star-neon-caption');
-if (starNeonCap) starNeonCap.textContent = 'Neon Hvězdy (' + starNeonThresholdKcal() + '+)';
+if (starNeonCap) starNeonCap.textContent = tr('star_neon_dyn', { k: starNeonThresholdKcal() });
 
 var logRoot = document.getElementById('log-list');
 logRoot.innerHTML = "";
 var todayLogs = (ensureDay(getD()).mealEntries || D.logs || []);
 function formatLogTime(ts) {
 if (!(Number(ts) > 0)) return '—';
-try { return new Date(Number(ts)).toLocaleTimeString('cs-CZ', { hour: '2-digit', minute: '2-digit' }); } catch (e) { return '—'; }
+try {
+var loc = getUiLang() === 'en' ? 'en-US' : 'cs-CZ';
+return new Date(Number(ts)).toLocaleTimeString(loc, { hour: '2-digit', minute: '2-digit' });
+} catch (e) { return '—'; }
 }
 function appendLogMacroLine(target, l) {
 if (l.type === 'out') {
 var o = document.createElement('span');
 o.className = 'log-mac-out';
-o.textContent = 'výdej';
+o.textContent = tr('log_out');
 target.appendChild(o);
 return;
 }
 if (!l.macros) {
 var u = document.createElement('span');
 u.className = 'log-mac-unknown';
-u.textContent = 'makra —';
+u.textContent = tr('log_macros_unknown');
 target.appendChild(u);
 return;
 }
@@ -7208,8 +8342,8 @@ baseHistDate = new Date(baseHistDate.getFullYear(), baseHistDate.getMonth(), bas
 for(var i=0; i<7; i++){
     var dt=new Date(baseHistDate.getTime()); dt.setDate(baseHistDate.getDate()-i); var dayKey=dayKeyFromDate(dt), ds=displayDayKey(dayKey), dd=D.days[dayKey]||{w:'',e:0,b:0,waist:'',chest:'',thigh:'',biceps:'',shoulders:'',p:0,f:0,c:0}, idW="hw-"+i, idWaist="hwaist-"+i, idChest="hchest-"+i, idThigh="hthigh-"+i, idBiceps="hbiceps-"+i, idShoulders="hshoulders-"+i, idE="he-"+i, idB="hb-"+i;
     /* Numerická klávesnice v historii pro lepší UX na mobilu */
-    ew += '<div class="history-item"><div class="history-date">' + ds + '</div><div class="hist-row"><span>Váha (kg)</span><input type="number" id="'+idW+'" step="0.1" inputmode="decimal" value="'+dd.w+'"><span>Pas (cm)</span><input type="number" id="'+idWaist+'" step="0.1" inputmode="decimal" value="'+(dd.waist||'')+'"><span>Hrudník (cm)</span><input type="number" id="'+idChest+'" step="0.1" inputmode="decimal" value="'+(dd.chest||'')+'"><span>Stehno (cm)</span><input type="number" id="'+idThigh+'" step="0.1" inputmode="decimal" value="'+(dd.thigh||'')+'"><span>Biceps (cm)</span><input type="number" id="'+idBiceps+'" step="0.1" inputmode="decimal" value="'+(dd.biceps||'')+'"><span>Ramena (cm)</span><input type="number" id="'+idShoulders+'" step="0.1" inputmode="decimal" value="'+(dd.shoulders||'')+'"></div><div style="display:flex;gap:8px;"><button class="btn-save-mini" style="flex:1" onclick="window.saveHistoryW(\''+dayKey+'\', \''+idW+'\', \''+idWaist+'\', \''+idChest+'\', \''+idThigh+'\', \''+idBiceps+'\', \''+idShoulders+'\')">Uložit</button><button type="button" class="btn-save-mini btn-hist-reset--wine" style="flex:1" onclick="window.resetHistoryDay(\''+dayKey+'\', \'w\')">Reset</button></div></div>';
-    ek += '<div class="history-item"><div class="history-date">' + ds + '</div><div class="hist-row"><span>Jídlo</span><input type="number" id="'+idE+'" inputmode="numeric" pattern="[0-9]*" autocomplete="off" value="'+(dd.e||'')+'"><br><span>Pohyb</span><input type="number" id="'+idB+'" inputmode="numeric" pattern="[0-9]*" autocomplete="off" value="'+(dd.b||'')+'"></div><div style="display:flex;gap:8px;"><button class="btn-save-mini" style="flex:1" onclick="window.saveHistoryK(\''+dayKey+'\', \''+idE+'\', \''+idB+'\')">Uložit</button><button type="button" class="btn-save-mini btn-hist-reset--wine" style="flex:1" onclick="window.resetHistoryDay(\''+dayKey+'\', \'k\')">Reset</button></div></div>';
+    ew += '<div class="history-item"><div class="history-date">' + ds + '</div><div class="hist-row"><span>' + tr('hist_w_kg') + '</span><input type="number" id="'+idW+'" step="0.1" inputmode="decimal" value="'+dd.w+'"><span>' + tr('hist_waist') + '</span><input type="number" id="'+idWaist+'" step="0.1" inputmode="decimal" value="'+(dd.waist||'')+'"><span>' + tr('hist_chest') + '</span><input type="number" id="'+idChest+'" step="0.1" inputmode="decimal" value="'+(dd.chest||'')+'"><span>' + tr('hist_thigh') + '</span><input type="number" id="'+idThigh+'" step="0.1" inputmode="decimal" value="'+(dd.thigh||'')+'"><span>' + tr('hist_biceps') + '</span><input type="number" id="'+idBiceps+'" step="0.1" inputmode="decimal" value="'+(dd.biceps||'')+'"><span>' + tr('hist_shoulders') + '</span><input type="number" id="'+idShoulders+'" step="0.1" inputmode="decimal" value="'+(dd.shoulders||'')+'"></div><div style="display:flex;gap:8px;"><button class="btn-save-mini" style="flex:1" onclick="window.saveHistoryW(\''+dayKey+'\', \''+idW+'\', \''+idWaist+'\', \''+idChest+'\', \''+idThigh+'\', \''+idBiceps+'\', \''+idShoulders+'\')">' + tr('hist_save') + '</button><button type="button" class="btn-save-mini btn-hist-reset--wine" style="flex:1" onclick="window.resetHistoryDay(\''+dayKey+'\', \'w\')">' + tr('hist_reset') + '</button></div></div>';
+    ek += '<div class="history-item"><div class="history-date">' + ds + '</div><div class="hist-row"><span>' + tr('hist_food') + '</span><input type="number" id="'+idE+'" inputmode="numeric" pattern="[0-9]*" autocomplete="off" value="'+(dd.e||'')+'"><br><span>' + tr('hist_move') + '</span><input type="number" id="'+idB+'" inputmode="numeric" pattern="[0-9]*" autocomplete="off" value="'+(dd.b||'')+'"></div><div style="display:flex;gap:8px;"><button class="btn-save-mini" style="flex:1" onclick="window.saveHistoryK(\''+dayKey+'\', \''+idE+'\', \''+idB+'\')">' + tr('hist_save') + '</button><button type="button" class="btn-save-mini btn-hist-reset--wine" style="flex:1" onclick="window.resetHistoryDay(\''+dayKey+'\', \'k\')">' + tr('hist_reset') + '</button></div></div>';
 }
 var ae = document.activeElement;
 var aeId = ae && ae.id ? String(ae.id) : "";
@@ -7228,6 +8362,33 @@ renderRoutine();
 function escHtml(s) {
 return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
 }
+function buildMissionBriefingMealsHtml(dayKey) {
+var dk = normDt(dayKey);
+var dd = ensureDay(dk);
+var meals = dd.mealEntries || [];
+var h = '<div class="mission-briefing-meals-kicker">' + tr('mb_meals_title') + '</div>';
+if (!meals.length) {
+return h + '<p class="mission-briefing-meals-empty">' + tr('meal_none_detail') + '</p>';
+}
+h += '<ul class="mission-briefing-meals-list">';
+meals.forEach(function(m) {
+var sub = "";
+if (m.macros && m.type === "in") {
+sub = "B " + (Number(m.macros.p) || 0) + " · T " + (Number(m.macros.f) || 0) + " · S " + (Number(m.macros.c) || 0) + " g";
+} else if (m.type === "out") {
+sub = tr('meal_move_line');
+}
+var kcalColor = m.c ? m.c : (m.type === "out" ? "var(--green-neon)" : "var(--gold)");
+var sign = m.type === "out" ? "" : "+";
+h += '<li class="mission-briefing-meal-line' + (m.type === "out" ? " mission-briefing-meal-line--out" : "") + '">';
+h += '<div class="mission-briefing-meal-main"><span class="mission-briefing-meal-name">' + escHtml(m.n || "") + '</span>';
+if (sub) h += '<small class="mission-briefing-meal-sub">' + escHtml(sub) + '</small>';
+h += '</div><span class="mission-briefing-meal-kcal" style="color:' + kcalColor + '">' + sign + (Number(m.v) || 0) + ' kcal</span>';
+h += '</li>';
+});
+h += '</ul>';
+return h;
+}
 window.showDayMealBubble = function(dayKey) {
 var el = document.getElementById("meal-day-bubble");
 var body = document.getElementById("meal-day-bubble-body");
@@ -7237,14 +8398,14 @@ var dd = ensureDay(dk);
 var meals = dd.mealEntries || [];
 var title = displayDayKey(dk) + " · " + dk;
 var html = "<p style=\"margin:0 0 10px;font-weight:900;color:var(--gold);\">" + escHtml(title) + "</p>";
-html += "<p style=\"margin:0 0 10px;font-size:10px;color:var(--muted);line-height:1.4;\">Souhrn dne: příjem " + (Number(dd.e) || 0) + " kcal · pohyb " + (Number(dd.b) || 0) + " kcal · makra B " + (Number(dd.p) || 0) + " / T " + (Number(dd.f) || 0) + " / S " + (Number(dd.c) || 0) + " g</p>";
+html += "<p style=\"margin:0 0 10px;font-size:10px;color:var(--muted);line-height:1.4;\">" + tr('meal_sum', { eat: Number(dd.e) || 0, burn: Number(dd.b) || 0, p: Number(dd.p) || 0, f: Number(dd.f) || 0, c: Number(dd.c) || 0 }) + "</p>";
 if(!meals.length) {
-html += "<p style=\"color:var(--muted);margin:0;\">Žádný podrobný záznam jídel (jen souhrnné hodnoty dne).</p>";
+html += "<p style=\"color:var(--muted);margin:0;\">" + tr('meal_none_detail') + "</p>";
 } else {
 meals.forEach(function(m) {
 var macro = "";
 if(m.macros && m.type === "in") macro = "B " + (Number(m.macros.p) || 0) + " · T " + (Number(m.macros.f) || 0) + " · S " + (Number(m.macros.c) || 0) + " g";
-else if(m.type === "out") macro = "Pohyb / výdej";
+else if(m.type === "out") macro = tr('meal_move_line');
 html += "<div class=\"meal-day-line\"><div style=\"flex:1;min-width:0\"><span style=\"font-weight:800;color:var(--text)\">" + escHtml(m.n || "") + "</span>";
 if(macro) html += "<small>" + escHtml(macro) + "</small>";
 html += "</div><span style=\"color:" + (m.c || "var(--gold)") + ";white-space:nowrap;font-weight:900\">" + (m.type === "out" ? "" : "+") + (Number(m.v) || 0) + " kcal</span></div>";
@@ -7273,20 +8434,21 @@ var t = getD();
 var cur = D.days[t] || {};
 var eff = (cur.dietStyle || D.dietStyle || "standard");
 var html = "";
-html += "<h3>Refeed — nezastavit progres</h3>";
-html += "<p class=\"refeed-info-muted\">Cíl je doplnit <strong>komplexní sacharidy</strong> a výkon, ne udělat den tuku a rychlých cukrů. Platí styl: <strong>" + (eff === "keto" ? "Keto" : (eff === "lowcarb" ? "Low carb" : "Standard")) + "</strong> (jemně dle dnešního dne v datech).</p>";
+var dsStyle = eff === "keto" ? tr('style_keto') : (eff === "lowcarb" ? tr('style_lowcarb') : tr('style_standard'));
+html += "<h3>" + tr('refeed_h3') + "</h3>";
+html += "<p class=\"refeed-info-muted\">" + tr('refeed_muted', { style: dsStyle }) + "</p>";
 if(eff === "keto") {
-html += "<p><span class=\"refeed-info-good\">Spíš ano:</span> řízený objem komplexních sacharidů kolem tréninku (rýže, brambory, oves), bílkoviny drž. Tuk v refeed den <strong>nepřehánět</strong> — není to den „másla navíc“.</p>";
-html += "<p><span class=\"refeed-info-bad\">Určitě ne!</span> med, cukr, sladké pečivo, sladké nápoje — vyhodí z ketózy a snadno přejíš prázdné kcal.</p>";
+html += "<p>" + tr('refeed_keto_yes') + "</p>";
+html += "<p>" + tr('refeed_keto_no') + "</p>";
 } else if(eff === "lowcarb") {
-html += "<p><span class=\"refeed-info-good\">Spíš ano:</span> celozrnné přílohy, ovoce s mírou, kvalitní sacharidy (rýže, brambory, kroupy).</p>";
-html += "<p><span class=\"refeed-info-bad\">Určitě ne!</span> bílé pečivo, sladké limonády, smažené, dezerty — prázdné kcal a chutě na další dny.</p>";
+html += "<p>" + tr('refeed_low_yes') + "</p>";
+html += "<p>" + tr('refeed_low_no') + "</p>";
 } else {
-html += "<p><span class=\"refeed-info-good\">Spíš ano:</span> komplexní sacharidy (rýže, brambory, oves, celozrnné pečivo), ovoce, zelenina; drž se denního cíle kcal.</p>";
-html += "<p><span class=\"refeed-info-bad\">Určitě ne!</span> přehnaný tuk ve fast foodu, litry cukru v pití, alkohol — typicky nejvíc brzdí redukci.</p>";
+html += "<p>" + tr('refeed_std_yes') + "</p>";
+html += "<p>" + tr('refeed_std_no') + "</p>";
 }
-html += "<ul><li>Refeed = glykogen a výkon, ne cheat day.</li><li>Tuky a jednoduché cukry v ten den nejsou „náhrada“ za sacharidy.</li></ul>";
-html += "<p class=\"refeed-info-muted\">Makro stropy v aplikaci berou refeed v úvahu — neřež si je nahodile mimo plán.</p>";
+html += "<ul><li>" + tr('refeed_li1') + "</li><li>" + tr('refeed_li2') + "</li></ul>";
+html += "<p class=\"refeed-info-muted\">" + tr('refeed_footer') + "</p>";
 body.innerHTML = html;
 el.style.display = "block";
 };
@@ -7311,20 +8473,19 @@ return r === 0 ? 10 : (10 - r);
 var nextN = doNext(greenSmall), nextZ = doNext(goldSmall);
 var html = "";
 if(kind === "green") {
-html += "<h3>Neonové hvězdy (" + neonThStar + "+ kcal pohybu / den)</h3>";
-html += "<p>Za každý <strong>kalendářní den</strong>, kdy máš v bilanci zapsaný pohyb aspoň <span class=\"star-info-k\">" + neonThStar + " kcal</span>, dostaneš <strong>1 malou</strong> neonovou hvězdu — jde o pohyb nad bazál (hodnota „Pohyb“ u dne).</p>";
-html += "<p><strong>Velká</strong> neonová = každých <strong>10 malých</strong> (celoživotně). Pod rankem se ukáže velká hvězda s číslem, kolik jich máš.</p>";
-html += "<p class=\"star-info-muted\">Stav: <span class=\"star-info-k\">" + greenSmall + " malých</span> · <span class=\"star-info-k\">" + bigNeon + " velká</span> · do další velké zbývá <strong>" + nextN + "</strong> malých (v běžícím cyklu 1–10).</p>";
+html += "<h3>" + tr('star_green_h3', { k: neonThStar }) + "</h3>";
+html += "<p>" + tr('star_green_p1', { k: neonThStar }) + "</p>";
+html += "<p>" + tr('star_green_p2') + "</p>";
+html += "<p class=\"star-info-muted\">" + tr('star_green_p3', { small: greenSmall, big: bigNeon, next: nextN }) + "</p>";
 } else {
-var glimLabel = glim + "+ kcal";
 var glimKcalTxt = String(glim);
 var minGZ = starGoldMinKcal();
-html += "<h3>Zlaté hvězdy (" + glimLabel + " pohybu / den)</h3>";
-html += "<p>Stejný princip jako neon — <strong>1 malá za den</strong>, ve kterém máš pohyb aspoň <span class=\"star-info-z\">" + glimKcalTxt + " kcal</span> (minimum podle pohlaví je " + minGZ + " kcal; výš můžeš v profilu).</p>";
-html += "<p><strong>Velká</strong> zlatá = každých <strong>10 malých</strong>. Velká hvězda s číslem pod „Legendární Rank“.</p>";
-html += "<p class=\"star-info-muted\">Stav: <span class=\"star-info-z\">" + goldSmall + " malých</span> · <span class=\"star-info-z\">" + bigGo + " velká</span> · do další velké zbývá <strong>" + nextZ + "</strong> malých.</p>";
+html += "<h3>" + tr('star_gold_h3', { k: glim }) + "</h3>";
+html += "<p>" + tr('star_gold_p1', { k: glimKcalTxt, minK: minGZ }) + "</p>";
+html += "<p>" + tr('star_gold_p2') + "</p>";
+html += "<p class=\"star-info-muted\">" + tr('star_gold_p3', { small: goldSmall, big: bigGo, next: nextZ }) + "</p>";
 }
-html += "<p class=\"star-info-muted\" style=\"margin-top:10px;border-top:1px solid #334155;padding-top:8px;\">Pohyb = hodnota „Pohyb“ u dne (kcal nad bazál, kterou zapisuješ v aplikaci).</p>";
+html += "<p class=\"star-info-muted\" style=\"margin-top:10px;border-top:1px solid #334155;padding-top:8px;\">" + tr('star_footer') + "</p>";
 body.innerHTML = html;
 el.style.display = "block";
 };
@@ -7398,22 +8559,49 @@ pill.className = 'mission-briefing-pill';
 if (data.lockKind === 'past') pill.classList.add('is-past');
 else if (data.lockKind === 'locked') pill.classList.add('is-locked');
 else if (data.lockKind === 'ready') pill.classList.add('is-ready');
-if (dk) dk.textContent = data.label + (data.dayKey === getD() ? ' · dnes' : '');
-var dsL = data.dietStyle === 'keto' ? 'Keto' : (data.dietStyle === 'lowcarb' ? 'Low carb' : 'Standard');
+if (data.lockKind === 'past' && data.pastBriefingComplete != null) {
+pill.setAttribute('title', data.pastBriefingComplete ? tr('lock_hist_data_tip') : tr('lock_hist_no_tip'));
+pill.setAttribute('data-i18n-title', data.pastBriefingComplete ? 'lock_hist_data_tip' : 'lock_hist_no_tip');
+} else {
+pill.removeAttribute('title');
+pill.removeAttribute('data-i18n-title');
+}
+if (dk) dk.textContent = data.label + (data.dayKey === getD() ? tr('mb_suffix_today') : '');
+var dsL = data.dietStyle === 'keto' ? tr('style_keto') : (data.dietStyle === 'lowcarb' ? tr('style_lowcarb') : tr('style_standard'));
 if (grid) {
 grid.innerHTML =
-'<div><span>Příjem</span><strong>' + Math.round(data.eatNum) + ' kcal</strong></div>' +
-'<div><span>Cíl dne</span><strong>' + (data.hasTarget ? (data.target + ' kcal') : '—') + '</strong></div>' +
-'<div><span>Celkový výdej</span><strong>' + Math.round(data.burnTotal) + ' kcal</strong></div>' +
-'<div><span>Deficit dne</span><strong>' + Math.round(data.deficit) + ' kcal</strong></div>' +
-'<div><span>Záznamů</span><strong>' + data.entriesCount + '</strong></div>' +
-'<div><span>Skóre mise</span><strong>' + data.meetScorePct + ' %</strong></div>' +
-'<div style="grid-column:1/-1"><span>Režim · styl</span><strong>' + data.modeLabel + ' · ' + dsL + '</strong></div>';
+'<div><span>' + tr('mb_grid_eat') + '</span><strong class="mb-val mb-val--eat">' + Math.round(data.eatNum) + ' kcal</strong></div>' +
+'<div><span>' + tr('mb_grid_tgt') + '</span><strong class="mb-val mb-val--tgt">' + (data.hasTarget ? (data.target + ' kcal') : '—') + '</strong></div>' +
+'<div><span>' + tr('mb_grid_burn') + '</span><strong class="mb-val mb-val--burn">' + Math.round(data.burnTotal) + ' kcal</strong></div>' +
+'<div><span>' + tr('mb_grid_def') + '</span><strong class="mb-val mb-val--def">' + Math.round(data.deficit) + ' kcal</strong></div>' +
+'<div><span>' + tr('mb_grid_entries') + '</span><strong class="mb-val mb-val--ent">' + data.entriesCount + '</strong></div>' +
+'<div style="grid-column:1/-1"><span>' + tr('mb_grid_mode_style') + '</span><strong><span class="mb-val-row-mode" style="color:' + dayModeColor(data.mode) + '">' + escHtml(data.modeLabel) + '</span><span class="mb-val-sep"> · </span><span style="color:#cbd5e1;font-weight:900">' + escHtml(dsL) + '</span></strong></div>';
+}
+var mealsEl = document.getElementById('mission-briefing-meals');
+if (mealsEl) mealsEl.innerHTML = buildMissionBriefingMealsHtml(data.dayKey);
+var scBrief = missionBalanceHexFromPct(data.meetScorePct);
+var hotBr = document.getElementById('mission-briefing-balance-hot');
+var pctBr = document.getElementById('mission-briefing-balance-pct');
+var svgBr = document.getElementById('mission-briefing-spark-line');
+if (hotBr) hotBr.style.color = scBrief;
+if (pctBr) {
+pctBr.textContent = data.meetScorePct + '%';
+pctBr.style.color = scBrief;
+}
+if (svgBr) {
+var anchorBr = parseDayKeyToDate(data.dayKey);
+var sparkBr = [];
+for (var sbi = 6; sbi >= 0; sbi--) {
+var dBr = new Date(anchorBr.getFullYear(), anchorBr.getMonth(), anchorBr.getDate() - sbi);
+var dkBr = dayKeyFromDate(dBr);
+try { sparkBr.push(computeMissionBriefing(dkBr).meetScorePct); } catch (eBr) { sparkBr.push(0); }
+}
+renderMissionSparklineSVG(svgBr, sparkBr, scBrief);
 }
 if (macros) {
-macros.innerHTML = '<div class="mb-tgt">Snědeno vs. cíl (B / T / S)</div>' +
+macros.innerHTML = '<div class="mb-tgt">' + tr('mb_macros_vs') + '</div>' +
 '<span class="mb-p">B ' + data.p + '</span><span class="log-mac-sep"> · </span><span class="mb-f">T ' + data.f + '</span><span class="log-mac-sep"> · </span><span class="mb-c">S ' + data.c + '</span>' +
-'<span class="log-mac-sep"> · </span><span style="color:var(--muted);font-size:9px;font-weight:800">→ cíl</span> ' +
+'<span class="log-mac-sep"> · </span><span style="color:var(--muted);font-size:9px;font-weight:800">' + tr('mb_arrow_tgt') + '</span> ' +
 '<span class="mb-p">' + data.targetP + '</span><span class="log-mac-sep"> / </span><span class="mb-f">' + data.targetF + '</span><span class="log-mac-sep"> / </span><span class="mb-c">' + data.targetC + '</span><span style="color:var(--muted);font-size:9px"> g</span>';
 }
 if (rep) rep.textContent = data.report;
@@ -7428,7 +8616,7 @@ touch.classList.toggle('is-scrollable', needsScroll);
 window.updateMissionBriefingCounter = function() {
 var off = window.__missionBriefingOffset || 0;
 var ctr = document.getElementById('mission-briefing-counter');
-if (ctr) ctr.textContent = 'Den ' + (off + 1) + ' / 30' + (off === 0 ? ' · dnes' : ' · před ' + off + ' dny');
+if (ctr) ctr.textContent = off === 0 ? tr('mb_counter_today', { n: off + 1 }) : tr('mb_counter_past', { n: off + 1, days: off });
 };
 window.refreshMissionBriefingCard = function(skipAnim) {
 var off = window.__missionBriefingOffset || 0;
@@ -7536,19 +8724,29 @@ window.navigateMissionBriefing(1);
 });
 bindChartScrollPersistence();
 pruneMissionBriefingData();
+function bootApp() {
+try {
+applyI18n();
 render();
 startFirstLaunchExperience();
+} catch (eBoot) {}
+}
+if (document.readyState === 'loading') {
+document.addEventListener('DOMContentLoaded', bootApp);
+} else {
+bootApp();
+}
 setInterval(function() { try { render(); } catch(e){} }, 60000);
 </script>
 <div id="app-bottom-bar" class="app-bottom-bar">
 <div class="app-bottom-bar-inner">
-<button type="button" class="app-bottom-bar-home" onclick="window.scrollAppToTop()" aria-label="Domů — začátek aplikace"><span class="app-bottom-bar-home-line">IRON</span><span class="app-bottom-bar-home-line">CORE</span></button>
-<nav class="app-bottom-bar-scroll" aria-label="Sekce aplikace">
-<button type="button" class="app-bottom-bar-sect app-bottom-bar-sect--progres" onclick="window.scrollAppToSection('section-roadmap')">Progres</button>
-<button type="button" class="app-bottom-bar-sect app-bottom-bar-sect--energy" onclick="window.scrollAppToSection('section-energy')">Energie</button>
-<button type="button" class="app-bottom-bar-sect app-bottom-bar-sect--mission" onclick="window.scrollAppToSection('section-mission')">Mise</button>
-<button type="button" class="app-bottom-bar-sect app-bottom-bar-sect--zapis" onclick="window.scrollAppToSection('section-zapis')">Zápis</button>
-<button type="button" class="app-bottom-bar-sect app-bottom-bar-sect--profil" onclick="window.scrollAppToSection('section-profile')">Profil</button>
+<button type="button" class="app-bottom-bar-home" onclick="window.scrollAppToTop()" data-i18n-aria="nav_home_aria" aria-label="Domů — začátek aplikace"><span class="app-bottom-bar-home-line">IRON</span><span class="app-bottom-bar-home-line">CORE</span></button>
+<nav class="app-bottom-bar-scroll" data-i18n-aria="nav_sections_aria" aria-label="Sekce aplikace">
+<button type="button" class="app-bottom-bar-sect app-bottom-bar-sect--progres" onclick="window.scrollAppToSection('section-roadmap')" data-i18n="nav_progress">Progres</button>
+<button type="button" class="app-bottom-bar-sect app-bottom-bar-sect--energy" onclick="window.scrollAppToSection('section-energy')" data-i18n="nav_energy">Energie</button>
+<button type="button" class="app-bottom-bar-sect app-bottom-bar-sect--mission" onclick="window.scrollAppToSection('section-mission')" data-i18n="nav_mission">Mise</button>
+<button type="button" class="app-bottom-bar-sect app-bottom-bar-sect--zapis" onclick="window.scrollAppToSection('section-zapis')" data-i18n="nav_log">Zápis</button>
+<button type="button" class="app-bottom-bar-sect app-bottom-bar-sect--profil" onclick="window.scrollAppToSection('section-profile')" data-i18n="nav_profile">Profil</button>
 </nav>
 </div>
 </div>
