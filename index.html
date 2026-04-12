@@ -11,7 +11,7 @@
 <meta name="theme-color" content="#020617">
 <link rel="icon" type="image/png" href="app-icon.png">
 <link rel="apple-touch-icon" href="app-icon.png">
-<title id="doc-page-title">Mise - v95.4.152</title>
+<title id="doc-page-title">Mise - v95.4.153</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -1244,15 +1244,12 @@ height: 92%;
 top: 84%;
 font-size: 11px;
 }
+/* Hlavní úhel ručičky: JS nastavuje SVG atribut rotate(deg,50,74) — stabilní střed; CSS transform na <g> měnil pivot mezi prohlížeči. */
 .roadmap-gauge-needle {
-transform-origin: 50% 78%;
-transition: transform .35s ease;
 filter: drop-shadow(0 0 6px rgba(248,250,252,0.55));
 }
-.roadmap-mini-shell--gauge .roadmap-gauge-needle {
-transform-origin: 50% 74%;
-}
 .roadmap-gauge-needle-wobble {
+transform-box: view-box;
 transform-origin: 50% 74%;
 animation: roadmapNeedleWobble 1.8s ease-in-out infinite;
 }
@@ -1684,8 +1681,8 @@ text-shadow: 0 0 8px rgba(0,0,0,0.55);
 #y-k .kcal-axis-pill {
 left: 3px; right: 1px; font-size: 7px; padding: 1px 3px; max-width: 50px; line-height: 1.2;
 }
-#y-w div { font-size: 9px !important; }
-#y-w div[style*="z-index:101"] { padding: 1px 4px !important; left: 2px !important; font-size: 8px !important; }
+#y-w div { font-size: 10px !important; }
+#y-w div[style*="z-index:101"] { padding: 2px 5px !important; left: 2px !important; font-size: 9px !important; }
 }
 .graph-outer {
 width: 100%; height: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;
@@ -1840,12 +1837,20 @@ backdrop-filter: blur(5px);
 overflow-y: auto;
 }
 .modal-box {
+position: relative;
 background: var(--card); border: 2px solid var(--gold); border-radius: 22px;
 padding: 24px; max-width: min(360px, calc(100vw - 32px)); width: 100%; text-align: center;
 box-sizing: border-box; margin-left: auto; margin-right: auto;
 flex-shrink: 0;
 box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(245, 158, 11, 0.2);
 }
+.modal-close-x {
+position: absolute; top: 10px; right: 10px; width: 36px; height: 36px; padding: 0; border: none; border-radius: 10px;
+background: rgba(255,255,255,0.08); color: var(--muted); font-size: 22px; font-weight: 900; cursor: pointer; line-height: 1;
+display: flex; align-items: center; justify-content: center; z-index: 2;
+-webkit-tap-highlight-color: transparent;
+}
+.modal-close-x:hover { color: var(--text); background: rgba(255,255,255,0.12); }
 .modal-title { font-weight: 900; font-size: 20px; margin-bottom: 18px; color: var(--gold); text-transform: uppercase; }
 .modal-text { font-size: 15px; margin-bottom: 28px; line-height: 1.5; font-weight: 600; }
 .modal-btns { display: flex; gap: 12px; }
@@ -2796,7 +2801,23 @@ margin-top: 0;
 .recomp-bubble-muted { font-size: 10px; font-weight: 700; color: var(--muted); margin: 0 0 8px; line-height: 1.35; }
 .history-scroll-container { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 12px; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; }
 .history-item { min-width: 150px; background: #0f172a; padding: 14px; border-radius: 14px; border: 1px solid #334155; flex-shrink: 0; scroll-snap-align: start; box-sizing: border-box; box-shadow: var(--shadow-levitate); }
-.save-msg { position: fixed; top: 25px; right: 25px; background: var(--green-neon); color: black; padding: 12px 20px; border-radius: 25px; font-size: 12px; font-weight: 900; display: none; z-index: 6000; box-shadow: 0 10px 20px rgba(57, 255, 20, 0.4); }
+.save-msg {
+position: fixed; top: max(20px, env(safe-area-inset-top, 0px)); right: max(16px, env(safe-area-inset-right, 0px));
+background: var(--green-neon); color: black; padding: 14px 44px 14px 18px; border-radius: 18px; font-size: 13px; font-weight: 900;
+display: none; z-index: 6000; box-shadow: 0 10px 20px rgba(57, 255, 20, 0.4);
+max-width: min(420px, calc(100vw - 28px)); text-align: left; line-height: 1.4; box-sizing: border-box;
+}
+.save-msg.save-msg--dismissible { padding-top: 16px; min-width: min(300px, 100%); }
+.save-msg-close {
+position: absolute; top: 8px; right: 8px; width: 32px; height: 32px; padding: 0; border: none; border-radius: 10px;
+background: rgba(0,0,0,0.2); color: inherit; font-size: 22px; font-weight: 900; cursor: pointer; line-height: 1;
+display: none; align-items: center; justify-content: center; flex-shrink: 0; z-index: 2;
+-webkit-tap-highlight-color: transparent;
+}
+.save-msg-close:hover { filter: brightness(1.12); }
+.save-msg-content { position: relative; }
+.save-msg-title { display: block; font-size: 14px; font-weight: 900; margin-bottom: 6px; line-height: 1.3; }
+.save-msg-body { font-size: 12px; font-weight: 800; line-height: 1.45; opacity: 0.95; }
 .hist-row { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
 .hist-row span { font-size: 10px; font-weight: 800; color: var(--muted); text-transform: uppercase; }
 .hist-row input { padding: 8px; margin-bottom: 0; font-size: 12px; border-width: 1px; }
@@ -3098,7 +3119,10 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 </style>
 </head>
 <body>
-<div id="save-note" class="save-msg">ZAKOTVENO V PAMĚTI</div>
+<div id="save-note" class="save-msg" role="status" aria-live="polite">
+<button type="button" id="save-note-close" class="save-msg-close" data-i18n-aria="aria_close" aria-label="Zavřít">×</button>
+<div id="save-note-content" class="save-msg-content">ZAKOTVENO V PAMĚTI</div>
+</div>
 <div id="iron-intro" class="iron-intro" aria-hidden="true">
 <video id="iron-intro-video" class="iron-intro-video" playsinline preload="metadata"></video>
 <div id="iron-intro-video-overlay" class="iron-intro-video-overlay intro-overlay-pos--bottom" aria-hidden="true">
@@ -3170,6 +3194,7 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 </div>
 <div id="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-title" aria-describedby="modal-text" tabindex="-1">
 <div class="modal-box">
+<button type="button" id="modal-close-x" class="modal-close-x" data-i18n-aria="aria_close" aria-label="Zavřít" onclick="closeModal(false)">×</button>
 <div id="modal-title" class="modal-title" data-i18n="modal_title_confirm">POTVRZENÍ</div>
 <div id="modal-text" class="modal-text" data-i18n="modal_default_text">Opravdu chcete akci provést?</div>
 <div class="modal-btns">
@@ -3178,7 +3203,7 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 </div>
 </div>
 </div>
-<div id="mission-briefing-overlay" aria-hidden="true" onclick="if(event.target===this)window.closeMissionBriefingModal()">
+<div id="mission-briefing-overlay" aria-hidden="true">
 <div class="mission-briefing-panel">
 <div class="mission-briefing-top">
 <span class="mission-briefing-title" data-i18n="mb_title">Uzávěrka &amp; historie mise</span>
@@ -3817,7 +3842,7 @@ return;
 }
 } catch(e) {}
 })();
-var APP_VERSION_TAG = 'v95.4.152';
+var APP_VERSION_TAG = 'v95.4.153';
 var I18N = {
 cs: {
 doc_title: 'Mise — Iron Core',
@@ -3853,6 +3878,11 @@ lbl_chest: 'Hrudník',
 lbl_thigh: 'Stehno',
 lbl_biceps: 'Biceps',
 lbl_shoulders: 'Ramena',
+chart_lbl_waist: 'Obvod pasu',
+chart_lbl_chest: 'Hrudník',
+chart_lbl_thigh: 'Stehno',
+chart_lbl_biceps: 'Biceps',
+chart_lbl_shoulders: 'Ramena',
 measure_toggle: 'Zapsat váhu a měření',
 btn_save_progress: 'Uložit progres',
 energy_card_title: 'Energetická bilance',
@@ -4184,6 +4214,11 @@ lbl_chest: 'Chest',
 lbl_thigh: 'Thigh',
 lbl_biceps: 'Biceps',
 lbl_shoulders: 'Shoulders',
+chart_lbl_waist: 'Waist',
+chart_lbl_chest: 'Chest',
+chart_lbl_thigh: 'Thigh',
+chart_lbl_biceps: 'Biceps',
+chart_lbl_shoulders: 'Shoulders',
 measure_toggle: 'Log weight & measurements',
 btn_save_progress: 'Save progress',
 energy_card_title: 'Energy balance',
@@ -4729,6 +4764,24 @@ if(lastFocusedBeforeModal && typeof lastFocusedBeforeModal.focus === "function")
 
 document.getElementById('btn-ok').onclick = function() { closeModal(true); };
 document.getElementById('btn-cancel').onclick = function() { closeModal(false); };
+(function() {
+var snc = document.getElementById('save-note-close');
+if (!snc) return;
+snc.addEventListener('click', function(e) {
+e.stopPropagation();
+var n = document.getElementById('save-note');
+var c = document.getElementById('save-note-content');
+if (_saveNoteTimer) { clearTimeout(_saveNoteTimer); _saveNoteTimer = null; }
+if (n) {
+n.style.display = 'none';
+n.classList.remove('save-msg--dismissible');
+n.style.background = '';
+n.style.color = '';
+}
+if (c) c.textContent = 'ZAKOTVENO V PAMĚTI';
+snc.style.display = 'none';
+});
+})();
 document.addEventListener('keydown', function(e) {
 var overlay = document.getElementById('modal-overlay');
 if(overlay.style.display !== 'flex') return;
@@ -5686,12 +5739,24 @@ if (typeof D.labBmrAtKg !== 'number' || isNaN(D.labBmrAtKg)) D.labBmrAtKg = 0;
 if (typeof D.activityProfile !== 'string') D.activityProfile = '';
 if (D.bmrInBodyMode !== 'fixed' && D.bmrInBodyMode !== 'adaptive') D.bmrInBodyMode = 'adaptive';
 
+var _saveNoteTimer = null;
 function sync() {
 pruneMissionBriefingData();
 localStorage.setItem(KEY, JSON.stringify(D));
 localStorage.setItem(NOTIF_KEY, JSON.stringify(NOTIFIED));
 var n = document.getElementById('save-note');
-if(n) { n.style.display = 'block'; setTimeout(function() { n.style.display = 'none'; }, 1200); }
+var c = document.getElementById('save-note-content');
+var btn = document.getElementById('save-note-close');
+if(n && c) {
+if (_saveNoteTimer) { clearTimeout(_saveNoteTimer); _saveNoteTimer = null; }
+n.classList.remove('save-msg--dismissible');
+if (btn) btn.style.display = 'none';
+c.textContent = 'ZAKOTVENO V PAMĚTI';
+n.style.background = '';
+n.style.color = '';
+n.style.display = 'block';
+_saveNoteTimer = setTimeout(function() { n.style.display = 'none'; _saveNoteTimer = null; }, 1200);
+}
 render();
 }
 /** Nepřepisovat pole během úpravy (render každých 60s / sync — na mobilu často selže jen document.activeElement). */
@@ -5972,6 +6037,48 @@ if (meetScore >= 0.62) return tr('praise_3') + sfx;
 return tr('praise_4') + sfx;
 }
 
+/** Gaučing: důraz na makra, TDEE bez nutnosti zapisovat hodinky; pohyb jen jemný bonus. Train/Refeed: původní min(příjem,výdej). */
+function missionIntakeBurnMeetScores(row, mode, target, tdee, eatNum, targetP, targetF, targetC) {
+function clamp01(n) { return Math.max(0, Math.min(1, Number(n) || 0)); }
+function macroHit(cur, tgt) {
+if (!(Number(tgt) > 0)) return 1;
+var rel = Math.abs((Number(cur) || 0) - Number(tgt)) / Math.max(1, Number(tgt));
+return clamp01(1 - (rel / 0.65));
+}
+var pVal = Number(row.p) || 0, fVal = Number(row.f) || 0, cVal = Number(row.c) || 0;
+if (pVal + fVal + cVal <= 0) {
+return { intakeScore: 0, burnScore: 0, leftFillPct: 0, rightFillPct: 0, meetScore: 0 };
+}
+var m = Number(mode) || 0;
+var kcalHit = (Number(target) > 0) ? clamp01(1 - (Math.abs(eatNum - Number(target)) / Math.max(1, Number(target)))) : 0;
+var pHit = macroHit(row.p, targetP), fHit = macroHit(row.f, targetF), cHit = macroHit(row.c, targetC);
+var macroHitAvg = (pHit + fHit + cHit) / 3;
+var intakeScore = m === 0
+? clamp01((kcalHit * 0.36) + (macroHitAvg * 0.64))
+: clamp01((kcalHit * 0.56) + (macroHitAvg * 0.44));
+var moveToday = Number(row.b || 0) || 0;
+var burnTotal = Number(tdee) + moveToday;
+var desiredDeficit = Math.max(140, Math.round(Math.max(120, Number(tdee) - Number(target || 0)) * 0.9));
+var burnTarget = Math.max(1, eatNum + desiredDeficit);
+var burnRatio = clamp01(burnTotal / burnTarget);
+var burnScore;
+if (m === 0) {
+burnScore = moveToday > 0 ? burnRatio : Math.min(1, 0.87 + 0.13 * burnRatio);
+} else {
+burnScore = burnRatio;
+}
+var leftFillPct = Math.round(50 * intakeScore);
+var rightFillPct = Math.round(50 * burnScore);
+var meetScore;
+if (m === 0) {
+var moveBonus = moveToday > 0 ? Math.min(0.05, moveToday / 2500) : 0;
+meetScore = clamp01(0.76 * intakeScore + 0.22 * burnScore + moveBonus);
+} else {
+meetScore = clamp01((Math.min(leftFillPct, rightFillPct) / 50) * (1 - Math.min(1, Math.abs(leftFillPct - rightFillPct) / 36)));
+}
+return { intakeScore: intakeScore, burnScore: burnScore, leftFillPct: leftFillPct, rightFillPct: rightFillPct, meetScore: meetScore };
+}
+
 function computeMissionBriefing(dayKey) {
 var row = ensureDay(dayKey);
 var wMacro = weightKgForMissionDay(dayKey);
@@ -5986,22 +6093,12 @@ var deficit = Math.max(0, burnTotal - eatNum);
 var dayEntries = row.mealEntries || [];
 var macroTargets = macroTargetsByContext(effectiveDietStyle, mode, wMacro, target);
 var targetP = macroTargets.p, targetF = macroTargets.f, targetC = macroTargets.c;
-function clamp01(n) { return Math.max(0, Math.min(1, Number(n) || 0)); }
-function macroHit(cur, tgt) {
-if (!(Number(tgt) > 0)) return 1;
-var rel = Math.abs((Number(cur) || 0) - Number(tgt)) / Math.max(1, Number(tgt));
-return clamp01(1 - (rel / 0.65));
-}
-var kcalHit = (Number(target) > 0) ? clamp01(1 - (Math.abs(eatNum - Number(target)) / Math.max(1, Number(target)))) : 0;
-var pHit = macroHit(row.p, targetP), fHit = macroHit(row.f, targetF), cHit = macroHit(row.c, targetC);
-var macroHitAvg = (pHit + fHit + cHit) / 3;
-var intakeScore = clamp01((kcalHit * 0.56) + (macroHitAvg * 0.44));
-var desiredDeficit = Math.max(140, Math.round(Math.max(120, Number(tdee) - Number(target || 0)) * 0.9));
-var burnTarget = Math.max(1, eatNum + desiredDeficit);
-var burnScore = clamp01(burnTotal / burnTarget);
-var leftFillPct = Math.round(50 * intakeScore);
-var rightFillPct = Math.round(50 * burnScore);
-var meetScore = clamp01((Math.min(leftFillPct, rightFillPct) / 50) * (1 - Math.min(1, Math.abs(leftFillPct - rightFillPct) / 36)));
+var sc = missionIntakeBurnMeetScores(row, mode, target, tdee, eatNum, targetP, targetF, targetC);
+var intakeScore = sc.intakeScore;
+var burnScore = sc.burnScore;
+var leftFillPct = sc.leftFillPct;
+var rightFillPct = sc.rightFillPct;
+var meetScore = sc.meetScore;
 var report;
 if (!(Number(target) > 0)) {
 report = tr('report_a');
@@ -6132,20 +6229,47 @@ return "cca \u2212" + n + " g";
 
 function flashNote(text, bg, color) {
 var n = document.getElementById('save-note');
-if(!n) return;
-var oldText = n.innerText;
+var c = document.getElementById('save-note-content');
+var btn = document.getElementById('save-note-close');
+if(!n || !c) return;
+if (_saveNoteTimer) { clearTimeout(_saveNoteTimer); _saveNoteTimer = null; }
+n.classList.remove('save-msg--dismissible');
+if (btn) btn.style.display = 'none';
+var oldText = c.textContent;
 var oldBg = n.style.background;
 var oldColor = n.style.color;
-n.innerText = text;
+c.textContent = text;
 if(bg) n.style.background = bg;
 if(color) n.style.color = color;
 n.style.display = 'block';
-setTimeout(function() {
+_saveNoteTimer = setTimeout(function() {
 n.style.display = 'none';
-n.innerText = oldText;
+c.textContent = oldText;
 n.style.background = oldBg;
 n.style.color = oldColor;
+_saveNoteTimer = null;
 }, 2600);
+}
+function flashNoteImportant(title, body, bg, color) {
+var n = document.getElementById('save-note');
+var c = document.getElementById('save-note-content');
+var btn = document.getElementById('save-note-close');
+if(!n || !c || !btn) return;
+if (_saveNoteTimer) { clearTimeout(_saveNoteTimer); _saveNoteTimer = null; }
+c.textContent = '';
+n.classList.add('save-msg--dismissible');
+btn.style.display = 'flex';
+var st = document.createElement('strong');
+st.className = 'save-msg-title';
+st.textContent = title;
+var bd = document.createElement('div');
+bd.className = 'save-msg-body';
+bd.textContent = body;
+c.appendChild(st);
+c.appendChild(bd);
+if(bg) n.style.background = bg;
+if(color) n.style.color = color;
+n.style.display = 'block';
 }
 
 function maybeNotify(key, title, body) {
@@ -6163,7 +6287,7 @@ if(p === "granted") new Notification(title, { body: body });
 });
 }
 }
-flashNote(title + " - " + body, "var(--accent)", "white");
+flashNoteImportant(title, body, "var(--accent)", "white");
 }
 
 function smartCarbNotify(key, title, body) {
@@ -6177,11 +6301,11 @@ return;
 if("Notification" in window && Notification.permission !== "denied") {
 Notification.requestPermission().then(function(p) {
 if(p === "granted") new Notification(title, { body: body });
-else flashNote(title + " - " + body, "var(--gold-deep)", "#0f172a");
+else flashNoteImportant(title, body, "var(--gold-deep)", "#0f172a");
 });
 return;
 }
-flashNote(title + " - " + body, "var(--gold-deep)", "#0f172a");
+flashNoteImportant(title, body, "var(--gold-deep)", "#0f172a");
 }
 
 function ensureDay(dayKey) {
@@ -6840,24 +6964,14 @@ missionLockEl.classList.toggle('is-ready', lockReady && !lockAuto);
 missionLockEl.classList.toggle('is-locked', !!lockAuto);
 missionLockEl.textContent = lockAuto ? tr('lock_done') : (lockReady ? tr('lock_ready') : tr('lock_wait'));
 
-function macroHit(cur, tgt) {
-if (!(Number(tgt) > 0)) return 1;
-var rel = Math.abs((Number(cur) || 0) - Number(tgt)) / Math.max(1, Number(tgt));
-return clamp01(1 - (rel / 0.65));
-}
-var kcalHit = (Number(target) > 0) ? clamp01(1 - (Math.abs(eatNum - Number(target)) / Math.max(1, Number(target)))) : 0;
-var pHit = macroHit(curDayData.p, targetP), fHit = macroHit(curDayData.f, targetF), cHit = macroHit(curDayData.c, targetC);
-var macroHitAvg = (pHit + fHit + cHit) / 3;
-var intakeScore = clamp01((kcalHit * 0.56) + (macroHitAvg * 0.44));
-var burnToday = Number(tdee) + (Number(curDayData.b) || 0);
-var desiredDeficit = Math.max(140, Math.round(Math.max(120, Number(tdee) - Number(target || 0)) * 0.9));
-var burnTarget = Math.max(1, eatNum + desiredDeficit);
-var burnScore = clamp01(burnToday / burnTarget);
-var leftFillPct = Math.round(50 * intakeScore);
-var rightFillPct = Math.round(50 * burnScore);
+var scMission = missionIntakeBurnMeetScores(curDayData, mode, target, tdee, eatNum, targetP, targetF, targetC);
+var intakeScore = scMission.intakeScore;
+var burnScore = scMission.burnScore;
+var leftFillPct = scMission.leftFillPct;
+var rightFillPct = scMission.rightFillPct;
+var meetScore = scMission.meetScore;
 missionCardEl.style.setProperty('--mission-in-fill', leftFillPct + '%');
 missionCardEl.style.setProperty('--mission-out-fill', rightFillPct + '%');
-var meetScore = clamp01((Math.min(leftFillPct, rightFillPct) / 50) * (1 - Math.min(1, Math.abs(leftFillPct - rightFillPct) / 36)));
 if (meetScore >= 0.9) missionCardEl.style.setProperty('--mission-core-glow', 'rgba(57,255,20,0.45)');
 else if (meetScore >= 0.62) missionCardEl.style.setProperty('--mission-core-glow', 'rgba(245,158,11,0.42)');
 else missionCardEl.style.setProperty('--mission-core-glow', 'rgba(148,163,184,0.2)');
@@ -6934,130 +7048,114 @@ if(Number(D.start) > 0 && (!rawPtsList.length || rawPtsList[0].key !== MISSION_S
 var rawLastW = rawPtsList.length ? Number(rawPtsList[rawPtsList.length - 1].w || 0) : 0;
 var rawPrevW = (rawPtsList.length > 1) ? Number(rawPtsList[rawPtsList.length - 2].w || 0) : 0;
 
-var ptsList = Object.keys(D.days).map(function(dt) { 
-return { key: dt, d: displayDayKey(dt), w: Number(D.days[dt].w), waist: Number(D.days[dt].waist || 0), chest: Number(D.days[dt].chest || 0), thigh: Number(D.days[dt].thigh || 0), biceps: Number(D.days[dt].biceps || 0), shoulders: Number(D.days[dt].shoulders || 0), s: parseDayKeyToDate(dt) }; 
-}).filter(function(p) { return p.w > 0; }).sort(function(a,b) { return a.s - b.s; });
+function dayHasAnyMetric(p) {
+return Number(p.waist || 0) > 0 || Number(p.chest || 0) > 0 || Number(p.thigh || 0) > 0 || Number(p.biceps || 0) > 0 || Number(p.shoulders || 0) > 0;
+}
+var ptsListBase = Object.keys(D.days).map(function(dt) {
+var day = D.days[dt] || {};
+return { key: dt, d: displayDayKey(dt), w: Number(day.w || 0), waist: Number(day.waist || 0), chest: Number(day.chest || 0), thigh: Number(day.thigh || 0), biceps: Number(day.biceps || 0), shoulders: Number(day.shoulders || 0), s: parseDayKeyToDate(dt) };
+}).filter(function(p) { return p.w > 0 || dayHasAnyMetric(p); }).sort(function(a,b) { return a.s - b.s; });
 
-if(Number(D.start) > 0 && (!ptsList.length || ptsList[0].key !== MISSION_START_KEY)) ptsList.unshift({ key: MISSION_START_KEY, d: displayDayKey(MISSION_START_KEY), w: Number(D.start), waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, s: parseDayKeyToDate(MISSION_START_KEY) });
-
-function weekStart(dateObj) {
-    var d = new Date(dateObj.getTime());
-    var day = d.getDay();
-    var diff = (day === 0 ? -6 : 1 - day);
-    d.setDate(d.getDate() + diff);
+function dateMidnight(dt) {
+    var d = new Date(dt.getTime());
     d.setHours(0, 0, 0, 0);
     return d;
 }
+var graphAnchorDate = ptsListBase.length ? dateMidnight(new Date(ptsListBase[0].s.getTime())) : dateMidnight(parseDayKeyToDate(MISSION_START_KEY));
 
-function formatViewLabel(dateObj, view) {
-    if(view === 'month') return (dateObj.getMonth() + 1) + "/" + String(dateObj.getFullYear()).slice(-2);
-    if(view === 'week') {
-        var start = weekStart(dateObj);
-        return displayDayKey(dayKeyFromDate(start));
-    }
-    return displayDayKey(dayKeyFromDate(dateObj));
+var ptsList = ptsListBase.slice();
+if(Number(D.start) > 0 && (!ptsList.length || ptsList[0].key !== MISSION_START_KEY)) ptsList.unshift({ key: MISSION_START_KEY, d: displayDayKey(MISSION_START_KEY), w: Number(D.start), waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, s: parseDayKeyToDate(MISSION_START_KEY) });
+
+function addDays(anchor, n) {
+    var x = new Date(anchor.getFullYear(), anchor.getMonth(), anchor.getDate());
+    x.setDate(x.getDate() + n);
+    return x;
+}
+function dayDiffFromAnchor(anchor, pDate) {
+    var a = dateMidnight(anchor);
+    var p = dateMidnight(pDate);
+    return Math.round((p - a) / 864e5);
+}
+function weekBlockIndex(pDate, anchor) {
+    var d = dayDiffFromAnchor(anchor, pDate);
+    if (d < 0) return 0;
+    return Math.floor(d / 7);
+}
+function monthBlockIndex(pDate, anchor) {
+    var d = dayDiffFromAnchor(anchor, pDate);
+    if (d < 0) return 0;
+    return Math.floor(d / 30);
+}
+function weekBlockKeyFromPoint(p, anchor) {
+    if (!p || !p.s) return "";
+    return "wk" + weekBlockIndex(p.s, anchor);
+}
+function monthBlockKeyFromPoint(p, anchor) {
+    if (!p || !p.s) return "";
+    return "mo" + monthBlockIndex(p.s, anchor);
 }
 
-function aggregatePointsByView(points, view) {
-    if(view === 'day') return points;
-    var buckets = {};
+function applyWPlot(arr) {
+    var carry = Number(D.start) > 0 ? Number(D.start) : 0;
+    for (var wi = 0; wi < arr.length; wi++) {
+        var q = arr[wi];
+        if (Number(q.w) > 0) carry = Number(q.w);
+        q.wPlot = carry;
+    }
+    return arr;
+}
+
+/** Týden = bloky po 7 dnech od prvního zápisu; měsíc = po 30 dnech. Plný blok: první+poslední váha + všechna měření. Poslední neúplný blok (7 / 30 dnů není): jen první a poslední bod. */
+function buildPtsListForGraphView(points, view, anchor) {
+    if (!points || !points.length) return points;
+    if (view === 'day') return applyWPlot(points.slice());
+    var globalLast = points[points.length - 1].s;
+    var maxWK = weekBlockIndex(globalLast, anchor);
+    var maxMK = monthBlockIndex(globalLast, anchor);
+    var byPeriod = {};
     points.forEach(function(p) {
-        var d = p.s;
-        var bucketKey = (view === 'month')
-            ? (d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, '0'))
-            : dayKeyFromDate(weekStart(d));
-        if(!buckets[bucketKey]) {
-            buckets[bucketKey] = {
-                key: bucketKey,
-                s: new Date(d.getTime()),
-                d: formatViewLabel(d, view),
-                wSum: 0, wCount: 0,
-                waistSum: 0, waistCount: 0,
-                chestSum: 0, chestCount: 0,
-                thighSum: 0, thighCount: 0,
-                bicepsSum: 0, bicepsCount: 0,
-                shouldersSum: 0, shouldersCount: 0
-            };
-        }
-        var bucket = buckets[bucketKey];
-        if(p.s >= bucket.s) {
-            bucket.s = new Date(p.s.getTime());
-            bucket.d = formatViewLabel(p.s, view);
-        }
-        bucket.wSum += Number(p.w) || 0;
-        bucket.wCount += 1;
-        if(Number(p.waist) > 0) { bucket.waistSum += Number(p.waist); bucket.waistCount += 1; }
-        if(Number(p.chest) > 0) { bucket.chestSum += Number(p.chest); bucket.chestCount += 1; }
-        if(Number(p.thigh) > 0) { bucket.thighSum += Number(p.thigh); bucket.thighCount += 1; }
-        if(Number(p.biceps) > 0) { bucket.bicepsSum += Number(p.biceps); bucket.bicepsCount += 1; }
-        if(Number(p.shoulders) > 0) { bucket.shouldersSum += Number(p.shoulders); bucket.shouldersCount += 1; }
+        if (!p.s) return;
+        var pk = view === 'week' ? weekBlockKeyFromPoint(p, anchor) : monthBlockKeyFromPoint(p, anchor);
+        if (!byPeriod[pk]) byPeriod[pk] = [];
+        byPeriod[pk].push(p);
     });
-    return Object.keys(buckets).map(function(k) {
-        var b = buckets[k];
-        return {
-            key: b.key,
-            s: b.s,
-            d: b.d,
-            w: Number((b.wSum / Math.max(1, b.wCount)).toFixed(1)),
-            waist: b.waistCount ? Number((b.waistSum / b.waistCount).toFixed(1)) : 0,
-            chest: b.chestCount ? Number((b.chestSum / b.chestCount).toFixed(1)) : 0,
-            thigh: b.thighCount ? Number((b.thighSum / b.thighCount).toFixed(1)) : 0,
-            biceps: b.bicepsCount ? Number((b.bicepsSum / b.bicepsCount).toFixed(1)) : 0,
-            shoulders: b.shouldersCount ? Number((b.shouldersSum / b.shouldersCount).toFixed(1)) : 0
-        };
-    }).sort(function(a, b) { return a.s - b.s; });
-}
-
-function slicePtsListByViewRange(points, view) {
-    if (view === 'day' || !points.length) return points;
-    var last = points[points.length - 1];
-    if (!last || !last.s) return points;
-    // Uživatelské pravidlo:
-    // - týdenní: poslední + bod cca 7 dní zpět
-    // - ostatní nedenní: první + poslední
-    if (view === 'week') {
-        if (points.length < 2) return points;
-        var endMidnight = new Date(last.s.getFullYear(), last.s.getMonth(), last.s.getDate());
-        var target = new Date(endMidnight.getFullYear(), endMidnight.getMonth(), endMidnight.getDate() - 7);
-        var best = null;
-        var bestDist = Infinity;
-        // Preferuj body před cílovým dnem (historicky zpět).
-        points.forEach(function(p) {
-            if (!p.s || p === last) return;
-            var d = new Date(p.s.getFullYear(), p.s.getMonth(), p.s.getDate());
-            if (d > endMidnight) return;
-            var dist = Math.abs(d - target);
-            if (d <= target && dist < bestDist) {
-                best = p;
-                bestDist = dist;
-            }
-        });
-        // Když nic před target není, vezmi nejbližší bod k target.
-        if (!best) {
-            points.forEach(function(p) {
-                if (!p.s || p === last) return;
-                var d = new Date(p.s.getFullYear(), p.s.getMonth(), p.s.getDate());
-                var dist = Math.abs(d - target);
-                if (dist < bestDist) {
-                    best = p;
-                    bestDist = dist;
-                }
-            });
+    var pKeys = Object.keys(byPeriod).sort(function(a, b) {
+        return parseInt(a.replace(/\D/g, ''), 10) - parseInt(b.replace(/\D/g, ''), 10);
+    });
+    var outMap = {};
+    pKeys.forEach(function(pk) {
+        var arr = byPeriod[pk].slice().sort(function(a, b) { return a.s - b.s; });
+        var k = parseInt(pk.replace(/\D/g, ''), 10) || 0;
+        var step = view === 'week' ? 7 : 30;
+        var bs = addDays(anchor, step * k);
+        var lastInBlock = arr[arr.length - 1].s;
+        var spanTail = dayDiffFromAnchor(bs, lastInBlock) + 1;
+        var isLastBlock = view === 'week' ? (k === maxWK) : (k === maxMK);
+        var useShort = isLastBlock && spanTail < step;
+        var withW = arr.filter(function(p) { return p.w > 0; });
+        var metricPts = arr.filter(dayHasAnyMetric);
+        function addMerged(pt) {
+            if (pt && pt.key) outMap[pt.key] = pt;
         }
-        if (!best) best = points[points.length - 2];
-        return (best && best.key !== last.key) ? [best, last] : [last];
-    }
-    // month (a případné další nedenní režimy): první + poslední
-    if (points.length >= 2) return [points[0], points[points.length - 1]];
-    return points;
+        if (useShort) {
+            addMerged(arr[0]);
+            if (arr.length >= 2) addMerged(arr[arr.length - 1]);
+        } else if (withW.length >= 1) {
+            addMerged(withW[0]);
+            if (withW.length >= 2) addMerged(withW[withW.length - 1]);
+            metricPts.forEach(addMerged);
+        } else {
+            metricPts.forEach(addMerged);
+        }
+    });
+    var out = Object.keys(outMap).sort(function(ka, kb) {
+        return outMap[ka].s - outMap[kb].s;
+    }).map(function(k) { return outMap[k]; });
+    return applyWPlot(out);
 }
 
 var cvGraph = window.currentView || 'day';
-if (cvGraph === 'week' || cvGraph === 'month') {
-    ptsList = slicePtsListByViewRange(ptsList, cvGraph);
-} else {
-    ptsList = aggregatePointsByView(ptsList, 'day');
-}
+ptsList = buildPtsListForGraphView(ptsList, cvGraph, graphAnchorDate);
 if(!ptsList.length) {
 window._recompBubbleHtml = '<p style="margin:0 0 8px;">Signál hubnutí tuku: přidej další měření v tomto náhledu.</p><div class="recomp-bubble-note">Graf zobrazí signál až budou data.</div>';
 var fbf0 = document.getElementById("fat-barometer-fat");
@@ -7183,12 +7281,12 @@ if(carbLimitSmart != null && inEatingForCarbs) {
     }
 }
 
-var minV = Math.min.apply(null, ptsList.map(p=>p.w).concat(D.final))-3;
-var maxV = Math.max.apply(null, ptsList.map(p=>p.w))+3;
+var minV = Math.min.apply(null, ptsList.map(function(p) { return p.wPlot != null ? p.wPlot : p.w; }).concat(D.final)) - 3;
+var maxV = Math.max.apply(null, ptsList.map(function(p) { return p.wPlot != null ? p.wPlot : p.w; })) + 3;
 var diffV = (maxV === minV) ? 10 : (maxV - minV);
 var fy = v => 40 + ((maxV - v)/diffV*(sH - 100));
-var firstW = ptsList[0].w;
-var lastW = ptsList[ptsList.length-1].w;
+var firstW = ptsList[0].wPlot != null ? ptsList[0].wPlot : ptsList[0].w;
+var lastW = ptsList[ptsList.length - 1].wPlot != null ? ptsList[ptsList.length - 1].wPlot : ptsList[ptsList.length - 1].w;
 var firstS = ptsList[0].s;
 var lastS = ptsList[ptsList.length-1].s;
 var dvForPred = firstW - lastW;
@@ -7272,6 +7370,21 @@ if (!merged) mstonesCompact.push(v);
 });
 mstones = mstonesCompact;
 
+var weekMilestoneHit = {};
+var monthMilestoneHit = {};
+if (cvGraph === 'week' || cvGraph === 'month') {
+    for (var si = 0; si < ptsList.length; si++) {
+        var sp = ptsList[si];
+        if (sp.w <= 0) continue;
+        var prevWStar = si === 0 ? Infinity : (ptsList[si - 1].w > 0 ? ptsList[si - 1].w : ptsList[si - 1].wPlot);
+        var hitM = mstones.find(function(m) { return sp.w <= m && prevWStar > m; });
+        if (hitM !== undefined) {
+            if (cvGraph === 'week') weekMilestoneHit[weekBlockKeyFromPoint(sp, graphAnchorDate)] = hitM;
+            else monthMilestoneHit[monthBlockKeyFromPoint(sp, graphAnchorDate)] = hitM;
+        }
+    }
+}
+
 var metaBandHigh = Math.floor(Number(D.start) / 5) * 5;
 var metaBandLow = metaBandHigh - 5;
 var yPas = (fy(metaBandHigh) + fy(metaBandLow)) / 2;
@@ -7337,7 +7450,9 @@ var mb = muscleAvg(base), m1 = muscleAvg(p);
 var mus = 0;
 if(mb > 0 && m1 > 0) mus = (m1 - mb) * 1.15;
 else if(mb === 0 && m1 > 0) mus = (m1 - 0) * 0.55;
-var wdiff = Number(p.w) - Number(base.w);
+var pw = (p.w > 0) ? Number(p.w) : Number(p.wPlot || 0);
+var bw = (base.w > 0) ? Number(base.w) : Number(base.wPlot || 0);
+var wdiff = pw - bw;
 var wpen = 0;
 if(wdiff > 0.25) wpen = wdiff * 2.2;
 else if(wdiff < -0.35) wpen = wdiff * 0.4;
@@ -7361,7 +7476,7 @@ stripMsg += " Δ " + (hubDelta > 0 ? "+" : "") + hubDelta.toFixed(2) + ".";
 var rangeStart = ptsList[0].s, rangeEnd = ptsList[ptsList.length - 1].s;
 var defMeta = sumEnergyBalanceForRange(rangeStart, rangeEnd);
 var d0 = displayDayKey(dayKeyFromDate(rangeStart)), d1 = displayDayKey(dayKeyFromDate(rangeEnd));
-var w0 = Number(ptsList[0].w), w1 = Number(ptsList[ptsList.length - 1].w);
+var w0 = Number(ptsList[0].wPlot != null ? ptsList[0].wPlot : ptsList[0].w), w1 = Number(ptsList[ptsList.length - 1].wPlot != null ? ptsList[ptsList.length - 1].wPlot : ptsList[ptsList.length - 1].w);
 var dWkg = Number((w1 - w0).toFixed(2));
 var waistFL = firstLastMetric("waist");
 var muscFL = firstLastMuscleAvg();
@@ -7443,14 +7558,16 @@ var fbf = document.getElementById("fat-barometer-fat");
 if(!svg) return;
 var vm = window.currentView || "day";
 var endD, startD;
-if (vm === "week" || vm === "month") {
-    var anchor = ptsList && ptsList.length && ptsList[ptsList.length - 1].s
-        ? ptsList[ptsList.length - 1].s
-        : new Date();
-    endD = new Date(anchor.getFullYear(), anchor.getMonth(), anchor.getDate());
-    startD = new Date(endD.getTime());
-    if (vm === "week") startD.setDate(startD.getDate() - 6);
-    else startD.setDate(startD.getDate() - 29);
+    if (vm === "week" || vm === "month") {
+    var today = new Date();
+    var endMid = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    if (vm === "week") {
+        startD = addDays(graphAnchorDate, weekBlockIndex(endMid, graphAnchorDate) * 7);
+        endD = new Date(endMid.getTime());
+    } else {
+        startD = addDays(graphAnchorDate, monthBlockIndex(endMid, graphAnchorDate) * 30);
+        endD = new Date(endMid.getTime());
+    }
 } else {
     endD = new Date();
     endD = new Date(endD.getFullYear(), endD.getMonth(), endD.getDate());
@@ -7474,8 +7591,8 @@ var norm = Math.max(-1, Math.min(1, avgKcal / 900)); // 900 kcal/den ~ plná vý
 var needleDeg = -norm * 54;
 var nCol = Math.abs(norm) < 0.08 ? "#fbbf24" : (norm > 0 ? "var(--green-neon)" : "var(--red)");
 var subTxt = Math.abs(norm) < 0.08 ? "neutrál" : (norm > 0 ? "deficit" : "přebytek");
-if(vm === "week") subTxt += " • 7d";
-if(vm === "month") subTxt += " • 30d";
+if(vm === "week") subTxt += " • 7d od 1. zápisu";
+if(vm === "month") subTxt += " • 30d od 1. zápisu";
 if(sub) sub.innerText = subTxt;
 var uid = "fb" + Math.floor(Math.random() * 1e9);
 svg.innerHTML = '<defs><filter id="' + uid + 'Glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><linearGradient id="' + uid + 'Arc" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="rgba(57,255,20,0.5)"/><stop offset="50%" stop-color="rgba(245,158,11,0.4)"/><stop offset="100%" stop-color="rgba(249,115,22,0.5)"/></linearGradient></defs>' +
@@ -7487,8 +7604,8 @@ svg.innerHTML = '<defs><filter id="' + uid + 'Glow" x="-40%" y="-40%" width="180
 '<circle cx="46" cy="50" r="5.2" fill="#0f172a" stroke="#fbbf24" stroke-width="1.6"/>';
 })();
 
-var yL = ""; for(var v=Math.floor(minV); v<=maxV; v+=2) yL += '<div style="position:absolute; top:' + (fy(v)-7) + 'px; width:100%; text-align:center; color:#94a3b8; font-size:10px;">' + v + ' kg</div>';
-mstones.forEach(function(m, idx) { var c = m===D.final?mCols[5]:mCols[idx%5]; yL += '<div style="position:absolute; top:' + (fy(m)-14) + 'px; left:5px; color:' + c + '; font-size:10px; font-weight:900; background:#000; padding:2px 6px; border-radius:4px; border:1px solid ' + c + '; z-index:101;">META ' + m + '</div>'; });
+var yL = ""; for(var v=Math.floor(minV); v<=maxV; v+=2) yL += '<div style="position:absolute; top:' + (fy(v)-8) + 'px; width:100%; text-align:center; color:#94a3b8; font-size:11px;">' + v + ' kg</div>';
+mstones.forEach(function(m, idx) { var c = m===D.final?mCols[5]:mCols[idx%5]; yL += '<div style="position:absolute; top:' + (fy(m)-15) + 'px; left:5px; color:' + c + '; font-size:11px; font-weight:900; background:#000; padding:2px 6px; border-radius:4px; border:1px solid ' + c + '; z-index:101;">META ' + m + '</div>'; });
 document.getElementById('y-w').innerHTML = yL;
 
 var gk="", weightSegments="", waistPath="", chestPath="", thighPath="", bicepsPath="", shouldersPath="", pt="", pr="", pill="", predGoalTxt="", waistFillPath="", chestFillPath="", thighFillPath="", bicepsFillPath="", shouldersFillPath="";
@@ -7576,31 +7693,40 @@ function drawPart(pColor, pPath, pFill, pKey, startY, idx, x, shortLabel) {
         var isLastMetricPoint = (idx === lastMetricIdx);
         var valueLabel = String(p[pKey]);
         pt += '<circle cx="' + x + '" cy="' + yw + '" r="3.6" fill="' + pColor + '" stroke="#fff" stroke-width="1.25"/>';
-        pt += '<text x="' + x + '" y="' + (yw+17) + '" fill="' + pColor + '" font-size="9" font-weight="900" text-anchor="middle">' + valueLabel + '</text>';
-        if(isLastMetricPoint) pt += '<text x="' + (x+14) + '" y="' + (yw+17) + '" fill="' + pColor + '" font-size="9" font-weight="900" text-anchor="start">' + shortLabel + '</text>';
+        pt += '<text x="' + x + '" y="' + (yw+19) + '" fill="' + pColor + '" font-size="11" font-weight="900" text-anchor="middle">' + valueLabel + '</text>';
+        if(isLastMetricPoint) pt += '<text x="' + (x+17) + '" y="' + (yw+19) + '" fill="' + pColor + '" font-size="11" font-weight="900" text-anchor="start">' + shortLabel + '</text>';
     }
     return {p: pPath, f: pFill};
 }
 
 ptsList.forEach(function(p, i) {
-    var x = fx(i), y = fy(p.w);
+    var wY = p.wPlot != null ? p.wPlot : p.w;
+    var x = fx(i), y = fy(wY);
     if(i > 0) { 
-        var prev = ptsList[i-1], x0 = fx(i-1), y0 = fy(prev.w); 
+        var prev = ptsList[i-1], x0 = fx(i-1);
+        var prevWY = prev.wPlot != null ? prev.wPlot : prev.w;
+        var y0 = fy(prevWY); 
         var cp1x = (x0 + x)/2;
-        var segColor = (p.w > prev.w) ? "var(--red-dark)" : "var(--gold)"; 
+        var segColor = (wY > prevWY) ? "var(--red-dark)" : "var(--gold)"; 
         weightSegments += '<path d="M ' + x0 + ',' + y0 + ' C ' + cp1x + ',' + y0 + ' ' + cp1x + ',' + y + ' ' + x + ',' + y + '" stroke="' + segColor + '" stroke-width="2" fill="none" stroke-linecap="round"/>'; 
     }
-    var resW = drawPart("#be185d", waistPath, waistFillPath, "waist", midPas, i, x, "PAS"); waistPath = resW.p; waistFillPath = resW.f;
-    var resC = drawPart("#881337", chestPath, chestFillPath, "chest", midChest, i, x, "HRUD"); chestPath = resC.p; chestFillPath = resC.f;
-    var resT = drawPart("#d946ef", thighPath, thighFillPath, "thigh", midThigh, i, x, "STEH"); thighPath = resT.p; thighFillPath = resT.f;
-    var resB = drawPart("#8b5cf6", bicepsPath, bicepsFillPath, "biceps", midBiceps, i, x, "BIC"); bicepsPath = resB.p; bicepsFillPath = resB.f;
-    var resS = drawPart("#22d3ee", shouldersPath, shouldersFillPath, "shoulders", midShoulders, i, x, "RAM"); shouldersPath = resS.p; shouldersFillPath = resS.f;
+    var resW = drawPart("#be185d", waistPath, waistFillPath, "waist", midPas, i, x, tr('chart_lbl_waist')); waistPath = resW.p; waistFillPath = resW.f;
+    var resC = drawPart("#881337", chestPath, chestFillPath, "chest", midChest, i, x, tr('chart_lbl_chest')); chestPath = resC.p; chestFillPath = resC.f;
+    var resT = drawPart("#d946ef", thighPath, thighFillPath, "thigh", midThigh, i, x, tr('chart_lbl_thigh')); thighPath = resT.p; thighFillPath = resT.f;
+    var resB = drawPart("#8b5cf6", bicepsPath, bicepsFillPath, "biceps", midBiceps, i, x, tr('chart_lbl_biceps')); bicepsPath = resB.p; bicepsFillPath = resB.f;
+    var resS = drawPart("#22d3ee", shouldersPath, shouldersFillPath, "shoulders", midShoulders, i, x, tr('chart_lbl_shoulders')); shouldersPath = resS.p; shouldersFillPath = resS.f;
     
-    var reachedMilestone = mstones.find(m=>p.w<=m&&(i===0||ptsList[i-1].w>m)); 
+    var prevWForMile = i === 0 ? Infinity : (ptsList[i-1].w > 0 ? ptsList[i-1].w : ptsList[i-1].wPlot);
+    var reachedMilestone = (p.w > 0) ? mstones.find(function(m) { return p.w <= m && prevWForMile > m; }) : undefined;
+    var lastInWeek = (i === ptsList.length - 1) || (weekBlockKeyFromPoint(ptsList[i], graphAnchorDate) !== weekBlockKeyFromPoint(ptsList[i + 1], graphAnchorDate));
+    var lastInMonth = (i === ptsList.length - 1) || (monthBlockKeyFromPoint(ptsList[i], graphAnchorDate) !== monthBlockKeyFromPoint(ptsList[i + 1], graphAnchorDate));
+    var starPeriod = (cvGraph === 'week' && lastInWeek && weekMilestoneHit[weekBlockKeyFromPoint(p, graphAnchorDate)] !== undefined) ||
+        (cvGraph === 'month' && lastInMonth && monthMilestoneHit[monthBlockKeyFromPoint(p, graphAnchorDate)] !== undefined);
+    var starM = reachedMilestone !== undefined ? reachedMilestone : (starPeriod ? (cvGraph === 'week' ? weekMilestoneHit[weekBlockKeyFromPoint(p, graphAnchorDate)] : monthMilestoneHit[monthBlockKeyFromPoint(p, graphAnchorDate)]) : undefined);
     var lastWColor = '#f97316';
     var nPts = ptsList.length;
     if (nPts === 1 || i === 0) {
-    var metaC = nearestMetaColor(p.w);
+    var metaC = nearestMetaColor(wY);
     pt += '<path d="M ' + x + ',' + (y-6) + ' L ' + (x+6) + ',' + y + ' L ' + x + ',' + (y+6) + ' L ' + (x-6) + ',' + y + ' Z" fill="none" stroke="' + metaC + '" stroke-width="1.1" stroke-linejoin="round"/>';
     } else if (i === nPts - 1) {
     pt += '<circle cx="' + x + '" cy="' + y + '" r="7.5" fill="none" stroke="' + lastWColor + '" stroke-width="1.05"/><circle cx="' + x + '" cy="' + y + '" r="3.2" fill="none" stroke="' + lastWColor + '" stroke-width="1"/>';
@@ -7613,11 +7739,12 @@ ptsList.forEach(function(p, i) {
     var midC = '#f59e0b';
     pt += '<polygon points="' + hx.join(' ') + '" fill="none" stroke="' + midC + '" stroke-width="1.05" stroke-linejoin="round"/>';
     }
-    var wFill = weightValueFill(p.w, i);
+    var wFill = weightValueFill(wY, i);
     weightGradDefs += wFill.defs;
-    pt += '<text x="' + x + '" y="' + (y-20) + '" fill="' + wFill.fill + '" font-size="13" font-weight="900" text-anchor="middle" style="text-shadow:0 1px 3px rgba(0,0,0,0.88)">' + p.w.toFixed(1) + '</text><text x="' + x + '" y="' + (sH-15) + '" fill="#94a3b8" font-size="10" text-anchor="middle">' + p.d + '</text>';
-    if(reachedMilestone !== undefined) {
-    var sIdx = mstones.findIndex(function(mm) { return Math.abs(Number(mm) - Number(reachedMilestone)) < 0.02; });
+    var wLbl = (p.w > 0) ? p.w.toFixed(1) : (wY > 0 ? '~' + wY.toFixed(1) : '—');
+    pt += '<text x="' + x + '" y="' + (y-22) + '" fill="' + wFill.fill + '" font-size="15" font-weight="900" text-anchor="middle" style="text-shadow:0 1px 3px rgba(0,0,0,0.88)">' + wLbl + '</text><text x="' + x + '" y="' + (sH-14) + '" fill="#94a3b8" font-size="12" text-anchor="middle">' + p.d + '</text>';
+    if(starM !== undefined) {
+    var sIdx = mstones.findIndex(function(mm) { return Math.abs(Number(mm) - Number(starM)) < 0.02; });
     var starStroke = (sIdx >= 0 && Number(mstones[sIdx]) === Number(D.final)) ? mCols[5] : (sIdx >= 0 ? mCols[sIdx % 5] : '#fbbf24');
     pt += '<g transform="translate(' + (x-12) + ',' + (y-54) + ') scale(0.92)"><path class="star-3d" style="filter: drop-shadow(0 0 5px ' + starStroke + ');" d="' + starPath + '" fill="none" stroke="' + starStroke + '" stroke-width="1.12" stroke-linejoin="round"/></g>';
     }
@@ -7631,7 +7758,9 @@ bicepsFillPath = closeFill(bicepsFillPath, ptsList.length-1, "biceps");
 shouldersFillPath = closeFill(shouldersFillPath, ptsList.length-1, "shoulders");
 
 var l = ptsList[ptsList.length-1];
-var dv = ptsList[0].w - l.w, dd = Math.max(1, (l.s - ptsList[0].s)/(864e5)), eta = (activeRate > 0 && l.w > D.final) ? Math.max(1, Math.round((l.w - D.final)/activeRate)) : 0;
+var lWplot = l.wPlot != null ? l.wPlot : l.w;
+var w0plot = ptsList[0].wPlot != null ? ptsList[0].wPlot : ptsList[0].w;
+var dv = w0plot - lWplot, dd = Math.max(1, (l.s - ptsList[0].s)/(864e5)), eta = (activeRate > 0 && lWplot > D.final) ? Math.max(1, Math.round((lWplot - D.final)/activeRate)) : 0;
 var fatLossKgEst = Math.max(0, Number(defMeta.fatG || 0) / 1000);
 var fatDeltaKg = -fatLossKgEst;
 var muscleKgEst = 0;
@@ -7650,14 +7779,14 @@ var fatColor = fatDeltaKg < 0 ? "var(--green-neon)" : "var(--red)";
 var muscleColor = muscleKgEst >= 0 ? "var(--green-neon)" : "var(--red)";
 var predEndXForScroll = 0;
 if(eta > 0){ 
-    var td = new Date(l.s.getTime() + (eta * 864e5)); var x_start = fx(ptsList.length-1), y_start = fy(l.w), x_end = fx(ptsList.length-1)+(eta*dW), y_end = fy(D.final);
+    var td = new Date(l.s.getTime() + (eta * 864e5)); var x_start = fx(ptsList.length-1), y_start = fy(lWplot), x_end = fx(ptsList.length-1)+(eta*dW), y_end = fy(D.final);
     predEndXForScroll = x_end;
     var goalDateLabel = displayDayKeyFull(dayKeyFromDate(td));
     var predPillDur = "5.4s";
     var predPathLoop = "M" + x_start + "," + y_start + " L" + x_end + "," + y_end + " L" + x_start + "," + y_start;
     pr='<line x1="' + x_start + '" y1="' + y_start + '" x2="' + x_end + '" y2="' + y_end + '" stroke="var(--gold)" stroke-width="2" stroke-dasharray="8,5" opacity="0.75"/>'; 
     pill = '<g class="pred-head-marker"><circle r="4.5" cx="0" cy="0" fill="rgba(15,23,42,0.92)" stroke="var(--gold)" stroke-width="2"/><animateMotion dur="' + predPillDur + '" repeatCount="indefinite" path="' + predPathLoop + '" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.82 0.22;0.2 0.45 0.75 1"/></g>';
-    predGoalTxt = '<text x="' + x_end + '" y="' + (sH - 15) + '" fill="var(--gold)" font-size="10" font-weight="800" text-anchor="middle" style="text-shadow:0 0 5px rgba(0,0,0,0.9)">' + goalDateLabel + '</text>';
+    predGoalTxt = '<text x="' + x_end + '" y="' + (sH - 14) + '" fill="var(--gold)" font-size="11" font-weight="800" text-anchor="middle" style="text-shadow:0 0 5px rgba(0,0,0,0.9)">' + goalDateLabel + '</text>';
     var paceTxt = tr('pace_adaptive');
     var locPred = getUiLang() === 'en' ? 'en-US' : 'cs-CZ';
     document.getElementById('prediction').innerText = tr('motor_goal', { date: td.toLocaleDateString(locPred), eta: String(eta), pace: paceTxt });
@@ -7704,7 +7833,7 @@ scrollWEl.scrollLeft = cw ? Math.max(0, predEndXForScroll - cw + 120) : 0;
 scrollWEl.scrollLeft = 0;
 }
 }
-var startW = Number(D.start) > 0 ? Number(D.start) : Number(ptsList[0].w || 0);
+var startW = Number(D.start) > 0 ? Number(D.start) : Number(ptsList[0].wPlot != null ? ptsList[0].wPlot : ptsList[0].w || 0);
 var curW = rawLastW > 0 ? rawLastW : Number(l.w || 0);
 var goalW = Number(D.final || 0);
 var weightProg = 0;
@@ -7722,7 +7851,9 @@ if (rwVal) {
 rwVal.classList.remove("roadmap-mini-val--good", "roadmap-mini-val--bad", "roadmap-mini-val--neutral");
 rwVal.removeAttribute("title");
 if (curW > 0 && startW > 0) {
-var dW = curW - startW;
+var startDisp = Math.round(startW * 10) / 10;
+var curDisp = Math.round(curW * 10) / 10;
+var dW = curDisp - startDisp;
 var absDW = Math.abs(dW);
 var signDW = dW > 0 ? "+" : "";
 rwVal.textContent = signDW + dW.toFixed(1) + " kg";
@@ -7913,7 +8044,8 @@ valEl.removeAttribute("title");
 valEl.classList.remove("roadmap-mini-val--good", "roadmap-mini-val--bad", "roadmap-mini-val--zone-ok", "roadmap-mini-val--zone-mid", "roadmap-mini-val--zone-warn");
 valEl.classList.add("roadmap-mini-val--neutral");
 shellEl.classList.remove("roadmap-gauge-shell--good", "roadmap-gauge-shell--bad");
-needleEl.style.transform = "rotate(0deg)";
+needleEl.removeAttribute("transform");
+needleEl.style.transform = "";
 subEl.textContent = "—";
 return;
 }
@@ -7928,12 +8060,13 @@ var gaugeBands = (key === "chest" || key === "thigh")
 ? { tolShell: 2.2, ok: 0.6, mid: 1.6, warn: 2.8 }
 : { tolShell: 1.5, ok: 0.5, mid: 1.5, warn: 2.2 };
 var devGauge = data.current - gaugeGoal;
-// Úhel: škála podle metriky — ±warn cm = plný rozsah ručičky uvnitř oblouku (ne fixní 12°/cm).
-var GAUGE_DEG_MAX = 48;
+// Úhel: škála podle metriky — ±warn cm = plný rozsah ručičky uvnitř oblouku (oblouk ~±44° od středu; rezerva pod rysky).
+var GAUGE_DEG_MAX = 43;
 var fullScaleCm = Math.max(gaugeBands.warn, 0.01);
 var deg = (devGauge / fullScaleCm) * GAUGE_DEG_MAX;
 deg = Math.max(-GAUGE_DEG_MAX, Math.min(GAUGE_DEG_MAX, deg));
-needleEl.style.transform = "rotate(" + deg.toFixed(1) + "deg)";
+needleEl.style.transform = "";
+needleEl.setAttribute("transform", "rotate(" + deg.toFixed(2) + " 50 74)");
 var absDevGauge = Math.abs(devGauge);
 var inZone = absDevGauge <= gaugeBands.tolShell;
 var signGauge = devGauge > 0 ? "+" : "";
