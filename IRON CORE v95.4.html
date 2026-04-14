@@ -1462,6 +1462,16 @@ text-shadow:
 0 0 34px rgba(127,29,29,0.9),
 0 1px 2px #000;
 }
+/* Budík proporcí: mimo černý výsek (barevný oblouk) = červeně pulsuje; uvnitř = zóny odchylky od predikce. */
+.roadmap-mini-val--gauge-arc-danger {
+color: #ef4444;
+animation: roadmapDeltaPulse 0.86s ease-in-out infinite;
+text-shadow:
+0 0 10px rgba(254,202,202,0.95),
+0 0 20px rgba(248,113,113,0.95),
+0 0 34px rgba(127,29,29,0.9),
+0 1px 2px #000;
+}
 .roadmap-mini-val--zone-ok {
 color: #22c55e;
 text-shadow:
@@ -1490,6 +1500,9 @@ text-shadow:
 .roadmap-tubes-card .roadmap-mini-val--zone-mid,
 .roadmap-tubes-card .roadmap-mini-val--zone-warn {
 animation: none;
+}
+.roadmap-tubes-card .roadmap-mini-val--gauge-arc-danger {
+animation: roadmapDeltaPulse 0.86s ease-in-out infinite;
 }
 /* U valcu Vaha/Pas nechavame zeleny pulz bez zare. */
 #roadmap-val-w.roadmap-mini-val--good,
@@ -1886,6 +1899,28 @@ var(--shadow-levitate),
 0 0 0 1px rgba(245, 158, 11, 0.1),
 0 0 18px rgba(245, 158, 11, 0.08);
 }
+.btn-quick-row.is-dragging {
+opacity: 0.65;
+border-color: rgba(245, 158, 11, 0.95);
+}
+.btn-quick-row.is-drop-target {
+box-shadow:
+var(--shadow-levitate),
+0 0 0 1px rgba(56, 189, 248, 0.35),
+0 0 20px rgba(56, 189, 248, 0.24);
+}
+.fav-drag-handle {
+background: transparent;
+border: 1px dashed rgba(148,163,184,0.55);
+color: #cbd5e1;
+border-radius: 10px;
+font-size: 14px;
+font-weight: 900;
+line-height: 1;
+padding: 6px 8px;
+cursor: grab;
+}
+.fav-drag-handle:active { cursor: grabbing; }
 .kcal-val { font-size: 16px; color: var(--gold); text-align: center; font-weight: 900; margin-top: 4px; }
 .meal-time { font-size: 8px; color: var(--accent); font-weight: 900; text-transform: uppercase; margin-bottom: 3px; display: block; }
 .toggle-btn {
@@ -2474,6 +2509,45 @@ button:not(.intake-hero-pill):not([class*="bubble-close"]):not(.btn-modal) > *,
 .balance-row[role="button"] > * {
 position: relative;
 z-index: 1;
+}
+/* Výkon (mobil): bez animovaného oleje a bez bublin/jisker na tlačítkách. Makro tubusy, grafy a hvězdy beze změny. */
+.intake-hero-pill--commit::before,
+.intake-hero-pill--fav::before,
+.intake-hero-pill--ai.intake-hero-pill--ai-rich::before {
+animation: none !important;
+opacity: 0.52;
+background-size: 100% 100%, 100% 100%;
+background-position:50% 50%, 50% 50%;
+}
+.intake-hero-pill .intake-pill-bubbles .macro-bubble,
+.intake-hero-pill--commit .macro-bubble {
+animation: none !important;
+opacity: 0.18;
+bottom: 38%;
+transform: translateX(-50%) scale(0.82);
+}
+.intake-hero-pill .intake-spark {
+animation: none !important;
+opacity: 0.22;
+transform: scale(0.94);
+}
+button:not(.intake-hero-pill):not([class*="bubble-close"]):not(.btn-modal)::before,
+.mode-btn::before,
+.diet-btn::before,
+.fast-btn::before,
+.gender-btn::before,
+.toggle-btn::before,
+.balance-row[role="button"]::before {
+animation: none !important;
+opacity: 0.48;
+background-size: 100% 100%, 100% 100%;
+background-position: 50% 50%, 50% 50%;
+}
+.iron-intro-bubble-chamber::before {
+animation: none !important;
+opacity: 0.72;
+background-size: 100% 100%, 100% 100%;
+background-position: 50% 50%, 50% 50%;
 }
 .intake-hero-routines {
 margin-top: 4px;
@@ -3763,6 +3837,24 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <option value="strength_4x80">Silový 4× týdně ~80 min (1,66×) — posilovna + běžný pohyb</option>
 <option value="very_active">Velmi aktivní (1,78×) — celodenní těžká práce / velmi hodně kroků</option>
 </select>
+<div style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(148,163,184,0.22);">
+<div class="profile-hero-section-label" style="margin-bottom:6px;">InBody záznam (aktuální + historie)</div>
+<div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+<input type="date" id="p-inb-date" placeholder="Datum InBody">
+<input type="number" id="p-inb-weight" step="0.1" inputmode="decimal" placeholder="Váha InBody (kg)">
+<input type="number" id="p-inb-smm" step="0.1" inputmode="decimal" placeholder="SMM (kg)">
+<input type="number" id="p-inb-pbf" step="0.1" inputmode="decimal" placeholder="PBF (%)">
+<input type="number" id="p-inb-bfm" step="0.1" inputmode="decimal" placeholder="Tuk (kg)">
+<input type="number" id="p-inb-whr" step="0.01" inputmode="decimal" placeholder="WHR">
+<input type="number" id="p-inb-vfl" step="1" inputmode="numeric" placeholder="Viscerální tuk">
+<input type="number" id="p-inb-score" step="1" inputmode="numeric" placeholder="InBody skóre (body)">
+</div>
+<div style="display:flex;gap:8px;margin-top:10px;">
+<button type="button" onclick="window.saveInBodySnapshot()" class="btn btn-outline" style="flex:1;border-color:rgba(56,189,248,0.6);color:#bae6fd;font-weight:900;padding:11px;">Uložit InBody do historie</button>
+</div>
+<div id="inbody-last-note" style="margin-top:8px;font-size:9px;color:var(--muted);font-weight:700;">Poslední InBody: —</div>
+<div id="inbody-history-list" style="margin-top:10px;font-size:10px;color:var(--text);"></div>
+</div>
 <button type="button" onclick="window.printInBodySheet()" class="btn btn-outline" style="width:100%;margin-top:14px;border-color:rgba(148,163,184,0.55);color:#e2e8f0;font-weight:900;padding:12px;font-size:11px">Vytisknout přehled (InBody &amp; měření)</button>
 <p style="font-size:8px;color:var(--muted);margin:8px 0 0;line-height:1.35;font-weight:700;">Otevře tisk / PDF: profil (BMR, váha u měření) a tabulka dnů s váhou, proporcemi a kcal. Bez API klíče.</p>
 <div class="toggle-btn" onclick="window.toggleInBodyAdvanced()" style="margin-top:10px; padding:10px 12px; font-size:10px;">
@@ -4668,6 +4760,7 @@ var ROADMAP_VIEW_KEY = 'KETO_MASTER_ROADMAP_VIEW';
 var FAV_KEY = 'MISSION_TRACKER_FAVORITES'; 
 var NOTIF_KEY = 'MISSION_TRACKER_NOTIFIED';
 var MY_FAVORITES = JSON.parse(localStorage.getItem(FAV_KEY)) || [];
+var FAV_DRAG_INDEX = -1;
 var modalCallback = null;
 var lastFocusedBeforeModal = null;
 var MISSION_START_KEY = '2026-03-09';
@@ -5590,7 +5683,28 @@ html += "<div><strong>Start / cíl váha:</strong> " + printSheetEsc(D.start || 
 html += "<div><strong>BMR z InBody:</strong> " + printSheetEsc(D.labBmr || "—") + " kcal</div>";
 html += "<div><strong>Váha u měření BMR:</strong> " + printSheetEsc(D.labBmrAtKg || "—") + " kg</div>";
 html += "<div><strong>Aktivita (profil):</strong> " + printSheetEsc(activityProfilePrintLabel(D.activityProfile)) + "</div>";
+var ibRows = Array.isArray(D.inbodyHistory) ? D.inbodyHistory.slice() : [];
+if (ibRows.length) {
+var ibLatest = ibRows[0] || {};
+html += "<div><strong>Poslední InBody:</strong> " + printSheetEsc(ibLatest.date ? displayDayKeyFull(ibLatest.date) : "—") + "</div>";
+html += "<div><strong>InBody snapshot:</strong> "
++ "W " + printSheetEsc(Number(ibLatest.weight) > 0 ? Number(ibLatest.weight).toFixed(1) : "—")
++ " · SMM " + printSheetEsc(Number(ibLatest.smm) > 0 ? Number(ibLatest.smm).toFixed(1) : "—")
++ " · PBF " + printSheetEsc(Number(ibLatest.pbf) > 0 ? Number(ibLatest.pbf).toFixed(1) : "—")
++ " · Tuk " + printSheetEsc(Number(ibLatest.bfm) > 0 ? Number(ibLatest.bfm).toFixed(1) : "—")
++ " · WHR " + printSheetEsc(Number(ibLatest.whr) > 0 ? Number(ibLatest.whr).toFixed(2) : "—")
++ " · VFL " + printSheetEsc(Number(ibLatest.vfl) > 0 ? Math.round(Number(ibLatest.vfl)) : "—")
++ " · Skóre " + printSheetEsc(Number(ibLatest.bscore) > 0 ? Math.round(Number(ibLatest.bscore)) : "—")
++ "</div>";
+}
 html += "</div>";
+if (ibRows.length) {
+var ibTable = "";
+ibRows.forEach(function(r) {
+ibTable += "<tr><td>" + printSheetEsc(r.date ? displayDayKeyFull(r.date) : "—") + "</td><td>" + printSheetEsc(Number(r.weight) > 0 ? Number(r.weight).toFixed(1) : "—") + "</td><td>" + printSheetEsc(Number(r.smm) > 0 ? Number(r.smm).toFixed(1) : "—") + "</td><td>" + printSheetEsc(Number(r.pbf) > 0 ? Number(r.pbf).toFixed(1) : "—") + "</td><td>" + printSheetEsc(Number(r.bfm) > 0 ? Number(r.bfm).toFixed(1) : "—") + "</td><td>" + printSheetEsc(Number(r.whr) > 0 ? Number(r.whr).toFixed(2) : "—") + "</td><td>" + printSheetEsc(Number(r.vfl) > 0 ? Math.round(Number(r.vfl)) : "—") + "</td><td>" + printSheetEsc(Number(r.bscore) > 0 ? Math.round(Number(r.bscore)) : "—") + "</td><td>" + printSheetEsc(Number(r.bmr) > 0 ? Number(r.bmr) : "—") + "</td></tr>";
+});
+html += "<div class=\"block\"><h2>Historie InBody</h2><table><thead><tr><th>Datum</th><th>Váha</th><th>SMM</th><th>PBF</th><th>Tuk kg</th><th>WHR</th><th>VFL</th><th>Skóre</th><th>BMR</th></tr></thead><tbody>" + ibTable + "</tbody></table></div>";
+}
 html += "<div class=\"block\"><h2>Denní záznamy</h2>";
 if (!rows.length) {
 html += "<p>Žádné dny v historii.</p>";
@@ -5645,6 +5759,8 @@ labBmr: 0,
 labBmrAtKg: 0,
 activityProfile: "",
 bmrInBodyMode: "adaptive",
+inbodyDraft: { date: "", weight: 0, smm: 0, pbf: 0, bfm: 0, whr: 0, vfl: 0, score: 0 },
+inbodyHistory: [],
 onboardingDone: false,
 profileHeaderSaved: false,
 introVideoData: "",
@@ -5738,6 +5854,32 @@ if (typeof D.labBmr !== 'number' || isNaN(D.labBmr)) D.labBmr = 0;
 if (typeof D.labBmrAtKg !== 'number' || isNaN(D.labBmrAtKg)) D.labBmrAtKg = 0;
 if (typeof D.activityProfile !== 'string') D.activityProfile = '';
 if (D.bmrInBodyMode !== 'fixed' && D.bmrInBodyMode !== 'adaptive') D.bmrInBodyMode = 'adaptive';
+if (!D.inbodyDraft || typeof D.inbodyDraft !== 'object') D.inbodyDraft = { date: "", weight: 0, smm: 0, pbf: 0, bfm: 0, whr: 0, vfl: 0, score: 0 };
+if (!Array.isArray(D.inbodyHistory)) D.inbodyHistory = [];
+D.inbodyDraft.date = toDayKey(D.inbodyDraft.date) || "";
+D.inbodyDraft.weight = Number(D.inbodyDraft.weight) || 0;
+D.inbodyDraft.smm = Number(D.inbodyDraft.smm) || 0;
+D.inbodyDraft.pbf = Number(D.inbodyDraft.pbf) || 0;
+D.inbodyDraft.bfm = Number(D.inbodyDraft.bfm) || 0;
+D.inbodyDraft.whr = Number(D.inbodyDraft.whr) || 0;
+D.inbodyDraft.vfl = Number(D.inbodyDraft.vfl) || 0;
+D.inbodyDraft.score = Number(D.inbodyDraft.score) || 0;
+D.inbodyHistory = D.inbodyHistory.map(function(r) {
+var x = r || {};
+return {
+date: toDayKey(x.date) || "",
+weight: Number(x.weight) || 0,
+smm: Number(x.smm) || 0,
+pbf: Number(x.pbf) || 0,
+bfm: Number(x.bfm) || 0,
+whr: Number(x.whr) || 0,
+vfl: Number(x.vfl) || 0,
+bscore: Number(x.bscore) || Number(x.score) || 0,
+bmr: Number(x.bmr) || 0
+};
+}).sort(function(a, b) {
+return parseDayKeyToDate(b.date || "1970-01-01").getTime() - parseDayKeyToDate(a.date || "1970-01-01").getTime();
+});
 
 var _saveNoteTimer = null;
 function sync() {
@@ -6046,10 +6188,12 @@ var rel = Math.abs((Number(cur) || 0) - Number(tgt)) / Math.max(1, Number(tgt));
 return clamp01(1 - (rel / 0.65));
 }
 var pVal = Number(row.p) || 0, fVal = Number(row.f) || 0, cVal = Number(row.c) || 0;
-if (pVal + fVal + cVal <= 0) {
+var m = Number(mode) || 0;
+// Přísné nulové skóre bez maker držíme jen u Gaučingu (uživatelský požadavek).
+// V tréninku/refeed může být i při částečně splněných kcal skóre > 0.
+if (m === 0 && (pVal + fVal + cVal <= 0)) {
 return { intakeScore: 0, burnScore: 0, leftFillPct: 0, rightFillPct: 0, meetScore: 0 };
 }
-var m = Number(mode) || 0;
 var kcalHit = (Number(target) > 0) ? clamp01(1 - (Math.abs(eatNum - Number(target)) / Math.max(1, Number(target)))) : 0;
 var pHit = macroHit(row.p, targetP), fHit = macroHit(row.f, targetF), cHit = macroHit(row.c, targetC);
 var macroHitAvg = (pHit + fHit + cHit) / 3;
@@ -6415,6 +6559,17 @@ renderRoutine();
 
 window.removeFavorite = function(index) { openModal(tr("modal_remove_fav"), function() { MY_FAVORITES.splice(index, 1); localStorage.setItem(FAV_KEY, JSON.stringify(MY_FAVORITES)); renderRoutine(); }, tr("btn_modal_delete")); };
 
+function moveFavoriteItem(fromIndex, toIndex) {
+fromIndex = Number(fromIndex);
+toIndex = Number(toIndex);
+if (!(fromIndex >= 0) || !(toIndex >= 0)) return;
+if (fromIndex === toIndex) return;
+if (fromIndex >= MY_FAVORITES.length || toIndex >= MY_FAVORITES.length) return;
+var moved = MY_FAVORITES.splice(fromIndex, 1)[0];
+MY_FAVORITES.splice(toIndex, 0, moved);
+localStorage.setItem(FAV_KEY, JSON.stringify(MY_FAVORITES));
+}
+
 window.popLog = function() { 
 var t = getD(); 
 var dayObj = ensureDay(t); 
@@ -6444,6 +6599,38 @@ root.innerHTML = "";
 MY_FAVORITES.forEach(function(m, index) {
 var row = document.createElement('div');
 row.className = 'btn-quick-row';
+row.setAttribute('draggable', 'true');
+row.dataset.favIndex = String(index);
+row.addEventListener('dragstart', function(ev) {
+FAV_DRAG_INDEX = index;
+row.classList.add('is-dragging');
+if (ev.dataTransfer) {
+ev.dataTransfer.effectAllowed = 'move';
+try { ev.dataTransfer.setData('text/plain', String(index)); } catch (e) {}
+}
+});
+row.addEventListener('dragend', function() {
+FAV_DRAG_INDEX = -1;
+row.classList.remove('is-dragging');
+root.querySelectorAll('.btn-quick-row').forEach(function(r) { r.classList.remove('is-drop-target'); });
+});
+row.addEventListener('dragover', function(ev) {
+if (FAV_DRAG_INDEX < 0 || FAV_DRAG_INDEX === index) return;
+ev.preventDefault();
+if (ev.dataTransfer) ev.dataTransfer.dropEffect = 'move';
+row.classList.add('is-drop-target');
+});
+row.addEventListener('dragleave', function() {
+row.classList.remove('is-drop-target');
+});
+row.addEventListener('drop', function(ev) {
+ev.preventDefault();
+row.classList.remove('is-drop-target');
+if (FAV_DRAG_INDEX < 0 || FAV_DRAG_INDEX === index) return;
+moveFavoriteItem(FAV_DRAG_INDEX, index);
+FAV_DRAG_INDEX = -1;
+renderRoutine();
+});
 
 var info = document.createElement('div');
 info.className = 'info';
@@ -6462,6 +6649,22 @@ action.className = 'action-area';
 action.style.display = 'flex';
 action.style.alignItems = 'center';
 action.style.gap = '10px';
+
+var dragBtn = document.createElement('button');
+dragBtn.type = 'button';
+dragBtn.className = 'fav-drag-handle';
+dragBtn.textContent = '≡';
+dragBtn.setAttribute('title', 'Přetáhni pro změnu pořadí');
+dragBtn.setAttribute('aria-label', 'Přetáhni pro změnu pořadí');
+dragBtn.addEventListener('mousedown', function() {
+dragBtn.style.cursor = 'grabbing';
+});
+dragBtn.addEventListener('mouseup', function() {
+dragBtn.style.cursor = '';
+});
+dragBtn.addEventListener('mouseleave', function() {
+dragBtn.style.cursor = '';
+});
 
 var saveBtn = document.createElement('button');
 saveBtn.className = 'btn-save-mini';
@@ -6489,6 +6692,7 @@ removeBtn.style.padding = '5px';
 removeBtn.textContent = '×';
 removeBtn.addEventListener('click', function() { window.removeFavorite(index); });
 
+action.appendChild(dragBtn);
 action.appendChild(saveBtn);
 action.appendChild(kcal);
 action.appendChild(removeBtn);
@@ -6497,6 +6701,108 @@ row.appendChild(action);
 root.appendChild(row);
 });
 }
+
+function inBodyNumFromInput(id) {
+var el = document.getElementById(id);
+if (!el) return 0;
+var v = parseFloat(String(el.value || "").replace(",", "."));
+return (!isNaN(v) && isFinite(v) && v > 0) ? v : 0;
+}
+function readInBodyDraftFromInputs() {
+var dateEl = document.getElementById("p-inb-date");
+return {
+date: dateEl ? String(dateEl.value || "") : "",
+weight: inBodyNumFromInput("p-inb-weight"),
+smm: inBodyNumFromInput("p-inb-smm"),
+pbf: inBodyNumFromInput("p-inb-pbf"),
+bfm: inBodyNumFromInput("p-inb-bfm"),
+whr: inBodyNumFromInput("p-inb-whr"),
+vfl: Math.round(inBodyNumFromInput("p-inb-vfl"))
+,
+score: Math.round(inBodyNumFromInput("p-inb-score"))
+};
+}
+function writeInBodyDraftToInputs(draft) {
+var d = draft || {};
+var map = [
+["p-inb-date", d.date || ""],
+["p-inb-weight", Number(d.weight) > 0 ? Number(d.weight) : ""],
+["p-inb-smm", Number(d.smm) > 0 ? Number(d.smm) : ""],
+["p-inb-pbf", Number(d.pbf) > 0 ? Number(d.pbf) : ""],
+["p-inb-bfm", Number(d.bfm) > 0 ? Number(d.bfm) : ""],
+["p-inb-whr", Number(d.whr) > 0 ? Number(d.whr) : ""],
+["p-inb-vfl", Number(d.vfl) > 0 ? Number(d.vfl) : ""],
+["p-inb-score", Number(d.score) > 0 ? Number(d.score) : ""]
+];
+map.forEach(function(pair) {
+var el = document.getElementById(pair[0]);
+if (el && !isUserEditingField(el)) el.value = pair[1];
+});
+}
+function renderInBodyHistory() {
+var root = document.getElementById("inbody-history-list");
+var noteEl = document.getElementById("inbody-last-note");
+if (!root) return;
+var rows = Array.isArray(D.inbodyHistory) ? D.inbodyHistory.slice() : [];
+if (!rows.length) {
+root.innerHTML = '<div style="color:var(--muted);font-size:9px;">Historie InBody je zatím prázdná.</div>';
+if (noteEl) noteEl.textContent = "Poslední InBody: —";
+return;
+}
+if (noteEl) {
+var lr = rows[0] || {};
+var sTxt = Number(lr.bscore) > 0 ? (" " + Math.round(Number(lr.bscore)) + " bodů") : "";
+noteEl.textContent = "Poslední InBody: " + (lr.date ? displayDayKeyFull(lr.date) : "—") + sTxt;
+}
+var h = '<div style="display:grid;gap:6px;">';
+rows.forEach(function(r, idx) {
+var dateTxt = r.date ? displayDayKeyFull(r.date) : "—";
+var parts = [];
+if (Number(r.weight) > 0) parts.push("W " + Number(r.weight).toFixed(1) + " kg");
+if (Number(r.smm) > 0) parts.push("SMM " + Number(r.smm).toFixed(1) + " kg");
+if (Number(r.pbf) > 0) parts.push("PBF " + Number(r.pbf).toFixed(1) + " %");
+if (Number(r.bfm) > 0) parts.push("Tuk " + Number(r.bfm).toFixed(1) + " kg");
+if (Number(r.whr) > 0) parts.push("WHR " + Number(r.whr).toFixed(2));
+if (Number(r.vfl) > 0) parts.push("VFL " + Math.round(Number(r.vfl)));
+if (Number(r.bscore) > 0) parts.push("Skóre " + Math.round(Number(r.bscore)) + " b");
+h += '<div style="border:1px solid rgba(148,163,184,0.28);border-radius:10px;padding:8px 10px;background:rgba(2,6,23,0.45);display:flex;justify-content:space-between;gap:10px;align-items:center;">';
+h += '<div><div style="font-weight:900;color:#e2e8f0">' + escHtml(dateTxt) + '</div><div style="font-size:9px;color:var(--muted);margin-top:2px;">' + escHtml(parts.join(" · ") || "—") + '</div></div>';
+h += '<button type="button" onclick="window.removeInBodySnapshot(' + idx + ')" style="border:1px solid rgba(239,68,68,0.55);background:rgba(127,29,29,0.35);color:#fecaca;border-radius:8px;padding:5px 8px;font-weight:900;cursor:pointer;">×</button>';
+h += '</div>';
+});
+h += "</div>";
+root.innerHTML = h;
+}
+window.clearInBodyDraft = function() {
+D.inbodyDraft = { date: "", weight: 0, smm: 0, pbf: 0, bfm: 0, whr: 0, vfl: 0, score: 0 };
+writeInBodyDraftToInputs(D.inbodyDraft);
+sync();
+};
+window.saveInBodySnapshot = function() {
+var snap = readInBodyDraftFromInputs();
+if (!snap.date) snap.date = getD();
+var hasData = Number(snap.weight) > 0 || Number(snap.smm) > 0 || Number(snap.pbf) > 0 || Number(snap.bfm) > 0 || Number(snap.whr) > 0 || Number(snap.vfl) > 0 || Number(snap.score) > 0 || Number(D.labBmr) > 0;
+if (!hasData) { flashNote("Vyplň aspoň jednu hodnotu InBody.", "var(--pink)", "white"); return; }
+snap.bmr = Number(D.labBmr) > 0 ? Number(D.labBmr) : 0;
+snap.bscore = Number(snap.score) > 0 ? Number(snap.score) : 0;
+D.inbodyHistory = Array.isArray(D.inbodyHistory) ? D.inbodyHistory : [];
+D.inbodyHistory.unshift(snap);
+D.inbodyHistory.sort(function(a, b) {
+var ta = parseDayKeyToDate(a.date || "1970-01-01").getTime();
+var tb = parseDayKeyToDate(b.date || "1970-01-01").getTime();
+return tb - ta;
+});
+D.inbodyDraft = { date: "", weight: 0, smm: 0, pbf: 0, bfm: 0, whr: 0, vfl: 0, score: 0 };
+sync();
+flashNote("InBody záznam uložen do historie.", "var(--green-neon)", "#0f172a");
+};
+window.removeInBodySnapshot = function(index) {
+openModal("Smazat InBody záznam z historie?", function() {
+if (!Array.isArray(D.inbodyHistory)) D.inbodyHistory = [];
+if (index >= 0 && index < D.inbodyHistory.length) D.inbodyHistory.splice(index, 1);
+sync();
+}, tr("btn_modal_delete"));
+};
 
 window.saveProfile = function() { openModal(tr("modal_save_profile_q"), function() {
 var ps = parseFloat(String(document.getElementById('p-start').value).replace(',','.'));
@@ -6514,6 +6820,7 @@ var gk = document.getElementById('p-gemini-key'); if(gk) D.geminiApiKey = String
 var lb = parseFloat(String(document.getElementById('p-lab-bmr').value).replace(',','.')); D.labBmr = (!isNaN(lb) && lb > 0) ? Math.round(lb) : 0;
 var lbk = parseFloat(String(document.getElementById('p-lab-bmr-kg').value).replace(',','.')); D.labBmrAtKg = (!isNaN(lbk) && lbk > 0) ? lbk : 0;
 var pact = document.getElementById('p-activity'); D.activityProfile = pact ? String(pact.value || '') : '';
+D.inbodyDraft = readInBodyDraftFromInputs();
 var pInbMode = document.getElementById('p-inbody-mode');
 if (pInbMode) D.bmrInBodyMode = (pInbMode.value === 'fixed') ? 'fixed' : 'adaptive';
 var pIntroX = document.getElementById('p-intro-video-external'); D.introVideoExternalPath = pIntroX ? String(pIntroX.value || '').trim() : '';
@@ -6792,6 +7099,8 @@ var pLabKg = document.getElementById('p-lab-bmr-kg');
 if(pLabKg && !isUserEditingField(pLabKg)) pLabKg.value = (D.labBmrAtKg > 0) ? D.labBmrAtKg : '';
 var pAct = document.getElementById('p-activity');
 if(pAct && !isUserEditingField(pAct)) pAct.value = (typeof D.activityProfile === 'string') ? D.activityProfile : '';
+writeInBodyDraftToInputs(D.inbodyDraft || {});
+renderInBodyHistory();
 var pInbodyMode = document.getElementById('p-inbody-mode');
 if (pInbodyMode && !isUserEditingField(pInbodyMode)) pInbodyMode.value = (D.bmrInBodyMode === 'fixed') ? 'fixed' : 'adaptive';
 var qAct = document.getElementById('quick-activity');
@@ -7851,14 +8160,12 @@ if (rwVal) {
 rwVal.classList.remove("roadmap-mini-val--good", "roadmap-mini-val--bad", "roadmap-mini-val--neutral");
 rwVal.removeAttribute("title");
 if (curW > 0 && startW > 0) {
-var startDisp = Math.round(startW * 10) / 10;
-var curDisp = Math.round(curW * 10) / 10;
-var dW = curDisp - startDisp;
+var dW = curW - startW;
 var absDW = Math.abs(dW);
 var signDW = dW > 0 ? "+" : "";
-rwVal.textContent = signDW + dW.toFixed(1) + " kg";
+rwVal.textContent = signDW + dW.toFixed(2) + " kg";
 rwVal.setAttribute("title", tr("tooltip_weight_delta", { goal: goalW > 0 ? goalW.toFixed(1) + " kg" : (getUiLang() === "en" ? "n/a" : "nevyplněno") }));
-if (absDW < 0.05) rwVal.classList.add("roadmap-mini-val--neutral");
+if (absDW < 0.005) rwVal.classList.add("roadmap-mini-val--neutral");
 else if (dW < 0) rwVal.classList.add("roadmap-mini-val--good");
 else rwVal.classList.add("roadmap-mini-val--bad");
 } else {
@@ -7912,8 +8219,9 @@ if (m > 0 && w > 0) arr.push({ m: m, w: w, s: p.s });
 arr.sort(function(a, b) { return a.s - b.s; });
 return arr;
 }
-function tryMetricGoalPredV2(key, goalWn, curMn) {
+function tryMetricGoalPredV2(key, goalWn, curMn, curWn) {
 if (!METRIC_V2_KEYS_IC[key]) return null;
+var curW = Number(curWn) || 0;
 D.metricGoalPredV2 = D.metricGoalPredV2 || {};
 var pts = metricPointsChronoForKey(key);
 if (pts.length < 2) return null;
@@ -7926,6 +8234,9 @@ if ((pts[i].s - t0) <= BASELINE_WINDOW_MS_IC) baselineRows.push(pts[i]);
 if (baselineRows.length < 2) return null;
 var baselinePred = metricRegressionRowsAtGoal(baselineRows, goalWn, true);
 if (baselinePred == null || !isFinite(baselinePred)) return null;
+if ((key === "chest" || key === "thigh") && curW > 0 && goalWn < curW) {
+baselinePred = Math.min(baselinePred, curMn);
+}
 var maxHist = 0;
 for (i = 0; i < pts.length; i++) if (pts[i].m > maxHist) maxHist = pts[i].m;
 var peakM = Math.max(maxHist, curMn);
@@ -7938,7 +8249,11 @@ changed = true;
 var oldMax = entry.maxM || 0;
 if (peakM > oldMax + 0.001) {
 var fullUnc = metricRegressionRowsAtGoal(pts, goalWn, false);
-if (fullUnc != null && isFinite(fullUnc)) entry.v = Math.max(entry.v, fullUnc);
+if (fullUnc != null && isFinite(fullUnc)) {
+if ((key === "chest" || key === "thigh") && curW > 0 && goalWn < curW) fullUnc = Math.min(fullUnc, curMn);
+entry.v = Math.max(entry.v, fullUnc);
+if ((key === "chest" || key === "thigh") && curW > 0 && goalWn < curW) entry.v = Math.min(entry.v, curMn);
+}
 entry.maxM = peakM;
 D.metricGoalPredV2[key] = entry;
 changed = true;
@@ -7950,7 +8265,9 @@ D.metricGoalPredV2[key] = entry;
 if (changed) {
 try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (e) {}
 }
-return D.metricGoalPredV2[key].v;
+var outV = D.metricGoalPredV2[key].v;
+if ((key === "chest" || key === "thigh") && curW > 0 && goalWn < curW) outV = Math.min(outV, curMn);
+return outV;
 }
 function metricPredAtGoalByRegression(key, goalWeight) {
 var arr = metricSeriesForKey(key);
@@ -7973,15 +8290,24 @@ var hi = Math.max(start, cur) + Math.max(2, Math.abs(start - cur) * 1.2);
 pred = Math.max(lo, Math.min(hi, pred));
 return Number(pred.toFixed(1));
 }
+function metricRegressionSlope(key) {
+var arr = metricSeriesForKey(key);
+if (arr.length < 2) return null;
+var sx = 0, sy = 0, sxx = 0, sxy = 0, n = arr.length, i;
+for (i = 0; i < n; i++) {
+var x = arr[i].w, yv = arr[i].m;
+sx += x; sy += yv; sxx += x * x; sxy += x * yv;
+}
+var den = (n * sxx - sx * sx);
+if (Math.abs(den) < 1e-6) return null;
+return (n * sxy - sx * sy) / den;
+}
 function metricPredAtGoalSafe(key, goalWeight, currentWeight, currentMetric) {
 var curWn = Number(currentWeight) || 0;
 var curMn = Number(currentMetric) || 0;
 var goalWn = Number(goalWeight) || 0;
 if (!(curWn > 0) || !(curMn > 0) || !(goalWn > 0)) return null;
-var v2pred = tryMetricGoalPredV2(key, goalWn, curMn);
-if (v2pred != null && isFinite(v2pred)) {
-return Math.max(30, Number(Number(v2pred).toFixed(1)));
-}
+var v2pred = tryMetricGoalPredV2(key, goalWn, curMn, curWn);
 var lossKg = Math.max(0, curWn - goalWn);
 var dynWaistPerKg = 1.0; // konzervativně fixně: -1 cm pas / -1 kg
 var apRoad = activityProfileForDayKey(getD());
@@ -8003,9 +8329,16 @@ shoulders: 0.05
 var k = fallbackPerKg[key] || 0.25;
 var fallback = curMn - (lossKg * k);
 var reg = metricPredAtGoalByRegression(key, goalWeight);
+if ((key === "chest" || key === "thigh") && goalWn < curWn) {
+var sl = metricRegressionSlope(key);
+if (sl != null && sl < 0) reg = null;
+}
 var pred = fallback;
 if (key !== "waist") {
 pred = (reg != null && isFinite(reg)) ? ((reg * 0.65) + (fallback * 0.35)) : fallback;
+}
+if (v2pred != null && isFinite(v2pred)) {
+pred = Math.min(pred, v2pred);
 }
 if (key === "waist" || key === "chest" || key === "thigh" || key === "biceps" || key === "shoulders") {
 pred = Math.min(pred, curMn);
@@ -8024,6 +8357,30 @@ var last = arr.length - 1;
 var prev = (last > 0) ? arr[last - 1].m : arr[last].m;
 return { start: arr[0].m, current: arr[last].m, prev: prev, count: arr.length };
 }
+var ROADMAP_GAUGE_PX = 50, ROADMAP_GAUGE_PY = 74;
+var ROADMAP_GAUGE_WEDGE_Y = 16;
+var ROADMAP_GAUGE_WEDGE_X1 = 17.3, ROADMAP_GAUGE_WEDGE_X2 = 82.7;
+var ROADMAP_GAUGE_BLACK_WEDGE_MIN_DEG = Math.atan2(ROADMAP_GAUGE_WEDGE_X1 - ROADMAP_GAUGE_PX, -(ROADMAP_GAUGE_WEDGE_Y - ROADMAP_GAUGE_PY)) * 180 / Math.PI;
+var ROADMAP_GAUGE_BLACK_WEDGE_MAX_DEG = Math.atan2(ROADMAP_GAUGE_WEDGE_X2 - ROADMAP_GAUGE_PX, -(ROADMAP_GAUGE_WEDGE_Y - ROADMAP_GAUGE_PY)) * 180 / Math.PI;
+function roadmapNeedleOutsideBlackWedge(deg) {
+return deg < ROADMAP_GAUGE_BLACK_WEDGE_MIN_DEG - 1e-6 || deg > ROADMAP_GAUGE_BLACK_WEDGE_MAX_DEG + 1e-6;
+}
+var ROADMAP_GAUGE_TICK_1_DEG_ABS = Math.abs(Math.atan2(35.6 - ROADMAP_GAUGE_PX, -(6 - ROADMAP_GAUGE_PY)) * 180 / Math.PI);
+var ROADMAP_GAUGE_TICK_2_DEG_ABS = Math.abs(Math.atan2(21.9 - ROADMAP_GAUGE_PX, -(13.1 - ROADMAP_GAUGE_PY)) * 180 / Math.PI);
+function roadmapDevCmToNeedleDeg(devCm) {
+var GAUGE_DEG_MAX = 43;
+var t1 = ROADMAP_GAUGE_TICK_1_DEG_ABS;
+var t2 = ROADMAP_GAUGE_TICK_2_DEG_ABS;
+if (!(Math.abs(devCm) > 0)) return 0;
+var s = devCm > 0 ? 1 : -1;
+var a = Math.abs(devCm);
+var mag;
+if (a <= 1) mag = a * t1;
+else if (a <= 2) mag = t1 + (a - 1) * (t2 - t1);
+else mag = t2 + (a - 2) * (t2 - t1);
+mag = Math.min(GAUGE_DEG_MAX, mag);
+return s * mag;
+}
 function updateRoadmapMini(key, suffix) {
 var data = metricStartCurrent(key);
 var capEl = document.getElementById("roadmap-cap-" + key);
@@ -8041,7 +8398,7 @@ capEl.textContent = "—";
 capEl.removeAttribute("title");
 valEl.textContent = "—";
 valEl.removeAttribute("title");
-valEl.classList.remove("roadmap-mini-val--good", "roadmap-mini-val--bad", "roadmap-mini-val--zone-ok", "roadmap-mini-val--zone-mid", "roadmap-mini-val--zone-warn");
+valEl.classList.remove("roadmap-mini-val--good", "roadmap-mini-val--bad", "roadmap-mini-val--zone-ok", "roadmap-mini-val--zone-mid", "roadmap-mini-val--zone-warn", "roadmap-mini-val--gauge-arc-danger");
 valEl.classList.add("roadmap-mini-val--neutral");
 shellEl.classList.remove("roadmap-gauge-shell--good", "roadmap-gauge-shell--bad");
 needleEl.removeAttribute("transform");
@@ -8060,11 +8417,8 @@ var gaugeBands = (key === "chest" || key === "thigh")
 ? { tolShell: 2.2, ok: 0.6, mid: 1.6, warn: 2.8 }
 : { tolShell: 1.5, ok: 0.5, mid: 1.5, warn: 2.2 };
 var devGauge = data.current - gaugeGoal;
-// Úhel: škála podle metriky — ±warn cm = plný rozsah ručičky uvnitř oblouku (oblouk ~±44° od středu; rezerva pod rysky).
-var GAUGE_DEG_MAX = 43;
-var fullScaleCm = Math.max(gaugeBands.warn, 0.01);
-var deg = (devGauge / fullScaleCm) * GAUGE_DEG_MAX;
-deg = Math.max(-GAUGE_DEG_MAX, Math.min(GAUGE_DEG_MAX, deg));
+// Úhel: |1| cm = 1. ryska, |2| cm = 2. ryska (úhly ze SVG u čepu 50/74); dál stejný sklon, max ±43° — všchny budíky stejně.
+var deg = roadmapDevCmToNeedleDeg(devGauge);
 needleEl.style.transform = "";
 needleEl.setAttribute("transform", "rotate(" + deg.toFixed(2) + " 50 74)");
 var absDevGauge = Math.abs(devGauge);
@@ -8072,11 +8426,15 @@ var inZone = absDevGauge <= gaugeBands.tolShell;
 var signGauge = devGauge > 0 ? "+" : "";
 valEl.textContent = signGauge + devGauge.toFixed(1) + suffix;
 valEl.setAttribute("title", (key === "chest" || key === "thigh") ? tr("tooltip_gauge_chest") : tr("tooltip_gauge_val"));
-valEl.classList.remove("roadmap-mini-val--good", "roadmap-mini-val--bad", "roadmap-mini-val--neutral", "roadmap-mini-val--zone-ok", "roadmap-mini-val--zone-mid", "roadmap-mini-val--zone-warn");
+valEl.classList.remove("roadmap-mini-val--good", "roadmap-mini-val--bad", "roadmap-mini-val--neutral", "roadmap-mini-val--zone-ok", "roadmap-mini-val--zone-mid", "roadmap-mini-val--zone-warn", "roadmap-mini-val--gauge-arc-danger");
+if (roadmapNeedleOutsideBlackWedge(deg)) {
+valEl.classList.add("roadmap-mini-val--gauge-arc-danger");
+} else {
 if (absDevGauge < gaugeBands.ok) valEl.classList.add("roadmap-mini-val--zone-ok");
 else if (absDevGauge < gaugeBands.mid) valEl.classList.add("roadmap-mini-val--zone-mid");
 else if (absDevGauge < gaugeBands.warn) valEl.classList.add("roadmap-mini-val--zone-warn");
 else valEl.classList.add("roadmap-mini-val--bad");
+}
 shellEl.classList.remove("roadmap-gauge-shell--good", "roadmap-gauge-shell--bad", "roadmap-mini-shell--good", "roadmap-mini-shell--bad");
 shellEl.classList.add(inZone ? "roadmap-gauge-shell--good" : "roadmap-gauge-shell--bad");
 subEl.textContent = tr("common_now") + " " + data.current.toFixed(1) + suffix + "\n" + tr("common_start") + " " + data.start.toFixed(1) + suffix;
