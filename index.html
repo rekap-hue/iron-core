@@ -11,7 +11,8 @@
 <meta name="theme-color" content="#020617">
 <link rel="icon" type="image/png" href="app-icon.png">
 <link rel="apple-touch-icon" href="app-icon.png">
-<title id="doc-page-title">Mise - v95.4.153</title>
+<link rel="manifest" href="manifest.json">
+<title id="doc-page-title">Mise - v95.4.154</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -103,11 +104,7 @@ border: 1px solid rgba(245, 158, 11, 0.58);
 background: linear-gradient(165deg, rgba(245, 158, 11, 0.22), rgba(15, 23, 42, 0.94));
 backdrop-filter: blur(12px);
 -webkit-backdrop-filter: blur(12px);
-box-shadow:
-0 6px 18px rgba(245, 158, 11, 0.14),
-var(--shadow-btn),
-inset 0 1px 0 rgba(255, 255, 255, 0.12),
-inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+box-shadow: 0 6px 18px rgba(245, 158, 11, 0.14), var(--shadow-btn), inset 0 1px 0 rgba(255, 255, 255, 0.12), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
 font-family: var(--font-display);
 font-size: 7.5px;
 font-weight: 900;
@@ -545,7 +542,10 @@ font-size: 18px;
 font-weight: 900;
 letter-spacing: 0.02em;
 line-height: 1.1;
-text-shadow: 0 0 16px currentColor;
+text-shadow:
+0 0 12px currentColor,
+0 0 24px currentColor,
+0 1px 2px rgba(0, 0, 0, 0.92);
 }
 .mission-balance-spark {
 display: block;
@@ -787,7 +787,10 @@ gap: 0;
 font-size: 17px;
 font-weight: 900;
 line-height: 1.1;
-text-shadow: 0 0 14px currentColor;
+text-shadow:
+0 0 12px currentColor,
+0 0 24px currentColor,
+0 1px 2px rgba(0, 0, 0, 0.92);
 }
 .mission-briefing-balance-wrap .mission-balance-spark {
 margin-top: 6px;
@@ -3370,6 +3373,24 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <div id="bmi-label" class="stat-sub stat-sub--bmi" style="color: var(--accent)">Start — · —</div>
 </div>
 </div>
+<div class="card consistency-card" id="consistency-card" style="border:1px solid rgba(16,185,129,0.42);background:rgba(15,23,42,0.55);margin-bottom:12px;">
+<div class="card-section-title" style="font-size:12px;margin-bottom:10px;" data-i18n="consistency_title">Konzistence zápisu</div>
+<div class="consistency-strip" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;">
+<div style="padding:8px 4px;border-radius:12px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.25);">
+<div style="font-size:9px;font-weight:900;letter-spacing:0.06em;text-transform:uppercase;color:#fbbf24;" data-i18n="consistency_lbl_w">Série váhy</div>
+<div id="consistency-w-val" class="consistency-val" style="font-size:20px;font-weight:900;color:#fef3c7;margin-top:4px;line-height:1.1;">0</div>
+</div>
+<div style="padding:8px 4px;border-radius:12px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.28);">
+<div style="font-size:9px;font-weight:900;letter-spacing:0.06em;text-transform:uppercase;color:var(--gold);" data-i18n="consistency_lbl_i">Série příjmu</div>
+<div id="consistency-i-val" class="consistency-val" style="font-size:20px;font-weight:900;color:#fde68a;margin-top:4px;line-height:1.1;">0</div>
+</div>
+<div style="padding:8px 4px;border-radius:12px;background:rgba(57,255,20,0.06);border:1px solid rgba(57,255,20,0.22);">
+<div style="font-size:9px;font-weight:900;letter-spacing:0.06em;text-transform:uppercase;color:var(--green-neon);" data-i18n="consistency_lbl_m">Tento měsíc</div>
+<div id="consistency-m-val" class="consistency-val" style="font-size:20px;font-weight:900;color:#dcfce7;margin-top:4px;line-height:1.1;">0/0</div>
+</div>
+</div>
+<p style="font-size:8px;color:var(--muted);margin:10px 0 0;line-height:1.35;font-weight:700;" data-i18n="consistency_hint">Série = po sobě jdoucí kalendářní dny od dnes zpět (váha / příjem). Měsíc = dny s váhou nebo zápisem jídla.</p>
+</div>
 <div class="card" id="section-roadmap">
 <div class="card-section-title card-section-title--long" data-i18n="card_roadmap_title">Roadmapa váhy & proporcí (Body Recomp)</div>
 <div id="prediction" class="motor-box" data-i18n="motor_computing"> MOTOR: Výpočet...</div>
@@ -3544,8 +3565,26 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <input class="full" type="number" id="in-w" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_in_w" placeholder="Váha doma (kg, stále stejně — např. ráno nacisto)">
 <input type="number" id="in-waist" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_waist" placeholder="Pas (cm)" style="border-color: var(--pink);">
 <input type="number" id="in-chest" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_chest" placeholder="Hrudník (cm)" style="border-color: #f472b6;">
-<input type="number" id="in-thigh" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_thigh" placeholder="Stehno (cm)" style="border-color: #d946ef;">
-<input type="number" id="in-biceps" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_biceps" placeholder="Biceps (cm)" style="border-color: #8b5cf6;">
+<div style="border:1px solid rgba(217,70,239,0.6); border-radius:12px; background:linear-gradient(160deg, rgba(217,70,239,0.1), rgba(15,23,42,0.92)); padding:8px 8px 7px;">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:6px;">
+<div style="font-size:9px;font-weight:900;letter-spacing:0.05em;text-transform:uppercase;color:#f0abfc;" data-i18n="ph_thigh">Stehno (cm)</div>
+<button type="button" onclick="window.showThighRefHelp()" data-i18n-aria="thigh_ref_help_aria" aria-label="Jak měřit stehno od čéšky" style="border:1px solid rgba(240,171,252,0.55);background:rgba(15,23,42,0.64);color:#f5d0fe;border-radius:999px;width:19px;height:19px;font-size:10px;font-weight:900;line-height:1;cursor:pointer;">?</button>
+</div>
+<input type="number" id="in-thigh" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_thigh" placeholder="Stehno (cm)" style="border-color:#d946ef;margin-bottom:6px;">
+<div style="height:1px;background:linear-gradient(90deg, rgba(217,70,239,0.2), rgba(217,70,239,0.66), rgba(217,70,239,0.2));margin:0 1px 5px;"></div>
+<div id="thigh-ref-inline" style="font-size:8px;font-weight:800;color:#f3e8ff;line-height:1.25;" data-i18n="thigh_ref_inline_empty">Od čéšky — cm</div>
+<input type="number" id="in-thigh-ref-cm" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_thigh_ref" placeholder="od čéšky (cm)" style="border-color:#d946ef;margin-top:5px;padding:8px 10px;font-size:11px;">
+</div>
+<div style="border:1px solid rgba(139,92,246,0.6); border-radius:12px; background:linear-gradient(160deg, rgba(139,92,246,0.1), rgba(15,23,42,0.92)); padding:8px 8px 7px;">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:6px;">
+<div style="font-size:9px;font-weight:900;letter-spacing:0.05em;text-transform:uppercase;color:#ddd6fe;" data-i18n="ph_biceps">Biceps (cm)</div>
+<button type="button" onclick="window.showBicepsRefHelp()" data-i18n-aria="biceps_ref_help_aria" aria-label="Jak měřit biceps od loketní jamky" style="border:1px solid rgba(196,181,253,0.55);background:rgba(15,23,42,0.64);color:#ede9fe;border-radius:999px;width:19px;height:19px;font-size:10px;font-weight:900;line-height:1;cursor:pointer;">?</button>
+</div>
+<input type="number" id="in-biceps" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_biceps" placeholder="Biceps (cm)" style="border-color:#8b5cf6;margin-bottom:6px;">
+<div style="height:1px;background:linear-gradient(90deg, rgba(139,92,246,0.2), rgba(139,92,246,0.66), rgba(139,92,246,0.2));margin:0 1px 5px;"></div>
+<div id="biceps-ref-inline" style="font-size:8px;font-weight:800;color:#ede9fe;line-height:1.25;" data-i18n="biceps_ref_inline_empty">Od loketní jamky — cm</div>
+<input type="number" id="in-biceps-ref-cm" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_biceps_ref" placeholder="od loketní jamky (cm)" style="border-color:#8b5cf6;margin-top:5px;padding:8px 10px;font-size:11px;">
+</div>
 <input class="full" type="number" id="in-shoulders" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_shoulders" placeholder="Ramena (cm)" style="border-color: #22d3ee;">
 </div>
 <div style="display:flex; gap:10px;">
@@ -3804,6 +3843,17 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <div id="profile-card" class="card profile-hero-card profile-hero--unset">
 <div class="profile-hero-kicker" data-i18n="profile_kicker">Profil &amp; nastavení</div>
 <p class="profile-hero-hint" data-i18n="profile_hint">BMI, BMR, hvězdy a AI — data zůstávají v tomto prohlížeči.</p>
+<div class="profile-inset-block profile-inset-block--loose" style="border:1px solid rgba(52,211,153,0.4);">
+<div class="profile-hero-section-label" data-i18n="backup_block_title">Záloha a obnova dat</div>
+<p style="font-size:9px;color:var(--muted);margin:0 0 10px;line-height:1.35;font-weight:700;" data-i18n="backup_intro">Kompletní kopie deníku (váha, dny, jídla, profil…). Ulož si ji bezpečně — při čištění úložiště nebo na jiném zařízení by jinak data zmizela.</p>
+<div style="display:flex;flex-wrap:wrap;gap:8px;">
+<button type="button" onclick="window.exportIronCoreBackup()" class="btn btn-outline" style="flex:1;min-width:132px;border-color:rgba(52,211,153,0.65);color:#6ee7b7;font-weight:900;padding:11px;font-size:11px;" data-i18n="backup_export">Stáhnout zálohu (JSON)</button>
+<button type="button" onclick="window.triggerIronCoreBackupImport()" class="btn btn-outline" style="flex:1;min-width:132px;border-color:rgba(251,191,36,0.65);color:#fcd34d;font-weight:900;padding:11px;font-size:11px;" data-i18n="backup_import">Nahrát zálohu…</button>
+</div>
+<input type="file" id="backup-file-input" accept="application/json,.json" style="display:none" aria-hidden="true">
+<div class="profile-hero-section-label" style="margin-top:14px;" data-i18n="pwa_card_title">Aplikace na ploše (PWA)</div>
+<p style="font-size:9px;color:var(--muted);margin:0;line-height:1.35;font-weight:700;" data-i18n="pwa_hint">Na mobilu použij v prohlížeči „Přidat na plochu“ / Install. Na PC ikonu instalace v adresním řádku. Vyžaduje otevření přes webový server (ne přímo soubor z disku).</p>
+</div>
 <div class="profile-hero-section-label" data-i18n="profile_lang">Jazyk rozhraní</div>
 <div class="gender-grid" style="margin-bottom:10px;">
 <button type="button" id="lang-cs" class="gender-btn" onclick="window.setUiLang('cs')" data-i18n="lang_cs">Čeština</button>
@@ -3918,6 +3968,7 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 </div>
 <script>
 var KEY = 'IRON_CORE_DATA_V95_4_2';
+var IRON_BACKUP_FORMAT = 'iron-core-backup';
 var LEGACY_DATA_KEYS = ['KETO_MASTER_V92_2'];
 (function migrateStorageFromLegacy() {
 try {
@@ -3934,7 +3985,7 @@ return;
 }
 } catch(e) {}
 })();
-var APP_VERSION_TAG = 'v95.4.153';
+var APP_VERSION_TAG = 'v95.4.154';
 var I18N = {
 cs: {
 doc_title: 'Mise — Iron Core',
@@ -3953,6 +4004,7 @@ stat_waist_prefix: 'Pas:',
 stat_pas_line: 'Pas: {v} cm',
 stat_bic_line: 'Biceps: {v} cm',
 stat_shoulders_short: 'Ramena:',
+stat_measures_today_empty: 'Dnes žádné obvody — doplň je u „Zapsat váhu a měření“.',
 stat_bmi: 'BMI Index',
 card_roadmap_title: 'Roadmapa váhy & proporcí (Body Recomp)',
 motor_computing: ' MOTOR: Výpočet…',
@@ -4037,6 +4089,23 @@ ph_age: 'Věk',
 ph_height: 'Výška',
 btn_save_profile: 'Uložit profil',
 btn_reset_data: 'Reset Dat ⚠',
+consistency_title: 'Konzistence zápisu',
+consistency_lbl_w: 'Série váhy',
+consistency_lbl_i: 'Série příjmu',
+consistency_lbl_m: 'Tento měsíc',
+consistency_hint: 'Série = po sobě jdoucí kalendářní dny od dnes zpět (váha / příjem). Měsíc = dny s váhou nebo zápisem jídla.',
+backup_block_title: 'Záloha a obnova dat',
+backup_intro: 'Kompletní kopie deníku (váha, dny, jídla, profil…). Ulož si ji bezpečně — při čištění úložiště nebo na jiném zařízení by jinak data zmizela.',
+backup_export: 'Stáhnout zálohu (JSON)',
+backup_import: 'Nahrát zálohu…',
+backup_import_confirm: 'Tato záloha přepíše VŠECHNA aktuální data v této aplikaci včetně oblíbených jídel a upozornění. Pokračovat?',
+backup_import_ok: 'Obnovit zálohu',
+backup_export_ok: 'Záloha stažena.',
+backup_err_export: 'Export se nepovedl.',
+backup_err_invalid: 'Soubor není platná záloha Iron Core.',
+backup_err_storage: 'Zálohu se nepodařilo uložit do úložiště (quota?).',
+pwa_card_title: 'Aplikace na ploše (PWA)',
+pwa_hint: 'Na mobilu použij v prohlížeči „Přidat na plochu“ / Install. Na PC ikonu instalace v adresním řádku. Vyžaduje otevření přes webový server (ne přímo soubor z disku).',
 common_now: 'Teď',
 common_start: 'Start',
 tooltip_weight_delta: 'Změna od startovní váhy mise (ne oproti cílové {goal} — pokud není cíl, jde o váhu)',
@@ -4071,7 +4140,18 @@ ph_in_w: 'Váha doma (kg, stále stejně — např. ráno nacisto)',
 ph_waist: 'Pas (cm)',
 ph_chest: 'Hrudník (cm)',
 ph_thigh: 'Stehno (cm)',
+thigh_ref_label: 'Stehno — referenční bod měření',
+thigh_ref_hint: 'Měření od čéšky: zadej vzdálenost v cm (např. 15). Pomůže držet stejné místo měření stehna.',
+biceps_ref_hint: 'Měření od loketní jamky: zadej vzdálenost v cm (např. 12). Pomůže držet stejné místo měření bicepsu.',
+thigh_ref_inline_empty: 'Od čéšky — cm',
+thigh_ref_inline_value: 'Od čéšky {v} cm',
+thigh_ref_help_aria: 'Jak měřit stehno od čéšky',
+ph_thigh_ref: 'Měření od čéšky (cm)',
 ph_biceps: 'Biceps (cm)',
+biceps_ref_inline_empty: 'Od loketní jamky — cm',
+biceps_ref_inline_value: 'Od loketní jamky {v} cm',
+biceps_ref_help_aria: 'Jak měřit biceps od loketní jamky',
+ph_biceps_ref: 'Měření od loketní jamky (cm)',
 ph_shoulders: 'Ramena (cm)',
 coach_skip: 'Přeskočit',
 coach_next: 'Další',
@@ -4289,6 +4369,7 @@ stat_waist_prefix: 'Waist:',
 stat_pas_line: 'Waist: {v} cm',
 stat_bic_line: 'Biceps: {v} cm',
 stat_shoulders_short: 'Shoulders:',
+stat_measures_today_empty: 'No girths logged today — add them under “Log weight & measurements”.',
 stat_bmi: 'BMI',
 card_roadmap_title: 'Weight & proportions roadmap (Body Recomp)',
 motor_computing: ' ENGINE: Calculating…',
@@ -4373,6 +4454,23 @@ ph_age: 'Age',
 ph_height: 'Height',
 btn_save_profile: 'Save profile',
 btn_reset_data: 'Reset data ⚠',
+consistency_title: 'Logging consistency',
+consistency_lbl_w: 'Weight streak',
+consistency_lbl_i: 'Intake streak',
+consistency_lbl_m: 'This month',
+consistency_hint: 'Streak = consecutive calendar days from today backward (weight / intake). Month = days with weight or a meal log.',
+backup_block_title: 'Backup & restore',
+backup_intro: 'Full copy of your log (weight, days, meals, profile…). Keep it safe — clearing site data or another device would otherwise lose it.',
+backup_export: 'Download backup (JSON)',
+backup_import: 'Restore from file…',
+backup_import_confirm: 'This backup will REPLACE all current app data, including favorites and notifications. Continue?',
+backup_import_ok: 'Restore backup',
+backup_export_ok: 'Backup downloaded.',
+backup_err_export: 'Export failed.',
+backup_err_invalid: 'Not a valid Iron Core backup file.',
+backup_err_storage: 'Could not write to browser storage (quota?).',
+pwa_card_title: 'Install as app (PWA)',
+pwa_hint: 'On mobile: browser menu → Add to Home Screen / Install. On desktop: install icon in the address bar. Requires a web server (not opening the file directly from disk).',
 common_now: 'Now',
 common_start: 'Start',
 tooltip_weight_delta: 'Change from mission start weight (not vs. target {goal})',
@@ -4407,7 +4505,18 @@ ph_in_w: 'Home weight (kg — same conditions, e.g. morning)',
 ph_waist: 'Waist (cm)',
 ph_chest: 'Chest (cm)',
 ph_thigh: 'Thigh (cm)',
+thigh_ref_label: 'Thigh — measurement reference point',
+thigh_ref_hint: 'Distance from kneecap: enter cm (e.g. 15). Keeps thigh measurement in the same place each time.',
+biceps_ref_hint: 'Distance from elbow: enter cm (e.g. 12). Keeps biceps measurement in the same place each time.',
+thigh_ref_inline_empty: 'From kneecap — cm',
+thigh_ref_inline_value: 'From kneecap {v} cm',
+thigh_ref_help_aria: 'How to measure thigh from kneecap',
+ph_thigh_ref: 'Distance from kneecap (cm)',
 ph_biceps: 'Biceps (cm)',
+biceps_ref_inline_empty: 'From elbow — cm',
+biceps_ref_inline_value: 'From elbow {v} cm',
+biceps_ref_help_aria: 'How to measure biceps from elbow',
+ph_biceps_ref: 'Distance from elbow (cm)',
 ph_shoulders: 'Shoulders (cm)',
 coach_skip: 'Skip',
 coach_next: 'Next',
@@ -4628,7 +4737,7 @@ return raw;
 function missionBalanceHexFromPct(pct) {
 var t = Math.max(0, Math.min(1, Number(pct) / 100));
 var r0 = 220, g0 = 38, b0 = 38;
-var r1 = 20, g1 = 83, b1 = 45;
+var r1 = 52, g1 = 255, b1 = 188;
 return 'rgb(' +
 Math.round(r0 + (r1 - r0) * t) + ',' +
 Math.round(g0 + (g1 - g0) * t) + ',' +
@@ -4810,6 +4919,42 @@ var dt = parseDayKeyToDate(dayKey);
 return dt.getDate() + "." + (dt.getMonth() + 1) + "." + dt.getFullYear();
 }
 
+function dayKeyAddDays(dayKey, deltaDays) {
+var d = parseDayKeyToDate(dayKey);
+d.setDate(d.getDate() + deltaDays);
+return dayKeyFromDate(d);
+}
+
+function computeCalendarStreak(pred) {
+var today = getD();
+var n = 0, k = today;
+while (true) {
+var row = D.days[k];
+if (!row || !pred(row)) break;
+n++;
+k = dayKeyAddDays(k, -1);
+}
+return n;
+}
+
+function computeConsistencyStats() {
+var wStreak = computeCalendarStreak(function(row) { return Number(row.w) > 0; });
+var iStreak = computeCalendarStreak(function(row) {
+return (Number(row.e) > 0) || (Array.isArray(row.mealEntries) && row.mealEntries.length > 0);
+});
+var now = new Date();
+var y = now.getFullYear(), mo = now.getMonth();
+var lastDay = new Date(y, mo + 1, 0).getDate();
+var logged = 0;
+for (var d = 1; d <= lastDay; d++) {
+var dk = y + "-" + String(mo + 1).padStart(2, "0") + "-" + String(d).padStart(2, "0");
+var row = D.days[dk];
+if (!row) continue;
+if (Number(row.w) > 0 || Number(row.e) > 0 || (Array.isArray(row.mealEntries) && row.mealEntries.length > 0)) logged++;
+}
+return { wStreak: wStreak, iStreak: iStreak, monthLogged: logged, monthDays: lastDay };
+}
+
 function migrateDaysData(days) {
 var migrated = {};
 Object.keys(days || {}).forEach(function(rawKey) {
@@ -4828,7 +4973,8 @@ var defLog = tr('btn_modal_log');
 var raw = String(btnText == null ? defLog : btnText).trim();
 var u = raw.toUpperCase();
 var del = tr('btn_modal_delete').toUpperCase();
-var wine = (u === del || u === 'SMAZAT' || u === 'DELETE');
+var restU = tr('backup_import_ok').toUpperCase();
+var wine = (u === del || u === 'SMAZAT' || u === 'DELETE' || u === restU);
 ok.classList.toggle('btn-modal-ok--wine', wine);
 ok.classList.toggle('btn-modal-ok--gold', !wine);
 }
@@ -5752,6 +5898,8 @@ return dayKeyFromDate(new Date());
 var DEFAULTS = {
 start: 0, final: 0, age: 0, height: 0, goldLimit: 0, gender: "",
 days: {},
+thighRefCm: 0,
+bicepsRefCm: 0,
 dietStyle: "standard",
 fasting: { protocol: "", start: "20:00" },
 geminiApiKey: "",
@@ -5802,6 +5950,8 @@ else if (Number(D.start) > 0 && Number(D.age) > 0 && Number(D.height) > 0) D.pro
 D.introVideoOverlayLogo = toBool(D.introVideoOverlayLogo, true);
 D.introVideoOverlayPos = (D.introVideoOverlayPos === 'center' || D.introVideoOverlayPos === 'top') ? D.introVideoOverlayPos : 'bottom';
 D.metricGoalPredV2 = (D.metricGoalPredV2 && typeof D.metricGoalPredV2 === "object") ? D.metricGoalPredV2 : {};
+D.thighRefCm = Number(D.thighRefCm) || 0;
+D.bicepsRefCm = Number(D.bicepsRefCm) || 0;
 if (D.uiLang !== 'en' && D.uiLang !== 'cs') D.uiLang = 'cs';
 D.lastLogDate = toDayKey(D.lastLogDate) || getD();
 var todayDate = getD();
@@ -6485,22 +6635,32 @@ var val = document.getElementById("fast-start").value;
 if(val) D.fasting.start = val;
 sync();
 };
+window.showThighRefHelp = function() {
+openModal(tr('thigh_ref_hint'), null, 'OK');
+};
+window.showBicepsRefHelp = function() {
+openModal(tr('biceps_ref_hint'), null, 'OK');
+};
 
 window.saveTodayW = function() {
 var v = parseFloat(document.getElementById('in-w').value.replace(',','.'));
 var waist = parseFloat(document.getElementById('in-waist').value.replace(',','.'));
 var chest = parseFloat(document.getElementById('in-chest').value.replace(',','.'));
 var thigh = parseFloat(document.getElementById('in-thigh').value.replace(',','.'));
+var thighRefCm = parseFloat(document.getElementById('in-thigh-ref-cm').value.replace(',','.'));
 var biceps = parseFloat(document.getElementById('in-biceps').value.replace(',','.'));
+var bicepsRefCm = parseFloat(document.getElementById('in-biceps-ref-cm').value.replace(',','.'));
 var shoulders = parseFloat(document.getElementById('in-shoulders').value.replace(',','.'));
-if(!isNaN(v) || !isNaN(waist) || !isNaN(chest) || !isNaN(thigh) || !isNaN(biceps) || !isNaN(shoulders)) {
+if(!isNaN(v) || !isNaN(waist) || !isNaN(chest) || !isNaN(thigh) || !isNaN(thighRefCm) || !isNaN(biceps) || !isNaN(bicepsRefCm) || !isNaN(shoulders)) {
 openModal(tr("modal_save_progress_q"), function() {
 var t = getD(); var dayObj = ensureDay(t);
 if(!isNaN(v)) D.days[t].w = v;
 if(!isNaN(waist)) dayObj.waist = waist;
 if(!isNaN(chest)) dayObj.chest = chest;
 if(!isNaN(thigh)) dayObj.thigh = thigh;
+if(!isNaN(thighRefCm)) D.thighRefCm = Math.max(0, thighRefCm);
 if(!isNaN(biceps)) dayObj.biceps = biceps;
+if(!isNaN(bicepsRefCm)) D.bicepsRefCm = Math.max(0, bicepsRefCm);
 if(!isNaN(shoulders)) dayObj.shoulders = shoulders;
 document.getElementById('in-w').value = ''; document.getElementById('in-waist').value = ''; document.getElementById('in-chest').value = ''; document.getElementById('in-thigh').value = ''; document.getElementById('in-biceps').value = ''; document.getElementById('in-shoulders').value = '';
 sync();
@@ -6828,6 +6988,83 @@ D.profileHeaderSaved = true;
 sync(); }); };
 window.askReset = function() { openModal(tr("modal_reset_all_q"), function() { try { localStorage.removeItem(KEY); LEGACY_DATA_KEYS.forEach(function(k) { localStorage.removeItem(k); }); localStorage.removeItem(NOTIF_KEY); localStorage.removeItem(FAV_KEY); localStorage.removeItem(ROADMAP_VIEW_KEY); } catch(e) {} location.reload(); }, tr("btn_modal_delete")); };
 
+window.exportIronCoreBackup = function() {
+try {
+var pack = {
+format: IRON_BACKUP_FORMAT,
+version: 1,
+exportedAt: new Date().toISOString(),
+appVersion: APP_VERSION_TAG,
+payload: {
+main: D,
+favorites: MY_FAVORITES,
+notified: NOTIFIED,
+roadmapView: (typeof window.currentView === 'string' ? window.currentView : null) || localStorage.getItem(ROADMAP_VIEW_KEY) || 'day'
+}
+};
+var blob = new Blob([JSON.stringify(pack, null, 2)], { type: 'application/json;charset=utf-8' });
+var a = document.createElement('a');
+a.href = URL.createObjectURL(blob);
+a.download = 'iron-core-backup-' + getD().replace(/-/g, '') + '.json';
+document.body.appendChild(a);
+a.click();
+document.body.removeChild(a);
+URL.revokeObjectURL(a.href);
+flashNote(tr('backup_export_ok'), 'var(--green-neon)', '#0f172a');
+} catch (e) {
+flashNote(tr('backup_err_export'), 'var(--pink)', 'white');
+}
+};
+
+window.triggerIronCoreBackupImport = function() {
+var inp = document.getElementById('backup-file-input');
+if (inp) inp.click();
+};
+
+function applyIronCoreBackupParsed(data) {
+if (!data || data.format !== IRON_BACKUP_FORMAT || !data.payload || typeof data.payload.main !== 'object' || data.payload.main === null) {
+flashNote(tr('backup_err_invalid'), 'var(--pink)', 'white');
+return;
+}
+window._pendingIronBackup = data;
+openModal(tr('backup_import_confirm'), function() {
+var d = window._pendingIronBackup;
+window._pendingIronBackup = null;
+if (!d || !d.payload || typeof d.payload.main !== 'object') return;
+try {
+localStorage.setItem(KEY, JSON.stringify(d.payload.main));
+localStorage.setItem(FAV_KEY, JSON.stringify(Array.isArray(d.payload.favorites) ? d.payload.favorites : []));
+localStorage.setItem(NOTIF_KEY, JSON.stringify(d.payload.notified && typeof d.payload.notified === 'object' ? d.payload.notified : {}));
+if (d.payload.roadmapView) localStorage.setItem(ROADMAP_VIEW_KEY, String(d.payload.roadmapView));
+} catch (e2) {
+flashNote(tr('backup_err_storage'), 'var(--pink)', 'white');
+return;
+}
+location.reload();
+}, tr('backup_import_ok'));
+}
+
+function setupIronCoreBackupImportInput() {
+var inp = document.getElementById('backup-file-input');
+if (!inp || inp.getAttribute('data-iron-bound') === '1') return;
+inp.setAttribute('data-iron-bound', '1');
+inp.addEventListener('change', function(ev) {
+var f = ev.target.files && ev.target.files[0];
+ev.target.value = '';
+if (!f) return;
+var reader = new FileReader();
+reader.onload = function() {
+try {
+var data = JSON.parse(reader.result);
+applyIronCoreBackupParsed(data);
+} catch (e) {
+flashNote(tr('backup_err_invalid'), 'var(--pink)', 'white');
+}
+};
+reader.readAsText(f, 'UTF-8');
+});
+}
+
 window.saveHistoryW = function(dt, idW, idWaist, idChest, idThigh, idBiceps, idShoulders) { 
 var v = parseFloat(document.getElementById(idW).value.replace(',','.')); 
 var waist = parseFloat(document.getElementById(idWaist).value.replace(',','.')); 
@@ -7103,6 +7340,20 @@ writeInBodyDraftToInputs(D.inbodyDraft || {});
 renderInBodyHistory();
 var pInbodyMode = document.getElementById('p-inbody-mode');
 if (pInbodyMode && !isUserEditingField(pInbodyMode)) pInbodyMode.value = (D.bmrInBodyMode === 'fixed') ? 'fixed' : 'adaptive';
+var thighRefEl = document.getElementById('in-thigh-ref-cm');
+if (thighRefEl && !isUserEditingField(thighRefEl)) thighRefEl.value = Number(D.thighRefCm) > 0 ? String(D.thighRefCm) : '';
+var thighRefInline = document.getElementById('thigh-ref-inline');
+if (thighRefInline) {
+if (Number(D.thighRefCm) > 0) thighRefInline.textContent = tr('thigh_ref_inline_value', { v: String(D.thighRefCm) });
+else thighRefInline.textContent = tr('thigh_ref_inline_empty');
+}
+var bicepsRefEl = document.getElementById('in-biceps-ref-cm');
+if (bicepsRefEl && !isUserEditingField(bicepsRefEl)) bicepsRefEl.value = Number(D.bicepsRefCm) > 0 ? String(D.bicepsRefCm) : '';
+var bicepsRefInline = document.getElementById('biceps-ref-inline');
+if (bicepsRefInline) {
+if (Number(D.bicepsRefCm) > 0) bicepsRefInline.textContent = tr('biceps_ref_inline_value', { v: String(D.bicepsRefCm) });
+else bicepsRefInline.textContent = tr('biceps_ref_inline_empty');
+}
 var qAct = document.getElementById('quick-activity');
 if(qAct && !isUserEditingField(qAct)) qAct.value = activityProfileForDayKey(getD());
 
@@ -7136,13 +7387,30 @@ var bmiStartStr = isFinite(bmiStartNum) && bmiStartNum > 0 ? bmiStartNum.toFixed
 
 document.getElementById('fi-val').innerText = (Number(D.final) > 0) ? D.final.toFixed(1) : '—';
 document.getElementById('cur-w').innerText = (cw > 0) ? cw.toFixed(1) : '—';
-var pasLine = tr('stat_pas_line', { v: cWaist ? String(cWaist) : "--" });
-if (cWaist && maxWaistHist && cWaist < maxWaistHist - 0.25) pasLine += " ↓";
-if (maxWaistHist) pasLine += " · " + tr('common_max') + " " + maxWaistHist;
-var bicLine = tr('stat_bic_line', { v: cBiceps ? String(cBiceps) : "--" });
-if (cBiceps && maxBicepsHist && cBiceps < maxBicepsHist - 0.25) bicLine += " ↓";
-if (maxBicepsHist) bicLine += " · " + tr('common_max') + " " + maxBicepsHist;
-document.getElementById('waist-display').innerText = pasLine + " | " + bicLine + " | " + tr('stat_shoulders_short') + " " + (cShoulders ? cShoulders : "--") + " cm";
+var cs = computeConsistencyStats();
+var csw = document.getElementById('consistency-w-val');
+var csi = document.getElementById('consistency-i-val');
+var csm = document.getElementById('consistency-m-val');
+if (csw) csw.textContent = String(cs.wStreak);
+if (csi) csi.textContent = String(cs.iStreak);
+if (csm) csm.textContent = cs.monthLogged + '/' + cs.monthDays;
+var hasWToday = Number(cWaist) > 0;
+var hasBToday = Number(cBiceps) > 0;
+var hasSToday = Number(cShoulders) > 0;
+var waistDisp = document.getElementById('waist-display');
+if (waistDisp) {
+if (!hasWToday && !hasBToday && !hasSToday) {
+waistDisp.innerText = tr('stat_measures_today_empty');
+} else {
+var pasLine = tr('stat_pas_line', { v: hasWToday ? String(cWaist) : "—" });
+if (hasWToday && maxWaistHist && cWaist < maxWaistHist - 0.25) pasLine += " ↓";
+if (hasWToday && maxWaistHist) pasLine += " · " + tr('common_max') + " " + maxWaistHist;
+var bicLine = tr('stat_bic_line', { v: hasBToday ? String(cBiceps) : "—" });
+if (hasBToday && maxBicepsHist && cBiceps < maxBicepsHist - 0.25) bicLine += " ↓";
+if (hasBToday && maxBicepsHist) bicLine += " · " + tr('common_max') + " " + maxBicepsHist;
+waistDisp.innerText = pasLine + " | " + bicLine + " | " + tr('stat_shoulders_short') + " " + (hasSToday ? String(cShoulders) : "—") + " cm";
+}
+}
 var worstW = baselineWorstWeightKg(today);
 var worstBmi = worstW != null ? bmiFromWeightKg(worstW) : bmiStartNum;
 var eps = 0.04;
@@ -7914,7 +8182,7 @@ svg.innerHTML = '<defs><filter id="' + uid + 'Glow" x="-40%" y="-40%" width="180
 })();
 
 var yL = ""; for(var v=Math.floor(minV); v<=maxV; v+=2) yL += '<div style="position:absolute; top:' + (fy(v)-8) + 'px; width:100%; text-align:center; color:#94a3b8; font-size:11px;">' + v + ' kg</div>';
-mstones.forEach(function(m, idx) { var c = m===D.final?mCols[5]:mCols[idx%5]; yL += '<div style="position:absolute; top:' + (fy(m)-15) + 'px; left:5px; color:' + c + '; font-size:11px; font-weight:900; background:#000; padding:2px 6px; border-radius:4px; border:1px solid ' + c + '; z-index:101;">META ' + m + '</div>'; });
+mstones.forEach(function(m, idx) { var c = m===D.final?mCols[5]:mCols[idx%5]; yL += '<div style="position:absolute; top:' + (fy(m)-15) + 'px; left:5px; color:' + c + '; font-size:11px; font-weight:900; background:#000; padding:2px 6px; border-radius:4px; border:1px solid ' + c + '; z-index:101; white-space:nowrap;">META ' + m + '</div>'; });
 document.getElementById('y-w').innerHTML = yL;
 
 var gk="", weightSegments="", waistPath="", chestPath="", thighPath="", bicepsPath="", shouldersPath="", pt="", pr="", pill="", predGoalTxt="", waistFillPath="", chestFillPath="", thighFillPath="", bicepsFillPath="", shouldersFillPath="";
@@ -9217,6 +9485,7 @@ bindChartScrollPersistence();
 pruneMissionBriefingData();
 function bootApp() {
 try {
+setupIronCoreBackupImportInput();
 applyI18n();
 render();
 startFirstLaunchExperience();
@@ -9228,6 +9497,13 @@ document.addEventListener('DOMContentLoaded', bootApp);
 bootApp();
 }
 setInterval(function() { try { render(); } catch(e){} }, 60000);
+(function registerIronCoreServiceWorker() {
+if (!('serviceWorker' in navigator)) return;
+if (location.protocol !== 'http:' && location.protocol !== 'https:') return;
+window.addEventListener('load', function() {
+navigator.serviceWorker.register('sw.js').catch(function() {});
+});
+})();
 </script>
 <div id="app-bottom-bar" class="app-bottom-bar">
 <div class="app-bottom-bar-inner">
