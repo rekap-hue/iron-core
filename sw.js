@@ -1,5 +1,5 @@
 /* Iron Core — minimal offline shell; data stays in localStorage */
-var CACHE = 'iron-core-shell-v1';
+var CACHE = 'iron-core-shell-v18';
 
 self.addEventListener('install', function (e) {
   self.skipWaiting();
