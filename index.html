@@ -3615,7 +3615,7 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 </div>
 </div>
 <div class="bal-list-scroll-wrap">
-<div class="stat-label" style="font-size:8px;color:var(--muted);margin:0 0 6px;line-height:1.35;font-weight:700;" data-i18n="bal_hint">Náhled posledních 30 dní (datum záznamu). Starší dny zůstávají v paměti — Upravit historii.</div>
+<div class="stat-label" style="font-size:8px;color:var(--muted);margin:0 0 6px;line-height:1.35;font-weight:700;" data-i18n="bal_hint">Náhled posledních 10 dní (datum záznamu). Starší dny zůstávají v paměti — Upravit historii.</div>
 <div id="bal-list" class="bal-list-scroll"></div>
 </div>
 </div>
@@ -3878,7 +3878,7 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <input type="number" id="p-lab-bmr-kg" step="0.1" inputmode="decimal" placeholder="Váha u měření BMR (kg)">
 </div>
 <label style="display:block;margin-top:10px;font-size:9px;font-weight:800;color:var(--muted);margin-bottom:4px;">Úroveň aktivity</label>
-<select id="p-activity" style="width:100%;padding:12px;border-radius:12px;border:2px solid var(--ui-border);background:#0f172a;color:var(--text);font-size:12px;font-weight:800;">
+<select id="p-activity" style="width:100%;padding:12px;border-radius:12px;border:2px solid var(--ui-border);background:#0f172a;color:var(--text);font-size:12px;font-weight:800;" onchange="window.setQuickActivity(this.value)">
 <option value="">— vyber úroveň —</option>
 <option value="sedentary">Sedavé (1,20×) — doma/PC, minimum kroků</option>
 <option value="light">Lehká (1,38×) — procházka ~3 km, lehký úklid</option>
@@ -3985,7 +3985,7 @@ return;
 }
 } catch(e) {}
 })();
-var APP_VERSION_TAG = 'v95.4.173';
+var APP_VERSION_TAG = 'v95.4.186';
 var I18N = {
 cs: {
 doc_title: 'Mise — Iron Core',
@@ -4041,7 +4041,7 @@ star_neon_caption: 'Neon Hvězdy (700+)',
 star_rank_life: 'Celoživotní Rank',
 star_rank_legend: 'Legendární Rank',
 star_big_suffix: 'velká',
-bal_hint: 'Náhled posledních 30 dní (datum záznamu). Starší dny zůstávají v paměti — Upravit historii.',
+bal_hint: 'Náhled posledních 10 dní (datum záznamu). Starší dny zůstávají v paměti — Upravit historii.',
 stat_intake: 'Příjem',
 stat_burn_total: 'Celkový výdej',
 stat_bmr_prefix: 'Bazál',
@@ -4413,7 +4413,7 @@ star_neon_caption: 'Neon stars (700+)',
 star_rank_life: 'Lifetime rank',
 star_rank_legend: 'Legend rank',
 star_big_suffix: 'large',
-bal_hint: 'Last 30 days preview (log date). Older days stay stored — Edit history.',
+bal_hint: 'Last 10 days preview (log date). Older days stay stored — Edit history.',
 stat_intake: 'Intake',
 stat_burn_total: 'Total burn',
 stat_bmr_prefix: 'BMR',
@@ -4761,13 +4761,21 @@ function renderMissionSparklineSVG(svgEl, points, strokeColor) {
 if (!svgEl || !points || points.length < 2) return;
 var w = 120, h = 34, padL = 4, padR = 12, padY = 5;
 var n = points.length;
-var minV = Math.min.apply(null, points);
-var maxV = Math.max.apply(null, points);
-var span = Math.max(1, maxV - minV);
+var minV = 0, maxV = 100;
+var span = maxV - minV;
+var minR = Math.min.apply(null, points);
+var maxR = Math.max.apply(null, points);
+var spanR = Math.max(1, maxR - minR);
 var pts = [];
 for (var i = 0; i < n; i++) {
 var x = padL + (i / (n - 1)) * (w - padL - padR);
-var nv = (points[i] - minV) / span;
+var pNorm = Math.max(minV, Math.min(maxV, Number(points[i]) || 0));
+var nvAbs = (pNorm - minV) / span;
+var nvRel = (pNorm - minR) / spanR;
+var leftBoost = 1 - (i / (n - 1));
+var relWeight = 0.32 + (0.28 * leftBoost);
+var absWeight = 1 - relWeight;
+var nv = Math.max(0, Math.min(1, (absWeight * nvAbs) + (relWeight * nvRel)));
 var y = padY + (1 - nv) * (h - 2 * padY);
 pts.push({ x: x, y: y });
 }
@@ -4775,12 +4783,12 @@ var d = 'M ' + pts.map(function(p) { return p.x.toFixed(2) + ' ' + p.y.toFixed(2
 var ax = pts[n - 1].x, ay = pts[n - 1].y;
 var px = pts[n - 2].x, py = pts[n - 2].y;
 var ang = Math.atan2(ay - py, ax - px);
-var tipX = ax + Math.cos(ang) * 5;
-var tipY = ay + Math.sin(ang) * 5;
-var baseX = ax - Math.cos(ang) * 2.5;
-var baseY = ay - Math.sin(ang) * 2.5;
+var tipX = ax + Math.cos(ang) * 8.2;
+var tipY = ay + Math.sin(ang) * 8.2;
+var baseX = ax - Math.cos(ang) * 3.4;
+var baseY = ay - Math.sin(ang) * 3.4;
 var perp = ang + Math.PI / 2;
-var wing = 3.2;
+var wing = 3.8;
 var a1x = baseX + Math.cos(perp) * wing;
 var a1y = baseY + Math.sin(perp) * wing;
 var a2x = baseX - Math.cos(perp) * wing;
@@ -5820,14 +5828,16 @@ return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").r
 
 function activityProfilePrintLabel(ap) {
 var m = {
-sedentary: "Sedavé (1,20×)",
-light: "Lehká (1,38×)",
-moderate: "Střední (1,55×)",
-active: "Aktivní (1,68×)",
-strength_4x80: "Silový 4×80 (1,66×)",
-very_active: "Velmi aktivní (1,78×)"
+sedentary: 'act_sedentary',
+light: 'act_light',
+moderate: 'act_moderate',
+active: 'act_active',
+strength_4x80: 'act_strength',
+very_active: 'act_very'
 };
-return m[ap] || (ap ? String(ap) : "—");
+if (!ap) return "—";
+if (m[ap]) return tr(m[ap]);
+return String(ap);
 }
 
 window.printInBodySheet = function() {
@@ -6198,7 +6208,11 @@ if (mult > 1.68) mult = 1.68;
 return mult;
 }
 if (m === 2) return 1.36;
-return 1.12;
+var amC = tdeeActivityMultiplierForProfile(apUse);
+var multC = 1.12 + (amC - 1.55) * 0.18;
+if (multC < 1.05) multC = 1.05;
+if (multC > 1.22) multC = 1.22;
+return multC;
 }
 
 function tdeeFromKgForMode(kg, mode, dayKey) {
@@ -6403,8 +6417,8 @@ if (meetScore >= 0.62) return tr('praise_3') + sfx;
 return tr('praise_4') + sfx;
 }
 
-/** Gaučing: důraz na makra, TDEE bez nutnosti zapisovat hodinky; pohyb jen jemný bonus. Train/Refeed: původní min(příjem,výdej). */
-function missionIntakeBurnMeetScores(row, mode, target, tdee, eatNum, targetP, targetF, targetC) {
+/** Gaučing: důraz na makra, TDEE bez nutnosti zapisovat hodinky; pohyb jen jemný bonus. Trénink/refeed: váha příjem/výdej + harmonický průměr (bez vynulování při „dobrý výdej, rozpracovaný příjem“). */
+function missionIntakeBurnMeetScores(row, mode, target, tdee, eatNum, targetP, targetF, targetC, dayKeyOpt) {
 function clamp01(n) { return Math.max(0, Math.min(1, Number(n) || 0)); }
 function macroHit(cur, tgt) {
 if (!(Number(tgt) > 0)) return 1;
@@ -6423,7 +6437,7 @@ var pHit = macroHit(row.p, targetP), fHit = macroHit(row.f, targetF), cHit = mac
 var macroHitAvg = (pHit + fHit + cHit) / 3;
 var intakeScore = m === 0
 ? clamp01((kcalHit * 0.36) + (macroHitAvg * 0.64))
-: clamp01((kcalHit * 0.56) + (macroHitAvg * 0.44));
+: clamp01((kcalHit * 0.62) + (macroHitAvg * 0.38));
 var moveToday = Number(row.b || 0) || 0;
 var burnTotal = Number(tdee) + moveToday;
 var desiredDeficit = Math.max(140, Math.round(Math.max(120, Number(tdee) - Number(target || 0)) * 0.9));
@@ -6442,7 +6456,37 @@ if (m === 0) {
 var moveBonus = moveToday > 0 ? Math.min(0.05, moveToday / 2500) : 0;
 meetScore = clamp01(0.76 * intakeScore + 0.22 * burnScore + moveBonus);
 } else {
-meetScore = clamp01((Math.min(leftFillPct, rightFillPct) / 50) * (1 - Math.min(1, Math.abs(leftFillPct - rightFillPct) / 36)));
+var sumIB = intakeScore + burnScore;
+var harm = sumIB > 1e-6 ? (2 * intakeScore * burnScore) / sumIB : 0;
+meetScore = clamp01(0.46 * intakeScore + 0.40 * burnScore + 0.14 * harm);
+if (m === 1) {
+var dkM = dayKeyOpt || getD();
+var apM = tdeeActivityMultiplierForProfile(activityProfileForDayKey(dkM));
+var bmrM = effectiveBmrFromKg(weightKgForMissionDay(dkM));
+if (bmrM > 400 && apM > 1.04 && moveToday > 0) {
+var expMove = Math.max(95, Math.round((apM - 1) * bmrM * 0.34));
+var moveFit = Math.min(1, moveToday / expMove);
+meetScore = clamp01(meetScore + 0.06 * moveFit);
+}
+}
+if ((m === 1 || m === 2) && Number(target) > 0) {
+var dkN = dayKeyOpt || getD();
+var amN = tdeeActivityMultiplierForProfile(activityProfileForDayKey(dkN));
+var eatRt = eatNum / Math.max(1, Number(target));
+if (eatRt < 0.93) {
+var shortfall = Math.min(1, (0.93 - eatRt) / 0.93);
+var highAct = Math.max(0, Math.min(1, (amN - 1.22) / (1.78 - 1.22)));
+var lowAct = Math.max(0, Math.min(1, (1.54 - amN) / (1.54 - 1.2)));
+var nudgeW = (m === 1) ? 1 : 0.55;
+meetScore = clamp01(meetScore - 0.15 * shortfall * highAct * nudgeW + 0.10 * shortfall * lowAct * nudgeW);
+}
+if (eatRt < 0.85) {
+var capBase = 0.14 + 0.58 * eatRt;
+var capAct = (amN - 1.2) * 0.08;
+var hardCap = clamp01(capBase - capAct + (m === 2 ? 0.03 : 0));
+if (meetScore > hardCap) meetScore = hardCap;
+}
+}
 }
 return { intakeScore: intakeScore, burnScore: burnScore, leftFillPct: leftFillPct, rightFillPct: rightFillPct, meetScore: meetScore };
 }
@@ -6461,7 +6505,7 @@ var deficit = Math.max(0, burnTotal - eatNum);
 var dayEntries = row.mealEntries || [];
 var macroTargets = macroTargetsByContext(effectiveDietStyle, mode, wMacro, target);
 var targetP = macroTargets.p, targetF = macroTargets.f, targetC = macroTargets.c;
-var sc = missionIntakeBurnMeetScores(row, mode, target, tdee, eatNum, targetP, targetF, targetC);
+var sc = missionIntakeBurnMeetScores(row, mode, target, tdee, eatNum, targetP, targetF, targetC, dayKey);
 var intakeScore = sc.intakeScore;
 var burnScore = sc.burnScore;
 var leftFillPct = sc.leftFillPct;
@@ -6688,8 +6732,15 @@ return D.days[dayKey];
 window.setDayMode = function(m) { var t = getD(); ensureDay(t).mode = m; sync(); };
 window.setQuickActivity = function(val) {
 var t = getD();
-ensureDay(t).activityProfile = val;
-D.activityProfile = val;
+var day = ensureDay(t);
+if (val !== '' && val != null) {
+var s = String(val);
+day.activityProfile = s;
+D.activityProfile = s;
+} else {
+delete day.activityProfile;
+D.activityProfile = '';
+}
 sync();
 };
 window.setGender = function(g) { D.gender = g; sync(); };
@@ -7053,7 +7104,17 @@ D.goldLimit = (!isNaN(gl) && gl >= minGoldSave) ? gl : 0;
 var gk = document.getElementById('p-gemini-key'); if(gk) D.geminiApiKey = String(gk.value || '').trim();
 var lb = parseFloat(String(document.getElementById('p-lab-bmr').value).replace(',','.')); D.labBmr = (!isNaN(lb) && lb > 0) ? Math.round(lb) : 0;
 var lbk = parseFloat(String(document.getElementById('p-lab-bmr-kg').value).replace(',','.')); D.labBmrAtKg = (!isNaN(lbk) && lbk > 0) ? lbk : 0;
-var pact = document.getElementById('p-activity'); D.activityProfile = pact ? String(pact.value || '') : '';
+var pact = document.getElementById('p-activity');
+if (pact) {
+var pv = String(pact.value || '');
+D.activityProfile = pv;
+var tProf = getD();
+var dProf = ensureDay(tProf);
+if (pv) dProf.activityProfile = pv;
+else delete dProf.activityProfile;
+} else {
+D.activityProfile = '';
+}
 D.inbodyDraft = readInBodyDraftFromInputs();
 var pInbMode = document.getElementById('p-inbody-mode');
 if (pInbMode) D.bmrInBodyMode = (pInbMode.value === 'fixed') ? 'fixed' : 'adaptive';
@@ -7604,7 +7665,8 @@ var eatWordColor = kcalProgressColor(kcalProg);
 if (Number(target) > 0) missionMainEl.innerHTML = tr('mission_remain', { color: eatWordColor, kcal: remainKcal, p: remainP });
 else missionMainEl.textContent = tr('mission_fill_profile');
 var modeLabel = mode === 1 ? tr('mode_train') : (mode === 2 ? tr('mode_refeed') : tr('mode_couch'));
-missionSubEl.textContent = tr('mission_entries', { n: dayEntries.length, mode: modeLabel });
+var actLabel = activityProfilePrintLabel(activityProfileForDayKey(today));
+missionSubEl.textContent = tr('mission_entries', { n: dayEntries.length, mode: modeLabel }) + ' • ' + tr('activity_label') + ': ' + actLabel;
 var hourNow = (new Date()).getHours();
 var lockReady = dayEntries.length > 0 && Number(target) > 0 && (eatNum >= Math.max(300, Math.round(Number(target) * 0.82)));
 var lockAuto = lockReady && hourNow >= 21;
@@ -7612,7 +7674,7 @@ missionLockEl.classList.toggle('is-ready', lockReady && !lockAuto);
 missionLockEl.classList.toggle('is-locked', !!lockAuto);
 missionLockEl.textContent = lockAuto ? tr('lock_done') : (lockReady ? tr('lock_ready') : tr('lock_wait'));
 
-var scMission = missionIntakeBurnMeetScores(curDayData, mode, target, tdee, eatNum, targetP, targetF, targetC);
+var scMission = missionIntakeBurnMeetScores(curDayData, mode, target, tdee, eatNum, targetP, targetF, targetC, today);
 var intakeScore = scMission.intakeScore;
 var burnScore = scMission.burnScore;
 var leftFillPct = scMission.leftFillPct;
@@ -7646,6 +7708,8 @@ sparkPts.push(computeMissionBriefing(dkSp).meetScorePct);
 sparkPts.push(0);
 }
 }
+/* Ujisti se, že poslední bod sparkline odpovídá právě zobrazenému % skóre. */
+if (sparkPts.length) sparkPts[sparkPts.length - 1] = meetPctRound;
 renderMissionSparklineSVG(sparkBalEl, sparkPts, balCol);
 }
 
@@ -9578,9 +9642,9 @@ btns.forEach(function(b, i) { b.classList.toggle('active', i === ix); });
 })();
 
 function drawK() {
-var kWindowDays = 30;
+var kWindowDays = 10;
 var kLastOffset = kWindowDays - 1;
-var kStepX = 28;
+var kStepX = 102;
 var kStartX = 120;
 var maxEat7 = 0, maxBurn7 = 0, maxTgt7 = 0, iPeak;
 for (iPeak = 0; iPeak < kWindowDays; iPeak++) {
@@ -9600,7 +9664,7 @@ var maxK = Math.max(baseMaxK, Math.ceil(peakK / 200) * 200 + 400);
 var kH = 348;
 if (peakK > 5200) kH = 392;
 if (peakK > 6800) kH = 432;
-var macroBand = 92, kTotal = kH + macroBand, skW = Math.max(800, kStartX + ((kWindowDays - 1) * kStepX) + 120), minLimit = Math.round(bEff * 0.75);
+var macroBand = 112, kTotal = kH + macroBand, skW = Math.max(800, kStartX + ((kWindowDays - 1) * kStepX) + 120), minLimit = Math.round(bEff * 0.75);
 var fyk = k => kH - 26 - ((k/maxK)*(kH-46));
 var specKForAxis = [target, minLimit, goldEff, neonK].filter(function(x){ return x > 0; });
 function skipGridKcalLabel(kVal) {
@@ -9636,11 +9700,11 @@ Object.keys(D.days).forEach(function(dt) {
 
 for(var i=0; i<kWindowDays; i++){
     var d=new Date(); d.setDate(d.getDate()+(i-kLastOffset)); 
-    var dayKey = dayKeyFromDate(d), ds = displayDayKey(dayKey), dd=D.days[dayKey]||{e:0,b:0}, sp=Number(dd.b||0), eat=Number(dd.e||0), x=kStartX+(i*kStepX), ye=fyk(eat), yb=fyk(sp);
+    var dayKey = dayKeyFromDate(d), dd=D.days[dayKey]||{e:0,b:0}, sp=Number(dd.b||0), eat=Number(dd.e||0), x=kStartX+(i*kStepX), ye=fyk(eat), yb=fyk(sp);
     var modeK = Number(dd.mode) || 0, badgeK = dayModeLabel(modeK), badgeFillK = dayModeColor(modeK);
     var wDayK = Number(dd.w) > 0 ? Number(dd.w) : (Number(D.start) > 0 ? Number(D.start) : 0);
     var tgtDayK = intakeTargetKcalForDay(dd, dayKey);
-    var segHW = 38;
+    var segHW = Math.max(16, Math.floor(kStepX / 2) - 6);
     var yTgtK = fyk(tgtDayK);
     if(i === kLastOffset) {
     var yBadgeK = ye - 22;
@@ -9662,14 +9726,13 @@ for(var i=0; i<kWindowDays; i++){
     }
     if(sp>=neonK) st += '<g transform="translate(' + (x-12.5) + ',' + (fyk(neonK)-12.5) + ') scale(1.0)"><path class="star-3d" style="filter: var(--neon-green-filter);" d="' + starPath + '" fill="none" stroke="var(--green-neon)" stroke-width="1.18" stroke-linejoin="round"/></g>';
     if(sp>=goldEff) st += '<g transform="translate(' + (x-14.5) + ',' + (yb-27.5) + ') scale(1.16)"><path class="star-3d" style="filter: var(--neon-gold-filter);" d="' + starPath + '" fill="none" stroke="var(--gold-deep)" stroke-width="1.18" stroke-linejoin="round"/></g>';
-    var showDayLabel = (i % 3 === 0) || i === kLastOffset;
-    gk += (showDayLabel ? '<text x="' + x + '" y="' + (kH-20) + '" fill="#94a3b8" font-size="11" text-anchor="middle">' + ds + '</text>' : '') + '<text x="' + x + '" y="' + (ye-24) + '" fill="' + badgeFillK + '" font-size="7.5" font-weight="900" text-anchor="middle" style="text-shadow:0 0 8px rgba(0,0,0,0.5)">' + badgeK + '</text><text x="' + x + '" y="' + (ye-14) + '" fill="var(--gold)" font-size="11" font-weight="900" text-anchor="middle" style="text-shadow:0 0 10px var(--gold)">' + eat + '</text><text x="' + x + '" y="' + (yb+24) + '" fill="var(--green-neon)" font-size="11" font-weight="900" text-anchor="middle" style="text-shadow:0 0 10px var(--green-neon)">' + sp + '</text><circle cx="' + x + '" cy="' + ye + '" r="5" fill="var(--gold)" stroke="#000"/><circle cx="' + x + '" cy="' + yb + '" r="5" fill="var(--green-neon)" stroke="#000"/>';
+    gk += '<text x="' + x + '" y="' + (ye-24) + '" fill="' + badgeFillK + '" font-size="7.5" font-weight="900" text-anchor="middle" style="text-shadow:0 0 8px rgba(0,0,0,0.5)">' + badgeK + '</text><text x="' + x + '" y="' + (ye-14) + '" fill="var(--gold)" font-size="11" font-weight="900" text-anchor="middle" style="text-shadow:0 0 10px var(--gold)">' + eat + '</text><text x="' + x + '" y="' + (yb+24) + '" fill="var(--green-neon)" font-size="11" font-weight="900" text-anchor="middle" style="text-shadow:0 0 10px var(--green-neon)">' + sp + '</text><circle cx="' + x + '" cy="' + ye + '" r="5" fill="var(--gold)" stroke="#000"/><circle cx="' + x + '" cy="' + yb + '" r="5" fill="var(--green-neon)" stroke="#000"/>';
 }
 
 var macroTop = kH + 5;
-var macroBottom = kTotal - 25;
+var macroBottom = kTotal - 30;
 var gMacro = "";
-var mii, bwM = 22, gapM = 5, trioWM = bwM * 3 + gapM * 2;
+var mii, bwM = 20, gapM = 4, trioWM = bwM * 3 + gapM * 2;
 function svgMacroCol(xLeft, yTop, yBot, pGm, tgt, fillId, strokeCol) {
 var H = yBot - yTop;
 var stp = 0.78;
@@ -9708,17 +9771,17 @@ for(mii = 0; mii < kWindowDays; mii++) {
     var mtMacro = macroTargetsByContext(dietMacro, modeMacro, wMacro, tKMacro);
     var pGm = Number(ddMacro.p) || 0, fGm = Number(ddMacro.f) || 0, cGm = Number(ddMacro.c) || 0;
     var xMacro = kStartX + (mii * kStepX);
-    var dsMacro = displayDayKey(dkMacro);
+    var dsMacroFull = displayDayKeyFull(dkMacro);
     var baseXM = xMacro - trioWM / 2;
     var yBotM = macroBottom;
     var yTopM = macroTop;
     gMacro += svgMacroCol(baseXM, yTopM, yBotM, pGm, mtMacro.p, "gradBarP", "rgba(167,139,250,0.55)");
     gMacro += svgMacroCol(baseXM + bwM + gapM, yTopM, yBotM, fGm, mtMacro.f, "gradBarF", "rgba(245,158,11,0.55)");
     gMacro += svgMacroCol(baseXM + 2 * (bwM + gapM), yTopM, yBotM, cGm, mtMacro.c, "gradBarC", "rgba(236,72,153,0.55)");
-    gMacro += '<text x="' + (baseXM + bwM / 2) + '" y="' + (macroBottom + 8) + '" fill="#a78bfa" font-size="8" font-weight="900" text-anchor="middle">B</text>';
-    gMacro += '<text x="' + (baseXM + bwM + gapM + bwM / 2) + '" y="' + (macroBottom + 8) + '" fill="#f59e0b" font-size="8" font-weight="900" text-anchor="middle">T</text>';
-    gMacro += '<text x="' + (baseXM + 2 * (bwM + gapM) + bwM / 2) + '" y="' + (macroBottom + 8) + '" fill="#ec4899" font-size="8" font-weight="900" text-anchor="middle">S</text>';
-    if ((mii % 3 === 0) || mii === kLastOffset) gMacro += '<text x="' + xMacro + '" y="' + (macroBottom + 20) + '" fill="#64748b" font-size="7" font-weight="800" text-anchor="middle">' + dsMacro + '</text>';
+    gMacro += '<text x="' + (baseXM + bwM / 2) + '" y="' + (macroBottom + 6) + '" fill="#a78bfa" font-size="8" font-weight="900" text-anchor="middle">B</text>';
+    gMacro += '<text x="' + (baseXM + bwM + gapM + bwM / 2) + '" y="' + (macroBottom + 6) + '" fill="#f59e0b" font-size="8" font-weight="900" text-anchor="middle">T</text>';
+    gMacro += '<text x="' + (baseXM + 2 * (bwM + gapM) + bwM / 2) + '" y="' + (macroBottom + 6) + '" fill="#ec4899" font-size="8" font-weight="900" text-anchor="middle">S</text>';
+    gMacro += '<text x="' + xMacro + '" y="' + (macroBottom + 22) + '" fill="#64748b" font-size="7" font-weight="800" text-anchor="middle">' + dsMacroFull + '</text>';
 }
 
 eatFillPath += " L " + (kStartX + (kLastOffset * kStepX)) + "," + kH + " L " + kStartX + "," + kH + " Z";
@@ -9726,7 +9789,7 @@ burnFillPath += " L " + (kStartX + (kLastOffset * kStepX)) + "," + kH + " L " + 
 
 var balCutoff = new Date();
 balCutoff.setHours(0, 0, 0, 0);
-balCutoff.setDate(balCutoff.getDate() - 29);
+balCutoff.setDate(balCutoff.getDate() - (kWindowDays - 1));
 var balDayKeys = Object.keys(D.days || {}).filter(function(k) {
     var row = D.days[k];
     if(!row) return false;
