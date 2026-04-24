@@ -12,7 +12,7 @@
 <link rel="icon" type="image/png" href="app-icon.png">
 <link rel="apple-touch-icon" href="app-icon.png">
 <link rel="manifest" href="manifest.json">
-<title id="doc-page-title">Mise - v95.4.154</title>
+<title id="doc-page-title">Mise - v95.4.196</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -230,6 +230,19 @@ pointer-events: none;
 #section-profile {
 scroll-margin-top: max(12px, env(safe-area-inset-top, 0px));
 scroll-margin-bottom: calc(58px + max(8px, env(safe-area-inset-bottom, 0px)));
+}
+/* iOS WKWebView: display:none file inputs often ignore programmatic click; label[for] + off-screen input works. */
+#backup-file-input.iron-backup-file-input {
+position: absolute;
+width: 1px;
+height: 1px;
+padding: 0;
+margin: -1px;
+overflow: hidden;
+clip: rect(0, 0, 0, 0);
+white-space: nowrap;
+border: 0;
+opacity: 0;
 }
 html.app-intro-scroll-lock,
 body.app-intro-scroll-lock {
@@ -851,12 +864,7 @@ margin-top: 8px; flex-wrap: wrap; padding: 0 8px;
 .macro-tube-card {
 flex: 1; min-width: 76px; max-width: 120px;
 display: flex; flex-direction: column; align-items: center;
-animation: macro-tube-float 5.5s ease-in-out infinite;
-will-change: transform;
 }
-.macro-tubes-grid .macro-tube-card:nth-child(1) { animation-delay: 0s; }
-.macro-tubes-grid .macro-tube-card:nth-child(2) { animation-delay: 0.75s; }
-.macro-tubes-grid .macro-tube-card:nth-child(3) { animation-delay: 1.5s; }
 .macro-tubes-grid--kcal {
 width: 100%;
 box-sizing: border-box;
@@ -867,7 +875,6 @@ margin-top: 16px;
 padding: 4px 8px 0;
 border-top: 1px solid rgba(148,163,184,0.2);
 }
-.macro-tubes-grid--kcal .macro-tube-card:nth-child(1) { animation-delay: 2.25s; }
 .macro-tube-card--kcal {
 flex: 0 0 auto;
 width: 100%;
@@ -881,10 +888,6 @@ align-items: center;
 .macro-tube-card--kcal .macro-tube-shell {
 max-width: 156px;
 width: 100%;
-}
-@keyframes macro-tube-float {
-0%, 100% { transform: translateY(0); }
-50% { transform: translateY(-3px); }
 }
 .macro-tube-cap {
 font-size: 12px; font-weight: 900; color: var(--muted); margin-bottom: 5px;
@@ -915,6 +918,15 @@ background: linear-gradient(90deg, transparent, rgba(185,28,28,0.9) 12%, rgba(24
 box-shadow: 0 0 10px rgba(248,113,113,0.65), 0 0 18px rgba(127,29,29,0.55);
 pointer-events: none;
 }
+.macro-tube-floor-line {
+position: absolute; left: 0; right: 0; height: 2px; z-index: 3;
+background: linear-gradient(90deg, transparent, rgba(251,146,60,0.75) 10%, rgba(249,115,22,0.98) 50%, rgba(234,88,12,0.88) 90%, transparent);
+box-shadow: 0 0 8px rgba(251,146,60,0.55), 0 0 14px rgba(234,88,12,0.35);
+pointer-events: none;
+}
+.macro-tube-cap-floorrow { font-size: 10px; font-weight: 800; color: rgba(251, 146, 60, 0.95); margin-top: 3px; letter-spacing: 0.02em; line-height: 1.2; }
+.macro-tube-cap-floorrow strong { color: #fb923c; font-size: 13px; }
+.macro-tube-cap-c-joke { text-transform: none; letter-spacing: 0.01em; }
 .macro-tube-fill {
 position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
 width: 100%; transition: height 0.45s ease;
@@ -994,7 +1006,6 @@ animation-delay: var(--delay, 0s);
 .iron-intro-bubble-chamber::before { animation: none; opacity: 0.75; }
 .macro-bubble { animation: none !important; opacity: 0.2; bottom: 40%; transform: translateX(-50%) scale(0.9); }
 .intake-hero-pill--commit .intake-pill-bubbles .macro-bubble { opacity: 0.28 !important; bottom: 38% !important; transform: translateX(-50%) scale(0.85) !important; }
-.macro-tube-card { animation: none !important; }
 }
 .macro-tube-fill.macro-fill--p {
 background: linear-gradient(180deg, rgba(167,139,250,0.92), rgba(167,139,250,0.22));
@@ -1069,6 +1080,14 @@ box-sizing: border-box;
 0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
 50% { transform: translate(-50%, -50%) scale(1.13); opacity: 0.94; }
 }
+.macro-tube-grams.macro-grams--underfloor {
+color: #fb923c;
+font-size: 18px;
+text-shadow:
+0 0 10px rgba(251, 146, 60, 0.75),
+0 0 18px rgba(234, 88, 12, 0.45),
+0 1px 2px #000;
+}
 .macro-tube-grams.macro-grams--warn,
 .macro-tube-grams.macro-grams--kcal-over {
 color: #ef4444;
@@ -1094,6 +1113,7 @@ max-width: 100%;
 color: #fecaca;
 }
 .macro-tube-label-mini { font-size: 11px; font-weight: 800; color: var(--muted); margin-top: 6px; line-height: 1.25; letter-spacing: 0.04em; text-transform: uppercase; text-align: center; width: 100%; }
+.macro-tube-atwater-hint { font-size: 8px; font-weight: 700; line-height: 1.3; color: var(--muted); text-align: center; max-width: 176px; margin: 6px auto 0; padding: 0 6px; letter-spacing: 0.02em; }
 .roadmap-tubes-card {
 margin: 10px 0 12px;
 padding: 12px 10px 10px;
@@ -1985,6 +2005,63 @@ font-size: 9px;
 .profile-details-inner {
 padding: 0 14px 14px;
 }
+.motion-toggle-row {
+display: flex;
+align-items: center;
+gap: 10px;
+margin-bottom: 10px;
+padding: 10px 12px;
+border: 1px solid rgba(148, 163, 184, 0.35);
+border-radius: 12px;
+background: rgba(15, 23, 42, 0.45);
+}
+.motion-toggle-row.motion-on {
+border-color: rgba(57, 255, 20, 0.68);
+background: linear-gradient(165deg, rgba(57, 255, 20, 0.16), rgba(15, 23, 42, 0.68));
+box-shadow: 0 0 0 1px rgba(57, 255, 20, 0.22), 0 10px 18px rgba(57, 255, 20, 0.08);
+}
+.motion-toggle-row input[type="checkbox"] {
+width: 19px;
+height: 19px;
+accent-color: var(--gold);
+}
+.motion-toggle-text {
+font-size: 10px;
+font-weight: 800;
+line-height: 1.35;
+color: var(--text);
+}
+.motion-toggle-hint {
+display: block;
+font-size: 9px;
+font-weight: 700;
+color: var(--muted);
+margin-top: 3px;
+}
+.motion-toggle-state {
+display: inline-flex;
+align-items: center;
+gap: 6px;
+margin-top: 6px;
+padding: 4px 9px;
+border-radius: 999px;
+border: 1px solid rgba(148, 163, 184, 0.4);
+background: rgba(2, 6, 23, 0.55);
+font-size: 10px;
+font-weight: 900;
+letter-spacing: 0.02em;
+}
+.motion-toggle-row.motion-on .motion-toggle-state {
+border-color: rgba(57, 255, 20, 0.72);
+color: #bbf7d0;
+text-shadow: 0 0 10px rgba(57, 255, 20, 0.25);
+}
+body.motion-lite *,
+body.motion-lite *::before,
+body.motion-lite *::after {
+animation: none !important;
+transition: none !important;
+}
 details.profile-details-advanced[open] > .profile-details-summary {
 color: #cbd5e1;
 border-bottom: 1px solid rgba(51, 65, 85, 0.55);
@@ -2036,6 +2113,25 @@ overflow-y: auto;
 .log-entry-meta { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 10px; font-weight: 800; color: var(--muted); }
 .log-entry-time { font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
 .log-entry-macros { text-align: right; line-height: 1.35; }
+.log-entry.log-entry--auto-sync {
+border: 1px solid rgba(34, 211, 238, 0.32);
+border-radius: 12px;
+padding: 10px 10px;
+background: linear-gradient(145deg, rgba(34,211,238,0.08), rgba(15,23,42,0.35));
+}
+.log-entry-source-chip {
+display: inline-flex;
+align-items: center;
+padding: 2px 7px;
+border-radius: 999px;
+font-size: 9px;
+font-weight: 900;
+letter-spacing: 0.04em;
+text-transform: uppercase;
+color: #67e8f9;
+border: 1px solid rgba(34, 211, 238, 0.45);
+background: rgba(2, 6, 23, 0.6);
+}
 .log-mac-p { color: var(--macro-p); }
 .log-mac-f { color: var(--gold); }
 .log-mac-c { color: var(--pink); }
@@ -3354,7 +3450,7 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <h1 style="margin: 0;"><span class="brand-wordmark"><span class="header-brand-iron">IRON</span><span class="brand-sep-el" aria-hidden="true"></span><span class="header-brand-core">CORE</span></span></h1>
 <div style="width: 220px; height: 1px; background: rgba(255,255,255,0.4); z-index: 10; margin: 12px 0; transform: translateZ(50px);"></div>
 <div style="z-index: 10; font-size: 10px; font-weight: 900; letter-spacing: 4px; color: var(--text); text-transform: uppercase; transform: translateZ(45px); text-shadow: 0 8px 12px rgba(0,0,0,0.6);">STRENGTH LOG | ULTIMATE GLASS</div>
-<div id="app-info" class="version-tag">-- | v95.4.150 · čistá data</div>
+<div id="app-info" class="version-tag">-- | v95.4.196 · čistá data</div>
 </div>
 <div class="stats-grid">
 <div class="stat-box" style="border-color: var(--pink); background: rgba(236, 72, 153, 0.1);">
@@ -3661,10 +3757,14 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 </div>
 <div class="macro-tubes-grid">
 <div class="macro-tube-card">
-<div class="macro-tube-cap"><span data-i18n="macro_cap_ceiling">Strop</span> <strong id="p-tube-target">0</strong> g</div>
+<div class="macro-tube-cap">
+<div><span data-i18n="macro_cap_ceiling">Strop</span> <strong id="p-tube-target">0</strong> g</div>
+<div class="macro-tube-cap-floorrow"><span data-i18n="macro_cap_floor">Dno</span> <strong id="p-tube-floor-val">—</strong> g</div>
+</div>
 <div class="macro-tube-shell macro-tube--p">
 <div class="macro-tube-inner">
 <div class="macro-tube-strop-line"></div>
+<div class="macro-tube-floor-line" id="p-tube-floor" style="display:none;bottom:0"></div>
 <div class="macro-tube-fill macro-fill--p" id="p-tube-fill"><div class="macro-tube-bubbles" aria-hidden="true"><span class="macro-bubble" style="--x:9%;--s:3px;--d:9.2s;--delay:0s;--drift:2px"></span><span class="macro-bubble" style="--x:21%;--s:4px;--d:7.1s;--delay:1.3s;--drift:-3px"></span><span class="macro-bubble" style="--x:33%;--s:3px;--d:10.4s;--delay:0.6s;--drift:4px"></span><span class="macro-bubble" style="--x:44%;--s:5px;--d:8s;--delay:2.8s;--drift:-1px"></span><span class="macro-bubble" style="--x:52%;--s:3px;--d:6.8s;--delay:3.4s;--drift:5px"></span><span class="macro-bubble" style="--x:61%;--s:4px;--d:9.8s;--delay:1.9s;--drift:-4px"></span><span class="macro-bubble" style="--x:71%;--s:3px;--d:7.6s;--delay:4.2s;--drift:1px"></span><span class="macro-bubble" style="--x:78%;--s:4px;--d:11s;--delay:0.3s;--drift:-2px"></span><span class="macro-bubble" style="--x:86%;--s:3px;--d:8.5s;--delay:5.1s;--drift:3px"></span><span class="macro-bubble" style="--x:15%;--s:4px;--d:7.9s;--delay:2.2s;--drift:-5px"></span><span class="macro-bubble" style="--x:38%;--s:3px;--d:10.1s;--delay:6s;--drift:2px"></span><span class="macro-bubble" style="--x:56%;--s:5px;--d:6.5s;--delay:4.7s;--drift:-2px"></span><span class="macro-bubble" style="--x:67%;--s:3px;--d:9.5s;--delay:3.8s;--drift:4px"></span><span class="macro-bubble" style="--x:48%;--s:4px;--d:8.2s;--delay:7.4s;--drift:-3px"></span><span class="macro-bubble" style="--x:29%;--s:3px;--d:7.3s;--delay:5.6s;--drift:1px"></span><span class="macro-bubble" style="--x:92%;--s:4px;--d:10.7s;--delay:2.5s;--drift:-1px"></span></div></div>
 <div class="macro-tube-overflow" id="p-tube-over" style="display:none;height:0;bottom:78%"></div>
 <div class="macro-tube-grams" id="p-tube-grams">0</div>
@@ -3673,10 +3773,14 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <div class="macro-tube-label-mini" style="color:var(--macro-p)" data-i18n="macro_p">Bílkoviny</div>
 </div>
 <div class="macro-tube-card">
-<div class="macro-tube-cap"><span data-i18n="macro_cap_ceiling">Strop</span> <strong id="f-tube-target">0</strong> g</div>
+<div class="macro-tube-cap">
+<div><span data-i18n="macro_cap_ceiling">Strop</span> <strong id="f-tube-target">0</strong> g</div>
+<div class="macro-tube-cap-floorrow"><span data-i18n="macro_cap_floor">Dno</span> <strong id="f-tube-floor-val">—</strong> g</div>
+</div>
 <div class="macro-tube-shell macro-tube--f">
 <div class="macro-tube-inner">
 <div class="macro-tube-strop-line"></div>
+<div class="macro-tube-floor-line" id="f-tube-floor" style="display:none;bottom:0"></div>
 <div class="macro-tube-fill macro-fill--f" id="f-tube-fill"><div class="macro-tube-bubbles" aria-hidden="true"><span class="macro-bubble" style="--x:12%;--s:4px;--d:8.4s;--delay:0.4s;--drift:-2px"></span><span class="macro-bubble" style="--x:26%;--s:3px;--d:7.8s;--delay:2.1s;--drift:4px"></span><span class="macro-bubble" style="--x:35%;--s:4px;--d:9.6s;--delay:1s;--drift:-4px"></span><span class="macro-bubble" style="--x:47%;--s:3px;--d:6.9s;--delay:3.7s;--drift:2px"></span><span class="macro-bubble" style="--x:54%;--s:5px;--d:10.2s;--delay:0.2s;--drift:-1px"></span><span class="macro-bubble" style="--x:63%;--s:3px;--d:8.1s;--delay:4.5s;--drift:5px"></span><span class="macro-bubble" style="--x:73%;--s:4px;--d:7.4s;--delay:5.9s;--drift:-3px"></span><span class="macro-bubble" style="--x:81%;--s:3px;--d:9.1s;--delay:2.6s;--drift:1px"></span><span class="macro-bubble" style="--x:88%;--s:4px;--d:8.7s;--delay:6.3s;--drift:-5px"></span><span class="macro-bubble" style="--x:18%;--s:3px;--d:7s;--delay:4.1s;--drift:3px"></span><span class="macro-bubble" style="--x:41%;--s:4px;--d:11s;--delay:3.2s;--drift:-2px"></span><span class="macro-bubble" style="--x:59%;--s:3px;--d:8.9s;--delay:7.1s;--drift:4px"></span><span class="macro-bubble" style="--x:69%;--s:5px;--d:6.6s;--delay:1.7s;--drift:-3px"></span><span class="macro-bubble" style="--x:50%;--s:3px;--d:9.9s;--delay:5.4s;--drift:2px"></span><span class="macro-bubble" style="--x:31%;--s:4px;--d:8s;--delay:8s;--drift:-1px"></span><span class="macro-bubble" style="--x:95%;--s:3px;--d:10.5s;--delay:2.9s;--drift:3px"></span></div></div>
 <div class="macro-tube-overflow" id="f-tube-over" style="display:none;height:0;bottom:78%"></div>
 <div class="macro-tube-grams" id="f-tube-grams">0</div>
@@ -3685,7 +3789,10 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <div class="macro-tube-label-mini" style="color:var(--gold)" data-i18n="macro_f">Tuky</div>
 </div>
 <div class="macro-tube-card">
-<div class="macro-tube-cap"><span data-i18n="macro_cap_ceiling">Strop</span> <strong id="c-tube-target">0</strong> g</div>
+<div class="macro-tube-cap">
+<div><span data-i18n="macro_cap_ceiling">Strop</span> <strong id="c-tube-target">0</strong> g</div>
+<div class="macro-tube-cap-floorrow macro-tube-cap-c-joke" data-i18n="macro_c_floor_joke">Dno (bez dna!)</div>
+</div>
 <div class="macro-tube-shell macro-tube--c">
 <div class="macro-tube-inner">
 <div class="macro-tube-strop-line"></div>
@@ -3708,10 +3815,11 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <div class="macro-tube-grams" id="k-tube-grams">0</div>
 </div>
 </div>
+<div id="k-tube-atwater-hint" class="macro-tube-atwater-hint" style="display:none" aria-hidden="true"></div>
 <div id="k-tube-remain-label" class="macro-tube-label-mini" style="color:var(--gold)" data-i18n="macro_k_remain">KCAL · zbývá sníst</div>
 </div>
 </div>
-<p style="font-size:8px;color:var(--muted);text-align:center;margin:10px 0 0;line-height:1.35;font-weight:700;" data-i18n="macro_legend_red_line">Červená čára = strop (u makro g shodné s číslem nahoře; u KCAL cílový příjem). Plnění od spodu = snědeno vůči stropu/cíli. U KCAL dole = kolik kcal ještě můžeš sníst. Nad čárou = překročení (červené sklo).</p>
+<p style="font-size:8px;color:var(--muted);text-align:center;margin:10px 0 0;line-height:1.35;font-weight:700;" data-i18n="macro_legend_red_line">Červená čára = strop (u makro g shodné s číslem nahoře; u KCAL cílový příjem). Žlutooranžová = doporučené minimum (dno) u bílkovin a tuků — pod ní hrozí ztráta svalů / nedostatek ketopaliva. Plnění od spodu = snědeno vůči stropu/cíli. Uprostřed u B/T/S i u KCAL = kolik ještě zbývá do stropu/cíle (záporně = překročení). Nad čárou = překročení (červené sklo).</p>
 <div class="card mode-selector-card">
 <span class="mode-label" data-i18n="mode_day_label">Režim dne (Dnešní mise)</span>
 <div class="mode-grid">
@@ -3848,9 +3956,9 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <p style="font-size:9px;color:var(--muted);margin:0 0 10px;line-height:1.35;font-weight:700;" data-i18n="backup_intro">Kompletní kopie deníku (váha, dny, jídla, profil…). Ulož si ji bezpečně — při čištění úložiště nebo na jiném zařízení by jinak data zmizela.</p>
 <div style="display:flex;flex-wrap:wrap;gap:8px;">
 <button type="button" onclick="window.exportIronCoreBackup()" class="btn btn-outline" style="flex:1;min-width:132px;border-color:rgba(52,211,153,0.65);color:#6ee7b7;font-weight:900;padding:11px;font-size:11px;" data-i18n="backup_export">Stáhnout zálohu (JSON)</button>
-<button type="button" onclick="window.triggerIronCoreBackupImport()" class="btn btn-outline" style="flex:1;min-width:132px;border-color:rgba(251,191,36,0.65);color:#fcd34d;font-weight:900;padding:11px;font-size:11px;" data-i18n="backup_import">Nahrát zálohu…</button>
+<label for="backup-file-input" class="btn btn-outline" style="flex:1;min-width:132px;border-color:rgba(251,191,36,0.65);color:#fcd34d;font-weight:900;padding:11px;font-size:11px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;margin:0;box-sizing:border-box;" data-i18n="backup_import">Nahrát zálohu…</label>
 </div>
-<input type="file" id="backup-file-input" accept="application/json,.json" style="display:none" aria-hidden="true">
+<input type="file" id="backup-file-input" class="iron-backup-file-input" accept="application/json,.json,text/json,text/plain,*/*" title="JSON záloha Iron Core">
 <div class="profile-hero-section-label" style="margin-top:14px;" data-i18n="pwa_card_title">Aplikace na ploše (PWA)</div>
 <p style="font-size:9px;color:var(--muted);margin:0;line-height:1.35;font-weight:700;" data-i18n="pwa_hint">Na mobilu použij v prohlížeči „Přidat na plochu“ / Install. Na PC ikonu instalace v adresním řádku. Vyžaduje otevření přes webový server (ne přímo soubor z disku).</p>
 </div>
@@ -3859,6 +3967,15 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <button type="button" id="lang-cs" class="gender-btn" onclick="window.setUiLang('cs')" data-i18n="lang_cs">Čeština</button>
 <button type="button" id="lang-en" class="gender-btn" onclick="window.setUiLang('en')" data-i18n="lang_en">English</button>
 </div>
+<div class="profile-hero-section-label" data-i18n="profile_motion_title">Plynulost / baterie</div>
+<label class="motion-toggle-row">
+<input type="checkbox" id="p-reduce-motion" onchange="window.setMotionReduced(this.checked)">
+<span class="motion-toggle-text">
+<span data-i18n="profile_motion_toggle">Úsporný režim animací (méně zahřívání)</span>
+<span class="motion-toggle-hint" data-i18n="profile_motion_hint">Doporučeno při testování na iPhonu, když je zařízení teplé.</span>
+<span id="motion-toggle-state" class="motion-toggle-state">○ VYPNUTO</span>
+</span>
+</label>
 <div class="profile-hero-section-label" data-i18n="profile_gender">Pohlaví</div>
 <div class="gender-grid">
 <div id="g-male" class="gender-btn" onclick="window.setGender('male')" data-i18n="gender_male">Muž</div>
@@ -3985,7 +4102,7 @@ return;
 }
 } catch(e) {}
 })();
-var APP_VERSION_TAG = 'v95.4.186';
+var APP_VERSION_TAG = 'v95.4.196';
 var I18N = {
 cs: {
 doc_title: 'Mise — Iron Core',
@@ -4052,12 +4169,16 @@ mission_today: 'Dnešní mise',
 mission_loading: 'Načítám cíl dne…',
 mission_wait: 'Čekám na první záznam.',
 macro_cap_ceiling: 'Strop',
+macro_cap_floor: 'Dno (min.)',
 macro_p: 'Bílkoviny',
 macro_f: 'Tuky',
 macro_c: 'Sacharidy',
+macro_c_floor_joke: 'Dno (bez dna!)',
 macro_k_goal: 'Cíl',
 macro_k_remain: 'KCAL · zbývá sníst',
 macro_k_over: 'KCAL · nad cílem',
+macro_k_atwater_gap: 'Z P/F/S (4·9·4): ≈ {atwater} kcal · Δ oproti záznamu {diff} kcal',
+macro_k_atwater_gap_title: 'Příjem kcal = součet ze zápisů. Energie z gramů používá Atwater (4/9/4); u alkoholu, vlákna nebo čistých kcal bez rozpadu se čísla liší.',
 mode_day_label: 'Režim dne (Dnešní mise)',
 diet_style_label: 'Styl stravy',
 fasting_label: 'Přerušovaný půst',
@@ -4085,6 +4206,11 @@ profile_toggle: 'Profil & nastavení (Hvězdy, BMI, BMR)',
 profile_kicker: 'Profil & nastavení',
 profile_hint: 'BMI, BMR, hvězdy a AI — data zůstávají v tomto prohlížeči.',
 profile_lang: 'Jazyk rozhraní',
+profile_motion_title: 'Plynulost / baterie',
+profile_motion_toggle: 'Úsporný režim animací (méně zahřívání)',
+profile_motion_hint: 'Doporučeno při testování na iPhonu, když je zařízení teplé.',
+profile_motion_state_on: '✓ ZAPNUTO',
+profile_motion_state_off: '○ VYPNUTO',
 lang_cs: 'Čeština',
 lang_en: 'English',
 profile_gender: 'Pohlaví',
@@ -4110,6 +4236,7 @@ backup_import_ok: 'Obnovit zálohu',
 backup_export_ok: 'Záloha stažena.',
 backup_err_export: 'Export se nepovedl.',
 backup_err_invalid: 'Soubor není platná záloha Iron Core.',
+backup_err_read: 'Soubor se nepovedlo přečíst.',
 backup_err_storage: 'Zálohu se nepodařilo uložit do úložiště (quota?).',
 pwa_card_title: 'Aplikace na ploše (PWA)',
 pwa_hint: 'Na mobilu použij v prohlížeči „Přidat na plochu“ / Install. Na PC ikonu instalace v adresním řádku. Vyžaduje otevření přes webový server (ne přímo soubor z disku).',
@@ -4320,7 +4447,7 @@ p_gold_limit_lbl: 'Limit Zlaté Hvězdy (min. {min} kcal)',
 intro_note_own: 'Vlastní intro (uložené v prohlížeči) je aktivní. Na webu/mobilu zadej níže URL nebo nahraj iron-core-intro.mp4 do repa.',
 intro_note_url: 'Intro se načítá ze zadané cesty/URL — vhodné pro GitHub Pages a iPhone.',
 intro_note_default: 'Bez videa v prohlížeči běží stylizované intro. Na telefonu z webu nahraj iron-core-intro.mp4 vedle index.html (nebo zadej URL níže). Doporučeno do 5 s, max 16 MB.',
-macro_legend_red_line: 'Červená čára = strop (u makro g shodné s číslem nahoře; u KCAL cílový příjem). Plnění od spodu = snědeno vůči stropu/cíli. U KCAL dole = kolik kcal ještě můžeš sníst. Nad čárou = překročení (červené sklo).',
+macro_legend_red_line: 'Červená čára = strop (u makro g shodné s číslem nahoře; u KCAL cílový příjem). Žlutooranžová = doporučené minimum (dno) u bílkovin a tuků — pod ní hrozí ztráta svalů / nedostatek ketopaliva. Plnění od spodu = snědeno vůči stropu/cíli. Uprostřed u B/T/S i u KCAL = kolik ještě zbývá do stropu/cíle (záporně = překročení). Nad čárou = překročení (červené sklo).',
 mission_report_idle: 'Denní hlášení čeká na první průběžný zápis.',
 burn_ph_kcal: 'např. 350',
 burn_orb_line1: 'Zapsat',
@@ -4424,12 +4551,16 @@ mission_today: 'Today’s mission',
 mission_loading: 'Loading daily target…',
 mission_wait: 'Waiting for the first log.',
 macro_cap_ceiling: 'Ceiling',
+macro_cap_floor: 'Floor (min.)',
 macro_p: 'Protein',
 macro_f: 'Fat',
 macro_c: 'Carbs',
+macro_c_floor_joke: 'No floor (literally!)',
 macro_k_goal: 'Goal',
 macro_k_remain: 'KCAL · left to eat',
 macro_k_over: 'KCAL · over goal',
+macro_k_atwater_gap: 'From P/F/S (4·9·4): ≈ {atwater} kcal · Δ vs log {diff} kcal',
+macro_k_atwater_gap_title: 'Logged kcal is the sum of entries. Gram energy uses Atwater (4/9/4); alcohol, fibre, or kcal-only rows explain gaps.',
 mode_day_label: 'Day mode (Mission)',
 diet_style_label: 'Diet style',
 fasting_label: 'Intermittent fasting',
@@ -4457,6 +4588,11 @@ profile_toggle: 'Profile & settings (Stars, BMI, BMR)',
 profile_kicker: 'Profile & settings',
 profile_hint: 'BMI, BMR, stars & AI — data stays in this browser.',
 profile_lang: 'Interface language',
+profile_motion_title: 'Smoothness / battery',
+profile_motion_toggle: 'Animation saver mode (less device heating)',
+profile_motion_hint: 'Recommended while testing on iPhone if the device gets warm.',
+profile_motion_state_on: '✓ ON',
+profile_motion_state_off: '○ OFF',
 lang_cs: 'Čeština',
 lang_en: 'English',
 profile_gender: 'Gender',
@@ -4482,6 +4618,7 @@ backup_import_ok: 'Restore backup',
 backup_export_ok: 'Backup downloaded.',
 backup_err_export: 'Export failed.',
 backup_err_invalid: 'Not a valid Iron Core backup file.',
+backup_err_read: 'Could not read the file.',
 backup_err_storage: 'Could not write to browser storage (quota?).',
 pwa_card_title: 'Install as app (PWA)',
 pwa_hint: 'On mobile: browser menu → Add to Home Screen / Install. On desktop: install icon in the address bar. Requires a web server (not opening the file directly from disk).',
@@ -4692,7 +4829,7 @@ p_gold_limit_lbl: 'Gold star limit (min. {min} kcal)',
 intro_note_own: 'Custom intro (stored in browser) is active. On web/mobile set URL below or add iron-core-intro.mp4 to the repo.',
 intro_note_url: 'Intro loads from the path/URL — good for GitHub Pages and iPhone.',
 intro_note_default: 'Without a browser-stored video, the styled intro runs. On phone from the web, place iron-core-intro.mp4 next to index.html (or set URL below). Recommended ≤5 s, max 16 MB.',
-macro_legend_red_line: 'Red line = ceiling (macro g matches the number above; for KCAL it’s your intake target). Fill from bottom = eaten vs ceiling/target. At the bottom of KCAL: how much you can still eat. Above the line = over (red glass).',
+macro_legend_red_line: 'Red line = ceiling (macro g matches the number above; for KCAL it’s your intake target). Yellow-orange = recommended minimum (floor) for protein and fat — below it risks muscle loss / low fuel on keto. Fill from bottom = eaten vs ceiling/target. Center number on P/F/S and KCAL = grams/kcal left to the ceiling/goal (negative = over). Above the line = over (red glass).',
 mission_report_idle: 'Daily report waits for your first log.',
 burn_ph_kcal: 'e.g. 350',
 burn_orb_line1: 'Log',
@@ -4861,6 +4998,24 @@ D.uiLang = (lang === 'en') ? 'en' : 'cs';
 try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (e) {}
 applyI18n();
 if (typeof render === 'function') try { render(); } catch (e2) {}
+};
+function applyMotionMode() {
+if (typeof D === 'undefined' || !D) return;
+document.body.classList.toggle('motion-lite', !!D.reduceMotion);
+updateMotionToggleUi();
+}
+function updateMotionToggleUi() {
+var row = document.querySelector('.motion-toggle-row');
+var state = document.getElementById('motion-toggle-state');
+if (row) row.classList.toggle('motion-on', !!D.reduceMotion);
+if (state) state.textContent = D.reduceMotion ? tr('profile_motion_state_on') : tr('profile_motion_state_off');
+}
+window.setMotionReduced = function(v) {
+if (typeof D === 'undefined' || !D) return;
+D.reduceMotion = !!v;
+applyMotionMode();
+try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (e) {}
+flashNote(D.reduceMotion ? 'Úsporný režim animací zapnut.' : 'Úsporný režim animací vypnut.', 'var(--gold-deep)', '#0f172a');
 };
 try { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; } catch(eSR) {}
 window.scrollAppToTop = function() {
@@ -5750,6 +5905,77 @@ if(ink) ink.value = '';
 sync();
 }
 
+/**
+ * Native sync hook (iOS/Android): expects cumulative active kcal for the day.
+ * Writes only positive delta vs last synced total to avoid duplicate entries.
+ * Usage from native:
+ * window.syncExternalMovementKcal({ source: 'apple_health', totalKcal: 420, dayKey: 'YYYY-MM-DD' })
+ */
+window.syncExternalMovementKcal = function(payload) {
+try {
+var p = payload || {};
+var source = String(p.source || 'health_sync').trim() || 'health_sync';
+var dayKey = toDayKey(p.dayKey || getD());
+var total = Math.max(0, Math.round(Number(p.totalKcal) || 0));
+var dayObj = ensureDay(dayKey);
+var srcLabel = 'Auto pohyb (' + source + ')';
+if (!dayObj.externalMoveSync || typeof dayObj.externalMoveSync !== 'object') dayObj.externalMoveSync = {};
+var prevStored = Math.max(0, Math.round(Number(dayObj.externalMoveSync[source]) || 0));
+var prevFromLogs = 0;
+var matchedIdx = [];
+if (Array.isArray(dayObj.mealEntries)) {
+for (var li = 0; li < dayObj.mealEntries.length; li++) {
+var it = dayObj.mealEntries[li] || {};
+if (String(it.type || '') !== 'out') continue;
+if (String(it.n || '') !== srcLabel) continue;
+matchedIdx.push(li);
+prevFromLogs += Math.max(0, Math.round(Number(it.v) || 0));
+}
+} else {
+dayObj.mealEntries = [];
+}
+function upsertAutoSyncEntry(nextTotal) {
+var baseEntry = { n: srcLabel, v: nextTotal, c: 'var(--green-neon)', type: 'out', ts: Date.now() };
+if (!matchedIdx.length) {
+dayObj.mealEntries.unshift(baseEntry);
+return;
+}
+var keep = matchedIdx[0];
+dayObj.mealEntries[keep] = Object.assign({}, dayObj.mealEntries[keep], baseEntry);
+for (var ri = matchedIdx.length - 1; ri >= 1; ri--) dayObj.mealEntries.splice(matchedIdx[ri], 1);
+}
+function recalcDayBurnTotal() {
+var burn = 0;
+for (var bi = 0; bi < dayObj.mealEntries.length; bi++) {
+var be = dayObj.mealEntries[bi] || {};
+if (String(be.type || '') === 'out') burn += Number(be.v) || 0;
+}
+dayObj.b = Math.max(0, Math.round(burn));
+}
+var prev = Math.max(prevStored, prevFromLogs);
+if (total <= prev) {
+dayObj.externalMoveSync[source] = prev;
+if (matchedIdx.length > 1 || (matchedIdx.length === 1 && Math.round(Number((dayObj.mealEntries[matchedIdx[0]] || {}).v) || 0) !== prev)) {
+upsertAutoSyncEntry(prev);
+recalcDayBurnTotal();
+if (dayKey === getD()) D.logs = dayObj.mealEntries.slice();
+sync();
+return;
+}
+flashNote('Sync pohybu: bez změny (' + source + ').', 'var(--muted)', '#0f172a');
+return;
+}
+dayObj.externalMoveSync[source] = total;
+upsertAutoSyncEntry(total);
+recalcDayBurnTotal();
+if (dayKey === getD()) D.logs = dayObj.mealEntries.slice();
+sync();
+} catch (e) {
+console.error(e);
+flashNote('Sync pohybu selhal.', 'var(--red)', 'white');
+}
+};
+
 window.pickFoodPhoto = function() {
 var fi = document.getElementById('food-photo-input');
 if(fi) fi.click();
@@ -5940,6 +6166,7 @@ introVideoData: "",
 introVideoExternalPath: "",
 introVideoOverlayLogo: true,
 introVideoOverlayPos: "bottom",
+reduceMotion: false,
 logs: [],
 lastLogDate: "",
 chartScrollK: null,
@@ -5978,6 +6205,8 @@ D.metricGoalPredV2 = (D.metricGoalPredV2 && typeof D.metricGoalPredV2 === "objec
 D.thighRefCm = Number(D.thighRefCm) || 0;
 D.bicepsRefCm = Number(D.bicepsRefCm) || 0;
 if (D.uiLang !== 'en' && D.uiLang !== 'cs') D.uiLang = 'cs';
+D.reduceMotion = toBool(D.reduceMotion, false);
+applyMotionMode();
 D.lastLogDate = toDayKey(D.lastLogDate) || getD();
 var todayDate = getD();
 var sameLogDayAsToday = (D.lastLogDate === todayDate);
@@ -5988,41 +6217,6 @@ localStorage.setItem(KEY, JSON.stringify(D));
 D.lastLogDate = todayDate;
 D.logs = (ensureDay(todayDate).mealEntries || []).slice();
 
-/* Local test seed (weights + measures from screenshots). Runs only on localhost and only when history is empty. */
-var LOCAL_TEST_DAY_SEED = {
-"2026-03-09": { w: 115.1, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-03-17": { w: 115.0, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-03-18": { w: 115.0, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-03-19": { w: 115.0, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-03-20": { w: 115.0, waist: 126, chest: 124, thigh: 69, biceps: 41, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-03-23": { w: 117.0, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-03-24": { w: 116.3, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-03-25": { w: 115.7, waist: 127, chest: 125, thigh: 67, biceps: 41, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-03-26": { w: 115.2, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-03-27": { w: 115.0, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-03-28": { w: 114.7, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-03-29": { w: 115.3, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-03-30": { w: 114.8, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-03-31": { w: 114.6, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-04-01": { w: 115.0, waist: 130, chest: 130, thigh: 68, biceps: 42, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-04-02": { w: 115.3, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-04-04": { w: 114.7, waist: 128, chest: 130, thigh: 69, biceps: 43, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-04-05": { w: 114.5, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" }
-};
-function maybeApplyLocalTestSeed() {
-var isLocalHost = location.hostname === "127.0.0.1" || location.hostname === "localhost";
-if (!isLocalHost) return;
-var hasAnyWeight = Object.keys(D.days || {}).some(function(k) { return Number((D.days[k] || {}).w) > 0; });
-if (hasAnyWeight) return;
-Object.keys(LOCAL_TEST_DAY_SEED).forEach(function(k) {
-D.days[k] = Object.assign({}, LOCAL_TEST_DAY_SEED[k]);
-});
-D.start = 115.1;
-D.final = Number(D.final) > 0 ? D.final : 95;
-if (!D.lastLogDate) D.lastLogDate = "2026-04-05";
-try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (e) {}
-}
-maybeApplyLocalTestSeed();
 if (typeof D.chartScrollK !== 'number' || isNaN(D.chartScrollK)) D.chartScrollK = null;
 if (typeof D.chartScrollW !== 'number' || isNaN(D.chartScrollW)) D.chartScrollW = null;
 if (typeof D.labBmr !== 'number' || isNaN(D.labBmr)) D.labBmr = 0;
@@ -6376,7 +6570,7 @@ var st = Number(D.start) || 0;
 return st > 0 ? Math.max(42, st) : 0;
 }
 
-function macroTargetsByContext(dietStyle, dayMode, bodyKg, refeedKcal) {
+function macroTargetsByContext(dietStyle, dayMode, bodyKg, refeedKcal, dayKeyOpt) {
 var bw = Number(bodyKg) || 0;
 if (bw <= 0) bw = Number(D.start) || 0;
 var w = bw > 0 ? Math.max(42, bw) : 0;
@@ -6404,7 +6598,50 @@ t.f = Math.round(Math.min(150, t.f + 8));
 t.c = Math.round(t.c + 25);
 }
 if (dietStyle === "keto") t.c = Math.min(35, t.c);
+/* Gaučing: stropy maker nezávislé na přepínači „úroveň aktivity“ (ta řídí hl. TDEE/kcal). Trénink: jemný posun jen P/F; sacharidy u keto fix 35 g. */
+if (dayMode === 1) {
+var dkAct = dayKeyOpt != null && dayKeyOpt !== '' ? String(dayKeyOpt) : getD();
+var amAct = tdeeActivityMultiplierForProfile(activityProfileForDayKey(dkAct));
+var nAct = (amAct - 1.55) / 0.52;
+t.p = Math.round(t.p + nAct * 6);
+t.f = Math.round(Math.min(162, Math.max(70, t.f + nAct * 13)));
+if (dietStyle !== "keto") {
+t.c = Math.round(Math.min(250, Math.max(22, t.c + nAct * 20)));
+}
+}
+if (dietStyle === "keto") {
+t.c = Math.min(35, t.c);
+t.f = Math.min(158, Math.max(74, t.f));
+}
 return t;
+}
+
+/** Doporučená minima P/F (dno válce): svaly / ketonové palivo — vždy pod stropem. */
+function macroMinFloorsByContext(dietStyle, dayMode, bodyKg, ceilingP, ceilingF) {
+var bw = Number(bodyKg) || 0;
+if (bw <= 0) bw = Number(D.start) || 0;
+var w = bw > 0 ? Math.max(42, bw) : 0;
+var cP = Math.round(Number(ceilingP) || 0);
+var cF = Math.round(Number(ceilingF) || 0);
+if (w <= 0 || cP <= 3 || cF <= 3) return { p: 0, f: 0 };
+var ds = dietStyle === 'keto' ? 'keto' : (dietStyle === 'lowcarb' ? 'lowcarb' : 'standard');
+var m = Number(dayMode) || 0;
+var pMin, fMin;
+if (m === 2) {
+pMin = Math.round(1.4 * w);
+fMin = Math.max(18, Math.round(0.52 * cF));
+} else {
+pMin = (m === 1) ? Math.round(1.38 * w) : Math.round(1.26 * w);
+fMin = Math.round(0.6 * w);
+if (ds === 'keto') fMin = Math.max(fMin, Math.round(0.72 * w), 50);
+else fMin = Math.max(fMin, 40);
+if (m === 1) fMin = Math.max(fMin, Math.round(0.64 * w));
+}
+pMin = Math.min(Math.max(pMin, Math.round(cP * 0.83)), cP - 2);
+fMin = Math.min(Math.max(fMin, Math.round(cF * 0.65)), cF - 3);
+if (pMin >= cP) pMin = Math.max(0, cP - 2);
+if (fMin >= cF) fMin = Math.max(0, cF - 2);
+return { p: Math.max(0, pMin), f: Math.max(0, fMin) };
 }
 
 function missionPraiseFromScore(meetScore, entriesCount, target, mode) {
@@ -6503,7 +6740,7 @@ var moveToday = Number(row.b) || 0;
 var burnTotal = Number(tdee) + moveToday;
 var deficit = Math.max(0, burnTotal - eatNum);
 var dayEntries = row.mealEntries || [];
-var macroTargets = macroTargetsByContext(effectiveDietStyle, mode, wMacro, target);
+var macroTargets = macroTargetsByContext(effectiveDietStyle, mode, wMacro, target, dayKey);
 var targetP = macroTargets.p, targetF = macroTargets.f, targetC = macroTargets.c;
 var sc = missionIntakeBurnMeetScores(row, mode, target, tdee, eatNum, targetP, targetF, targetC, dayKey);
 var intakeScore = sc.intakeScore;
@@ -6720,12 +6957,121 @@ return;
 flashNoteImportant(title, body, "var(--gold-deep)", "#0f172a");
 }
 
+var _healthAutoSyncDay = '';
+var _healthAutoSyncAt = 0;
+var _healthAuthOk = false;
+var HEALTH_AUTO_SYNC_INTERVAL_MS = 45 * 1000;
+function healthPluginBridge() {
+try {
+if (!window.Capacitor || !window.Capacitor.Plugins) return null;
+return window.Capacitor.Plugins.Health || null;
+} catch (e) {
+return null;
+}
+}
+function healthTodayIsoRange(dayKeyOpt) {
+var dk = toDayKey(dayKeyOpt || getD());
+var d = parseDayKeyToDate(dk);
+var start = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
+var end = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59, 999);
+return { dayKey: dk, startIso: start.toISOString(), endIso: end.toISOString() };
+}
+window.healthAuthorizeAppleRead = async function(opts) {
+var hp = healthPluginBridge();
+var silent = !!(opts && opts.silent);
+if (!hp) { flashNote('HealthKit plugin není dostupný.', 'var(--gold-deep)', '#0f172a'); return { ok: false }; }
+try {
+var av = await hp.isAvailable();
+if (!av || !av.available) {
+if (!silent) flashNote('HealthKit není dostupný: ' + ((av && av.reason) || 'unknown'), 'var(--gold-deep)', '#0f172a');
+return { ok: false, reason: av && av.reason };
+}
+if (!_healthAuthOk) await hp.requestAuthorization({ read: ['calories'], write: [] });
+_healthAuthOk = true;
+if (!silent) flashNote('HealthKit přístup povolen.', 'var(--green-neon)', '#0f172a');
+return { ok: true };
+} catch (e) {
+console.error(e);
+if (!silent) flashNote('HealthKit autorizace selhala.', 'var(--red)', 'white');
+return { ok: false, error: String(e && e.message || e) };
+}
+};
+window.healthSyncAppleMovement = async function(dayKeyOpt, sourceOpt) {
+var hp = healthPluginBridge();
+if (!hp) { flashNote('HealthKit plugin není dostupný.', 'var(--gold-deep)', '#0f172a'); return { ok: false }; }
+var src = sourceOpt || 'apple_health';
+try {
+var r = healthTodayIsoRange(dayKeyOpt);
+var total = 0;
+var sampleCount = 0;
+if (typeof hp.queryAggregated === 'function') {
+var aggRes = await hp.queryAggregated({
+dataType: 'calories',
+startDate: r.startIso,
+endDate: r.endIso,
+bucket: 'day',
+aggregation: 'sum'
+});
+var agg = (aggRes && aggRes.samples) ? aggRes.samples : [];
+for (var ai = 0; ai < agg.length; ai++) total += Number(agg[ai].value) || 0;
+sampleCount = agg.length;
+} else {
+var readRes = await hp.readSamples({
+dataType: 'calories',
+startDate: r.startIso,
+endDate: r.endIso,
+limit: 5000,
+ascending: true
+});
+var samples = (readRes && readRes.samples) ? readRes.samples : [];
+for (var i = 0; i < samples.length; i++) total += Number(samples[i].value) || 0;
+sampleCount = samples.length;
+}
+total = Math.max(0, Math.round(total));
+window.syncExternalMovementKcal({ source: src, totalKcal: total, dayKey: r.dayKey });
+return { ok: true, dayKey: r.dayKey, totalKcal: total, sampleCount: sampleCount };
+} catch (e) {
+console.error(e);
+flashNote('HealthKit sync selhal.', 'var(--red)', 'white');
+return { ok: false, error: String(e && e.message || e) };
+}
+};
+window.healthAutoSyncTodayOnce = async function(force) {
+try {
+if (!window.Capacitor || typeof window.Capacitor.getPlatform !== 'function') return;
+if (window.Capacitor.getPlatform() !== 'ios') return;
+var dk = getD();
+var now = Date.now();
+if (_healthAutoSyncDay !== dk) {
+_healthAutoSyncDay = dk;
+_healthAutoSyncAt = 0;
+_healthAuthOk = false;
+}
+if (!force && _healthAutoSyncAt && (now - _healthAutoSyncAt) < HEALTH_AUTO_SYNC_INTERVAL_MS) return;
+var auth = await window.healthAuthorizeAppleRead({ silent: true });
+if (!auth || !auth.ok) return;
+await window.healthSyncAppleMovement(dk, 'apple_health');
+_healthAutoSyncAt = now;
+} catch (e) {
+console.error(e);
+}
+};
+document.addEventListener('visibilitychange', function() {
+if (document.visibilityState === 'visible') {
+try { window.healthAutoSyncTodayOnce(true); } catch (e) {}
+}
+});
+window.addEventListener('focus', function() {
+try { window.healthAutoSyncTodayOnce(true); } catch (e) {}
+});
+
 function ensureDay(dayKey) {
 if(!D.days[dayKey]) D.days[dayKey] = {};
-var base = { w: 0, e: 0, b: 0, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "", mealEntries: [] };
+var base = { w: 0, e: 0, b: 0, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "", mealEntries: [], externalMoveSync: {} };
 D.days[dayKey] = Object.assign(base, D.days[dayKey]);
 if(!D.days[dayKey].dietStyle) D.days[dayKey].dietStyle = D.dietStyle || "standard";
 if(!Array.isArray(D.days[dayKey].mealEntries)) D.days[dayKey].mealEntries = [];
+if(!D.days[dayKey].externalMoveSync || typeof D.days[dayKey].externalMoveSync !== 'object') D.days[dayKey].externalMoveSync = {};
 return D.days[dayKey];
 }
 
@@ -7119,9 +7465,23 @@ D.inbodyDraft = readInBodyDraftFromInputs();
 var pInbMode = document.getElementById('p-inbody-mode');
 if (pInbMode) D.bmrInBodyMode = (pInbMode.value === 'fixed') ? 'fixed' : 'adaptive';
 var pIntroX = document.getElementById('p-intro-video-external'); D.introVideoExternalPath = pIntroX ? String(pIntroX.value || '').trim() : '';
+var pReduceMotion = document.getElementById('p-reduce-motion');
+if (pReduceMotion) D.reduceMotion = !!pReduceMotion.checked;
+applyMotionMode();
 D.profileHeaderSaved = true;
 sync(); }); };
-window.askReset = function() { openModal(tr("modal_reset_all_q"), function() { try { localStorage.removeItem(KEY); LEGACY_DATA_KEYS.forEach(function(k) { localStorage.removeItem(k); }); localStorage.removeItem(NOTIF_KEY); localStorage.removeItem(FAV_KEY); localStorage.removeItem(ROADMAP_VIEW_KEY); } catch(e) {} location.reload(); }, tr("btn_modal_delete")); };
+window.askReset = function() { openModal(tr("modal_reset_all_q"), function() { try {
+localStorage.removeItem(KEY);
+LEGACY_DATA_KEYS.forEach(function(k) { localStorage.removeItem(k); });
+localStorage.removeItem(NOTIF_KEY);
+localStorage.removeItem(FAV_KEY);
+localStorage.removeItem(ROADMAP_VIEW_KEY);
+for (var ri = localStorage.length - 1; ri >= 0; ri--) {
+var rk = localStorage.key(ri);
+if (!rk) continue;
+if (/^(IRON_CORE|KETO_MASTER|MISSION_TRACKER)/.test(rk)) localStorage.removeItem(rk);
+}
+} catch(e) {} location.reload(); }, tr("btn_modal_delete")); };
 
 window.exportIronCoreBackup = function() {
 try {
@@ -7156,11 +7516,21 @@ var inp = document.getElementById('backup-file-input');
 if (inp) inp.click();
 };
 
+function normalizeIronCoreBackupObject(raw) {
+if (!raw || typeof raw !== 'object') return null;
+if (raw.format === IRON_BACKUP_FORMAT && raw.payload && typeof raw.payload.main === 'object' && raw.payload.main !== null) return raw;
+if (!raw.format && raw.payload && typeof raw.payload.main === 'object' && raw.payload.main !== null) {
+return { format: IRON_BACKUP_FORMAT, version: raw.version || 1, exportedAt: raw.exportedAt, payload: raw.payload };
+}
+return null;
+}
 function applyIronCoreBackupParsed(data) {
-if (!data || data.format !== IRON_BACKUP_FORMAT || !data.payload || typeof data.payload.main !== 'object' || data.payload.main === null) {
+var normalized = normalizeIronCoreBackupObject(data);
+if (!normalized) {
 flashNote(tr('backup_err_invalid'), 'var(--pink)', 'white');
 return;
 }
+data = normalized;
 window._pendingIronBackup = data;
 openModal(tr('backup_import_confirm'), function() {
 var d = window._pendingIronBackup;
@@ -7188,9 +7558,14 @@ var f = ev.target.files && ev.target.files[0];
 ev.target.value = '';
 if (!f) return;
 var reader = new FileReader();
+reader.onerror = function() {
+flashNote(tr('backup_err_read'), 'var(--pink)', 'white');
+};
 reader.onload = function() {
 try {
-var data = JSON.parse(reader.result);
+var text = reader.result;
+if (typeof text === 'string' && text.charCodeAt(0) === 0xfeff) text = text.slice(1);
+var data = JSON.parse(text);
 applyIronCoreBackupParsed(data);
 } catch (e) {
 flashNote(tr('backup_err_invalid'), 'var(--pink)', 'white');
@@ -7299,7 +7674,48 @@ el.style.color = '';
 el.style.textShadow = '';
 }
 
-function updateMacroTubeUI(prefix, curRaw, tgtRaw) {
+/** Atwater: kcal z agregovaných gramů P/F/S (stejná báze jako „kolik energie je v makrech“). */
+function kcalAtwaterFromGrams(p, f, c) {
+return 4 * (Number(p) || 0) + 9 * (Number(f) || 0) + 4 * (Number(c) || 0);
+}
+/** Součty dne ze žurnálu — jediný zdroj pravdy oproti polím e/b/p/f/c (oprava rozjezdů). */
+function sumMealJournalTotals(mealEntries) {
+if (!Array.isArray(mealEntries) || mealEntries.length === 0) return null;
+var sumE = 0, sumB = 0, sumP = 0, sumF = 0, sumC = 0;
+for (var i = 0; i < mealEntries.length; i++) {
+var entry = mealEntries[i];
+var vv = Number(entry.v) || 0;
+var typ = entry.type === 'out' ? 'out' : 'in';
+if (typ === 'in') sumE += vv;
+else sumB += vv;
+if (typ === 'in' && entry.macros) {
+sumP += Number(entry.macros.p) || 0;
+sumF += Number(entry.macros.f) || 0;
+sumC += Number(entry.macros.c) || 0;
+}
+}
+return { e: sumE, b: sumB, p: sumP, f: sumF, c: sumC };
+}
+/** Srovná D.days[dnes] s mealEntries bez volání sync() (sync() by znovu spustil render). */
+function reconcileTodayJournalAggregatesQuiet() {
+var t = getD();
+var dayObj = D.days[t];
+if (!dayObj) return;
+var sums = sumMealJournalTotals(dayObj.mealEntries);
+if (!sums) return;
+var changed = false;
+function neq(a, b) { return Math.round(Number(a) || 0) !== Math.round(Number(b) || 0); }
+if (neq(dayObj.e, sums.e)) { dayObj.e = sums.e; changed = true; }
+if (neq(dayObj.b, sums.b)) { dayObj.b = sums.b; changed = true; }
+if (neq(dayObj.p, sums.p)) { dayObj.p = sums.p; changed = true; }
+if (neq(dayObj.f, sums.f)) { dayObj.f = sums.f; changed = true; }
+if (neq(dayObj.c, sums.c)) { dayObj.c = sums.c; changed = true; }
+if (changed) {
+try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (e) {}
+}
+}
+
+function updateMacroTubeUI(prefix, curRaw, tgtRaw, floorRaw) {
 var cur = Math.max(0, Number(curRaw) || 0);
 var tgtNum = Math.round(Number(tgtRaw));
 var stropPct = 78;
@@ -7308,11 +7724,16 @@ var fillEl = document.getElementById(prefix + '-tube-fill');
 var overEl = document.getElementById(prefix + '-tube-over');
 var gramsEl = document.getElementById(prefix + '-tube-grams');
 var tgtEl = document.getElementById(prefix + '-tube-target');
+var floorEl = document.getElementById(prefix + '-tube-floor');
+var floorValEl = document.getElementById(prefix + '-tube-floor-val');
 if(!fillEl || !overEl || !gramsEl || !tgtEl) return;
 if(!isFinite(tgtNum) || tgtNum <= 0) {
 tgtEl.textContent = '—';
-gramsEl.textContent = Math.round(cur) + ' g';
+if (floorValEl) floorValEl.textContent = '—';
+if (floorEl) floorEl.style.display = 'none';
+gramsEl.textContent = '—';
 gramsEl.classList.toggle('macro-grams--warn', false);
+gramsEl.classList.toggle('macro-grams--underfloor', false);
 clearTubeProgressTone(gramsEl);
 fillEl.style.height = '0%';
 overEl.style.display = 'none';
@@ -7322,10 +7743,26 @@ return;
 }
 var tgt = tgtNum;
 tgtEl.textContent = String(tgt);
-gramsEl.textContent = Math.round(cur) + ' g';
-gramsEl.classList.toggle('macro-grams--warn', cur > tgt);
-if (cur > tgt) clearTubeProgressTone(gramsEl);
-else applyTubeProgressTone(gramsEl, cur / tgt);
+var floorNum = Math.round(Number(floorRaw));
+var showFloor = isFinite(floorNum) && floorNum > 0 && floorNum < tgt;
+if (floorValEl) floorValEl.textContent = showFloor ? String(floorNum) : '—';
+if (floorEl) {
+if (showFloor) {
+var fPct = Math.min(stropPct - 0.8, (floorNum / tgt) * stropPct);
+floorEl.style.display = 'block';
+floorEl.style.bottom = fPct + '%';
+} else {
+floorEl.style.display = 'none';
+}
+}
+var remainG = Math.round(tgt - cur);
+gramsEl.textContent = remainG + ' g';
+var overT = cur > tgt;
+var underFl = showFloor && cur < floorNum;
+gramsEl.classList.toggle('macro-grams--warn', overT);
+gramsEl.classList.toggle('macro-grams--underfloor', !overT && underFl);
+if (!overT && !underFl) applyTubeProgressTone(gramsEl, cur / tgt);
+else clearTubeProgressTone(gramsEl);
 var goodH = Math.min(stropPct, (cur / tgt) * stropPct);
 fillEl.style.height = goodH + '%';
 if(cur > tgt) {
@@ -7340,8 +7777,8 @@ overEl.style.height = '0';
 overEl.textContent = '';
 }
 }
-/** Jeden válec kcal: stejná geometrie jako makra; výplň = snědené vůči cíli, dole = zbývající kcal. */
-function updateKcalTubeUI(eatenRaw, targetRaw) {
+/** Jeden válec kcal: stejná geometrie jako makra; výplň = snědené vůči cíli, dole = zbývající kcal. atwaterOpt = 4p+9f+4c pro nápovědu rozdílu vůči záznamu. */
+function updateKcalTubeUI(eatenRaw, targetRaw, atwaterOpt) {
 var eaten = Math.max(0, Number(eatenRaw) || 0);
 var tgtNum = Math.round(Number(targetRaw));
 var stropPct = 78;
@@ -7350,6 +7787,7 @@ var fillEl = document.getElementById('k-tube-fill');
 var overEl = document.getElementById('k-tube-over');
 var gramsEl = document.getElementById('k-tube-grams');
 var tgtEl = document.getElementById('k-tube-target');
+var hintAw = document.getElementById('k-tube-atwater-hint');
 if(!fillEl || !overEl || !gramsEl || !tgtEl) return;
 var lblK = document.getElementById('k-tube-remain-label');
 if(!isFinite(tgtNum) || tgtNum <= 0) {
@@ -7358,6 +7796,7 @@ gramsEl.textContent = '—';
 gramsEl.classList.remove('macro-grams--warn', 'macro-grams--kcal-over');
 clearTubeProgressTone(gramsEl);
 if (lblK) lblK.textContent = tr('macro_k_remain');
+if (hintAw) { hintAw.style.display = 'none'; hintAw.textContent = ''; hintAw.removeAttribute('title'); }
 fillEl.style.height = '0%';
 overEl.style.display = 'none';
 overEl.style.height = '0';
@@ -7392,6 +7831,28 @@ overEl.style.display = 'none';
 overEl.style.height = '0';
 overEl.textContent = '';
 }
+var aw = Number(atwaterOpt);
+if (hintAw) {
+if (isFinite(aw) && aw > 0) {
+var diff = Math.round(eaten - aw);
+if (Math.abs(diff) >= 12) {
+hintAw.style.display = 'block';
+hintAw.removeAttribute('aria-hidden');
+hintAw.textContent = tr('macro_k_atwater_gap', { atwater: Math.round(aw), diff: (diff > 0 ? '+' : '') + diff });
+hintAw.setAttribute('title', tr('macro_k_atwater_gap_title'));
+} else {
+hintAw.style.display = 'none';
+hintAw.textContent = '';
+hintAw.setAttribute('aria-hidden', 'true');
+hintAw.removeAttribute('title');
+}
+} else {
+hintAw.style.display = 'none';
+hintAw.textContent = '';
+hintAw.setAttribute('aria-hidden', 'true');
+hintAw.removeAttribute('title');
+}
+}
 }
 
 function syncProfileCardTheme() {
@@ -7405,7 +7866,10 @@ else el.classList.add('profile-hero--unset');
 
 function render() {
 try {
-var today = getD(), curDayData = D.days[today] || {e:0, b:0, mode: 0, waist: 0, p:0, f:0, c:0};
+var today = getD();
+window.healthAutoSyncTodayOnce();
+reconcileTodayJournalAggregatesQuiet();
+var curDayData = D.days[today] || {e:0, b:0, mode: 0, waist: 0, p:0, f:0, c:0};
 D.lastLogDate = today;
 D.logs = (ensureDay(today).mealEntries || []).slice();
 var cwRaw = (D.days[today] && D.days[today].w) ? D.days[today].w : D.start;
@@ -7471,6 +7935,8 @@ var pLabKg = document.getElementById('p-lab-bmr-kg');
 if(pLabKg && !isUserEditingField(pLabKg)) pLabKg.value = (D.labBmrAtKg > 0) ? D.labBmrAtKg : '';
 var pAct = document.getElementById('p-activity');
 if(pAct && !isUserEditingField(pAct)) pAct.value = (typeof D.activityProfile === 'string') ? D.activityProfile : '';
+var pReduceMotion = document.getElementById('p-reduce-motion');
+if (pReduceMotion && !isUserEditingField(pReduceMotion)) pReduceMotion.checked = !!D.reduceMotion;
 writeInBodyDraftToInputs(D.inbodyDraft || {});
 renderInBodyHistory();
 var pInbodyMode = document.getElementById('p-inbody-mode');
@@ -7611,12 +8077,13 @@ var locUi = getUiLang() === 'en' ? 'en-US' : 'cs-CZ';
 document.getElementById('app-info').innerText = new Date().toLocaleDateString(locUi) + " | " + APP_VERSION_TAG + " · " + tr('app_info_clean');
 
 var wMacro = wEff > 0 ? wEff : (cw > 0 ? cw : (Number(D.start) > 0 ? Number(D.start) : 0));
-var macroTargets = macroTargetsByContext(effectiveDietStyle, mode, wMacro, target);
+var macroTargets = macroTargetsByContext(effectiveDietStyle, mode, wMacro, target, today);
 var targetP = macroTargets.p, targetF = macroTargets.f, targetC = macroTargets.c;
-updateMacroTubeUI('p', curDayData.p, targetP);
-updateMacroTubeUI('f', curDayData.f, targetF);
+var macroFloors = macroMinFloorsByContext(effectiveDietStyle, mode, wMacro, targetP, targetF);
+updateMacroTubeUI('p', curDayData.p, targetP, macroFloors.p);
+updateMacroTubeUI('f', curDayData.f, targetF, macroFloors.f);
 updateMacroTubeUI('c', curDayData.c, targetC);
-updateKcalTubeUI(eatNum, target);
+updateKcalTubeUI(eatNum, target, kcalAtwaterFromGrams(curDayData.p, curDayData.f, curDayData.c));
 var macroTitle = tr('macro_title_base');
 if(effectiveDietStyle === "keto") macroTitle += " (Keto)";
 else if(effectiveDietStyle === "lowcarb") macroTitle += " (Low Carb)";
@@ -9768,7 +10235,7 @@ for(mii = 0; mii < kWindowDays; mii++) {
     var modeMacro = Number(ddMacro.mode) || 0;
     var tKMacro = intakeTargetKcalForDay(ddMacro, dkMacro);
     var dietMacro = ddMacro.dietStyle || D.dietStyle || "standard";
-    var mtMacro = macroTargetsByContext(dietMacro, modeMacro, wMacro, tKMacro);
+    var mtMacro = macroTargetsByContext(dietMacro, modeMacro, wMacro, tKMacro, dkMacro);
     var pGm = Number(ddMacro.p) || 0, fGm = Number(ddMacro.f) || 0, cGm = Number(ddMacro.c) || 0;
     var xMacro = kStartX + (mii * kStepX);
     var dsMacroFull = displayDayKeyFull(dkMacro);
@@ -9813,7 +10280,7 @@ balDayKeys.forEach(function(dayKey) {
     var tdeeR = tdeeFromKgForMode(wkg, modeR, dayKey);
     var tKR = intakeTargetKcalForDay(dd, dayKey);
     var dietR = dd.dietStyle || D.dietStyle || "standard";
-    var mtR = macroTargetsByContext(dietR, modeR, wkg, tKR);
+    var mtR = macroTargetsByContext(dietR, modeR, wkg, tKR, dayKey);
     var badgeBal = dayModeLabel(modeR);
     var badgeCls = dayModeBadgeClass(modeR);
     bl += '<div class="balance-row" role="button" tabindex="0" onclick="window.showDayMealBubble(\'' + dayKey + '\')"><div class="bal-date">' + ds + '<span class="' + badgeCls + '">' + badgeBal + '</span></div><div class="bal-vals"><div class="bal-val-box"><div class="bal-val-label">' + tr('bal_lbl_in') + '</div><div class="bal-val-num" style="color:var(--gold)">' + eat + '</div></div><div class="bal-val-box"><div class="bal-val-label">' + tr('bal_lbl_move') + '</div><div class="bal-val-num" style="color:var(--green-neon)">' + sp + '</div></div><div class="bal-val-box"><div class="bal-val-label">' + tr('bal_lbl_win') + '</div><div class="bal-val-num" style="color:var(--accent)">' + Math.max(0,(tdeeR+sp)-eat) + '</div></div></div><div class="bal-macros-row"><span class="bm-p">B ' + pm + '/' + mtR.p + '</span><span class="bm-f">T ' + fm + '/' + mtR.f + '</span><span class="bm-c">S ' + cm + '/' + mtR.c + '</span> <span style="color:var(--muted);font-weight:700">' + tr('bal_g_ceiling') + '</span></div></div>';
@@ -9910,13 +10377,17 @@ target.appendChild(span('log-mac-unit', ' g'));
 todayLogs.slice(0, 50).forEach(function(l) {
     var row = document.createElement('div');
     row.className = 'log-entry log-entry--rich';
+    var srcName = String((l && l.n) || '');
+    var isAutoHealth = /^Auto pohyb \(/.test(srcName);
+    if (isAutoHealth) row.classList.add('log-entry--auto-sync');
     var main = document.createElement('div');
     main.className = 'log-entry-main';
     var left = document.createElement('span');
-    left.textContent = l.n;
+    left.textContent = srcName;
     var right = document.createElement('span');
     right.style.color = l.c;
-    right.textContent = l.v + ' kcal';
+    var shownKcal = Math.max(0, Math.round(Number(l.v) || 0));
+    right.textContent = (isAutoHealth ? '' : '') + shownKcal + ' kcal';
     main.appendChild(left);
     main.appendChild(right);
     var meta = document.createElement('div');
@@ -9926,7 +10397,14 @@ todayLogs.slice(0, 50).forEach(function(l) {
     timeEl.textContent = formatLogTime(l.ts);
     var macroEl = document.createElement('span');
     macroEl.className = 'log-entry-macros';
-    appendLogMacroLine(macroEl, l);
+    if (isAutoHealth) {
+      var chip = document.createElement('span');
+      chip.className = 'log-entry-source-chip';
+      chip.textContent = 'HEALTH SYNC';
+      macroEl.appendChild(chip);
+    } else {
+      appendLogMacroLine(macroEl, l);
+    }
     meta.appendChild(timeEl);
     meta.appendChild(macroEl);
     row.appendChild(main);

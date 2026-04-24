@@ -1,0 +1,85 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Lokální server :8765 (pro náhled v editoru)",
+      "type": "shell",
+      "command": "python3 -m http.server 8765 --bind 127.0.0.1",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "http-server",
+        "pattern": { "regexp": "^$" },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".",
+          "endsPattern": "Serving HTTP"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false
+      }
+    },
+    {
+      "label": "Náhled: otevřít index.html",
+      "type": "shell",
+      "command": "open",
+      "args": ["${workspaceFolder}/index.html"],
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "silent",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "iOS: Sync",
+      "type": "shell",
+      "command": "npx cap sync ios",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "iOS: Open Xcode",
+      "type": "shell",
+      "command": "npx cap open ios",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "iOS: Hotovo (zvuk + notifikace)",
+      "type": "shell",
+      "command": "afplay /System/Library/Sounds/Glass.aiff && osascript -e 'display notification \"Sync hotovo — můžeš dát Run v Xcode.\" with title \"IRON CORE\"'",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "silent",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "iOS: Sync + Open",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "iOS: Sync",
+        "iOS: Open Xcode",
+        "iOS: Hotovo (zvuk + notifikace)"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}

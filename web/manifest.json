@@ -1,0 +1,19 @@
+{
+  "name": "Iron Core — Strength Log",
+  "short_name": "Iron Core",
+  "description": "Váha, kalorie, mise — lokální deník.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "app-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

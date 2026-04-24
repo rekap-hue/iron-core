@@ -12,7 +12,7 @@
 <link rel="icon" type="image/png" href="app-icon.png">
 <link rel="apple-touch-icon" href="app-icon.png">
 <link rel="manifest" href="manifest.json">
-<title id="doc-page-title">Mise - v95.4.194</title>
+<title id="doc-page-title">Mise - v95.4.196</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -230,6 +230,19 @@ pointer-events: none;
 #section-profile {
 scroll-margin-top: max(12px, env(safe-area-inset-top, 0px));
 scroll-margin-bottom: calc(58px + max(8px, env(safe-area-inset-bottom, 0px)));
+}
+/* iOS WKWebView: display:none file inputs often ignore programmatic click; label[for] + off-screen input works. */
+#backup-file-input.iron-backup-file-input {
+position: absolute;
+width: 1px;
+height: 1px;
+padding: 0;
+margin: -1px;
+overflow: hidden;
+clip: rect(0, 0, 0, 0);
+white-space: nowrap;
+border: 0;
+opacity: 0;
 }
 html.app-intro-scroll-lock,
 body.app-intro-scroll-lock {
@@ -1992,6 +2005,63 @@ font-size: 9px;
 .profile-details-inner {
 padding: 0 14px 14px;
 }
+.motion-toggle-row {
+display: flex;
+align-items: center;
+gap: 10px;
+margin-bottom: 10px;
+padding: 10px 12px;
+border: 1px solid rgba(148, 163, 184, 0.35);
+border-radius: 12px;
+background: rgba(15, 23, 42, 0.45);
+}
+.motion-toggle-row.motion-on {
+border-color: rgba(57, 255, 20, 0.68);
+background: linear-gradient(165deg, rgba(57, 255, 20, 0.16), rgba(15, 23, 42, 0.68));
+box-shadow: 0 0 0 1px rgba(57, 255, 20, 0.22), 0 10px 18px rgba(57, 255, 20, 0.08);
+}
+.motion-toggle-row input[type="checkbox"] {
+width: 19px;
+height: 19px;
+accent-color: var(--gold);
+}
+.motion-toggle-text {
+font-size: 10px;
+font-weight: 800;
+line-height: 1.35;
+color: var(--text);
+}
+.motion-toggle-hint {
+display: block;
+font-size: 9px;
+font-weight: 700;
+color: var(--muted);
+margin-top: 3px;
+}
+.motion-toggle-state {
+display: inline-flex;
+align-items: center;
+gap: 6px;
+margin-top: 6px;
+padding: 4px 9px;
+border-radius: 999px;
+border: 1px solid rgba(148, 163, 184, 0.4);
+background: rgba(2, 6, 23, 0.55);
+font-size: 10px;
+font-weight: 900;
+letter-spacing: 0.02em;
+}
+.motion-toggle-row.motion-on .motion-toggle-state {
+border-color: rgba(57, 255, 20, 0.72);
+color: #bbf7d0;
+text-shadow: 0 0 10px rgba(57, 255, 20, 0.25);
+}
+body.motion-lite *,
+body.motion-lite *::before,
+body.motion-lite *::after {
+animation: none !important;
+transition: none !important;
+}
 details.profile-details-advanced[open] > .profile-details-summary {
 color: #cbd5e1;
 border-bottom: 1px solid rgba(51, 65, 85, 0.55);
@@ -2043,6 +2113,25 @@ overflow-y: auto;
 .log-entry-meta { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 10px; font-weight: 800; color: var(--muted); }
 .log-entry-time { font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
 .log-entry-macros { text-align: right; line-height: 1.35; }
+.log-entry.log-entry--auto-sync {
+border: 1px solid rgba(34, 211, 238, 0.32);
+border-radius: 12px;
+padding: 10px 10px;
+background: linear-gradient(145deg, rgba(34,211,238,0.08), rgba(15,23,42,0.35));
+}
+.log-entry-source-chip {
+display: inline-flex;
+align-items: center;
+padding: 2px 7px;
+border-radius: 999px;
+font-size: 9px;
+font-weight: 900;
+letter-spacing: 0.04em;
+text-transform: uppercase;
+color: #67e8f9;
+border: 1px solid rgba(34, 211, 238, 0.45);
+background: rgba(2, 6, 23, 0.6);
+}
 .log-mac-p { color: var(--macro-p); }
 .log-mac-f { color: var(--gold); }
 .log-mac-c { color: var(--pink); }
@@ -3361,7 +3450,7 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <h1 style="margin: 0;"><span class="brand-wordmark"><span class="header-brand-iron">IRON</span><span class="brand-sep-el" aria-hidden="true"></span><span class="header-brand-core">CORE</span></span></h1>
 <div style="width: 220px; height: 1px; background: rgba(255,255,255,0.4); z-index: 10; margin: 12px 0; transform: translateZ(50px);"></div>
 <div style="z-index: 10; font-size: 10px; font-weight: 900; letter-spacing: 4px; color: var(--text); text-transform: uppercase; transform: translateZ(45px); text-shadow: 0 8px 12px rgba(0,0,0,0.6);">STRENGTH LOG | ULTIMATE GLASS</div>
-<div id="app-info" class="version-tag">-- | v95.4.194 · čistá data</div>
+<div id="app-info" class="version-tag">-- | v95.4.195 · čistá data</div>
 </div>
 <div class="stats-grid">
 <div class="stat-box" style="border-color: var(--pink); background: rgba(236, 72, 153, 0.1);">
@@ -3867,9 +3956,9 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <p style="font-size:9px;color:var(--muted);margin:0 0 10px;line-height:1.35;font-weight:700;" data-i18n="backup_intro">Kompletní kopie deníku (váha, dny, jídla, profil…). Ulož si ji bezpečně — při čištění úložiště nebo na jiném zařízení by jinak data zmizela.</p>
 <div style="display:flex;flex-wrap:wrap;gap:8px;">
 <button type="button" onclick="window.exportIronCoreBackup()" class="btn btn-outline" style="flex:1;min-width:132px;border-color:rgba(52,211,153,0.65);color:#6ee7b7;font-weight:900;padding:11px;font-size:11px;" data-i18n="backup_export">Stáhnout zálohu (JSON)</button>
-<button type="button" onclick="window.triggerIronCoreBackupImport()" class="btn btn-outline" style="flex:1;min-width:132px;border-color:rgba(251,191,36,0.65);color:#fcd34d;font-weight:900;padding:11px;font-size:11px;" data-i18n="backup_import">Nahrát zálohu…</button>
+<label for="backup-file-input" class="btn btn-outline" style="flex:1;min-width:132px;border-color:rgba(251,191,36,0.65);color:#fcd34d;font-weight:900;padding:11px;font-size:11px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;margin:0;box-sizing:border-box;" data-i18n="backup_import">Nahrát zálohu…</label>
 </div>
-<input type="file" id="backup-file-input" accept="application/json,.json" style="display:none" aria-hidden="true">
+<input type="file" id="backup-file-input" class="iron-backup-file-input" accept="application/json,.json,text/json,text/plain,*/*" title="JSON záloha Iron Core">
 <div class="profile-hero-section-label" style="margin-top:14px;" data-i18n="pwa_card_title">Aplikace na ploše (PWA)</div>
 <p style="font-size:9px;color:var(--muted);margin:0;line-height:1.35;font-weight:700;" data-i18n="pwa_hint">Na mobilu použij v prohlížeči „Přidat na plochu“ / Install. Na PC ikonu instalace v adresním řádku. Vyžaduje otevření přes webový server (ne přímo soubor z disku).</p>
 </div>
@@ -3878,6 +3967,15 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <button type="button" id="lang-cs" class="gender-btn" onclick="window.setUiLang('cs')" data-i18n="lang_cs">Čeština</button>
 <button type="button" id="lang-en" class="gender-btn" onclick="window.setUiLang('en')" data-i18n="lang_en">English</button>
 </div>
+<div class="profile-hero-section-label" data-i18n="profile_motion_title">Plynulost / baterie</div>
+<label class="motion-toggle-row">
+<input type="checkbox" id="p-reduce-motion" onchange="window.setMotionReduced(this.checked)">
+<span class="motion-toggle-text">
+<span data-i18n="profile_motion_toggle">Úsporný režim animací (méně zahřívání)</span>
+<span class="motion-toggle-hint" data-i18n="profile_motion_hint">Doporučeno při testování na iPhonu, když je zařízení teplé.</span>
+<span id="motion-toggle-state" class="motion-toggle-state">○ VYPNUTO</span>
+</span>
+</label>
 <div class="profile-hero-section-label" data-i18n="profile_gender">Pohlaví</div>
 <div class="gender-grid">
 <div id="g-male" class="gender-btn" onclick="window.setGender('male')" data-i18n="gender_male">Muž</div>
@@ -4004,7 +4102,7 @@ return;
 }
 } catch(e) {}
 })();
-var APP_VERSION_TAG = 'v95.4.194';
+var APP_VERSION_TAG = 'v95.4.196';
 var I18N = {
 cs: {
 doc_title: 'Mise — Iron Core',
@@ -4108,6 +4206,11 @@ profile_toggle: 'Profil & nastavení (Hvězdy, BMI, BMR)',
 profile_kicker: 'Profil & nastavení',
 profile_hint: 'BMI, BMR, hvězdy a AI — data zůstávají v tomto prohlížeči.',
 profile_lang: 'Jazyk rozhraní',
+profile_motion_title: 'Plynulost / baterie',
+profile_motion_toggle: 'Úsporný režim animací (méně zahřívání)',
+profile_motion_hint: 'Doporučeno při testování na iPhonu, když je zařízení teplé.',
+profile_motion_state_on: '✓ ZAPNUTO',
+profile_motion_state_off: '○ VYPNUTO',
 lang_cs: 'Čeština',
 lang_en: 'English',
 profile_gender: 'Pohlaví',
@@ -4133,6 +4236,7 @@ backup_import_ok: 'Obnovit zálohu',
 backup_export_ok: 'Záloha stažena.',
 backup_err_export: 'Export se nepovedl.',
 backup_err_invalid: 'Soubor není platná záloha Iron Core.',
+backup_err_read: 'Soubor se nepovedlo přečíst.',
 backup_err_storage: 'Zálohu se nepodařilo uložit do úložiště (quota?).',
 pwa_card_title: 'Aplikace na ploše (PWA)',
 pwa_hint: 'Na mobilu použij v prohlížeči „Přidat na plochu“ / Install. Na PC ikonu instalace v adresním řádku. Vyžaduje otevření přes webový server (ne přímo soubor z disku).',
@@ -4484,6 +4588,11 @@ profile_toggle: 'Profile & settings (Stars, BMI, BMR)',
 profile_kicker: 'Profile & settings',
 profile_hint: 'BMI, BMR, stars & AI — data stays in this browser.',
 profile_lang: 'Interface language',
+profile_motion_title: 'Smoothness / battery',
+profile_motion_toggle: 'Animation saver mode (less device heating)',
+profile_motion_hint: 'Recommended while testing on iPhone if the device gets warm.',
+profile_motion_state_on: '✓ ON',
+profile_motion_state_off: '○ OFF',
 lang_cs: 'Čeština',
 lang_en: 'English',
 profile_gender: 'Gender',
@@ -4509,6 +4618,7 @@ backup_import_ok: 'Restore backup',
 backup_export_ok: 'Backup downloaded.',
 backup_err_export: 'Export failed.',
 backup_err_invalid: 'Not a valid Iron Core backup file.',
+backup_err_read: 'Could not read the file.',
 backup_err_storage: 'Could not write to browser storage (quota?).',
 pwa_card_title: 'Install as app (PWA)',
 pwa_hint: 'On mobile: browser menu → Add to Home Screen / Install. On desktop: install icon in the address bar. Requires a web server (not opening the file directly from disk).',
@@ -4888,6 +4998,24 @@ D.uiLang = (lang === 'en') ? 'en' : 'cs';
 try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (e) {}
 applyI18n();
 if (typeof render === 'function') try { render(); } catch (e2) {}
+};
+function applyMotionMode() {
+if (typeof D === 'undefined' || !D) return;
+document.body.classList.toggle('motion-lite', !!D.reduceMotion);
+updateMotionToggleUi();
+}
+function updateMotionToggleUi() {
+var row = document.querySelector('.motion-toggle-row');
+var state = document.getElementById('motion-toggle-state');
+if (row) row.classList.toggle('motion-on', !!D.reduceMotion);
+if (state) state.textContent = D.reduceMotion ? tr('profile_motion_state_on') : tr('profile_motion_state_off');
+}
+window.setMotionReduced = function(v) {
+if (typeof D === 'undefined' || !D) return;
+D.reduceMotion = !!v;
+applyMotionMode();
+try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (e) {}
+flashNote(D.reduceMotion ? 'Úsporný režim animací zapnut.' : 'Úsporný režim animací vypnut.', 'var(--gold-deep)', '#0f172a');
 };
 try { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; } catch(eSR) {}
 window.scrollAppToTop = function() {
@@ -5790,22 +5918,58 @@ var source = String(p.source || 'health_sync').trim() || 'health_sync';
 var dayKey = toDayKey(p.dayKey || getD());
 var total = Math.max(0, Math.round(Number(p.totalKcal) || 0));
 var dayObj = ensureDay(dayKey);
+var srcLabel = 'Auto pohyb (' + source + ')';
 if (!dayObj.externalMoveSync || typeof dayObj.externalMoveSync !== 'object') dayObj.externalMoveSync = {};
-var prev = Math.max(0, Math.round(Number(dayObj.externalMoveSync[source]) || 0));
+var prevStored = Math.max(0, Math.round(Number(dayObj.externalMoveSync[source]) || 0));
+var prevFromLogs = 0;
+var matchedIdx = [];
+if (Array.isArray(dayObj.mealEntries)) {
+for (var li = 0; li < dayObj.mealEntries.length; li++) {
+var it = dayObj.mealEntries[li] || {};
+if (String(it.type || '') !== 'out') continue;
+if (String(it.n || '') !== srcLabel) continue;
+matchedIdx.push(li);
+prevFromLogs += Math.max(0, Math.round(Number(it.v) || 0));
+}
+} else {
+dayObj.mealEntries = [];
+}
+function upsertAutoSyncEntry(nextTotal) {
+var baseEntry = { n: srcLabel, v: nextTotal, c: 'var(--green-neon)', type: 'out', ts: Date.now() };
+if (!matchedIdx.length) {
+dayObj.mealEntries.unshift(baseEntry);
+return;
+}
+var keep = matchedIdx[0];
+dayObj.mealEntries[keep] = Object.assign({}, dayObj.mealEntries[keep], baseEntry);
+for (var ri = matchedIdx.length - 1; ri >= 1; ri--) dayObj.mealEntries.splice(matchedIdx[ri], 1);
+}
+function recalcDayBurnTotal() {
+var burn = 0;
+for (var bi = 0; bi < dayObj.mealEntries.length; bi++) {
+var be = dayObj.mealEntries[bi] || {};
+if (String(be.type || '') === 'out') burn += Number(be.v) || 0;
+}
+dayObj.b = Math.max(0, Math.round(burn));
+}
+var prev = Math.max(prevStored, prevFromLogs);
 if (total <= prev) {
+dayObj.externalMoveSync[source] = prev;
+if (matchedIdx.length > 1 || (matchedIdx.length === 1 && Math.round(Number((dayObj.mealEntries[matchedIdx[0]] || {}).v) || 0) !== prev)) {
+upsertAutoSyncEntry(prev);
+recalcDayBurnTotal();
+if (dayKey === getD()) D.logs = dayObj.mealEntries.slice();
+sync();
+return;
+}
 flashNote('Sync pohybu: bez změny (' + source + ').', 'var(--muted)', '#0f172a');
 return;
 }
-var delta = total - prev;
 dayObj.externalMoveSync[source] = total;
-if (dayKey === getD()) {
-commitKcalLog('out', delta, 'Auto pohyb (' + source + ')');
-} else {
-dayObj.b = (Number(dayObj.b) || 0) + delta;
-if (!Array.isArray(dayObj.mealEntries)) dayObj.mealEntries = [];
-dayObj.mealEntries.unshift({ n: 'Auto pohyb (' + source + ')', v: delta, c: 'var(--green-neon)', type: 'out', ts: Date.now() });
+upsertAutoSyncEntry(total);
+recalcDayBurnTotal();
+if (dayKey === getD()) D.logs = dayObj.mealEntries.slice();
 sync();
-}
 } catch (e) {
 console.error(e);
 flashNote('Sync pohybu selhal.', 'var(--red)', 'white');
@@ -6002,6 +6166,7 @@ introVideoData: "",
 introVideoExternalPath: "",
 introVideoOverlayLogo: true,
 introVideoOverlayPos: "bottom",
+reduceMotion: false,
 logs: [],
 lastLogDate: "",
 chartScrollK: null,
@@ -6040,6 +6205,8 @@ D.metricGoalPredV2 = (D.metricGoalPredV2 && typeof D.metricGoalPredV2 === "objec
 D.thighRefCm = Number(D.thighRefCm) || 0;
 D.bicepsRefCm = Number(D.bicepsRefCm) || 0;
 if (D.uiLang !== 'en' && D.uiLang !== 'cs') D.uiLang = 'cs';
+D.reduceMotion = toBool(D.reduceMotion, false);
+applyMotionMode();
 D.lastLogDate = toDayKey(D.lastLogDate) || getD();
 var todayDate = getD();
 var sameLogDayAsToday = (D.lastLogDate === todayDate);
@@ -6050,41 +6217,6 @@ localStorage.setItem(KEY, JSON.stringify(D));
 D.lastLogDate = todayDate;
 D.logs = (ensureDay(todayDate).mealEntries || []).slice();
 
-/* Local test seed (weights + measures from screenshots). Runs only on localhost and only when history is empty. */
-var LOCAL_TEST_DAY_SEED = {
-"2026-03-09": { w: 115.1, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-03-17": { w: 115.0, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-03-18": { w: 115.0, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-03-19": { w: 115.0, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-03-20": { w: 115.0, waist: 126, chest: 124, thigh: 69, biceps: 41, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-03-23": { w: 117.0, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-03-24": { w: 116.3, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-03-25": { w: 115.7, waist: 127, chest: 125, thigh: 67, biceps: 41, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-03-26": { w: 115.2, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-03-27": { w: 115.0, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-03-28": { w: 114.7, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-03-29": { w: 115.3, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-03-30": { w: 114.8, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-03-31": { w: 114.6, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-04-01": { w: 115.0, waist: 130, chest: 130, thigh: 68, biceps: 42, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-04-02": { w: 115.3, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-04-04": { w: 114.7, waist: 128, chest: 130, thigh: 69, biceps: 43, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" },
-"2026-04-05": { w: 114.5, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, e: 0, b: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "" }
-};
-function maybeApplyLocalTestSeed() {
-var isLocalHost = location.hostname === "127.0.0.1" || location.hostname === "localhost";
-if (!isLocalHost) return;
-var hasAnyWeight = Object.keys(D.days || {}).some(function(k) { return Number((D.days[k] || {}).w) > 0; });
-if (hasAnyWeight) return;
-Object.keys(LOCAL_TEST_DAY_SEED).forEach(function(k) {
-D.days[k] = Object.assign({}, LOCAL_TEST_DAY_SEED[k]);
-});
-D.start = 115.1;
-D.final = Number(D.final) > 0 ? D.final : 95;
-if (!D.lastLogDate) D.lastLogDate = "2026-04-05";
-try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (e) {}
-}
-maybeApplyLocalTestSeed();
 if (typeof D.chartScrollK !== 'number' || isNaN(D.chartScrollK)) D.chartScrollK = null;
 if (typeof D.chartScrollW !== 'number' || isNaN(D.chartScrollW)) D.chartScrollW = null;
 if (typeof D.labBmr !== 'number' || isNaN(D.labBmr)) D.labBmr = 0;
@@ -6826,6 +6958,9 @@ flashNoteImportant(title, body, "var(--gold-deep)", "#0f172a");
 }
 
 var _healthAutoSyncDay = '';
+var _healthAutoSyncAt = 0;
+var _healthAuthOk = false;
+var HEALTH_AUTO_SYNC_INTERVAL_MS = 45 * 1000;
 function healthPluginBridge() {
 try {
 if (!window.Capacitor || !window.Capacitor.Plugins) return null;
@@ -6841,21 +6976,23 @@ var start = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
 var end = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59, 999);
 return { dayKey: dk, startIso: start.toISOString(), endIso: end.toISOString() };
 }
-window.healthAuthorizeAppleRead = async function() {
+window.healthAuthorizeAppleRead = async function(opts) {
 var hp = healthPluginBridge();
+var silent = !!(opts && opts.silent);
 if (!hp) { flashNote('HealthKit plugin není dostupný.', 'var(--gold-deep)', '#0f172a'); return { ok: false }; }
 try {
 var av = await hp.isAvailable();
 if (!av || !av.available) {
-flashNote('HealthKit není dostupný: ' + ((av && av.reason) || 'unknown'), 'var(--gold-deep)', '#0f172a');
+if (!silent) flashNote('HealthKit není dostupný: ' + ((av && av.reason) || 'unknown'), 'var(--gold-deep)', '#0f172a');
 return { ok: false, reason: av && av.reason };
 }
-await hp.requestAuthorization({ read: ['calories'], write: [] });
-flashNote('HealthKit přístup povolen.', 'var(--green-neon)', '#0f172a');
+if (!_healthAuthOk) await hp.requestAuthorization({ read: ['calories'], write: [] });
+_healthAuthOk = true;
+if (!silent) flashNote('HealthKit přístup povolen.', 'var(--green-neon)', '#0f172a');
 return { ok: true };
 } catch (e) {
 console.error(e);
-flashNote('HealthKit autorizace selhala.', 'var(--red)', 'white');
+if (!silent) flashNote('HealthKit autorizace selhala.', 'var(--red)', 'white');
 return { ok: false, error: String(e && e.message || e) };
 }
 };
@@ -6865,37 +7002,68 @@ if (!hp) { flashNote('HealthKit plugin není dostupný.', 'var(--gold-deep)', '#
 var src = sourceOpt || 'apple_health';
 try {
 var r = healthTodayIsoRange(dayKeyOpt);
+var total = 0;
+var sampleCount = 0;
+if (typeof hp.queryAggregated === 'function') {
+var aggRes = await hp.queryAggregated({
+dataType: 'calories',
+startDate: r.startIso,
+endDate: r.endIso,
+bucket: 'day',
+aggregation: 'sum'
+});
+var agg = (aggRes && aggRes.samples) ? aggRes.samples : [];
+for (var ai = 0; ai < agg.length; ai++) total += Number(agg[ai].value) || 0;
+sampleCount = agg.length;
+} else {
 var readRes = await hp.readSamples({
 dataType: 'calories',
 startDate: r.startIso,
-endDate: r.endIso
+endDate: r.endIso,
+limit: 5000,
+ascending: true
 });
 var samples = (readRes && readRes.samples) ? readRes.samples : [];
-var total = 0;
 for (var i = 0; i < samples.length; i++) total += Number(samples[i].value) || 0;
+sampleCount = samples.length;
+}
 total = Math.max(0, Math.round(total));
 window.syncExternalMovementKcal({ source: src, totalKcal: total, dayKey: r.dayKey });
-return { ok: true, dayKey: r.dayKey, totalKcal: total, sampleCount: samples.length };
+return { ok: true, dayKey: r.dayKey, totalKcal: total, sampleCount: sampleCount };
 } catch (e) {
 console.error(e);
 flashNote('HealthKit sync selhal.', 'var(--red)', 'white');
 return { ok: false, error: String(e && e.message || e) };
 }
 };
-window.healthAutoSyncTodayOnce = async function() {
+window.healthAutoSyncTodayOnce = async function(force) {
 try {
 if (!window.Capacitor || typeof window.Capacitor.getPlatform !== 'function') return;
 if (window.Capacitor.getPlatform() !== 'ios') return;
 var dk = getD();
-if (_healthAutoSyncDay === dk) return;
+var now = Date.now();
+if (_healthAutoSyncDay !== dk) {
 _healthAutoSyncDay = dk;
-var auth = await window.healthAuthorizeAppleRead();
+_healthAutoSyncAt = 0;
+_healthAuthOk = false;
+}
+if (!force && _healthAutoSyncAt && (now - _healthAutoSyncAt) < HEALTH_AUTO_SYNC_INTERVAL_MS) return;
+var auth = await window.healthAuthorizeAppleRead({ silent: true });
 if (!auth || !auth.ok) return;
 await window.healthSyncAppleMovement(dk, 'apple_health');
+_healthAutoSyncAt = now;
 } catch (e) {
 console.error(e);
 }
 };
+document.addEventListener('visibilitychange', function() {
+if (document.visibilityState === 'visible') {
+try { window.healthAutoSyncTodayOnce(true); } catch (e) {}
+}
+});
+window.addEventListener('focus', function() {
+try { window.healthAutoSyncTodayOnce(true); } catch (e) {}
+});
 
 function ensureDay(dayKey) {
 if(!D.days[dayKey]) D.days[dayKey] = {};
@@ -7297,9 +7465,23 @@ D.inbodyDraft = readInBodyDraftFromInputs();
 var pInbMode = document.getElementById('p-inbody-mode');
 if (pInbMode) D.bmrInBodyMode = (pInbMode.value === 'fixed') ? 'fixed' : 'adaptive';
 var pIntroX = document.getElementById('p-intro-video-external'); D.introVideoExternalPath = pIntroX ? String(pIntroX.value || '').trim() : '';
+var pReduceMotion = document.getElementById('p-reduce-motion');
+if (pReduceMotion) D.reduceMotion = !!pReduceMotion.checked;
+applyMotionMode();
 D.profileHeaderSaved = true;
 sync(); }); };
-window.askReset = function() { openModal(tr("modal_reset_all_q"), function() { try { localStorage.removeItem(KEY); LEGACY_DATA_KEYS.forEach(function(k) { localStorage.removeItem(k); }); localStorage.removeItem(NOTIF_KEY); localStorage.removeItem(FAV_KEY); localStorage.removeItem(ROADMAP_VIEW_KEY); } catch(e) {} location.reload(); }, tr("btn_modal_delete")); };
+window.askReset = function() { openModal(tr("modal_reset_all_q"), function() { try {
+localStorage.removeItem(KEY);
+LEGACY_DATA_KEYS.forEach(function(k) { localStorage.removeItem(k); });
+localStorage.removeItem(NOTIF_KEY);
+localStorage.removeItem(FAV_KEY);
+localStorage.removeItem(ROADMAP_VIEW_KEY);
+for (var ri = localStorage.length - 1; ri >= 0; ri--) {
+var rk = localStorage.key(ri);
+if (!rk) continue;
+if (/^(IRON_CORE|KETO_MASTER|MISSION_TRACKER)/.test(rk)) localStorage.removeItem(rk);
+}
+} catch(e) {} location.reload(); }, tr("btn_modal_delete")); };
 
 window.exportIronCoreBackup = function() {
 try {
@@ -7334,11 +7516,21 @@ var inp = document.getElementById('backup-file-input');
 if (inp) inp.click();
 };
 
+function normalizeIronCoreBackupObject(raw) {
+if (!raw || typeof raw !== 'object') return null;
+if (raw.format === IRON_BACKUP_FORMAT && raw.payload && typeof raw.payload.main === 'object' && raw.payload.main !== null) return raw;
+if (!raw.format && raw.payload && typeof raw.payload.main === 'object' && raw.payload.main !== null) {
+return { format: IRON_BACKUP_FORMAT, version: raw.version || 1, exportedAt: raw.exportedAt, payload: raw.payload };
+}
+return null;
+}
 function applyIronCoreBackupParsed(data) {
-if (!data || data.format !== IRON_BACKUP_FORMAT || !data.payload || typeof data.payload.main !== 'object' || data.payload.main === null) {
+var normalized = normalizeIronCoreBackupObject(data);
+if (!normalized) {
 flashNote(tr('backup_err_invalid'), 'var(--pink)', 'white');
 return;
 }
+data = normalized;
 window._pendingIronBackup = data;
 openModal(tr('backup_import_confirm'), function() {
 var d = window._pendingIronBackup;
@@ -7366,9 +7558,14 @@ var f = ev.target.files && ev.target.files[0];
 ev.target.value = '';
 if (!f) return;
 var reader = new FileReader();
+reader.onerror = function() {
+flashNote(tr('backup_err_read'), 'var(--pink)', 'white');
+};
 reader.onload = function() {
 try {
-var data = JSON.parse(reader.result);
+var text = reader.result;
+if (typeof text === 'string' && text.charCodeAt(0) === 0xfeff) text = text.slice(1);
+var data = JSON.parse(text);
 applyIronCoreBackupParsed(data);
 } catch (e) {
 flashNote(tr('backup_err_invalid'), 'var(--pink)', 'white');
@@ -7738,6 +7935,8 @@ var pLabKg = document.getElementById('p-lab-bmr-kg');
 if(pLabKg && !isUserEditingField(pLabKg)) pLabKg.value = (D.labBmrAtKg > 0) ? D.labBmrAtKg : '';
 var pAct = document.getElementById('p-activity');
 if(pAct && !isUserEditingField(pAct)) pAct.value = (typeof D.activityProfile === 'string') ? D.activityProfile : '';
+var pReduceMotion = document.getElementById('p-reduce-motion');
+if (pReduceMotion && !isUserEditingField(pReduceMotion)) pReduceMotion.checked = !!D.reduceMotion;
 writeInBodyDraftToInputs(D.inbodyDraft || {});
 renderInBodyHistory();
 var pInbodyMode = document.getElementById('p-inbody-mode');
@@ -10178,13 +10377,17 @@ target.appendChild(span('log-mac-unit', ' g'));
 todayLogs.slice(0, 50).forEach(function(l) {
     var row = document.createElement('div');
     row.className = 'log-entry log-entry--rich';
+    var srcName = String((l && l.n) || '');
+    var isAutoHealth = /^Auto pohyb \(/.test(srcName);
+    if (isAutoHealth) row.classList.add('log-entry--auto-sync');
     var main = document.createElement('div');
     main.className = 'log-entry-main';
     var left = document.createElement('span');
-    left.textContent = l.n;
+    left.textContent = srcName;
     var right = document.createElement('span');
     right.style.color = l.c;
-    right.textContent = l.v + ' kcal';
+    var shownKcal = Math.max(0, Math.round(Number(l.v) || 0));
+    right.textContent = (isAutoHealth ? '' : '') + shownKcal + ' kcal';
     main.appendChild(left);
     main.appendChild(right);
     var meta = document.createElement('div');
@@ -10194,7 +10397,14 @@ todayLogs.slice(0, 50).forEach(function(l) {
     timeEl.textContent = formatLogTime(l.ts);
     var macroEl = document.createElement('span');
     macroEl.className = 'log-entry-macros';
-    appendLogMacroLine(macroEl, l);
+    if (isAutoHealth) {
+      var chip = document.createElement('span');
+      chip.className = 'log-entry-source-chip';
+      chip.textContent = 'HEALTH SYNC';
+      macroEl.appendChild(chip);
+    } else {
+      appendLogMacroLine(macroEl, l);
+    }
     meta.appendChild(timeEl);
     meta.appendChild(macroEl);
     row.appendChild(main);

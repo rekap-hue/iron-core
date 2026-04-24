@@ -1,0 +1,31 @@
+{
+  "name": "fit2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "sw.js",
+  "scripts": {
+    "prepare:web": "node scripts/prepare-web.cjs",
+    "cap:sync": "npm run prepare:web && npx cap sync",
+    "cap:open:ios": "npm run cap:sync && npx cap open ios",
+    "cap:open:android": "npm run cap:sync && npx cap open android"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rekap-hue/iron-core.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/rekap-hue/iron-core/issues"
+  },
+  "homepage": "https://github.com/rekap-hue/iron-core#readme",
+  "dependencies": {
+    "@capacitor/android": "^8.3.1",
+    "@capacitor/cli": "^8.3.1",
+    "@capacitor/core": "^8.3.1",
+    "@capacitor/ios": "^8.3.1",
+    "@capgo/capacitor-health": "^8.4.7"
+  }
+}
