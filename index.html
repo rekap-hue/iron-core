@@ -86,7 +86,7 @@ backdrop-filter: blur(14px);
 .app-bottom-bar-inner {
 max-width: 500px;
 margin: 0 auto;
-padding: 6px 10px 8px;
+padding: 6px max(10px, env(safe-area-inset-right, 0px)) 8px max(10px, env(safe-area-inset-left, 0px));
 display: flex;
 align-items: stretch;
 gap: 8px;
@@ -130,9 +130,10 @@ overflow-x: auto;
 overscroll-behavior-x: contain;
 scrollbar-width: none;
 pointer-events: auto;
-padding: 2px 2px 2px 0;
-mask-image: linear-gradient(90deg, #000 92%, transparent 100%);
--webkit-mask-image: linear-gradient(90deg, #000 92%, transparent 100%);
+padding: 2px max(8px, env(safe-area-inset-right, 0px)) 2px 0;
+scroll-padding-right: max(10px, env(safe-area-inset-right, 0px));
+mask-image: linear-gradient(90deg, #000 97%, transparent 100%);
+-webkit-mask-image: linear-gradient(90deg, #000 97%, transparent 100%);
 }
 .app-bottom-bar-scroll::-webkit-scrollbar { display: none; height: 0; width: 0; }
 .app-bottom-bar-sect {
@@ -4127,7 +4128,7 @@ bottom: auto;
 </div>
 <div class="profile-inset-block profile-inset-block--loose" style="border:1px dashed rgba(148,163,184,0.4);border-radius:14px;padding:12px;background:rgba(15,23,42,0.45);">
 <div class="stat-label" style="color:#67e8f9;margin-bottom:6px;">Test — úvodní intro</div>
-<p style="font-size:9px;color:var(--muted);margin:0 0 10px;line-height:1.45;font-weight:700;">Stejné intro jako při prvním spuštění. Průvodce se nespustí. Při přehrání se stránka srovná nahoru kvůli přesnému přechodu loga do hlavičky.</p>
+<p style="font-size:9px;color:var(--muted);margin:0 0 10px;line-height:1.45;font-weight:700;">Stejné intro jako při prvním spuštění včetně průvodce a právního ujednání. Po přehrání data zůstávají netknutá.</p>
 <button type="button" onclick="window.previewIntroExperience()" class="btn btn-outline" style="width:100%;border-color:rgba(56,189,248,0.55);color:#67e8f9;font-weight:900;padding:12px;font-size:11px">Přehrát intro</button>
 </div>
 <button onclick="window.saveProfile()" class="btn btn-gold" style="margin-top:10px" data-i18n="btn_save_profile">Uložit profil</button>
@@ -5796,8 +5797,9 @@ b.style.removeProperty('animation');
 });
 });
 }
-function startFirstLaunchExperience(previewMode) {
+function startFirstLaunchExperience(previewMode, forceGuideAfterIntro) {
 previewMode = !!previewMode;
+forceGuideAfterIntro = !!forceGuideAfterIntro;
 if(window.__ironCoreIntroRunning) return;
 var intro = document.getElementById('iron-intro');
 if(!intro) { runOnboardingGuide(); return; }
@@ -5855,7 +5857,7 @@ setTimeout(function(){
 document.body.classList.remove('app-reveal');
 if(hadMotionLite) document.body.classList.add('motion-lite');
 }, 120);
-if(!previewMode) setTimeout(function(){ runOnboardingGuide(); }, 900);
+if(!previewMode || forceGuideAfterIntro) setTimeout(function(){ runOnboardingGuide(); }, 900);
 }, 1050);
 };
 setTimeout(function() {
@@ -5869,7 +5871,9 @@ setTimeout(finishIntro, 7200);
 }
 
 window.previewIntroExperience = function() {
-startFirstLaunchExperience(true);
+D.onboardingDone = false;
+try { localStorage.setItem(KEY, JSON.stringify(D)); } catch(ePrev) {}
+startFirstLaunchExperience(true, true);
 };
 
 window.toggleHistArea = function() {
