@@ -7913,26 +7913,16 @@ flashNote(tr('backup_err_anonymized_import'), 'var(--gold-deep)', '#0f172a');
 return;
 }
 var bStats = summarizeBackupMetrics((data.payload || {}).main || {});
-var importMsg = tr('backup_import_confirm') + '\n\n' +
-'Dny: ' + bStats.totalDays +
-' | Váha: ' + bStats.weightDays +
-' | Míry: ' + bStats.measureDays +
-' | Energie: ' + bStats.energyDays +
-' | Jídla: ' + bStats.mealDays;
-window._pendingIronBackup = data;
-openModal(importMsg, function() {
-var d = window._pendingIronBackup;
-window._pendingIronBackup = null;
-if (!d || !d.payload || typeof d.payload.main !== 'object') return;
+if (!data || !data.payload || typeof data.payload.main !== 'object') return;
 try {
-localStorage.setItem(KEY, JSON.stringify(d.payload.main));
-localStorage.setItem(FAV_KEY, JSON.stringify(Array.isArray(d.payload.favorites) ? d.payload.favorites : []));
-localStorage.setItem(NOTIF_KEY, JSON.stringify(d.payload.notified && typeof d.payload.notified === 'object' ? d.payload.notified : {}));
-if (d.payload.roadmapView) localStorage.setItem(ROADMAP_VIEW_KEY, String(d.payload.roadmapView));
+localStorage.setItem(KEY, JSON.stringify(data.payload.main));
+localStorage.setItem(FAV_KEY, JSON.stringify(Array.isArray(data.payload.favorites) ? data.payload.favorites : []));
+localStorage.setItem(NOTIF_KEY, JSON.stringify(data.payload.notified && typeof data.payload.notified === 'object' ? data.payload.notified : {}));
+if (data.payload.roadmapView) localStorage.setItem(ROADMAP_VIEW_KEY, String(data.payload.roadmapView));
 try {
-var importedMain = d.payload.main || {};
+var importedMain = data.payload.main || {};
 if (typeof importedMain === 'object' && importedMain !== null) {
-if (!importedMain.lastBackupAt) importedMain.lastBackupAt = d.exportedAt || new Date().toISOString();
+if (!importedMain.lastBackupAt) importedMain.lastBackupAt = data.exportedAt || new Date().toISOString();
 localStorage.setItem(KEY, JSON.stringify(importedMain));
 }
 } catch (ePatch) {}
@@ -7940,8 +7930,14 @@ localStorage.setItem(KEY, JSON.stringify(importedMain));
 flashNote(tr('backup_err_storage'), 'var(--pink)', 'white');
 return;
 }
+var doneMsg = tr('backup_import_ok') + '\n\n' +
+'Dny: ' + bStats.totalDays +
+' | Váha: ' + bStats.weightDays +
+' | Míry: ' + bStats.measureDays +
+' | Energie: ' + bStats.energyDays +
+' | Jídla: ' + bStats.mealDays;
+flashNote(doneMsg, 'var(--green-neon)', '#0f172a');
 location.reload();
-}, tr('backup_import_ok'));
 }
 
 function setupIronCoreBackupImportInput() {
