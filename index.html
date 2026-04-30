@@ -2064,6 +2064,23 @@ border-color: rgba(57, 255, 20, 0.72);
 color: #bbf7d0;
 text-shadow: 0 0 10px rgba(57, 255, 20, 0.25);
 }
+.backup-auto-row {
+border-color: rgba(255, 45, 149, 0.42);
+background: linear-gradient(165deg, rgba(255, 45, 149, 0.11), rgba(15, 23, 42, 0.72));
+}
+.backup-auto-row.motion-on {
+border-color: rgba(255, 45, 149, 0.78);
+background: linear-gradient(165deg, rgba(255, 45, 149, 0.24), rgba(15, 23, 42, 0.78));
+box-shadow: 0 0 0 1px rgba(255, 45, 149, 0.22), 0 12px 20px rgba(255, 45, 149, 0.15);
+}
+.backup-auto-row input[type="checkbox"] {
+accent-color: #ff2d95;
+}
+.backup-auto-row.motion-on .motion-toggle-state {
+border-color: rgba(255, 45, 149, 0.8);
+color: #ffd1e8;
+text-shadow: 0 0 9px rgba(255, 45, 149, 0.35);
+}
 body.motion-lite *,
 body.motion-lite *::before,
 body.motion-lite *::after {
@@ -4277,6 +4294,21 @@ bottom: auto;
 <input type="file" id="backup-file-input" class="iron-backup-file-input" accept="application/json,.json,text/json,text/plain,*/*" title="JSON záloha Iron Core" onchange="window.handleIronCoreBackupFileChange(event)">
 <p id="backup-last-status" style="font-size:9px;color:#93c5fd;margin:10px 0 0;line-height:1.35;font-weight:800;" data-i18n="backup_last_never">Poslední záloha: zatím nikdy.</p>
 <p style="font-size:9px;color:#fca5a5;margin:8px 0 0;line-height:1.4;font-weight:800;" data-i18n="backup_uninstall_warn">Pozor: odinstalace appky smaže lokální data. Bez JSON zálohy je neobnovíš.</p>
+<label class="motion-toggle-row backup-auto-row" style="margin-top:10px;">
+<input type="checkbox" id="backup-auto-weekly" onchange="window.setBackupAutoWeekly(this.checked)">
+<span class="motion-toggle-text">
+<span data-i18n="backup_auto_weekly_label">Automatická pondělní záloha</span>
+<span class="motion-toggle-hint" data-i18n="backup_auto_weekly_hint">Když appku v pondělí otevřeš, vytvoří JSON zálohu sama.</span>
+<span id="backup-auto-weekly-state" class="motion-toggle-state">○ VYPNUTO</span>
+</span>
+</label>
+<label class="motion-toggle-row backup-auto-row" style="margin-top:8px;">
+<input type="checkbox" id="backup-overwrite-latest" onchange="window.setBackupOverwriteLatest(this.checked)">
+<span class="motion-toggle-text">
+<span data-i18n="backup_overwrite_label">Přepisovat poslední soubor (latest)</span>
+<span class="motion-toggle-hint" data-i18n="backup_overwrite_hint">Zapnuto: ukládá pořád iron-core-backup-latest.json. Vypnuto: vytváří historii dle data.</span>
+</span>
+</label>
 <div class="profile-hero-section-label" style="margin-top:14px;" data-i18n="pwa_card_title">Aplikace na ploše (PWA)</div>
 <p style="font-size:9px;color:var(--muted);margin:0;line-height:1.35;font-weight:700;" data-i18n="pwa_hint">Na mobilu použij v prohlížeči „Přidat na plochu“ / Install. Na PC ikonu instalace v adresním řádku. Vyžaduje otevření přes webový server (ne přímo soubor z disku).</p>
 </div>
@@ -4560,6 +4592,18 @@ backup_import_ok: 'Obnovit zálohu',
 backup_export_ok: 'Záloha stažena.',
 backup_last_never: 'Poslední záloha: zatím nikdy.',
 backup_last_at: 'Poslední záloha: {date}',
+backup_auto_weekly_label: 'Automatická pondělní záloha',
+backup_auto_weekly_hint: 'Když appku v pondělí otevřeš, vytvoří JSON zálohu sama.',
+backup_auto_weekly_on: '● AUTO PONDĚLÍ ZAPNUTO',
+backup_auto_weekly_off: '○ AUTO PONDĚLÍ VYPNUTO',
+backup_overwrite_label: 'Přepisovat poslední soubor (latest)',
+backup_overwrite_hint: 'Zapnuto: ukládá pořád iron-core-backup-latest.json. Vypnuto: vytváří historii dle data.',
+backup_auto_done: 'Automatická pondělní záloha vytvořena.',
+backup_auto_fail: 'Automatická pondělní záloha selhala. Zkus ruční export.',
+backup_auto_pref_on: 'Automatická pondělní záloha zapnuta.',
+backup_auto_pref_off: 'Automatická pondělní záloha vypnuta.',
+backup_overwrite_pref_on: 'Režim latest zapnut (přepis jednoho souboru).',
+backup_overwrite_pref_off: 'Režim historie zapnut (nové soubory).',
 backup_guard_warn: 'Data jsou jen lokálně v appce. Udělej zálohu JSON (aspoň 1x týdně), jinak při smazání appky o ně přijdeš.',
 backup_uninstall_warn: 'Pozor: odinstalace appky smaže lokální data. Bez JSON zálohy je neobnovíš.',
 modal_reset_backup_required: 'Před resetem nejdřív vytvoř JSON zálohu. Bez ní jsou data po resetu nenávratně pryč.',
@@ -4988,6 +5032,18 @@ backup_import_ok: 'Restore backup',
 backup_export_ok: 'Backup downloaded.',
 backup_last_never: 'Last backup: never.',
 backup_last_at: 'Last backup: {date}',
+backup_auto_weekly_label: 'Automatic Monday backup',
+backup_auto_weekly_hint: 'When you open the app on Monday, it creates a JSON backup automatically.',
+backup_auto_weekly_on: '● MONDAY AUTO BACKUP ON',
+backup_auto_weekly_off: '○ MONDAY AUTO BACKUP OFF',
+backup_overwrite_label: 'Overwrite latest file (latest)',
+backup_overwrite_hint: 'On: keeps writing iron-core-backup-latest.json. Off: creates dated history files.',
+backup_auto_done: 'Automatic Monday backup created.',
+backup_auto_fail: 'Automatic Monday backup failed. Try manual export.',
+backup_auto_pref_on: 'Automatic Monday backup enabled.',
+backup_auto_pref_off: 'Automatic Monday backup disabled.',
+backup_overwrite_pref_on: 'Latest mode enabled (overwrite one file).',
+backup_overwrite_pref_off: 'History mode enabled (new files).',
 backup_guard_warn: 'Data is local-only in the app. Create a JSON backup (at least weekly), otherwise uninstalling the app can erase it.',
 backup_uninstall_warn: 'Warning: uninstalling the app wipes local data. Without a JSON backup, recovery is not possible.',
 modal_reset_backup_required: 'Before reset, create a JSON backup first. Without it, data loss is permanent.',
@@ -5424,6 +5480,73 @@ var row = document.querySelector('.motion-toggle-row');
 var state = document.getElementById('motion-toggle-state');
 if (row) row.classList.toggle('motion-on', !!D.reduceMotion);
 if (state) state.textContent = D.reduceMotion ? tr('profile_motion_state_on') : tr('profile_motion_state_off');
+}
+function getIsoWeekKey(dt) {
+var date = new Date(dt || Date.now());
+date.setHours(0, 0, 0, 0);
+var day = date.getDay();
+var isoDay = day === 0 ? 7 : day;
+date.setDate(date.getDate() + (4 - isoDay));
+var yearStart = new Date(date.getFullYear(), 0, 1);
+var weekNo = Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
+return date.getFullYear() + '-W' + String(weekNo).padStart(2, '0');
+}
+function updateBackupPrefsUi() {
+var autoEl = document.getElementById('backup-auto-weekly');
+var overwriteEl = document.getElementById('backup-overwrite-latest');
+var autoState = document.getElementById('backup-auto-weekly-state');
+var autoOn = !!(D.backupPrefs && D.backupPrefs.autoWeekly);
+if (autoEl) autoEl.checked = autoOn;
+if (overwriteEl) overwriteEl.checked = !!(D.backupPrefs && D.backupPrefs.overwriteLatest);
+if (autoState) autoState.textContent = autoOn ? tr('backup_auto_weekly_on') : tr('backup_auto_weekly_off');
+var autoRow = autoEl ? autoEl.closest('.backup-auto-row') : null;
+if (autoRow) autoRow.classList.toggle('motion-on', autoOn);
+var overwriteRow = overwriteEl ? overwriteEl.closest('.backup-auto-row') : null;
+if (overwriteRow) overwriteRow.classList.toggle('motion-on', !!(D.backupPrefs && D.backupPrefs.overwriteLatest));
+}
+window.setBackupAutoWeekly = function(v) {
+if (typeof D === 'undefined' || !D) return;
+D.backupPrefs = (D.backupPrefs && typeof D.backupPrefs === 'object') ? D.backupPrefs : {};
+D.backupPrefs.autoWeekly = !!v;
+try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (e) {}
+updateBackupPrefsUi();
+flashNote(D.backupPrefs.autoWeekly ? tr('backup_auto_pref_on') : tr('backup_auto_pref_off'), '#ff2d95', 'white');
+if (D.backupPrefs.autoWeekly) {
+setTimeout(function() {
+try { runWeeklyAutoBackupCheck(); } catch (eAutoKick) {}
+}, 120);
+}
+};
+window.setBackupOverwriteLatest = function(v) {
+if (typeof D === 'undefined' || !D) return;
+D.backupPrefs = (D.backupPrefs && typeof D.backupPrefs === 'object') ? D.backupPrefs : {};
+D.backupPrefs.overwriteLatest = !!v;
+try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (e) {}
+updateBackupPrefsUi();
+flashNote(D.backupPrefs.overwriteLatest ? tr('backup_overwrite_pref_on') : tr('backup_overwrite_pref_off'), '#ff2d95', 'white');
+};
+function runWeeklyAutoBackupCheck() {
+try {
+if (!D || !D.backupPrefs || !D.backupPrefs.autoWeekly) return;
+if (!hasMeaningfulStoredData()) return;
+var now = new Date();
+if (now.getDay() !== 1) return;
+var weekKey = getIsoWeekKey(now);
+if (D.backupPrefs.lastAutoWeek === weekKey) return;
+var ok = window.exportIronCoreBackup({ auto: true, silent: true });
+if (!ok) return;
+D.backupPrefs.lastAutoWeek = weekKey;
+try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (eSaveAuto) {}
+flashNote(tr('backup_auto_done'), '#ff2d95', 'white');
+} catch (eAuto) {}
+}
+function setupBackupAutoWatchers() {
+if (window.__backupAutoWatchersBound) return;
+window.__backupAutoWatchersBound = true;
+window.addEventListener('focus', function() { runWeeklyAutoBackupCheck(); });
+document.addEventListener('visibilitychange', function() {
+if (document.visibilityState === 'visible') runWeeklyAutoBackupCheck();
+});
 }
 window.setMotionReduced = function(v) {
 if (typeof D === 'undefined' || !D) return;
@@ -6599,7 +6722,12 @@ lastLogDate: "",
 chartScrollK: null,
 chartScrollW: null,
 uiLang: 'cs',
-lastBackupAt: ''
+lastBackupAt: '',
+backupPrefs: {
+autoWeekly: false,
+overwriteLatest: false,
+lastAutoWeek: ''
+}
 };
 
 function toBool(v, fallback) {
@@ -6631,6 +6759,10 @@ D.bicepsRefCm = Number(D.bicepsRefCm) || 0;
 if (D.uiLang !== 'en' && D.uiLang !== 'cs') D.uiLang = 'cs';
 D.reduceMotion = toBool(D.reduceMotion, false);
 D.lastBackupAt = typeof D.lastBackupAt === 'string' ? D.lastBackupAt : '';
+D.backupPrefs = (D.backupPrefs && typeof D.backupPrefs === 'object') ? D.backupPrefs : {};
+D.backupPrefs.autoWeekly = toBool(D.backupPrefs.autoWeekly, false);
+D.backupPrefs.overwriteLatest = toBool(D.backupPrefs.overwriteLatest, false);
+D.backupPrefs.lastAutoWeek = typeof D.backupPrefs.lastAutoWeek === 'string' ? D.backupPrefs.lastAutoWeek : '';
 try {
 var storedHistStart = toDayKey(localStorage.getItem(HIST_START_KEY) || '');
 if (storedHistStart) window._histStartDate = storedHistStart;
@@ -7971,7 +8103,10 @@ return;
 }, true);
 }
 
-window.exportIronCoreBackup = function() {
+window.exportIronCoreBackup = function(opts) {
+opts = opts || {};
+var isAuto = !!opts.auto;
+var isSilent = !!opts.silent;
 try {
 var exportedAtIso = new Date().toISOString();
 var pack = {
@@ -7989,7 +8124,8 @@ roadmapView: (typeof window.currentView === 'string' ? window.currentView : null
 var blob = new Blob([JSON.stringify(pack, null, 2)], { type: 'application/json;charset=utf-8' });
 var a = document.createElement('a');
 a.href = URL.createObjectURL(blob);
-a.download = 'iron-core-backup-' + getD().replace(/-/g, '') + '.json';
+var useLatestFile = !!(D.backupPrefs && D.backupPrefs.overwriteLatest);
+a.download = useLatestFile ? 'iron-core-backup-latest.json' : ('iron-core-backup-' + getD().replace(/-/g, '') + '.json');
 document.body.appendChild(a);
 a.click();
 document.body.removeChild(a);
@@ -7997,9 +8133,11 @@ URL.revokeObjectURL(a.href);
 D.lastBackupAt = exportedAtIso;
 try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (eS) {}
 updateBackupStatusUi();
-flashNote(tr('backup_export_ok'), 'var(--green-neon)', '#0f172a');
+if (!isSilent) flashNote(tr(isAuto ? 'backup_auto_done' : 'backup_export_ok'), isAuto ? '#ff2d95' : 'var(--green-neon)', isAuto ? 'white' : '#0f172a');
+return true;
 } catch (e) {
-flashNote(tr('backup_err_export'), 'var(--pink)', 'white');
+if (!isSilent) flashNote(tr(isAuto ? 'backup_auto_fail' : 'backup_err_export'), 'var(--pink)', 'white');
+return false;
 }
 };
 
@@ -8230,10 +8368,12 @@ return d.toLocaleString(getUiLang() === 'en' ? 'en-US' : 'cs-CZ');
 
 function updateBackupStatusUi() {
 var el = document.getElementById('backup-last-status');
-if (!el) return;
 var dt = formatBackupDateTime(D.lastBackupAt || '');
+if (el) {
 if (dt) el.textContent = tr('backup_last_at', { date: dt });
 else el.textContent = tr('backup_last_never');
+}
+updateBackupPrefsUi();
 }
 
 function hasMeaningfulStoredData() {
@@ -11466,6 +11606,7 @@ function bootApp() {
 try {
 setupIronCoreBackupImportInput();
 setupCriticalButtonGuards();
+setupBackupAutoWatchers();
 var skipOnboardingOnce = false;
 try { skipOnboardingOnce = localStorage.getItem(ONBOARDING_SKIP_ONCE_KEY) === '1'; } catch (eSkipRead) {}
 if (skipOnboardingOnce) {
@@ -11475,6 +11616,9 @@ try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (eSkipSave) {}
 }
 applyI18n();
 render();
+setTimeout(function() {
+try { runWeeklyAutoBackupCheck(); } catch (eAutoBoot) {}
+}, 220);
 if (!D.onboardingDone) startFirstLaunchExperience();
 } catch (eBoot) {}
 }
