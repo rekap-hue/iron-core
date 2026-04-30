@@ -4149,7 +4149,7 @@ bottom: auto;
 <button type="button" onclick="window.exportIronCoreBackup()" class="btn btn-outline" style="flex:1;min-width:132px;border-color:rgba(52,211,153,0.65);color:#6ee7b7;font-weight:900;padding:11px;font-size:11px;" data-i18n="backup_export">Stáhnout zálohu (JSON)</button>
 <label for="backup-file-input" class="btn btn-outline" style="flex:1;min-width:132px;border-color:rgba(251,191,36,0.65);color:#fcd34d;font-weight:900;padding:11px;font-size:11px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;margin:0;box-sizing:border-box;" data-i18n="backup_import">Nahrát zálohu…</label>
 </div>
-<input type="file" id="backup-file-input" class="iron-backup-file-input" accept="application/json,.json,text/json,text/plain,*/*" title="JSON záloha Iron Core">
+<input type="file" id="backup-file-input" class="iron-backup-file-input" accept="application/json,.json,text/json,text/plain,*/*" title="JSON záloha Iron Core" onchange="window.handleIronCoreBackupFileChange(event)">
 <p id="backup-last-status" style="font-size:9px;color:#93c5fd;margin:10px 0 0;line-height:1.35;font-weight:800;" data-i18n="backup_last_never">Poslední záloha: zatím nikdy.</p>
 <p style="font-size:9px;color:#fca5a5;margin:8px 0 0;line-height:1.4;font-weight:800;" data-i18n="backup_uninstall_warn">Pozor: odinstalace appky smaže lokální data. Bez JSON zálohy je neobnovíš.</p>
 <div class="profile-hero-section-label" style="margin-top:14px;" data-i18n="pwa_card_title">Aplikace na ploše (PWA)</div>
@@ -7782,11 +7782,11 @@ flashNote(tr('flash_sensitive_clear_failed'), 'var(--red)', 'white');
 }, tr("btn_modal_delete")); };
 window.askReset = function() {
 var backupAt = formatBackupDateTime(D.lastBackupAt || '');
-if (!backupAt) {
-openModal(tr("modal_reset_backup_required"), function() {}, 'OK');
-return;
-}
-openModal(tr("modal_reset_all_q") + '\n\n' + tr('modal_reset_backup_guard', { date: backupAt }), function() { try {
+var guardText = backupAt
+? (tr("modal_reset_all_q") + '\n\n' + tr('modal_reset_backup_guard', { date: backupAt }))
+: (tr("modal_reset_all_q") + '\n\n' + tr("modal_reset_backup_required"));
+if (!window.confirm(guardText)) return;
+try {
 localStorage.removeItem(KEY);
 LEGACY_DATA_KEYS.forEach(function(k) { localStorage.removeItem(k); });
 localStorage.removeItem(NOTIF_KEY);
@@ -7797,7 +7797,8 @@ var rk = localStorage.key(ri);
 if (!rk) continue;
 if (/^(IRON_CORE|KETO_MASTER|MISSION_TRACKER)/.test(rk)) localStorage.removeItem(rk);
 }
-} catch(e) {} location.reload(); }, tr("btn_modal_delete"));
+} catch(e) {}
+location.reload();
 };
 
 window.exportIronCoreBackup = function() {
@@ -7961,6 +7962,10 @@ var inp = document.getElementById('backup-file-input');
 if (!inp || inp.getAttribute('data-iron-bound') === '1') return;
 inp.setAttribute('data-iron-bound', '1');
 inp.addEventListener('change', function(ev) {
+window.handleIronCoreBackupFileChange(ev);
+});
+}
+window.handleIronCoreBackupFileChange = function(ev) {
 var f = ev.target.files && ev.target.files[0];
 ev.target.value = '';
 if (!f) return;
@@ -7979,8 +7984,7 @@ flashNote(tr('backup_err_invalid'), 'var(--pink)', 'white');
 }
 };
 reader.readAsText(f, 'UTF-8');
-});
-}
+};
 
 function formatBackupDateTime(iso) {
 try {
