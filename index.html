@@ -619,6 +619,7 @@ background: rgba(2, 6, 23, 0.82);
 backdrop-filter: blur(8px);
 -webkit-backdrop-filter: blur(8px);
 }
+#mission-briefing-overlay[aria-hidden="true"] { display: none !important; pointer-events: none !important; }
 #mission-briefing-overlay.is-open { display: flex; align-items: center; justify-content: center; }
 .mission-briefing-panel {
 width: min(420px, 100%);
@@ -1874,6 +1875,7 @@ backdrop-filter: blur(5px);
 -webkit-overflow-scrolling: touch;
 overflow-y: auto;
 }
+#modal-overlay[aria-hidden="true"] { display: none !important; pointer-events: none !important; }
 .modal-box {
 position: relative;
 background: var(--card); border: 2px solid var(--gold); border-radius: 22px;
@@ -3443,6 +3445,7 @@ display: none;
 background: transparent;
 backdrop-filter: none;
 }
+.awakening-overlay[aria-hidden="true"] { display: none !important; pointer-events: none !important; }
 .awakening-overlay.is-on { display: block; }
 .awakening-spotlight {
 position: fixed;
@@ -4260,7 +4263,7 @@ bottom: auto;
 <p style="font-size:9px;color:var(--muted);margin:6px 0 0;line-height:1.45;font-weight:600;" data-i18n="hint_clear_sensitive">Profil, biometrie, InBody a případný lokální AI klíč. Zůstane historie dnů a většina nastavení — není to úplný reset.</p>
 <button onclick="window.exportIronCoreAnonymizedBackup()" class="btn btn-outline" style="margin-top:14px;border-color:rgba(125,211,252,0.7);color:#bae6fd;" data-i18n="btn_export_anonymized">Export anonymní zálohy</button>
 <p style="font-size:9px;color:var(--muted);margin:6px 0 0;line-height:1.45;font-weight:600;" data-i18n="hint_export_anonymized">JSON bez osobních údajů — vhodné k sdílení struktury nebo archivaci bez měření a identity.</p>
-<button onclick="window.askReset()" class="btn btn-outline" style="margin-top:16px;border-color:rgba(248,113,113,0.85);color:#fecaca;background:rgba(127,29,29,0.12);" data-i18n="btn_reset_data">Reset Dat ⚠</button>
+<button type="button" onclick="if(event){event.preventDefault();event.stopPropagation();} window.askReset(); return false;" class="btn btn-outline" style="margin-top:16px;border-color:rgba(248,113,113,0.85);color:#fecaca;background:rgba(127,29,29,0.12);" data-i18n="btn_reset_data">Reset Dat ⚠</button>
 <p style="font-size:9px;color:#fca5a5;margin:6px 0 0;line-height:1.45;font-weight:700;" data-i18n="hint_reset_data">Tovární reset: smaže vše v této aplikaci v prohlížeči/zařízení. Jako čistá instalace — bez obnovy.</p>
 </div>
 </div>
@@ -4269,6 +4272,22 @@ bottom: auto;
 var KEY = 'IRON_CORE_DATA_V95_4_2';
 var IRON_BACKUP_FORMAT = 'iron-core-backup';
 var LEGACY_DATA_KEYS = ['KETO_MASTER_V92_2'];
+function hardResetAllStorageNow() {
+try { localStorage.clear(); } catch (eLs) {}
+try { sessionStorage.clear(); } catch (eSs) {}
+}
+(function runHardResetFromQuery() {
+try {
+var qs = (location && location.search) ? String(location.search) : '';
+if (!/[?&]hardreset=/.test(qs)) return;
+hardResetAllStorageNow();
+try {
+if (window.history && typeof window.history.replaceState === 'function') {
+window.history.replaceState(null, document.title, '/index.html');
+}
+} catch (eHist) {}
+} catch (eQr) {}
+})();
 (function migrateStorageFromLegacy() {
 try {
 if (localStorage.getItem(KEY)) return;
@@ -4537,6 +4556,7 @@ aw_legal_body: '&gt; 1. GDPR (zjednodušeně): Údaje zadávané do aplikace zpr
 aw_legal_support: '<strong>KONTAKT A PODPORA:</strong> E-mail: <a href="mailto:support@example.com" style="color:#93c5fd;text-decoration:underline">support@example.com</a> · Web: <a href="https://example.com" style="color:#93c5fd;text-decoration:underline" target="_blank" rel="noopener noreferrer">example.com</a>',
 aw_legal_hint_scroll: 'Pro pokračování sjeďte právní text až dolů.',
 aw_legal_hint_done: 'Právní text potvrzen. Můžete pokračovat.',
+aw_import_backup: 'Nahrát ze zálohy',
 flash_sensitive_cleared: 'Citlivá data byla smazána.',
 flash_sensitive_clear_failed: 'Mazání citlivých dat selhalo.',
 flash_anonymized_export_ok: 'Anonymní záloha stažena.',
@@ -4964,6 +4984,7 @@ aw_legal_body: '&gt; 1. GDPR (summary): Data you enter is processed on your brow
 aw_legal_support: '<strong>CONTACT & SUPPORT:</strong> Email: <a href="mailto:support@example.com" style="color:#93c5fd;text-decoration:underline">support@example.com</a> · Web: <a href="https://example.com" style="color:#93c5fd;text-decoration:underline" target="_blank" rel="noopener noreferrer">example.com</a>',
 aw_legal_hint_scroll: 'To continue, scroll the legal text to the bottom.',
 aw_legal_hint_done: 'Legal text confirmed. You can continue.',
+aw_import_backup: 'Load from backup',
 flash_sensitive_cleared: 'Sensitive data has been cleared.',
 flash_sensitive_clear_failed: 'Clearing sensitive data failed.',
 flash_anonymized_export_ok: 'Anonymized backup downloaded.',
@@ -5344,6 +5365,7 @@ var FAV_KEY = 'MISSION_TRACKER_FAVORITES';
 var NOTIF_KEY = 'MISSION_TRACKER_NOTIFIED';
 var HIST_START_KEY = 'IRON_CORE_HIST_START_DATE';
 var BACKUP_WARN_DAY_KEY = 'IRON_CORE_BACKUP_WARN_DAY';
+var ONBOARDING_SKIP_ONCE_KEY = 'IRON_CORE_SKIP_ONBOARDING_ONCE';
 var MY_FAVORITES = JSON.parse(localStorage.getItem(FAV_KEY)) || [];
 var FAV_DRAG_INDEX = -1;
 var modalCallback = null;
@@ -5645,8 +5667,9 @@ tr('aw_legal_body') + '<br><br>' + tr('aw_legal_support') +
 '</div>' +
 '<div id="aw-legal-hint" style="margin-top:6px;font-size:9px;font-weight:800;color:#fca5a5;">' + tr('aw_legal_hint_scroll') + '</div>' +
 '</div>' +
-'<div class="awakening-actions"><button id="aw-next" class="awakening-btn">Souhlasím a pokračovat</button></div>';
+'<div class="awakening-actions"><button type="button" id="aw-import-backup" class="awakening-btn secondary">' + tr('aw_import_backup') + '</button><button type="button" id="aw-next" class="awakening-btn">Souhlasím a pokračovat</button></div>';
 var n = document.getElementById('aw-next');
+var importBtn = document.getElementById('aw-import-backup');
 var legalBox = document.getElementById('aw-legal-scroll');
 var legalHint = document.getElementById('aw-legal-hint');
 if (n) { n.dataset.locked = '1'; n.classList.add('is-locked'); n.style.opacity = '0.75'; n.style.cursor = 'not-allowed'; n.setAttribute('aria-disabled', 'true'); }
@@ -5687,6 +5710,11 @@ D.age = age; D.height = height; D.start = weight; D.final = goalWeight; D.gender
 syncProfileCardTheme();
 sync();
 idx += 1; renderStep();
+};
+if (importBtn) importBtn.onclick = function() {
+if (window.event) { try { window.event.preventDefault(); window.event.stopPropagation(); } catch (eEv) {} }
+window.triggerIronCoreBackupImport();
+return false;
 };
 return;
 }
@@ -7781,31 +7809,36 @@ flashNote(tr('flash_sensitive_clear_failed'), 'var(--red)', 'white');
 }
 }, tr("btn_modal_delete")); };
 window.askReset = function() {
-var backupAt = formatBackupDateTime(D.lastBackupAt || '');
-var now = Date.now();
-if (!window.__resetArmTs || (now - window.__resetArmTs) > 7000) {
-window.__resetArmTs = now;
-var armMsg = backupAt
-? ('⚠ ' + tr("modal_reset_backup_guard", { date: backupAt }) + '\n\nKlepni znovu na "Reset Dat ⚠" do 7 sekund pro potvrzení.')
-: ('⚠ ' + tr("modal_reset_backup_required") + '\n\nKlepni znovu na "Reset Dat ⚠" do 7 sekund pro potvrzení.');
-flashNote(armMsg, 'var(--red)', 'white');
+var ok = false;
+try { ok = !!window.confirm('Opravdu smazat kompletní data a návrat do továrního nastavení?'); } catch (eConfirm) { ok = true; }
+if (!ok) return;
+hardResetAllStorageNow();
+location.replace('/index.html?hardreset=' + Date.now());
+};
+function setupCriticalButtonGuards() {
+if (window.__ironCriticalBtnGuardsBound) return;
+window.__ironCriticalBtnGuardsBound = true;
+document.addEventListener('click', function(ev) {
+try {
+var resetBtn = ev.target && ev.target.closest ? ev.target.closest('[data-i18n="btn_reset_data"]') : null;
+if (resetBtn) {
+ev.preventDefault();
+ev.stopPropagation();
+if (typeof ev.stopImmediatePropagation === 'function') ev.stopImmediatePropagation();
+window.askReset();
 return;
 }
-window.__resetArmTs = 0;
-try {
-localStorage.removeItem(KEY);
-LEGACY_DATA_KEYS.forEach(function(k) { localStorage.removeItem(k); });
-localStorage.removeItem(NOTIF_KEY);
-localStorage.removeItem(FAV_KEY);
-localStorage.removeItem(ROADMAP_VIEW_KEY);
-for (var ri = localStorage.length - 1; ri >= 0; ri--) {
-var rk = localStorage.key(ri);
-if (!rk) continue;
-if (/^(IRON_CORE|KETO_MASTER|MISSION_TRACKER)/.test(rk)) localStorage.removeItem(rk);
+var importBtn = ev.target && ev.target.closest ? ev.target.closest('#aw-import-backup') : null;
+if (importBtn) {
+ev.preventDefault();
+ev.stopPropagation();
+if (typeof ev.stopImmediatePropagation === 'function') ev.stopImmediatePropagation();
+window.triggerIronCoreBackupImport();
+return;
 }
-} catch(e) {}
-location.reload();
-};
+} catch (eGuard) {}
+}, true);
+}
 
 window.exportIronCoreBackup = function() {
 try {
@@ -7900,6 +7933,8 @@ flashNote(tr('backup_err_export'), 'var(--pink)', 'white');
 
 window.triggerIronCoreBackupImport = function() {
 var inp = document.getElementById('backup-file-input');
+window.__ironBackupImportPickTs = Date.now();
+try { localStorage.setItem(ONBOARDING_SKIP_ONCE_KEY, '1'); } catch (eSkip) {}
 if (inp) inp.click();
 };
 
@@ -7908,6 +7943,12 @@ if (!raw || typeof raw !== 'object') return null;
 if (raw.format === IRON_BACKUP_FORMAT && raw.payload && typeof raw.payload.main === 'object' && raw.payload.main !== null) return raw;
 if (!raw.format && raw.payload && typeof raw.payload.main === 'object' && raw.payload.main !== null) {
 return { format: IRON_BACKUP_FORMAT, version: raw.version || 1, exportedAt: raw.exportedAt, payload: raw.payload };
+}
+if (raw.main && typeof raw.main === 'object') {
+return { format: IRON_BACKUP_FORMAT, version: raw.version || 1, exportedAt: raw.exportedAt, payload: { main: raw.main, favorites: raw.favorites || [], notified: raw.notified || {}, roadmapView: raw.roadmapView || 'day' } };
+}
+if (raw.days && typeof raw.days === 'object') {
+return { format: IRON_BACKUP_FORMAT, version: raw.version || 1, exportedAt: raw.exportedAt, payload: { main: raw, favorites: raw.favorites || [], notified: raw.notified || {}, roadmapView: raw.roadmapView || 'day' } };
 }
 return null;
 }
@@ -7946,7 +7987,9 @@ try {
 var importedMain = data.payload.main || {};
 if (typeof importedMain === 'object' && importedMain !== null) {
 if (!importedMain.lastBackupAt) importedMain.lastBackupAt = data.exportedAt || new Date().toISOString();
+importedMain.onboardingDone = true;
 localStorage.setItem(KEY, JSON.stringify(importedMain));
+try { localStorage.removeItem(ONBOARDING_SKIP_ONCE_KEY); } catch (eSkipDone) {}
 }
 } catch (ePatch) {}
 } catch (e2) {
@@ -7960,7 +8003,32 @@ var doneMsg = tr('backup_import_ok') + '\n\n' +
 ' | Energie: ' + bStats.energyDays +
 ' | Jídla: ' + bStats.mealDays;
 flashNote(doneMsg, 'var(--green-neon)', '#0f172a');
-location.reload();
+try {
+MY_FAVORITES = JSON.parse(localStorage.getItem(FAV_KEY) || '[]');
+NOTIFIED = JSON.parse(localStorage.getItem(NOTIF_KEY) || '{}');
+} catch (eReloadMem) {
+MY_FAVORITES = [];
+NOTIFIED = {};
+}
+try {
+D = JSON.parse(localStorage.getItem(KEY)) || JSON.parse(JSON.stringify(DEFAULTS));
+} catch (eReloadData) {
+D = JSON.parse(JSON.stringify(DEFAULTS));
+}
+D.days = migrateDaysData(D.days || {});
+D.lastLogDate = toDayKey(D.lastLogDate) || getD();
+D.logs = (ensureDay(getD()).mealEntries || []).slice();
+D.onboardingDone = true;
+try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (ePersistImported) {}
+try {
+var aw = document.getElementById('awakening-overlay');
+if (aw) { aw.classList.remove('is-on'); aw.setAttribute('aria-hidden', 'true'); }
+window.__awakeningFlowRunning = false;
+} catch (eAw) {}
+updateBackupStatusUi();
+applyI18n();
+render();
+try { window.scrollTo({ top: 0, left: 0, behavior: 'smooth' }); } catch (eTop) { try { window.scrollTo(0, 0); } catch(eTop2) {} }
 }
 
 function setupIronCoreBackupImportInput() {
@@ -7972,21 +8040,49 @@ window.handleIronCoreBackupFileChange(ev);
 });
 }
 window.handleIronCoreBackupFileChange = function(ev) {
+window.__ironBackupImportPickTs = 0;
 var f = ev.target.files && ev.target.files[0];
 ev.target.value = '';
 if (!f) return;
+flashNote('Načítám zálohu: ' + f.name + ' (' + Math.round((f.size || 0) / 1024) + ' KB)', 'var(--gold)', '#0f172a');
 var reader = new FileReader();
 reader.onerror = function() {
 flashNote(tr('backup_err_read'), 'var(--pink)', 'white');
 };
+function parseBackupJsonText(rawText) {
+if (typeof rawText !== 'string') throw new Error('Backup file is not text');
+var text = rawText;
+if (text.charCodeAt(0) === 0xfeff) text = text.slice(1);
+var trimmed = text.trim();
+if (!trimmed) throw new Error('Backup file is empty');
+var fenceMatch = trimmed.match(/^```(?:json)?\s*([\s\S]*?)\s*```$/i);
+if (fenceMatch && fenceMatch[1]) trimmed = fenceMatch[1].trim();
+var parsed = null;
+try {
+parsed = JSON.parse(trimmed);
+} catch (ePrimary) {
+var firstBrace = trimmed.indexOf('{');
+var lastBrace = trimmed.lastIndexOf('}');
+if (firstBrace >= 0 && lastBrace > firstBrace) {
+var sliced = trimmed.slice(firstBrace, lastBrace + 1);
+parsed = JSON.parse(sliced);
+} else {
+throw ePrimary;
+}
+}
+if (typeof parsed === 'string') {
+var nested = parsed.trim();
+if (nested) parsed = JSON.parse(nested);
+}
+return parsed;
+}
 reader.onload = function() {
 try {
-var text = reader.result;
-if (typeof text === 'string' && text.charCodeAt(0) === 0xfeff) text = text.slice(1);
-var data = JSON.parse(text);
+var data = parseBackupJsonText(reader.result);
 applyIronCoreBackupParsed(data);
 } catch (e) {
-flashNote(tr('backup_err_invalid'), 'var(--pink)', 'white');
+var msg = tr('backup_err_invalid') + (e && e.message ? (': ' + e.message) : '');
+flashNote(msg, 'var(--pink)', 'white');
 }
 };
 reader.readAsText(f, 'UTF-8');
@@ -11238,6 +11334,14 @@ pruneMissionBriefingData();
 function bootApp() {
 try {
 setupIronCoreBackupImportInput();
+setupCriticalButtonGuards();
+var skipOnboardingOnce = false;
+try { skipOnboardingOnce = localStorage.getItem(ONBOARDING_SKIP_ONCE_KEY) === '1'; } catch (eSkipRead) {}
+if (skipOnboardingOnce) {
+D.onboardingDone = true;
+try { localStorage.removeItem(ONBOARDING_SKIP_ONCE_KEY); } catch (eSkipRm) {}
+try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (eSkipSave) {}
+}
 applyI18n();
 render();
 if (!D.onboardingDone) startFirstLaunchExperience();
