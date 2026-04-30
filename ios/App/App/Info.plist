@@ -25,9 +25,15 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSHealthShareUsageDescription</key>
-	<string>IRON CORE reads your active energy to auto-log movement calories.</string>
+	<string>IRON CORE reads active energy to auto-log movement calories and body mass from Health (e.g. smart scales) to log weight in your roadmap.</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>IRON CORE can write movement entries only when you trigger sync.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>IRON CORE uses the camera so you can photograph meals for AI macro and calorie estimation.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>IRON CORE accesses your photos so you can select meal images for AI macro and calorie estimation.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>IRON CORE may save generated meal snapshots when you explicitly choose to store them.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

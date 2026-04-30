@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="IRON CORE">
@@ -41,7 +41,7 @@
 --neon-blood: #b91c1c;
 --neon-blood-bright: #f87171;
 --neon-blood-deep: #450a0a;
---pink: #ec4899;
+--pink: #f725c1;
 --macro-p: var(--accent);
 --text: #f8fafc;
 --muted: #94a3b8;
@@ -86,7 +86,7 @@ backdrop-filter: blur(14px);
 .app-bottom-bar-inner {
 max-width: 500px;
 margin: 0 auto;
-padding: 6px 10px 8px;
+padding: 6px max(10px, env(safe-area-inset-right, 0px)) 8px max(10px, env(safe-area-inset-left, 0px));
 display: flex;
 align-items: stretch;
 gap: 8px;
@@ -130,9 +130,10 @@ overflow-x: auto;
 overscroll-behavior-x: contain;
 scrollbar-width: none;
 pointer-events: auto;
-padding: 2px 2px 2px 0;
-mask-image: linear-gradient(90deg, #000 92%, transparent 100%);
--webkit-mask-image: linear-gradient(90deg, #000 92%, transparent 100%);
+padding: 2px max(8px, env(safe-area-inset-right, 0px)) 2px 0;
+scroll-padding-right: max(10px, env(safe-area-inset-right, 0px));
+mask-image: none;
+-webkit-mask-image: none;
 }
 .app-bottom-bar-scroll::-webkit-scrollbar { display: none; height: 0; width: 0; }
 .app-bottom-bar-sect {
@@ -179,17 +180,6 @@ text-shadow: 0 0 10px rgba(57, 255, 20, 0.28), 0 1px 2px rgba(0, 0, 0, 0.7);
 }
 /* META 100 — stejný odstín jako oranžová meta ve váze (mCols #f97316) */
 .app-bottom-bar-sect--mission {
-border-color: rgba(249, 115, 22, 0.62);
-background: linear-gradient(165deg, rgba(249, 115, 22, 0.34), rgba(15, 23, 42, 0.9));
-color: #fff7ed;
-box-shadow:
-0 4px 18px rgba(249, 115, 22, 0.22),
-0 4px 14px rgba(0, 0, 0, 0.45),
-inset 0 1px 0 rgba(255, 255, 255, 0.14),
-inset 0 -1px 0 rgba(0, 0, 0, 0.28);
-text-shadow: 0 0 12px rgba(249, 115, 22, 0.45), 0 1px 2px rgba(0, 0, 0, 0.72);
-}
-.app-bottom-bar-sect--zapis {
 border-color: rgba(34, 211, 238, 0.48);
 background: linear-gradient(165deg, rgba(34, 211, 238, 0.22), rgba(15, 23, 42, 0.9));
 color: #ecfeff;
@@ -199,6 +189,18 @@ box-shadow:
 inset 0 1px 0 rgba(255, 255, 255, 0.12),
 inset 0 -1px 0 rgba(0, 0, 0, 0.25);
 text-shadow: 0 0 10px rgba(34, 211, 238, 0.28), 0 1px 2px rgba(0, 0, 0, 0.7);
+}
+.app-bottom-bar-sect--zapis {
+border-color: rgba(251, 191, 36, 0.72);
+background: linear-gradient(165deg, rgba(251, 191, 36, 0.36), rgba(249, 115, 22, 0.28) 42%, rgba(15, 23, 42, 0.9));
+color: #fff7d6;
+box-shadow:
+0 4px 18px rgba(251, 191, 36, 0.28),
+0 0 16px rgba(249, 115, 22, 0.2),
+0 4px 14px rgba(0, 0, 0, 0.45),
+inset 0 1px 0 rgba(255, 255, 255, 0.16),
+inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+text-shadow: 0 0 12px rgba(251, 191, 36, 0.48), 0 0 18px rgba(249, 115, 22, 0.3), 0 1px 2px rgba(0, 0, 0, 0.7);
 }
 .app-bottom-bar-sect--profil {
 border-color: rgba(167, 139, 250, 0.52);
@@ -1778,8 +1780,8 @@ border-radius: 10px;
 .fat-barometer-sub { font-size: 6px; margin-top: 1px; }
 }
 .motor-box {
-background: rgba(236, 72, 153, 0.12);
-border: 1px solid rgba(236, 72, 153, 0.55);
+background: rgba(247, 37, 193, 0.16);
+border: 1px solid rgba(247, 37, 193, 0.7);
 padding: 14px;
 border-radius: 14px;
 font-size: 12px;
@@ -1787,7 +1789,7 @@ font-weight: 800;
 color: var(--pink);
 text-align: center;
 margin-bottom: 18px;
-text-shadow: 0 0 12px rgba(236, 72, 153, 0.25);
+text-shadow: 0 0 14px rgba(247, 37, 193, 0.34);
 }
 .toggle-btn.toggle-food-manual {
 border-color: var(--gold);
@@ -1800,14 +1802,14 @@ line-height: 1.2; margin-top: 2px; padding: 0 2px;
 }
 .graph-controls { display: flex; gap: 8px; margin-bottom: 15px; }
 .btn-ctrl {
-flex: 1; padding: 10px; border-radius: 12px; background: rgba(236, 72, 153, 0.05);
-border: 1px solid rgba(236, 72, 153, 0.4); color: var(--pink); font-size: 10px; font-weight: 900;
+flex: 1; padding: 10px; border-radius: 12px; background: rgba(247, 37, 193, 0.08);
+border: 1px solid rgba(247, 37, 193, 0.52); color: var(--pink); font-size: 10px; font-weight: 900;
 text-transform: uppercase; cursor: pointer; backdrop-filter: blur(8px);
 transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 .btn-ctrl.active {
-background: rgba(236, 72, 153, 0.2); border-color: var(--pink); color: white;
-box-shadow: 0 0 15px rgba(236, 72, 153, 0.4);
+background: rgba(247, 37, 193, 0.26); border-color: var(--pink); color: white;
+box-shadow: 0 0 18px rgba(247, 37, 193, 0.5);
 }
 input, textarea, select {
 background: linear-gradient(165deg, rgba(30, 41, 59, 0.45) 0%, #0f172a 55%, #0c1222 100%);
@@ -2062,19 +2064,82 @@ body.motion-lite *::after {
 animation: none !important;
 transition: none !important;
 }
+/* Battery saver: pause heavy infinite effects outside viewport sections. */
+.anim-offscreen .macro-bubble,
+.anim-offscreen .intake-spark,
+.anim-offscreen .chart-line-sheen,
+.anim-offscreen .roadmap-gauge-needle-wobble,
+.anim-offscreen .roadmap-mini-shell::before,
+.anim-offscreen .roadmap-mini-fill::before,
+.anim-offscreen .roadmap-mini-fill::after,
+.anim-offscreen .roadmap-mini-val--bad,
+.anim-offscreen .roadmap-mini-val--zone-mid,
+.anim-offscreen .roadmap-mini-val--zone-warn,
+.anim-offscreen .roadmap-mini-val--gauge-arc-danger,
+.anim-offscreen .star-3d,
+.anim-offscreen .mini-star {
+animation: none !important;
+}
 details.profile-details-advanced[open] > .profile-details-summary {
 color: #cbd5e1;
 border-bottom: 1px solid rgba(51, 65, 85, 0.55);
 margin-bottom: 0;
 }
+.profile-details-legal {
+border-color: rgba(127, 29, 29, 0.55);
+background: rgba(127, 29, 29, 0.08);
+margin-top: 12px;
+}
+.profile-details-legal > .profile-details-summary {
+color: #fecaca;
+}
+details.profile-details-legal[open] > .profile-details-summary {
+color: #fecdd3;
+border-bottom: 1px solid rgba(127, 29, 29, 0.45);
+}
+.profile-legal-consent {
+margin: 0 0 10px;
+padding: 9px 10px;
+border: 1px solid rgba(127, 29, 29, 0.78);
+border-radius: 10px;
+background: rgba(127, 29, 29, 0.22);
+color: #fecaca;
+font-size: 10px;
+line-height: 1.45;
+font-weight: 800;
+}
+.profile-legal-scroll {
+max-height: 240px;
+overflow: auto;
+border: 1px solid rgba(51, 65, 85, 0.95);
+border-radius: 8px;
+background: #111827;
+color: #e5e7eb;
+padding: 8px 9px;
+font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+font-size: 10px;
+line-height: 1.55;
+white-space: normal;
+}
+.profile-legal-support {
+margin-top: 10px;
+padding: 8px 9px;
+border: 1px solid rgba(51, 65, 85, 0.95);
+border-radius: 8px;
+background: #0f172a;
+color: #e5e7eb;
+font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+font-size: 10px;
+line-height: 1.55;
+}
 .toggle-btn.toggle-measure {
-border: 2px solid var(--orange);
-background: rgba(245, 158, 11, 0.12);
-color: #fdba74;
-text-shadow: 0 0 14px rgba(249, 115, 22, 0.5);
+border: 2px solid #f725c1;
+background: rgba(247, 37, 193, 0.2);
+color: #ffd2f2;
+text-shadow: 0 0 16px rgba(247, 37, 193, 0.72);
 box-shadow:
-0 8px 20px rgba(249, 115, 22, 0.18),
-0 0 26px rgba(249, 115, 22, 0.15),
+0 8px 22px rgba(247, 37, 193, 0.28),
+0 0 30px rgba(247, 37, 193, 0.3),
 inset 0 1px 0 rgba(255,255,255,0.05);
 }
 .toggle-content { display: none; }
@@ -2287,6 +2352,35 @@ opacity: 0.85;
 margin-top: 6px;
 color: rgba(226, 252, 220, 0.95);
 }
+.intake-hero-orb-ai {
+width: min(176px, 62vw);
+height: min(176px, 62vw);
+max-width: 188px;
+max-height: 188px;
+margin-top: 10px;
+border-color: rgba(251, 191, 36, 0.8);
+background: radial-gradient(circle at 32% 22%, rgba(255, 255, 255, 0.22), transparent 42%), linear-gradient(155deg, rgba(251, 191, 36, 0.4), rgba(249, 115, 22, 0.28) 42%, rgba(15, 23, 42, 0.94));
+box-shadow:
+0 0 0 1px rgba(251, 191, 36, 0.32),
+0 0 34px rgba(251, 191, 36, 0.5),
+0 0 66px rgba(249, 115, 22, 0.22),
+inset 0 2px 14px rgba(255, 255, 255, 0.1);
+color: #fde68a;
+}
+.intake-hero-orb-ai:hover {
+box-shadow:
+0 0 0 1px rgba(251, 191, 36, 0.5),
+0 0 44px rgba(251, 191, 36, 0.62),
+0 0 86px rgba(249, 115, 22, 0.28),
+inset 0 2px 14px rgba(255, 255, 255, 0.14);
+}
+.intake-hero-orb-ai .burn-hero-orb-text {
+font-size: 12px;
+text-shadow: 0 0 24px rgba(251, 191, 36, 0.64), 0 0 10px rgba(249, 115, 22, 0.35);
+}
+.intake-hero-orb-ai .burn-hero-orb-sub {
+color: rgba(255, 245, 210, 0.95);
+}
 .intake-hero-card {
 border: 1px solid rgba(51, 65, 85, 0.95);
 border-radius: 22px;
@@ -2451,6 +2545,35 @@ text-shadow: none;
 filter: brightness(1.06);
 box-shadow: 0 0 34px rgba(249, 115, 22, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.09);
 }
+.intake-hero-pill--ai-quick {
+position: relative;
+overflow: hidden;
+isolation: isolate;
+display: flex;
+align-items: center;
+justify-content: center;
+margin-top: 8px;
+border-radius: 999px;
+border: 2px solid rgba(251, 191, 36, 0.72);
+background:
+radial-gradient(ellipse 85% 70% at 50% 0%, rgba(255, 238, 176, 0.28), transparent 56%),
+linear-gradient(165deg, rgba(251, 191, 36, 0.24), rgba(15, 23, 42, 0.93));
+box-shadow:
+0 0 30px rgba(251, 191, 36, 0.24),
+inset 0 1px 0 rgba(255, 255, 255, 0.2),
+inset 0 -8px 20px rgba(2, 6, 23, 0.32);
+}
+.intake-hero-pill--ai-quick .intake-pill-label {
+color: #fde68a;
+text-shadow: 0 0 10px rgba(245, 158, 11, 0.24);
+}
+.intake-hero-pill--ai-quick:hover {
+filter: brightness(1.06);
+box-shadow:
+0 0 38px rgba(251, 191, 36, 0.34),
+inset 0 1px 0 rgba(255, 255, 255, 0.24),
+inset 0 -8px 20px rgba(2, 6, 23, 0.3);
+}
 /* Hlavní zápis příjmu — stejné barvy jako ostatní pill; uvnitř olej + bubliny jako ve valcích */
 .intake-hero-pill--commit {
 position: relative;
@@ -2459,6 +2582,8 @@ isolation: isolate;
 display: flex;
 align-items: center;
 justify-content: center;
+animation: none;
+will-change: auto;
 }
 .intake-hero-pill--commit::before,
 .intake-hero-pill--fav::before,
@@ -2495,6 +2620,22 @@ border-radius: inherit;
 position: relative;
 z-index: 2;
 }
+.intake-hero-pill--commit .intake-pill-label {
+animation: intakeCommitTextPulse 2.6s ease-in-out infinite;
+will-change: text-shadow, transform, opacity;
+}
+@keyframes intakeCommitTextPulse {
+0%, 100% {
+opacity: 0.8;
+transform: scale(0.98);
+text-shadow: 0 0 6px rgba(245, 158, 11, 0.16);
+}
+50% {
+opacity: 1;
+transform: scale(1.05);
+text-shadow: 0 0 20px rgba(245, 158, 11, 0.72), 0 0 34px rgba(249, 115, 22, 0.42);
+}
+}
 .intake-hero-pill--commit .macro-bubble {
 background: radial-gradient(circle at 32% 26%, rgba(255,255,255,1), rgba(255,255,255,0.42) 38%, rgba(255,255,255,0.14) 52%, transparent 72%);
 box-shadow:
@@ -2523,6 +2664,7 @@ z-index: 1;
 pointer-events: none;
 overflow: hidden;
 border-radius: inherit;
+display: none !important;
 }
 .intake-spark {
 position: absolute;
@@ -2539,6 +2681,7 @@ animation: intake-spark-twinkle var(--tw, 3.8s) ease-in-out infinite;
 animation-delay: var(--delay, 0s);
 user-select: none;
 transform-origin: center center;
+display: none !important;
 }
 .intake-hero-pill--ai .intake-spark {
 color: rgba(255, 242, 220, 0.5);
@@ -2977,8 +3120,16 @@ margin-top: 0;
 .save-msg {
 position: fixed; top: max(20px, env(safe-area-inset-top, 0px)); right: max(16px, env(safe-area-inset-right, 0px));
 background: var(--green-neon); color: black; padding: 14px 44px 14px 18px; border-radius: 18px; font-size: 13px; font-weight: 900;
-display: none; z-index: 6000; box-shadow: 0 10px 20px rgba(57, 255, 20, 0.4);
+display: none; z-index: 7600; box-shadow: 0 10px 20px rgba(57, 255, 20, 0.4);
 max-width: min(420px, calc(100vw - 28px)); text-align: left; line-height: 1.4; box-sizing: border-box;
+}
+.save-msg.save-msg--health {
+background: linear-gradient(165deg, rgba(15, 23, 42, 0.74), rgba(30, 41, 59, 0.72)) !important;
+color: #cbd5e1 !important;
+border: 1px solid rgba(56, 189, 248, 0.35);
+box-shadow: 0 10px 24px rgba(2, 6, 23, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
 }
 .save-msg.save-msg--dismissible { padding-top: 16px; min-width: min(300px, 100%); }
 .save-msg-close {
@@ -3001,6 +3152,15 @@ position: fixed; inset: 0; z-index: 7200; display: none; align-items: center; ju
 background: radial-gradient(circle at 50% 40%, rgba(245, 158, 11, 0.08), rgba(2,6,23,0.97) 52%, #000008 100%);
 overflow: hidden;
 }
+.iron-intro::before {
+content: "";
+position: absolute;
+inset: 0;
+z-index: 4;
+pointer-events: none;
+opacity: 0;
+transition: opacity .22s ease;
+}
 .iron-intro.active { display: flex; animation: introFadeIn 0.45s ease; }
 .iron-intro.fade-out { animation: introFadeOut 1.05s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
 /* Závěr intra: jen průhlednost — žádný pohyb / záře / 3D */
@@ -3013,20 +3173,52 @@ visibility: hidden !important;
 animation: none !important;
 transform: none !important;
 }
-/* Video intro: nepřepisovat translate(-50%,50%) — jinak titulek při fade-out „skočí“ */
-.iron-intro.fade-out.hold-logo .iron-intro-video-overlay .intro-overlay-title {
-transform: translate(-50%, 50%) !important;
-}
 .iron-intro.hold-logo { overflow: visible; }
 .iron-intro.hold-logo .iron-intro-storm,
 .iron-intro.hold-logo .iron-intro-smoke { opacity: 0; transition: opacity .7s ease; }
 .iron-intro.hold-logo .iron-intro-logo { opacity: 1; top: 50%; bottom: auto; transform: translateY(-50%); font-size: 64px; letter-spacing: normal; animation: none !important; }
 .iron-intro.hold-logo .iron-intro-logo .brand-wordmark { letter-spacing: 0.26em; }
-/* Finále intra: „bouchnutí“ značky (stejné místo jako hold-logo), synchron se zvukem */
-.iron-intro.hold-logo .iron-intro-logo,
-.iron-intro.hold-logo .iron-intro-video-overlay-brand {
-overflow: visible;
+.iron-intro.hold-logo.impact-lock {
+background: radial-gradient(circle at 50% 50%, rgba(245, 158, 11, 0.08) 0%, rgba(2, 6, 23, 0.95) 36%, rgba(0, 0, 0, 0.995) 100%);
 }
+.iron-intro.hold-logo.impact-lock::before {
+opacity: 1;
+background: radial-gradient(circle at 50% 50%,
+  rgba(255,255,255,0.24) 0%,
+  rgba(253,224,71,0.14) 20%,
+  rgba(251,191,36,0.08) 34%,
+  rgba(2,6,23,0.24) 48%,
+  rgba(2,6,23,0.52) 70%,
+  rgba(0,0,0,0.68) 100%);
+animation: introImpactIris 0.28s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.06s forwards;
+}
+.iron-intro.hold-logo.impact-lock .iron-intro-storm,
+.iron-intro.hold-logo.impact-lock .iron-intro-smoke {
+opacity: 0 !important;
+transition: opacity 0.08s linear !important;
+}
+@keyframes introImpactIris {
+0% {
+background: radial-gradient(circle at 50% 50%,
+  rgba(255,255,255,0.24) 0%,
+  rgba(253,224,71,0.14) 20%,
+  rgba(251,191,36,0.08) 34%,
+  rgba(2,6,23,0.24) 48%,
+  rgba(2,6,23,0.52) 70%,
+  rgba(0,0,0,0.68) 100%);
+}
+100% {
+background: radial-gradient(circle at 50% 50%,
+  rgba(255,255,255,0.04) 0%,
+  rgba(253,224,71,0.025) 20%,
+  rgba(251,191,36,0.012) 34%,
+  rgba(2,6,23,0.20) 48%,
+  rgba(2,6,23,0.48) 70%,
+  rgba(0,0,0,0.62) 100%);
+}
+}
+/* Finále intra: „bouchnutí“ značky (stejné místo jako hold-logo), synchron se zvukem */
+.iron-intro.hold-logo .iron-intro-logo { overflow: visible; }
 .iron-intro.hold-logo .brand-wordmark {
 position: relative;
 z-index: 3;
@@ -3058,66 +3250,16 @@ animation: brandFinaleGlow 0.78s ease-out 0.04s forwards;
 .iron-intro.hold-logo .brand-wordmark { animation: brandPopFinaleReduced 0.35s ease 0.04s both; }
 .iron-intro.hold-logo .brand-wordmark::after { animation: none; opacity: 0.35; transform: translate(-50%, -50%) scale(1); }
 }
-.iron-intro.hold-logo .iron-intro-video { filter: contrast(1.05) saturate(0.8) brightness(0.14); transition: filter .8s ease; }
-.iron-intro-video { position:absolute; inset:0; width:100%; height:100%; object-fit: cover; display:none; filter: contrast(1.1) saturate(1.05) brightness(0.7); }
-.iron-intro.has-video .iron-intro-video { display:block; }
-.iron-intro.has-video .iron-intro-storm,
-.iron-intro.has-video .iron-intro-smoke { display:none; }
-.iron-intro-video-overlay {
-position:absolute; inset:0; z-index:2; pointer-events:none; display:none; flex-direction:column; align-items:center; justify-content:flex-end;
-padding:0 env(safe-area-inset-right,0) 10% env(safe-area-inset-left,0); box-sizing:border-box;
-}
-.iron-intro.has-video-overlay .iron-intro-video-overlay { display:flex; }
-.iron-intro.has-video-overlay .iron-intro-logo { display:none; }
-.iron-intro-video-overlay-scrim {
-position:absolute; left:0; right:0; bottom:0; height:min(48%, 280px);
-background:linear-gradient(to top, rgba(2,6,23,0.94) 0%, rgba(2,6,23,0.5) 55%, transparent 100%); pointer-events:none;
-}
-.iron-intro-video-overlay-brand { position:relative; z-index:1; width:100%; text-align:center; padding:0 14px 6px; }
-.intro-overlay-title {
-margin:0 auto; display:block; text-align:center; white-space:nowrap;
-font-family:var(--brand-wordmark); font-weight:400; text-transform:uppercase;
-font-size:clamp(28px,7.5vw,64px); letter-spacing:0;
-transform: perspective(1200px) rotateX(2deg);
-transform-style: preserve-3d;
-}
-.intro-overlay-title .brand-wordmark { letter-spacing: 0.18em; transform-origin: 50% 50%; }
-.iron-intro.has-video-overlay .intro-overlay-title .brand-wordmark {
-animation: introBrandShrinkToApp 6.6s cubic-bezier(0.33, 0, 0.2, 1) both;
-}
-.iron-intro.hold-logo.has-video-overlay .intro-overlay-title .brand-wordmark {
-animation: brandPopFinale 0.52s cubic-bezier(0.34, 1.45, 0.64, 1) 0.04s both !important;
-}
-.iron-intro-video-overlay.intro-overlay-pos--center { justify-content:center; padding-bottom:0; }
-.iron-intro-video-overlay.intro-overlay-pos--center .iron-intro-video-overlay-scrim {
-top:0; bottom:0; height:auto;
-background:radial-gradient(ellipse 85% 65% at 50% 50%, rgba(2,6,23,0.72) 0%, rgba(2,6,23,0.25) 52%, transparent 72%);
-}
-.iron-intro-video-overlay.intro-overlay-pos--top { justify-content:flex-start; padding-top:12%; padding-bottom:0; }
-.iron-intro-video-overlay.intro-overlay-pos--top .iron-intro-video-overlay-scrim {
-top:0; bottom:auto; height:min(44%, 260px);
-background:linear-gradient(to bottom, rgba(2,6,23,0.94) 0%, rgba(2,6,23,0.45) 58%, transparent 100%);
-}
-.iron-intro.hold-logo .iron-intro-video-overlay .intro-overlay-title {
-position:absolute; left:50%; bottom:50%;
-transform: perspective(1200px) rotateX(2deg) translate(-50%, 50%);
-font-size:clamp(28px,7.5vw,64px);
-transition: none;
-}
-.iron-intro.hold-logo .iron-intro-video-overlay .intro-overlay-title .brand-wordmark { letter-spacing: 0.22em; }
-.iron-intro.hold-logo .iron-intro-video-overlay-scrim { opacity:0.35; transition:opacity 0.7s ease; }
-.iron-intro-ctrl { position:absolute; top:14px; right:14px; display:flex; gap:8px; z-index:4; }
-.iron-intro-ctrl button {
-border:1px solid rgba(148,163,184,.45); background:rgba(15,23,42,.65); color:#e2e8f0;
-border-radius:10px; padding:8px 10px; font-size:10px; font-weight:900; cursor:pointer;
-}
 .iron-intro-smoke {
 position:absolute; inset:-15%;
 background:
   radial-gradient(ellipse 70% 50% at 30% 60%, rgba(56, 189, 248, 0.05), transparent 55%),
   radial-gradient(circle at 50% 85%, rgba(10, 15, 28, 0.92), rgba(2, 6, 23, 0) 58%),
   radial-gradient(circle at 50% 80%, rgba(100,116,139,0.08), rgba(2,6,23,0) 62%);
-filter: blur(14px); animation: smokeDrift 4.8s ease-in-out infinite;
+filter: blur(14px);
+z-index: 2;
+opacity: 0;
+transition: opacity 0.65s ease;
 }
 /* Intro: stejné bubliny jako v makro tubách (macro-bubble-rise), téma „tuk“ */
 .iron-intro-storm {
@@ -3130,6 +3272,16 @@ overflow: hidden;
 border-radius: 18px;
 -webkit-transform: translate(-50%, -50%) translateZ(0);
 transform: translate(-50%, -50%) translateZ(0);
+opacity: 0;
+z-index: 3;
+transition: opacity 0.65s ease;
+}
+.iron-intro.active .iron-intro-smoke,
+.iron-intro.active .iron-intro-storm {
+opacity: 1 !important;
+}
+.iron-intro.active .iron-intro-smoke {
+animation: smokeDrift 4.8s ease-in-out infinite;
 }
 @supports (height: 1dvh) {
 .iron-intro-storm { height: min(62dvh, 520px); }
@@ -3173,8 +3325,8 @@ position: absolute; left: 0; right: 0; top: 50%; bottom: auto;
 text-align: center; z-index: 5;
 font-family: var(--brand-wordmark); font-size: 64px; font-weight: 400; letter-spacing: normal;
 transform-origin: 50% 50%;
-opacity: 0;
-animation: logoStormShrink 6.6s cubic-bezier(0.33, 0, 0.2, 1) forwards;
+opacity: 1;
+animation: logoStormShrink 5.2s cubic-bezier(0.33, 0, 0.2, 1) forwards;
 }
 .iron-intro-logo .brand-wordmark { letter-spacing: 0.19em; }
 .iron-intro-logo .brand-sep-el { height: 0.58em; margin: 0 0.34em; }
@@ -3202,30 +3354,24 @@ animation: logoStormShrink 6.6s cubic-bezier(0.33, 0, 0.2, 1) forwards;
 }
 @keyframes smokeDrift { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
 @keyframes logoStormShrink {
-0% { opacity: 0; transform: translateY(-50%) scale(2.85); }
-7% { opacity: 1; }
+0% { opacity: 1; transform: translateY(-50%) scale(2.85); }
 100% { opacity: 1; transform: translateY(-50%) scale(1); }
-}
-@keyframes introBrandShrinkToApp {
-0% { opacity: 0; transform: scale(2.75); }
-9% { opacity: 1; }
-100% { opacity: 1; transform: scale(1); }
 }
 @keyframes logoStormShrinkReduced {
 0% { opacity: 0; transform: translateY(-50%) scale(1.12); }
 100% { opacity: 1; transform: translateY(-50%) scale(1); }
 }
-@keyframes introBrandShrinkReduced {
-0% { opacity: 0; transform: scale(1.08); }
-100% { opacity: 1; transform: scale(1); }
-}
 @media (prefers-reduced-motion: reduce) {
 .iron-intro-storm .macro-bubble { animation: none !important; opacity: 0.28; bottom: 38%; transform: translateX(-50%) scale(0.85); }
 .iron-intro-logo { animation: logoStormShrinkReduced 1.1s ease forwards !important; }
-.iron-intro.has-video-overlay .intro-overlay-title .brand-wordmark { animation: introBrandShrinkReduced 1s ease forwards !important; }
 .header-intro-standin .iron-intro-storm .macro-bubble { animation: none !important; opacity: 0.26; bottom: 36%; transform: translateX(-50%) scale(0.82); }
 .header-intro-standin .iron-intro-bubble-chamber::before { animation: none; opacity: 0.72; }
 }
+/* Intro má vždy plnou animaci i při reduced-motion (požadavek UX). */
+html.iron-intro-force-motion .iron-intro .macro-bubble { animation: macro-bubble-rise var(--d, 7.5s) linear infinite !important; animation-delay: var(--delay, 0s) !important; opacity: 0.9 !important; }
+html.iron-intro-force-motion .iron-intro-logo { animation: logoStormShrink 5.2s cubic-bezier(0.33, 0, 0.2, 1) forwards !important; }
+html.iron-intro-force-motion body.motion-lite .iron-intro.active .iron-intro-storm { opacity: 1 !important; }
+html.iron-intro-force-motion body.motion-lite .iron-intro.active .iron-intro-smoke { opacity: 0.95 !important; animation: smokeDrift 4.8s ease-in-out infinite !important; }
 /* Hlavička: dokud není pohlaví — stejná „bouře“ jako intro (bubliny + sklo), logo = stávající h1 */
 .header-intro-standin {
 display: none;
@@ -3289,6 +3435,71 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 .coach-actions { display:flex; gap:8px; margin-top: 8px; }
 .coach-btn { flex:1; border-radius: 10px; border:1px solid #334155; background:#0f172a; color:#e2e8f0; font-size:10px; font-weight:900; padding:8px; cursor:pointer; }
 .coach-btn.next { border-color: rgba(34,211,238,.6); color:#67e8f9; }
+.awakening-overlay {
+position: fixed;
+inset: 0;
+z-index: 7350;
+display: none;
+background: transparent;
+backdrop-filter: none;
+}
+.awakening-overlay.is-on { display: block; }
+.awakening-spotlight {
+position: fixed;
+left: 50%;
+top: 50%;
+width: 160px;
+height: 100px;
+transform: translate(-50%, -50%);
+border-radius: 16px;
+border: 2px solid rgba(240, 249, 255, 0.98);
+background: transparent;
+box-shadow: 0 0 0 200vmax rgba(2, 6, 23, 0.66), 0 0 0 2px rgba(255,255,255,0.55) inset;
+pointer-events: none;
+z-index: 1;
+}
+.awakening-spotlight.is-hidden { opacity: 0; }
+.awakening-panel {
+position: absolute;
+left: 50%;
+bottom: max(14px, env(safe-area-inset-bottom, 0px));
+top: auto;
+transform: translateX(-50%);
+box-sizing: border-box;
+width: calc(100vw - 24px);
+max-width: 380px;
+max-height: min(90vh, 760px);
+overflow-x: hidden;
+overflow-y: auto;
+display: flex;
+flex-direction: column;
+padding: 16px;
+border-radius: 16px;
+border: 1px solid rgba(125, 211, 252, 0.85);
+background: linear-gradient(165deg, rgba(15,23,42,.88), rgba(2,6,23,.9));
+box-shadow: 0 14px 40px rgba(0,0,0,.42), inset 0 0 30px rgba(125,211,252,.12);
+z-index: 2;
+}
+.awakening-overlay.panel-top .awakening-panel {
+top: max(14px, env(safe-area-inset-top, 0px));
+bottom: auto;
+}
+.awakening-kicker { font-size: 10px; font-weight: 900; color: #67e8f9; letter-spacing: .08em; margin-bottom: 6px; text-transform: uppercase; }
+.awakening-title { margin: 0 0 8px; font-size: 18px; letter-spacing: .03em; color: #f8fafc; }
+.awakening-text { margin: 0 0 8px; font-size: 12px; line-height: 1.4; color: #cbd5e1; }
+.awakening-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.awakening-field.full { grid-column: 1 / -1; }
+.awakening-field label { display: block; margin: 0 0 3px; font-size: 10px; font-weight: 800; color: #94a3b8; }
+.awakening-field input, .awakening-field select { width: 100%; padding: 8px 10px; border-radius: 10px; border: 1px solid #334155; background: #0f172a; color: #e2e8f0; font-size: 16px; font-weight: 700; }
+.awakening-actions { display: flex; gap: 8px; margin-top: 8px; position: relative; background: transparent; padding-top: 0; }
+.awakening-btn { flex: 1; border-radius: 10px; border: 1px solid rgba(56,189,248,.6); background: #082f49; color: #67e8f9; padding: 10px; font-size: 11px; font-weight: 900; cursor: pointer; transition: background .2s ease, color .2s ease, border-color .2s ease, opacity .2s ease; }
+.awakening-btn.secondary { border-color: #334155; background: #0f172a; color: #cbd5e1; }
+.awakening-btn.is-locked { background: rgba(51,65,85,0.3); border-color: rgba(148,163,184,0.45); color: #94a3b8; }
+@media (max-width: 420px) {
+.awakening-panel { width: calc(100vw - 16px); padding: 12px; border-radius: 14px; }
+.awakening-grid { grid-template-columns: 1fr 1fr; }
+.awakening-btn { font-size: 16px; }
+}
 </style>
 </head>
 <body>
@@ -3297,17 +3508,6 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <div id="save-note-content" class="save-msg-content">ZAKOTVENO V PAMĚTI</div>
 </div>
 <div id="iron-intro" class="iron-intro" aria-hidden="true">
-<video id="iron-intro-video" class="iron-intro-video" playsinline preload="metadata"></video>
-<div id="iron-intro-video-overlay" class="iron-intro-video-overlay intro-overlay-pos--bottom" aria-hidden="true">
-<div class="iron-intro-video-overlay-scrim"></div>
-<div class="iron-intro-video-overlay-brand">
-<p class="intro-overlay-title"><span class="brand-wordmark"><span class="header-brand-iron">IRON</span><span class="brand-sep-el" aria-hidden="true"></span><span class="header-brand-core">CORE</span></span></p>
-</div>
-</div>
-<div class="iron-intro-ctrl">
-<button type="button" id="iron-intro-mute">Zvuk vyp</button>
-<button type="button" id="iron-intro-skip" data-i18n="intro_skip">Přeskočit</button>
-</div>
 <div class="iron-intro-smoke"></div>
 <div class="iron-intro-storm" aria-hidden="true">
 <div class="iron-intro-bubble-chamber">
@@ -3356,6 +3556,10 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 </div>
 </div>
 <div class="iron-intro-logo"><span class="brand-wordmark"><span class="header-brand-iron">IRON</span><span class="brand-sep-el" aria-hidden="true"></span><span class="header-brand-core">CORE</span></span></div>
+</div>
+<div id="awakening-overlay" class="awakening-overlay" aria-hidden="true">
+<div id="awakening-spotlight" class="awakening-spotlight is-hidden"></div>
+<div id="awakening-panel" class="awakening-panel"></div>
 </div>
 <div id="coach-bubble" class="coach-bubble" aria-live="polite">
 <div id="coach-title" class="coach-title"></div>
@@ -3450,10 +3654,10 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <h1 style="margin: 0;"><span class="brand-wordmark"><span class="header-brand-iron">IRON</span><span class="brand-sep-el" aria-hidden="true"></span><span class="header-brand-core">CORE</span></span></h1>
 <div style="width: 220px; height: 1px; background: rgba(255,255,255,0.4); z-index: 10; margin: 12px 0; transform: translateZ(50px);"></div>
 <div style="z-index: 10; font-size: 10px; font-weight: 900; letter-spacing: 4px; color: var(--text); text-transform: uppercase; transform: translateZ(45px); text-shadow: 0 8px 12px rgba(0,0,0,0.6);">STRENGTH LOG | ULTIMATE GLASS</div>
-<div id="app-info" class="version-tag">-- | v95.4.195 · čistá data</div>
+<div id="app-info" class="version-tag">-- | v95.4.196 · čistá data</div>
 </div>
 <div class="stats-grid">
-<div class="stat-box" style="border-color: var(--pink); background: rgba(236, 72, 153, 0.1);">
+<div class="stat-box" style="border-color: var(--pink); background: rgba(247, 37, 193, 0.14);">
 <div class="stat-label" style="color: var(--pink)" data-i18n="stat_mission_goal">Cíl Mise</div>
 <div id="fi-val" class="stat-val" style="color: var(--text)">—</div>
 <div id="mission-goal-sub" class="stat-sub" style="color: var(--pink)">—</div>
@@ -3468,24 +3672,6 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <div id="bmi-val" class="stat-val bmi-val-wrap" style="color: var(--accent)"><span class="bmi-num">—</span></div>
 <div id="bmi-label" class="stat-sub stat-sub--bmi" style="color: var(--accent)">Start — · —</div>
 </div>
-</div>
-<div class="card consistency-card" id="consistency-card" style="border:1px solid rgba(16,185,129,0.42);background:rgba(15,23,42,0.55);margin-bottom:12px;">
-<div class="card-section-title" style="font-size:12px;margin-bottom:10px;" data-i18n="consistency_title">Konzistence zápisu</div>
-<div class="consistency-strip" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;">
-<div style="padding:8px 4px;border-radius:12px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.25);">
-<div style="font-size:9px;font-weight:900;letter-spacing:0.06em;text-transform:uppercase;color:#fbbf24;" data-i18n="consistency_lbl_w">Série váhy</div>
-<div id="consistency-w-val" class="consistency-val" style="font-size:20px;font-weight:900;color:#fef3c7;margin-top:4px;line-height:1.1;">0</div>
-</div>
-<div style="padding:8px 4px;border-radius:12px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.28);">
-<div style="font-size:9px;font-weight:900;letter-spacing:0.06em;text-transform:uppercase;color:var(--gold);" data-i18n="consistency_lbl_i">Série příjmu</div>
-<div id="consistency-i-val" class="consistency-val" style="font-size:20px;font-weight:900;color:#fde68a;margin-top:4px;line-height:1.1;">0</div>
-</div>
-<div style="padding:8px 4px;border-radius:12px;background:rgba(57,255,20,0.06);border:1px solid rgba(57,255,20,0.22);">
-<div style="font-size:9px;font-weight:900;letter-spacing:0.06em;text-transform:uppercase;color:var(--green-neon);" data-i18n="consistency_lbl_m">Tento měsíc</div>
-<div id="consistency-m-val" class="consistency-val" style="font-size:20px;font-weight:900;color:#dcfce7;margin-top:4px;line-height:1.1;">0/0</div>
-</div>
-</div>
-<p style="font-size:8px;color:var(--muted);margin:10px 0 0;line-height:1.35;font-weight:700;" data-i18n="consistency_hint">Série = po sobě jdoucí kalendářní dny od dnes zpět (váha / příjem). Měsíc = dny s váhou nebo zápisem jídla.</p>
 </div>
 <div class="card" id="section-roadmap">
 <div class="card-section-title card-section-title--long" data-i18n="card_roadmap_title">Roadmapa váhy & proporcí (Body Recomp)</div>
@@ -3523,6 +3709,42 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <div id="recomp-bubble" class="recomp-bubble" role="dialog" data-i18n-aria="recomp_bubble_aria" aria-label="Signál hubnutí tuku">
 <button type="button" class="recomp-bubble-close" id="recomp-bubble-close" data-i18n-aria="aria_close" aria-label="Zavřít">×</button>
 <div id="recomp-bubble-body"></div>
+</div>
+</div>
+<div id="toggle-measure-btn" class="toggle-btn toggle-measure" onclick="window.toggleMeasureArea()">
+<span data-i18n="measure_toggle">Zapsat váhu a měření</span>
+<span id="measure-arrow">▼</span>
+</div>
+<div id="measure-area" class="toggle-content">
+<div class="meas-grid">
+<input class="full" type="number" id="in-w" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_in_w" placeholder="Váha doma (kg, stále stejně — např. ráno nacisto)">
+<input type="number" id="in-waist" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_waist" placeholder="Pas (cm)" style="border-color: var(--pink);">
+<input type="number" id="in-chest" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_chest" placeholder="Hrudník (cm)" style="border-color: #f472b6;">
+<div style="border:1px solid rgba(217,70,239,0.6); border-radius:12px; background:linear-gradient(160deg, rgba(217,70,239,0.1), rgba(15,23,42,0.92)); padding:8px 8px 7px;">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:6px;">
+<div style="font-size:9px;font-weight:900;letter-spacing:0.05em;text-transform:uppercase;color:#f0abfc;" data-i18n="ph_thigh">Stehno (cm)</div>
+<button type="button" onclick="window.showThighRefHelp()" data-i18n-aria="thigh_ref_help_aria" aria-label="Jak měřit stehno od čéšky" style="border:1px solid rgba(240,171,252,0.55);background:rgba(15,23,42,0.64);color:#f5d0fe;border-radius:999px;width:19px;height:19px;font-size:10px;font-weight:900;line-height:1;cursor:pointer;">?</button>
+</div>
+<input type="number" id="in-thigh" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_thigh" placeholder="Stehno (cm)" style="border-color:#d946ef;margin-bottom:6px;">
+<div style="height:1px;background:linear-gradient(90deg, rgba(217,70,239,0.2), rgba(217,70,239,0.66), rgba(217,70,239,0.2));margin:0 1px 5px;"></div>
+<div id="thigh-ref-inline" style="font-size:8px;font-weight:800;color:#f3e8ff;line-height:1.25;" data-i18n="thigh_ref_inline_empty">Od čéšky — cm</div>
+<input type="number" id="in-thigh-ref-cm" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_thigh_ref" placeholder="od čéšky (cm)" style="border-color:#d946ef;margin-top:5px;padding:8px 10px;font-size:11px;">
+</div>
+<div style="border:1px solid rgba(139,92,246,0.6); border-radius:12px; background:linear-gradient(160deg, rgba(139,92,246,0.1), rgba(15,23,42,0.92)); padding:8px 8px 7px;">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:6px;">
+<div style="font-size:9px;font-weight:900;letter-spacing:0.05em;text-transform:uppercase;color:#ddd6fe;" data-i18n="ph_biceps">Biceps (cm)</div>
+<button type="button" onclick="window.showBicepsRefHelp()" data-i18n-aria="biceps_ref_help_aria" aria-label="Jak měřit biceps od loketní jamky" style="border:1px solid rgba(196,181,253,0.55);background:rgba(15,23,42,0.64);color:#ede9fe;border-radius:999px;width:19px;height:19px;font-size:10px;font-weight:900;line-height:1;cursor:pointer;">?</button>
+</div>
+<input type="number" id="in-biceps" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_biceps" placeholder="Biceps (cm)" style="border-color:#8b5cf6;margin-bottom:6px;">
+<div style="height:1px;background:linear-gradient(90deg, rgba(139,92,246,0.2), rgba(139,92,246,0.66), rgba(139,92,246,0.2));margin:0 1px 5px;"></div>
+<div id="biceps-ref-inline" style="font-size:8px;font-weight:800;color:#ede9fe;line-height:1.25;" data-i18n="biceps_ref_inline_empty">Od loketní jamky — cm</div>
+<input type="number" id="in-biceps-ref-cm" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_biceps_ref" placeholder="od loketní jamky (cm)" style="border-color:#8b5cf6;margin-top:5px;padding:8px 10px;font-size:11px;">
+</div>
+<input class="full" type="number" id="in-shoulders" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_shoulders" placeholder="Ramena (cm)" style="border-color: #22d3ee;">
+</div>
+<div style="display:flex; gap:10px;">
+<button onclick="window.saveTodayW()" class="btn btn-gold" style="flex:1" data-i18n="btn_save_progress">Uložit progres</button>
+</div>
 </div>
 </div>
 <div id="roadmap-tubes-card" class="roadmap-tubes-card">
@@ -3652,42 +3874,6 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 </div>
 </div>
 </div>
-<div id="toggle-measure-btn" class="toggle-btn toggle-measure" onclick="window.toggleMeasureArea()">
-<span data-i18n="measure_toggle">Zapsat váhu a měření</span>
-<span id="measure-arrow">▼</span>
-</div>
-<div id="measure-area" class="toggle-content">
-<div class="meas-grid">
-<input class="full" type="number" id="in-w" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_in_w" placeholder="Váha doma (kg, stále stejně — např. ráno nacisto)">
-<input type="number" id="in-waist" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_waist" placeholder="Pas (cm)" style="border-color: var(--pink);">
-<input type="number" id="in-chest" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_chest" placeholder="Hrudník (cm)" style="border-color: #f472b6;">
-<div style="border:1px solid rgba(217,70,239,0.6); border-radius:12px; background:linear-gradient(160deg, rgba(217,70,239,0.1), rgba(15,23,42,0.92)); padding:8px 8px 7px;">
-<div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:6px;">
-<div style="font-size:9px;font-weight:900;letter-spacing:0.05em;text-transform:uppercase;color:#f0abfc;" data-i18n="ph_thigh">Stehno (cm)</div>
-<button type="button" onclick="window.showThighRefHelp()" data-i18n-aria="thigh_ref_help_aria" aria-label="Jak měřit stehno od čéšky" style="border:1px solid rgba(240,171,252,0.55);background:rgba(15,23,42,0.64);color:#f5d0fe;border-radius:999px;width:19px;height:19px;font-size:10px;font-weight:900;line-height:1;cursor:pointer;">?</button>
-</div>
-<input type="number" id="in-thigh" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_thigh" placeholder="Stehno (cm)" style="border-color:#d946ef;margin-bottom:6px;">
-<div style="height:1px;background:linear-gradient(90deg, rgba(217,70,239,0.2), rgba(217,70,239,0.66), rgba(217,70,239,0.2));margin:0 1px 5px;"></div>
-<div id="thigh-ref-inline" style="font-size:8px;font-weight:800;color:#f3e8ff;line-height:1.25;" data-i18n="thigh_ref_inline_empty">Od čéšky — cm</div>
-<input type="number" id="in-thigh-ref-cm" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_thigh_ref" placeholder="od čéšky (cm)" style="border-color:#d946ef;margin-top:5px;padding:8px 10px;font-size:11px;">
-</div>
-<div style="border:1px solid rgba(139,92,246,0.6); border-radius:12px; background:linear-gradient(160deg, rgba(139,92,246,0.1), rgba(15,23,42,0.92)); padding:8px 8px 7px;">
-<div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:6px;">
-<div style="font-size:9px;font-weight:900;letter-spacing:0.05em;text-transform:uppercase;color:#ddd6fe;" data-i18n="ph_biceps">Biceps (cm)</div>
-<button type="button" onclick="window.showBicepsRefHelp()" data-i18n-aria="biceps_ref_help_aria" aria-label="Jak měřit biceps od loketní jamky" style="border:1px solid rgba(196,181,253,0.55);background:rgba(15,23,42,0.64);color:#ede9fe;border-radius:999px;width:19px;height:19px;font-size:10px;font-weight:900;line-height:1;cursor:pointer;">?</button>
-</div>
-<input type="number" id="in-biceps" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_biceps" placeholder="Biceps (cm)" style="border-color:#8b5cf6;margin-bottom:6px;">
-<div style="height:1px;background:linear-gradient(90deg, rgba(139,92,246,0.2), rgba(139,92,246,0.66), rgba(139,92,246,0.2));margin:0 1px 5px;"></div>
-<div id="biceps-ref-inline" style="font-size:8px;font-weight:800;color:#ede9fe;line-height:1.25;" data-i18n="biceps_ref_inline_empty">Od loketní jamky — cm</div>
-<input type="number" id="in-biceps-ref-cm" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_biceps_ref" placeholder="od loketní jamky (cm)" style="border-color:#8b5cf6;margin-top:5px;padding:8px 10px;font-size:11px;">
-</div>
-<input class="full" type="number" id="in-shoulders" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_shoulders" placeholder="Ramena (cm)" style="border-color: #22d3ee;">
-</div>
-<div style="display:flex; gap:10px;">
-<button onclick="window.saveTodayW()" class="btn btn-gold" style="flex:1" data-i18n="btn_save_progress">Uložit progres</button>
-</div>
-</div>
-</div>
 <div class="card" id="section-energy">
 <div class="card-section-title" data-i18n="energy_card_title">Energetická bilance</div>
 <div class="graph-wrapper graph-wrapper--kcal">
@@ -3695,14 +3881,14 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <div class="graph-outer" id="scroll-k"><div class="graph-inner" id="svg-k"></div></div>
 </div>
 <div class="star-counters">
-<div class="star-box-wrap star-box-green">
+<div id="star-box-green" class="star-box-wrap star-box-green">
 <div class="star-count-top" id="star-neon-caption" data-i18n="star_neon_caption">Neon Hvězdy (700+)</div>
 <div id="stack-green" class="star-visual-stack"></div>
 <div class="star-divider"></div>
 <div class="star-rank-bottom" data-i18n="star_rank_life">Celoživotní Rank</div>
 <div id="rank-green" class="star-rank-val"><span class="star-rank-plain">0 velká</span></div>
 </div>
-<div class="star-box-wrap star-box-gold">
+<div id="star-box-gold" class="star-box-wrap star-box-gold">
 <div class="star-count-top"><span data-i18n="legend_elite">Legendární elita (</span><span id="cur-gold-lim">—</span>)</div>
 <div id="stack-gold" class="star-visual-stack"></div>
 <div class="star-divider"></div>
@@ -3734,6 +3920,7 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <div class="stat-sub" data-i18n="stat_deficit_sub">po odečtu příjmu</div>
 </div>
 </div>
+<div id="aw-macro-mission-anchor">
 <div id="macro-title" class="stat-label" style="margin-top: 25px; margin-bottom: 10px; color: var(--muted); text-align: center; font-size: 10px;" data-i18n="macro_monitoring">Monitoring Maker (Dnešní bilance)</div>
 <div id="section-mission" class="daily-mission">
 <div class="daily-mission-balance" aria-hidden="true"></div>
@@ -3819,6 +4006,7 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <div id="k-tube-remain-label" class="macro-tube-label-mini" style="color:var(--gold)" data-i18n="macro_k_remain">KCAL · zbývá sníst</div>
 </div>
 </div>
+</div>
 <p style="font-size:8px;color:var(--muted);text-align:center;margin:10px 0 0;line-height:1.35;font-weight:700;" data-i18n="macro_legend_red_line">Červená čára = strop (u makro g shodné s číslem nahoře; u KCAL cílový příjem). Žlutooranžová = doporučené minimum (dno) u bílkovin a tuků — pod ní hrozí ztráta svalů / nedostatek ketopaliva. Plnění od spodu = snědeno vůči stropu/cíli. Uprostřed u B/T/S i u KCAL = kolik ještě zbývá do stropu/cíle (záporně = překročení). Nad čárou = překročení (červené sklo).</p>
 <div class="card mode-selector-card">
 <span class="mode-label" data-i18n="mode_day_label">Režim dne (Dnešní mise)</span>
@@ -3889,6 +4077,9 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <input type="number" id="manual-food-c" inputmode="decimal" step="any" lang="cs" autocomplete="off" placeholder="S" style="flex:1; border-color: var(--pink);">
 </div>
 <button type="button" class="intake-hero-pill intake-hero-pill--commit" onclick="window.addManualMeal()"><span class="intake-pill-bubbles" aria-hidden="true"><span class="macro-bubble" style="--x:5%;--s:3px;--d:4.8s;--delay:0s;--drift:2px"></span><span class="macro-bubble" style="--x:12%;--s:4px;--d:5.6s;--delay:0.3s;--drift:-2px"></span><span class="macro-bubble" style="--x:20%;--s:3px;--d:5.1s;--delay:1.1s;--drift:3px"></span><span class="macro-bubble" style="--x:28%;--s:5px;--d:6.2s;--delay:0.6s;--drift:-1px"></span><span class="macro-bubble" style="--x:36%;--s:3px;--d:4.4s;--delay:2s;--drift:-3px"></span><span class="macro-bubble" style="--x:44%;--s:4px;--d:5.9s;--delay:0.2s;--drift:2px"></span><span class="macro-bubble" style="--x:52%;--s:3px;--d:5.4s;--delay:1.4s;--drift:1px"></span><span class="macro-bubble" style="--x:60%;--s:4px;--d:6.5s;--delay:0.8s;--drift:-2px"></span><span class="macro-bubble" style="--x:68%;--s:3px;--d:4.9s;--delay:2.6s;--drift:4px"></span><span class="macro-bubble" style="--x:76%;--s:5px;--d:5.7s;--delay:0.5s;--drift:-3px"></span><span class="macro-bubble" style="--x:84%;--s:3px;--d:5.2s;--delay:1.8s;--drift:2px"></span><span class="macro-bubble" style="--x:92%;--s:4px;--d:6s;--delay:0.1s;--drift:-1px"></span></span><span class="intake-pill-label" data-i18n="intake_commit">Zapsat do příjmu</span></button>
+<button type="button" id="ai-food-orb" class="burn-hero-orb intake-hero-orb-ai" onclick="window.pickFoodPhoto()" aria-label="Vyfotit jídlo AI">
+<span class="burn-hero-orb-text"><span>Vyfotit</span><br><span>jídlo AI</span><span class="burn-hero-orb-sub">AI odhad kcal a maker</span></span>
+</button>
 </div>
 <div class="intake-hero-section-label" data-i18n="intake_routines">Rutina a oblíbená</div>
 <div class="meal-scroll-area intake-hero-routines">
@@ -3911,11 +4102,9 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <input type="number" id="fav-food-f" inputmode="decimal" step="any" lang="cs" autocomplete="off" placeholder="T" style="flex:1; border-color: var(--gold);">
 <input type="number" id="fav-food-c" inputmode="decimal" step="any" lang="cs" autocomplete="off" placeholder="S" style="flex:1; border-color: var(--pink);">
 </div>
-<button type="button" id="btn-add-manual-meal" class="intake-hero-pill intake-hero-pill--fav" onclick="window.addToFavorites()"><span class="intake-pill-sparkles" aria-hidden="true"><span class="intake-spark" style="--sx:14%;--sy:32%;--delay:0s;--tw:3.9s">⋆</span><span class="intake-spark" style="--sx:38%;--sy:58%;--delay:0.7s;--tw:4.2s">⋆</span><span class="intake-spark" style="--sx:62%;--sy:28%;--delay:1.1s;--tw:3.5s">⋆</span><span class="intake-spark" style="--sx:82%;--sy:48%;--delay:0.4s;--tw:4s">⋆</span><span class="intake-spark" style="--sx:28%;--sy:68%;--delay:1.6s;--tw:3.7s">⋆</span><span class="intake-spark" style="--sx:52%;--sy:42%;--delay:0.2s;--tw:4.1s">⋆</span></span><span class="intake-pill-label" data-i18n="btn_fav_save">Uložit do oblíbených</span></button>
-<button type="button" class="intake-hero-pill intake-hero-pill--ai intake-hero-pill--ai-rich" onclick="window.pickFoodPhoto()"><span class="intake-pill-sparkles" aria-hidden="true"><span class="intake-spark" style="--sx:12%;--sy:34%;--delay:0s;--tw:3.85s">⋆</span><span class="intake-spark" style="--sx:36%;--sy:56%;--delay:0.65s;--tw:4.15s">⋆</span><span class="intake-spark" style="--sx:60%;--sy:30%;--delay:1.05s;--tw:3.55s">⋆</span><span class="intake-spark" style="--sx:84%;--sy:50%;--delay:0.35s;--tw:3.95s">⋆</span><span class="intake-spark" style="--sx:26%;--sy:66%;--delay:1.55s;--tw:3.75s">⋆</span><span class="intake-spark" style="--sx:50%;--sy:44%;--delay:0.18s;--tw:4.05s">⋆</span></span><span class="intake-pill-label" data-i18n="btn_ai_photo">Vyfotit jídlo (AI)</span></button>
+<button type="button" id="btn-add-manual-meal" class="intake-hero-pill intake-hero-pill--fav" onclick="window.addToFavorites()"><span class="intake-pill-label" data-i18n="btn_fav_save">Uložit do oblíbených</span></button>
 </div>
 <input type="file" id="food-photo-input" accept="image/*" capture="environment" style="display:none" aria-hidden="true">
-<p style="font-size:9px;color:var(--muted);margin-top:10px;line-height:1.35">Fotka se odešle do Google Gemini (klíč v profilu). AI odhadne kcal a makra; po potvrzení se zapíše do dnešního příjmu, grafu a historie.</p>
 </div>
 </div>
 </div>
@@ -3959,6 +4148,8 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <label for="backup-file-input" class="btn btn-outline" style="flex:1;min-width:132px;border-color:rgba(251,191,36,0.65);color:#fcd34d;font-weight:900;padding:11px;font-size:11px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;margin:0;box-sizing:border-box;" data-i18n="backup_import">Nahrát zálohu…</label>
 </div>
 <input type="file" id="backup-file-input" class="iron-backup-file-input" accept="application/json,.json,text/json,text/plain,*/*" title="JSON záloha Iron Core">
+<p id="backup-last-status" style="font-size:9px;color:#93c5fd;margin:10px 0 0;line-height:1.35;font-weight:800;" data-i18n="backup_last_never">Poslední záloha: zatím nikdy.</p>
+<p style="font-size:9px;color:#fca5a5;margin:8px 0 0;line-height:1.4;font-weight:800;" data-i18n="backup_uninstall_warn">Pozor: odinstalace appky smaže lokální data. Bez JSON zálohy je neobnovíš.</p>
 <div class="profile-hero-section-label" style="margin-top:14px;" data-i18n="pwa_card_title">Aplikace na ploše (PWA)</div>
 <p style="font-size:9px;color:var(--muted);margin:0;line-height:1.35;font-weight:700;" data-i18n="pwa_hint">Na mobilu použij v prohlížeči „Přidat na plochu“ / Install. Na PC ikonu instalace v adresním řádku. Vyžaduje otevření přes webový server (ne přímo soubor z disku).</p>
 </div>
@@ -4047,39 +4238,28 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 <p style="font-size: 9px; color: var(--muted); margin: 0; line-height: 1.35">Uložen lokálně v prohlížeči. Pro „Vyfotit jídlo“.</p>
 </div>
 <div class="profile-inset-block profile-inset-block--loose">
-<details class="profile-details-advanced">
-<summary class="profile-details-summary">Intro video <span class="profile-details-summary-hint">(volitelné — vlastní host / mobil)</span></summary>
-<div class="profile-details-inner">
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-<button type="button" onclick="window.pickIntroVideo()" class="btn btn-outline" style="width:100%;border-color:var(--accent);color:var(--accent);font-weight:900;padding:12px">Nahrát video</button>
-<button type="button" onclick="window.clearIntroVideo()" class="btn btn-outline" style="width:100%;border-color:var(--muted);color:var(--muted);font-weight:900;padding:12px">Smazat video</button>
-</div>
-<input type="file" id="intro-video-input" accept="video/mp4,video/webm" style="display:none" aria-hidden="true">
-<label style="display:flex;align-items:center;gap:8px;margin-top:10px;font-size:10px;font-weight:800;color:var(--text);cursor:pointer;">
-<input type="checkbox" id="intro-video-overlay-logo" style="width:18px;height:18px;accent-color:var(--accent);">
-<span>Překrýt nápis ve videu vlastním IRON CORE</span>
-</label>
-<div style="margin-top:8px;">
-<span style="font-size:9px;font-weight:800;color:var(--muted);display:block;margin-bottom:4px;">Pozice překryvu</span>
-<select id="intro-video-overlay-pos" style="width:100%;padding:10px;border-radius:10px;border:1px solid #334155;background:#0f172a;color:var(--text);font-size:11px;font-weight:800;">
-<option value="bottom">Dole</option>
-<option value="center">Uprostřed</option>
-<option value="top">Nahoře</option>
-</select>
-</div>
-<label style="display:block;margin-top:10px;font-size:9px;font-weight:800;color:var(--muted);margin-bottom:4px;">Soubor / URL videa (web, iPhone)</label>
-<input type="text" id="p-intro-video-external" autocomplete="off" placeholder="iron-core-intro.mp4 nebo https://…" style="width:100%;padding:10px;border-radius:10px;border:1px solid #334155;background:#0f172a;color:var(--text);font-size:11px;font-weight:700;">
-<p id="intro-video-note" style="font-size:9px;color:var(--muted);margin:8px 0 0;line-height:1.35">Bez videa běží stylizované intro. Doporučeno do 5 s, max 16 MB.</p>
-</div>
-</details>
+<p style="font-size:10px;color:var(--muted);margin:0;line-height:1.45;font-weight:700;">Intro běží čistě jako CSS/JS animace loga a reveal efekt.</p>
 </div>
 <div class="profile-inset-block profile-inset-block--loose" style="border:1px dashed rgba(148,163,184,0.4);border-radius:14px;padding:12px;background:rgba(15,23,42,0.45);">
 <div class="stat-label" style="color:#67e8f9;margin-bottom:6px;">Test — úvodní intro</div>
-<p style="font-size:9px;color:var(--muted);margin:0 0 10px;line-height:1.45;font-weight:700;">Stejné intro jako při prvním spuštění (včetně videa z nastavení výše). Průvodce se nespustí. Při přehrání se stránka srovná nahoru (kvůli přesnému přechodu loga do hlavičky). <strong style="color:var(--text);font-weight:800;">Wordmark IRON | CORE je typograficky stejný jako v hlavičce aplikace</strong> — při závěru intra je vodorovně uprostřed obrazovky, stejná značka jako nahoře v aplikaci.</p>
+<p style="font-size:9px;color:var(--muted);margin:0 0 10px;line-height:1.45;font-weight:700;">Stejné intro jako při prvním spuštění včetně průvodce a právního ujednání. Po přehrání data zůstávají netknutá.</p>
 <button type="button" onclick="window.previewIntroExperience()" class="btn btn-outline" style="width:100%;border-color:rgba(56,189,248,0.55);color:#67e8f9;font-weight:900;padding:12px;font-size:11px">Přehrát intro</button>
 </div>
 <button onclick="window.saveProfile()" class="btn btn-gold" style="margin-top:10px" data-i18n="btn_save_profile">Uložit profil</button>
-<button onclick="window.askReset()" class="btn btn-outline" style="margin-top:10px" data-i18n="btn_reset_data">Reset Dat ⚠</button>
+<details class="profile-details-advanced profile-details-legal" id="profile-legal-details">
+<summary class="profile-details-summary" data-i18n="profile_legal_summary">Celé znění právního ujednání</summary>
+<div class="profile-details-inner">
+<p class="profile-legal-consent" data-i18n="aw_consent_notice">Kliknutím na pokračovat souhlasíte…</p>
+<div class="profile-legal-scroll" data-i18n="aw_legal_body" data-i18n-html="1"></div>
+<div class="profile-legal-support" data-i18n="aw_legal_support" data-i18n-html="1"></div>
+</div>
+</details>
+<button onclick="window.askClearSensitiveData()" class="btn btn-outline" style="margin-top:14px;border-color:rgba(248,113,113,0.7);color:#fecaca;" data-i18n="btn_clear_sensitive">Smazat citlivá data</button>
+<p style="font-size:9px;color:var(--muted);margin:6px 0 0;line-height:1.45;font-weight:600;" data-i18n="hint_clear_sensitive">Profil, biometrie, InBody a případný lokální AI klíč. Zůstane historie dnů a většina nastavení — není to úplný reset.</p>
+<button onclick="window.exportIronCoreAnonymizedBackup()" class="btn btn-outline" style="margin-top:14px;border-color:rgba(125,211,252,0.7);color:#bae6fd;" data-i18n="btn_export_anonymized">Export anonymní zálohy</button>
+<p style="font-size:9px;color:var(--muted);margin:6px 0 0;line-height:1.45;font-weight:600;" data-i18n="hint_export_anonymized">JSON bez osobních údajů — vhodné k sdílení struktury nebo archivaci bez měření a identity.</p>
+<button onclick="window.askReset()" class="btn btn-outline" style="margin-top:16px;border-color:rgba(248,113,113,0.85);color:#fecaca;background:rgba(127,29,29,0.12);" data-i18n="btn_reset_data">Reset Dat ⚠</button>
+<p style="font-size:9px;color:#fca5a5;margin:6px 0 0;line-height:1.45;font-weight:700;" data-i18n="hint_reset_data">Tovární reset: smaže vše v této aplikaci v prohlížeči/zařízení. Jako čistá instalace — bez obnovy.</p>
 </div>
 </div>
 </div>
@@ -4221,12 +4401,13 @@ ph_target_w: 'Cílová váha',
 ph_age: 'Věk',
 ph_height: 'Výška',
 btn_save_profile: 'Uložit profil',
+profile_legal_summary: 'Celé znění právního ujednání',
+btn_clear_sensitive: 'Smazat citlivá data',
+hint_clear_sensitive: 'Profil, biometrie, InBody a případný lokální AI klíč. Zůstane historie dnů a většina nastavení — není to úplný reset.',
+btn_export_anonymized: 'Export anonymní zálohy',
+hint_export_anonymized: 'JSON bez osobních údajů — vhodné k sdílení struktury nebo archivaci bez měření a identity.',
 btn_reset_data: 'Reset Dat ⚠',
-consistency_title: 'Konzistence zápisu',
-consistency_lbl_w: 'Série váhy',
-consistency_lbl_i: 'Série příjmu',
-consistency_lbl_m: 'Tento měsíc',
-consistency_hint: 'Série = po sobě jdoucí kalendářní dny od dnes zpět (váha / příjem). Měsíc = dny s váhou nebo zápisem jídla.',
+hint_reset_data: 'Tovární reset: smaže vše v této aplikaci v prohlížeči/zařízení. Jako čistá instalace — bez obnovy.',
 backup_block_title: 'Záloha a obnova dat',
 backup_intro: 'Kompletní kopie deníku (váha, dny, jídla, profil…). Ulož si ji bezpečně — při čištění úložiště nebo na jiném zařízení by jinak data zmizela.',
 backup_export: 'Stáhnout zálohu (JSON)',
@@ -4234,8 +4415,15 @@ backup_import: 'Nahrát zálohu…',
 backup_import_confirm: 'Tato záloha přepíše VŠECHNA aktuální data v této aplikaci včetně oblíbených jídel a upozornění. Pokračovat?',
 backup_import_ok: 'Obnovit zálohu',
 backup_export_ok: 'Záloha stažena.',
+backup_last_never: 'Poslední záloha: zatím nikdy.',
+backup_last_at: 'Poslední záloha: {date}',
+backup_guard_warn: 'Data jsou jen lokálně v appce. Udělej zálohu JSON (aspoň 1x týdně), jinak při smazání appky o ně přijdeš.',
+backup_uninstall_warn: 'Pozor: odinstalace appky smaže lokální data. Bez JSON zálohy je neobnovíš.',
+modal_reset_backup_required: 'Před resetem nejdřív vytvoř JSON zálohu. Bez ní jsou data po resetu nenávratně pryč.',
+modal_reset_backup_guard: 'Potvrzená poslední záloha: {date}',
 backup_err_export: 'Export se nepovedl.',
 backup_err_invalid: 'Soubor není platná záloha Iron Core.',
+backup_err_anonymized_import: 'Toto je anonymní záloha bez metrik (váha, míry, energetická bilance). Pro plnou obnovu použij „Stáhnout zálohu (JSON)“.',
 backup_err_read: 'Soubor se nepovedlo přečíst.',
 backup_err_storage: 'Zálohu se nepodařilo uložit do úložiště (quota?).',
 pwa_card_title: 'Aplikace na ploše (PWA)',
@@ -4309,10 +4497,47 @@ modal_entry_move: 'Pohyb',
 modal_remove_fav: 'Smazat jídlo ze seznamu?',
 modal_undo_entry: 'Smazat: {name} ({kcal} kcal)?',
 modal_save_profile_q: 'Uložit profil?',
+modal_clear_sensitive_q: 'Smazat citlivá data? (profil, biometrie, InBody, API klíč)',
 modal_reset_all_q: 'SMAZAT VŠE?',
 modal_history_w_q: 'Data dne {date}?',
 modal_history_k_q: 'Kcal dne {date}?',
 modal_reset_day_q: 'Reset dne {date}?',
+aw_step_identity_title: 'PRVNÍ NASTAVENÍ',
+aw_step_identity_kicker: 'INICIALIZACE BIOMETRICKÉHO PROFILU',
+aw_step_identity_text: 'Nejdřív vyplň profil: věk, výška, aktuální váha a pohlaví.',
+aw_step_gold_title: 'PARAMETRY MISE',
+aw_step_gold_kicker: 'LIMIT ZLATÉ HVĚZDY',
+aw_step_gold_text: 'Nastav vlastní minimální hranici pro Zlatou hvězdu (1000 kcal je minimum). Lze později změnit v profilu.',
+aw_step_neon_title: 'NEON MILNÍK',
+aw_step_neon_kicker: '700 KCAL',
+aw_step_neon_text: 'Tady sleduješ progres k Neon milníku. Za 10 hvězd dostaneš 1 velkou!',
+aw_step_goldstar_title: 'ZLATÝ MILNÍK',
+aw_step_goldstar_kicker: '1000+ KCAL',
+aw_step_goldstar_text: 'Tady sleduješ progres ke Zlatému milníku. Za 10 hvězd dostaneš 1 velkou!',
+aw_step_tubes_title: 'MAKRO VÁLCE',
+aw_step_tubes_kicker: 'KCAL · B · T · S',
+aw_step_tubes_text: 'Naplňuj válce přesně | rovnoměrně. Sleduj „Skóre mise“ — a dostaví se progres!',
+aw_step_aiorb_title: 'AI FOTO ZÁPIS',
+aw_step_aiorb_kicker: 'VYFOTIT JÍDLO AI',
+aw_step_aiorb_text: 'Jedním klikem vyfotíš jídlo, AI odhadne kcal a makra a po potvrzení se zápis propíše do příjmu, grafu i historie.',
+aw_step_daymode_title: 'REŽIM DNE',
+aw_step_daymode_kicker: 'STYL STRAVY · NÁROČNOST DNE',
+aw_step_daymode_text: 'Tady volíš režim dne (gaučing / trénink / refeed) a úroveň aktivity. To přímo řídí denní cíle a výpočty mise.',
+aw_step_viz_title: 'PŘEHLED SYSTÉMU',
+aw_step_viz_kicker: 'GRAFY A VÝVOJ',
+aw_step_viz_text: 'Zde se propisuje celkový progres z tvého úsilí.',
+aw_step_energy_title: 'ŽIVÉ METRIKY',
+aw_step_energy_kicker: 'PŘÍJEM / VÝDEJ / DEFICIT',
+aw_step_energy_text: 'Energetické sloupce se přepočítávají v reálném čase.',
+aw_consent_notice: 'Kliknutím na pokračovat souhlasíte se zpracováním zadaných údajů pro výpočet metrik aplikace (BMR/TDEE, bilance, progres) a berete na vědomí, že data jsou ukládána lokálně ve vašem zařízení.',
+aw_legal_title: 'PRÁVNÍ OCHRANA',
+aw_legal_body: '&gt; 1. GDPR (zjednodušeně): Údaje zadávané do aplikace zpracovává váš prohlížeč/zařízení pro výpočty v aplikaci. Tento text nenahrazuje samostatnou informaci o zpracování osobních údajů tam, kde ji zákon vyžaduje. Práva související s údaji můžete uplatnit mj. smazáním dat v aplikaci nebo v nastavení zařízení.<br><br>2. MEDICAL DISCLAIMER: IRON | CORE není lékařská aplikace. Všechny výpočty (BMR, TDEE, deficit) jsou založeny na matematických vzorcích a nenahrazují konzultaci s lékařem. Použití je na vlastní nebezpečí. Systém není určen pro těhotné a kojící ženy, osoby s poruchami příjmu potravy nebo osoby mladší 18 let.<br><br>3. VÁHA: Data z diagnostické váhy jsou interpretována systémem jako pomocné metriky.<br><br>4. POUŽITÍ NA VLASTNÍ NEBEZPEČÍ: Veškeré navržené nutriční cíle, limity bílkovin a kalorické deficity jsou generovány algoritmem. Před zahájením jakékoli mise (diety) konzultujte svůj zdravotní stav s kvalifikovaným lékařem.<br><br>5. ODPOVĚDNOST: V rozsahu přípustném zákonem autor aplikace nenese odpovědnost za zdravotní komplikace, zranění nebo škody vzniklé používáním nebo výkladem dat v IRON | CORE. Žádný text v aplikaci nezakládá odbornou radu.<br><br>6. OCHRANA SOUKROMÍ: Biometrické a zdravotně související údaje v této verzi aplikace neukládáme na cloud provozovatele; zůstávají v lokální paměti prohlížeče/zařízení. Smazáním mezipaměti nebo dat stránky můžete přijít o data nenávratně. Zálohování je na vás. Svá data můžete kdykoliv smazat resetováním aplikace nebo smazáním mezipaměti prohlížeče.<br><br>7. PŘESNOST VSTUPU: Výstupy závisí na tom, co zadáte vy. Nepřebíráme odpovědnost za chyby, nepřesnosti ani opomenutí ve vašich zápisech.<br><br>8. AI A TŘETÍ STRANY: Funkce založené na umělé inteligenci nebo externích API mohou vracet nepřesné nebo neúplné informace — ověřte si kritické údaje. Napojení na služby zařízení (např. Health Connect, HealthKit) se řídí také pravidly příslušného systému; tato aplikace je nenahrazuje.<br><br>9. SLUŽBA „TAK JAK JE“: Aplikace může být měněna, omezena nebo ukončena. Nezaručujeme nepřetržitý provoz ani bezchybnost výpočtů.<br><br>10. SHODA: Kliknutím na tlačítko "Pokračovat" potvrzujete, že jste starší 18 let a plně rozumíte výše uvedeným rizikům.<br><br>11. ZÁVĚREČNÁ USTANOVENÍ: Tato aplikace je poskytována „tak jak je“ (as is). Uživatel bere na vědomí, že veškeré metriky jsou odvozeny z matematických průměrů a nemusí reflektovat individuální zdravotní specifika. V případě pochybností o zdravotním stavu okamžitě ukončete používání systému a vyhledejte odbornou pomoc.',
+aw_legal_support: '<strong>KONTAKT A PODPORA:</strong> E-mail: <a href="mailto:support@example.com" style="color:#93c5fd;text-decoration:underline">support@example.com</a> · Web: <a href="https://example.com" style="color:#93c5fd;text-decoration:underline" target="_blank" rel="noopener noreferrer">example.com</a>',
+aw_legal_hint_scroll: 'Pro pokračování sjeďte právní text až dolů.',
+aw_legal_hint_done: 'Právní text potvrzen. Můžete pokračovat.',
+flash_sensitive_cleared: 'Citlivá data byla smazána.',
+flash_sensitive_clear_failed: 'Mazání citlivých dat selhalo.',
+flash_anonymized_export_ok: 'Anonymní záloha stažena.',
 flash_need_value: 'Zadej aspoň jednu hodnotu.',
 mb_title: 'Uzávěrka & historie mise',
 aria_close: 'Zavřít',
@@ -4603,12 +4828,13 @@ ph_target_w: 'Target weight',
 ph_age: 'Age',
 ph_height: 'Height',
 btn_save_profile: 'Save profile',
+profile_legal_summary: 'Full legal agreement',
+btn_clear_sensitive: 'Clear sensitive data',
+hint_clear_sensitive: 'Profile, biometrics, InBody, and any locally stored AI API key. Day history and most settings stay — not a full reset.',
+btn_export_anonymized: 'Export anonymized backup',
+hint_export_anonymized: 'JSON with personal fields stripped — OK to share structure or archive without measurements or identity.',
 btn_reset_data: 'Reset data ⚠',
-consistency_title: 'Logging consistency',
-consistency_lbl_w: 'Weight streak',
-consistency_lbl_i: 'Intake streak',
-consistency_lbl_m: 'This month',
-consistency_hint: 'Streak = consecutive calendar days from today backward (weight / intake). Month = days with weight or a meal log.',
+hint_reset_data: 'Factory reset: wipes everything for this app in this browser/device. Like a fresh install — no undo.',
 backup_block_title: 'Backup & restore',
 backup_intro: 'Full copy of your log (weight, days, meals, profile…). Keep it safe — clearing site data or another device would otherwise lose it.',
 backup_export: 'Download backup (JSON)',
@@ -4616,8 +4842,15 @@ backup_import: 'Restore from file…',
 backup_import_confirm: 'This backup will REPLACE all current app data, including favorites and notifications. Continue?',
 backup_import_ok: 'Restore backup',
 backup_export_ok: 'Backup downloaded.',
+backup_last_never: 'Last backup: never.',
+backup_last_at: 'Last backup: {date}',
+backup_guard_warn: 'Data is local-only in the app. Create a JSON backup (at least weekly), otherwise uninstalling the app can erase it.',
+backup_uninstall_warn: 'Warning: uninstalling the app wipes local data. Without a JSON backup, recovery is not possible.',
+modal_reset_backup_required: 'Before reset, create a JSON backup first. Without it, data loss is permanent.',
+modal_reset_backup_guard: 'Confirmed last backup: {date}',
 backup_err_export: 'Export failed.',
 backup_err_invalid: 'Not a valid Iron Core backup file.',
+backup_err_anonymized_import: 'This is an anonymized backup without metrics (weight, measurements, energy balance). For full restore, use “Download backup (JSON)”.',
 backup_err_read: 'Could not read the file.',
 backup_err_storage: 'Could not write to browser storage (quota?).',
 pwa_card_title: 'Install as app (PWA)',
@@ -4691,10 +4924,47 @@ modal_entry_move: 'Activity',
 modal_remove_fav: 'Remove food from the list?',
 modal_undo_entry: 'Delete: {name} ({kcal} kcal)?',
 modal_save_profile_q: 'Save profile?',
+modal_clear_sensitive_q: 'Clear sensitive data? (profile, biometrics, InBody, API key)',
 modal_reset_all_q: 'DELETE EVERYTHING?',
 modal_history_w_q: 'Save data for {date}?',
 modal_history_k_q: 'Save kcal for {date}?',
 modal_reset_day_q: 'Reset {date}?',
+aw_step_identity_title: 'FIRST SETUP',
+aw_step_identity_kicker: 'BIOMETRIC PROFILE INITIALIZATION',
+aw_step_identity_text: 'First fill your profile: age, height, current weight, and gender.',
+aw_step_gold_title: 'MISSION PARAMETERS',
+aw_step_gold_kicker: 'GOLD STAR LIMIT',
+aw_step_gold_text: 'Set your own minimum threshold for the Gold star (1000 kcal is the minimum). You can change it later in your profile.',
+aw_step_neon_title: 'NEON MILESTONE',
+aw_step_neon_kicker: '700 KCAL',
+aw_step_neon_text: 'Track your progress toward the Neon milestone here. Every 10 stars earns 1 large star!',
+aw_step_goldstar_title: 'GOLD MILESTONE',
+aw_step_goldstar_kicker: '1000+ KCAL',
+aw_step_goldstar_text: 'Track your progress toward the Gold milestone here. Every 10 stars earns 1 large star!',
+aw_step_tubes_title: 'MACRO TUBES',
+aw_step_tubes_kicker: 'KCAL · P · F · C',
+aw_step_tubes_text: 'Fill the tubes precisely | evenly. Watch “Mission score” — that’s where progress shows up!',
+aw_step_aiorb_title: 'AI PHOTO LOG',
+aw_step_aiorb_kicker: 'SNAP MEAL WITH AI',
+aw_step_aiorb_text: 'Take a meal photo in one tap; AI estimates kcal/macros and, after confirmation, writes it into intake, chart, and history.',
+aw_step_daymode_title: 'DAY MODE',
+aw_step_daymode_kicker: 'DIET STYLE · DAY INTENSITY',
+aw_step_daymode_text: 'Choose your day mode (rest / training / refeed) and activity level. This directly controls daily targets and mission calculations.',
+aw_step_viz_title: 'SYSTEM OVERVIEW',
+aw_step_viz_kicker: 'CHARTS & TREND',
+aw_step_viz_text: 'Here you can see the overall progress of your effort.',
+aw_step_energy_title: 'LIVE METRICS',
+aw_step_energy_kicker: 'INTAKE / BURN / DEFICIT',
+aw_step_energy_text: 'Energy columns are recalculated in real time.',
+aw_consent_notice: 'By clicking Continue, you agree to processing of entered data for app metrics (BMR/TDEE, balance, progress) and acknowledge that data is stored locally on your device.',
+aw_legal_title: 'LEGAL PROTECTION',
+aw_legal_body: '&gt; 1. GDPR (summary): Data you enter is processed on your browser/device for in-app calculations. This screen is not a substitute for a full privacy notice where the law requires one. You may exercise rights related to your data partly by deleting data in the app or in device settings.<br><br>2. MEDICAL DISCLAIMER: IRON | CORE is not a medical application. All calculations (BMR, TDEE, deficit) are based on mathematical formulas and do not replace consultation with a physician. Use at your own risk. The system is not intended for people who are pregnant or breastfeeding, people with eating disorders, or anyone under 18.<br><br>3. WEIGHT: Data from diagnostic scales is interpreted by the system as auxiliary metrics.<br><br>4. USE AT YOUR OWN RISK: All suggested nutritional goals, protein limits, and calorie deficits are generated by an algorithm. Before starting any mission (diet), consult your health status with a qualified physician.<br><br>5. LIABILITY: To the extent permitted by law, the app author is not liable for health complications, injuries, or damages from using or interpreting data in IRON | CORE. Nothing in the app is professional advice.<br><br>6. PRIVACY: In this version we do not store your biometric or health-related inputs on the operator’s cloud; they stay in local browser/device storage. Clearing site data or cache can destroy data permanently. Backup is your responsibility. You may delete your data at any time by resetting the app or clearing your browser cache / site data.<br><br>7. INPUT ACCURACY: Outputs depend on what you enter. We are not responsible for mistakes, omissions, or inaccuracies in your logs.<br><br>8. AI & THIRD PARTIES: AI or external API features may return incomplete or wrong information — verify anything critical. Device integrations (e.g. Health Connect, HealthKit) are also governed by the platform’s rules; this app does not replace them.<br><br>9. “AS IS”: The app may change, be limited, or be discontinued. We do not warrant uninterrupted operation or error-free calculations.<br><br>10. CONSENT: By clicking "Continue", you confirm you are over 18 years old and fully understand the risks above.<br><br>11. FINAL PROVISIONS: This application is provided “as is.” You acknowledge that all metrics are derived from mathematical averages and may not reflect individual health specifics. If you have any doubt about your health, stop using the system immediately and seek professional help.',
+aw_legal_support: '<strong>CONTACT & SUPPORT:</strong> Email: <a href="mailto:support@example.com" style="color:#93c5fd;text-decoration:underline">support@example.com</a> · Web: <a href="https://example.com" style="color:#93c5fd;text-decoration:underline" target="_blank" rel="noopener noreferrer">example.com</a>',
+aw_legal_hint_scroll: 'To continue, scroll the legal text to the bottom.',
+aw_legal_hint_done: 'Legal text confirmed. You can continue.',
+flash_sensitive_cleared: 'Sensitive data has been cleared.',
+flash_sensitive_clear_failed: 'Clearing sensitive data failed.',
+flash_anonymized_export_ok: 'Anonymized backup downloaded.',
 flash_need_value: 'Enter at least one value.',
 mb_title: 'Day close & mission history',
 aria_close: 'Close',
@@ -5032,19 +5302,45 @@ document.body.scrollTop = 0;
 try { window.scrollTo(0, 0); } catch(e2) {}
 }
 };
-window.scrollAppToSection = function(sectionId) {
+window.scrollAppToSection = function(sectionId, blockOpt) {
 var el = document.getElementById(sectionId);
 if (!el) return;
 var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var block = (blockOpt === 'center' || blockOpt === 'end' || blockOpt === 'nearest') ? blockOpt : 'start';
 try {
-el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: block, inline: 'nearest' });
 } catch(e) {
 try { el.scrollIntoView(true); } catch(e2) {}
 }
 };
+var __sectionAnimationObserver = null;
+function updateOffscreenAnimationPauses() {
+var targets = ['section-roadmap', 'section-energy', 'section-mission', 'section-zapis', 'section-profile'];
+if (__sectionAnimationObserver) {
+try { __sectionAnimationObserver.disconnect(); } catch (eObs) {}
+}
+if (!('IntersectionObserver' in window)) return;
+__sectionAnimationObserver = new IntersectionObserver(function(entries) {
+entries.forEach(function(entry) {
+if (!entry || !entry.target) return;
+var hidden = !entry.isIntersecting || entry.intersectionRatio < 0.18;
+entry.target.classList.toggle('anim-offscreen', hidden);
+});
+}, {
+root: null,
+rootMargin: '12% 0px 12% 0px',
+threshold: [0, 0.12, 0.2, 0.5]
+});
+targets.forEach(function(id) {
+var el = document.getElementById(id);
+if (el) __sectionAnimationObserver.observe(el);
+});
+}
+setTimeout(updateOffscreenAnimationPauses, 0);
 var ROADMAP_VIEW_KEY = 'KETO_MASTER_ROADMAP_VIEW';
 var FAV_KEY = 'MISSION_TRACKER_FAVORITES'; 
 var NOTIF_KEY = 'MISSION_TRACKER_NOTIFIED';
+var BACKUP_WARN_DAY_KEY = 'IRON_CORE_BACKUP_WARN_DAY';
 var MY_FAVORITES = JSON.parse(localStorage.getItem(FAV_KEY)) || [];
 var FAV_DRAG_INDEX = -1;
 var modalCallback = null;
@@ -5100,36 +5396,6 @@ function dayKeyAddDays(dayKey, deltaDays) {
 var d = parseDayKeyToDate(dayKey);
 d.setDate(d.getDate() + deltaDays);
 return dayKeyFromDate(d);
-}
-
-function computeCalendarStreak(pred) {
-var today = getD();
-var n = 0, k = today;
-while (true) {
-var row = D.days[k];
-if (!row || !pred(row)) break;
-n++;
-k = dayKeyAddDays(k, -1);
-}
-return n;
-}
-
-function computeConsistencyStats() {
-var wStreak = computeCalendarStreak(function(row) { return Number(row.w) > 0; });
-var iStreak = computeCalendarStreak(function(row) {
-return (Number(row.e) > 0) || (Array.isArray(row.mealEntries) && row.mealEntries.length > 0);
-});
-var now = new Date();
-var y = now.getFullYear(), mo = now.getMonth();
-var lastDay = new Date(y, mo + 1, 0).getDate();
-var logged = 0;
-for (var d = 1; d <= lastDay; d++) {
-var dk = y + "-" + String(mo + 1).padStart(2, "0") + "-" + String(d).padStart(2, "0");
-var row = D.days[dk];
-if (!row) continue;
-if (Number(row.w) > 0 || Number(row.e) > 0 || (Array.isArray(row.mealEntries) && row.mealEntries.length > 0)) logged++;
-}
-return { wStreak: wStreak, iStreak: iStreak, monthLogged: logged, monthDays: lastDay };
 }
 
 function migrateDaysData(days) {
@@ -5211,86 +5477,185 @@ closeModal(true);
 });
 
 function runOnboardingGuide() {
-var bubble = document.getElementById('coach-bubble');
-var title = document.getElementById('coach-title');
-var text = document.getElementById('coach-text');
-var btnNext = document.getElementById('coach-next');
-var btnSkip = document.getElementById('coach-skip');
-if(!bubble || !title || !text || !btnNext || !btnSkip) return;
+if (window.__awakeningFlowRunning) return;
+if (D.onboardingDone) return;
+window.__awakeningFlowRunning = true;
+var overlay = document.getElementById('awakening-overlay');
+var panel = document.getElementById('awakening-panel');
+var spot = document.getElementById('awakening-spotlight');
+if (!overlay || !panel || !spot) {
+D.onboardingDone = true;
+try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (eS) {}
+window.__awakeningFlowRunning = false;
+return;
+}
+overlay.classList.add('is-on');
+overlay.setAttribute('aria-hidden', 'false');
 var steps = [
-{ sel: '#toggle-measure-btn', title: tr('coach_s1_t'), txt: tr('coach_s1_x') },
-{ sel: '#btn-add-manual-meal', title: tr('coach_s2_t'), txt: tr('coach_s2_x') },
-{ sel: '#mode-1', title: tr('coach_s3_t'), txt: tr('coach_s3_x') },
-{ sel: '#profile-toggle-btn', title: tr('coach_s4_t'), txt: tr('coach_s4_x') }
+{ id: 'identity', target: '#profile-toggle-btn', title: tr('aw_step_identity_title'), kicker: tr('aw_step_identity_kicker'), text: tr('aw_step_identity_text') },
+{ id: 'aiorb', target: '#ai-food-orb', title: tr('aw_step_aiorb_title'), kicker: tr('aw_step_aiorb_kicker'), text: tr('aw_step_aiorb_text') },
+{ id: 'daymode', target: '#quick-activity', title: tr('aw_step_daymode_title'), kicker: tr('aw_step_daymode_kicker'), text: tr('aw_step_daymode_text') },
+{ id: 'tubes', target: '#aw-macro-mission-anchor', title: tr('aw_step_tubes_title'), kicker: tr('aw_step_tubes_kicker'), text: tr('aw_step_tubes_text') },
+{ id: 'energy', target: '.stats-grid', title: tr('aw_step_energy_title'), kicker: tr('aw_step_energy_kicker'), text: tr('aw_step_energy_text') },
+{ id: 'viz', target: '#roadmap-graph-wrap', title: tr('aw_step_viz_title'), kicker: tr('aw_step_viz_kicker'), text: tr('aw_step_viz_text') },
+{ id: 'neon', target: '#star-box-green', title: tr('aw_step_neon_title'), kicker: tr('aw_step_neon_kicker'), text: tr('aw_step_neon_text') },
+{ id: 'goldstar', target: '#star-box-gold', title: tr('aw_step_goldstar_title'), kicker: tr('aw_step_goldstar_kicker'), text: tr('aw_step_goldstar_text') },
+{ id: 'gold', target: '#p-gold-lim', title: tr('aw_step_gold_title'), kicker: tr('aw_step_gold_kicker'), text: tr('aw_step_gold_text') }
 ];
 var idx = 0;
-var onScrollOrResize = function(){ position(); };
-function ensureToggleOpen(areaId, arrowId) {
-var area = document.getElementById(areaId);
-var ar = arrowId ? document.getElementById(arrowId) : null;
-if(area && !area.classList.contains('open')) {
+function ensureProfileOpen() {
+var area = document.getElementById('profile-area');
+var ar = document.getElementById('profile-arrow');
+if (area && !area.classList.contains('open')) {
 area.classList.add('open');
-if(ar) ar.innerText = '▲';
+if (ar) ar.innerText = '▲';
 }
 }
-function prepareCoachStepPanels() {
-if(idx === 1) ensureToggleOpen('manual-food-area', 'manual-food-arrow');
-if(idx === 3) ensureToggleOpen('profile-area', 'profile-arrow');
+function ensureProfileClosed() {
+var area = document.getElementById('profile-area');
+var ar = document.getElementById('profile-arrow');
+if (area && area.classList.contains('open')) {
+area.classList.remove('open');
+if (ar) ar.innerText = '▼';
 }
-function closeCoach(done) {
-bubble.classList.remove('show');
-window.removeEventListener('resize', onScrollOrResize);
-window.removeEventListener('scroll', onScrollOrResize, true);
-if(done) {
+}
+function setSpot(sel, shouldScroll) {
+if (!sel) { spot.classList.add('is-hidden'); return; }
+var t = document.querySelector(sel);
+if (!t) { spot.classList.add('is-hidden'); return; }
+if (shouldScroll !== false) {
+try { t.scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'smooth' }); } catch(e0) {}
+}
+setTimeout(function() {
+var r = t.getBoundingClientRect();
+if (r.width < 2 || r.height < 2) { spot.classList.add('is-hidden'); return; }
+var cy = r.top + (r.height * 0.5);
+overlay.classList.toggle('panel-top', cy > (window.innerHeight * 0.58));
+var vw = (window.visualViewport && window.visualViewport.width) ? window.visualViewport.width : window.innerWidth;
+var vh = (window.visualViewport && window.visualViewport.height) ? window.visualViewport.height : window.innerHeight;
+var cx = r.left + (r.width * 0.5);
+var sw = Math.round(Math.min(Math.max(36, vw - 16), r.width + 6));
+var sh = Math.round(Math.min(Math.max(36, vh - 16), r.height + 6));
+var minHalfW = sw / 2;
+var minHalfH = sh / 2;
+cx = Math.min(vw - minHalfW - 8, Math.max(minHalfW + 8, cx));
+cy = Math.min(vh - minHalfH - 8, Math.max(minHalfH + 8, cy));
+spot.classList.remove('is-hidden');
+spot.style.left = Math.round(cx) + 'px';
+spot.style.top = Math.round(cy) + 'px';
+spot.style.width = sw + 'px';
+spot.style.height = sh + 'px';
+}, 90);
+}
+function completeFlow() {
 D.onboardingDone = true;
-localStorage.setItem(KEY, JSON.stringify(D));
-flashNote(tr('coach_flash_done'), 'var(--green-neon)', 'black');
-}
-}
-function position() {
-var st = steps[idx];
-if(!st) return;
-var target = document.querySelector(st.sel);
-if(!target) return;
-var r = target.getBoundingClientRect();
-if(r.width < 1 && r.height < 1) {
-prepareCoachStepPanels();
-if(typeof target.scrollIntoView === 'function') target.scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'auto' });
-r = target.getBoundingClientRect();
-}
-var br = bubble.getBoundingClientRect();
-var bh = bubble.offsetHeight || br.height || 100;
-var bw = Math.min(320, window.innerWidth - 20);
-var left = Math.max(10, Math.min(window.innerWidth - bw - 10, r.left));
-var top = r.top - 12 - bh;
-var atBottom = false;
-if(top < 10) { top = r.bottom + 12; atBottom = true; }
-bubble.style.left = left + 'px';
-bubble.style.top = top + 'px';
-bubble.classList.toggle('at-bottom', atBottom);
-var arrowX = Math.max(14, Math.min(bw - 24, (r.left + r.width * 0.5) - left - 8));
-bubble.style.setProperty('--arrow-x', arrowX + 'px');
+try { localStorage.setItem(KEY, JSON.stringify(D)); } catch(e2) {}
+overlay.classList.remove('is-on');
+overlay.setAttribute('aria-hidden', 'true');
+window.removeEventListener('resize', onResizeAw, true);
+window.removeEventListener('scroll', onScrollAw, true);
+document.documentElement.classList.remove('app-intro-scroll-lock');
+document.body.classList.remove('app-intro-scroll-lock');
+document.body.classList.remove('app-cinematic-lock');
+document.body.classList.remove('app-reveal');
+document.documentElement.classList.remove('iron-intro-force-motion');
+window.__awakeningFlowRunning = false;
+ensureProfileClosed();
+flashNote('SYSTEM CALIBRATED / CORE ONLINE', 'var(--green-neon)', '#0b1220');
+sync();
+requestAnimationFrame(function() {
+requestAnimationFrame(function() {
+try { window.scrollTo({ top: 0, left: 0, behavior: 'auto' }); } catch (e) { try { window.scrollTo(0, 0); } catch (e2) {} }
+try { document.documentElement.scrollTop = 0; document.body.scrollTop = 0; } catch (e3) {}
+});
+});
 }
 function renderStep() {
 var st = steps[idx];
-if(!st) return;
-title.innerText = st.title;
-text.innerText = st.txt;
-btnNext.innerText = (idx === steps.length - 1) ? tr('coach_done') : tr('coach_next');
-bubble.classList.add('show');
-prepareCoachStepPanels();
-var target = document.querySelector(st.sel);
-if(target && typeof target.scrollIntoView === 'function') target.scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'auto' });
-requestAnimationFrame(function(){ requestAnimationFrame(function(){ position(); }); });
-}
-btnSkip.onclick = function(){ closeCoach(true); };
-btnNext.onclick = function(){
-if(idx >= steps.length - 1) { closeCoach(true); return; }
-idx += 1;
-renderStep();
+if (!st) { completeFlow(); return; }
+if (st.id === 'identity' || st.id === 'gold') ensureProfileOpen();
+setSpot(st.target, true);
+if (st.id === 'identity') {
+panel.innerHTML = '<div class="awakening-kicker">' + escHtml(st.kicker) + '</div>' +
+'<h3 class="awakening-title">' + escHtml(st.title) + '</h3>' +
+'<p class="awakening-text">' + escHtml(st.text) + '</p>' +
+'<div class="awakening-grid">' +
+'<div class="awakening-field"><label>Věk</label><input id="aw-age" type="number" inputmode="numeric" pattern="[0-9]*" min="14" max="99" step="1" value="' + (Number(D.age) || '') + '"></div>' +
+'<div class="awakening-field"><label>Výška (cm)</label><input id="aw-height" type="number" inputmode="numeric" pattern="[0-9]*" min="120" max="240" step="1" value="' + (Number(D.height) || '') + '"></div>' +
+'<div class="awakening-field"><label>Aktuální váha (kg)</label><input id="aw-weight" type="number" inputmode="decimal" min="30" max="300" step="0.1" value="' + ((Number(D.start) > 0 ? Number(D.start) : '') || '') + '"></div>' +
+'<div class="awakening-field"><label>Cíl váha (kg)</label><input id="aw-goal" type="number" inputmode="decimal" min="30" max="300" step="0.1" value="' + ((Number(D.final) > 0 ? Number(D.final) : '') || '') + '"></div>' +
+'<div class="awakening-field full"><label>Pohlaví</label><select id="aw-gender"><option value="">Vyber</option><option value="male"' + (D.gender === 'male' ? ' selected' : '') + '>Muž</option><option value="female"' + (D.gender === 'female' ? ' selected' : '') + '>Žena</option></select></div>' +
+'</div>' +
+'<p style="margin:8px 0 0;padding:8px 9px;border:1px solid rgba(127,29,29,0.78);border-radius:10px;background:rgba(127,29,29,0.22);color:#fecaca;font-size:10px;line-height:1.35;font-weight:800;">' + tr('aw_consent_notice') + '</p>' +
+'</div>' +
+'<div style="margin-top:8px;border:1px solid rgba(71,85,105,0.85);border-radius:10px;background:linear-gradient(180deg, rgba(15,23,42,0.96), rgba(2,6,23,0.98));padding:7px 8px;">' +
+'<div style="font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:10px;font-weight:900;letter-spacing:.06em;color:#93c5fd;text-transform:uppercase;margin-bottom:6px;">' + tr('aw_legal_title') + '</div>' +
+'<div id="aw-legal-scroll" style="max-height:118px;overflow:auto;border:1px solid rgba(51,65,85,0.95);border-radius:8px;background:#111827;color:#e5e7eb;padding:7px 8px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:10px;line-height:1.45;white-space:normal;">' +
+tr('aw_legal_body') + '<br><br>' + tr('aw_legal_support') +
+'</div>' +
+'<div id="aw-legal-hint" style="margin-top:6px;font-size:9px;font-weight:800;color:#fca5a5;">' + tr('aw_legal_hint_scroll') + '</div>' +
+'</div>' +
+'<div class="awakening-actions"><button id="aw-next" class="awakening-btn">Souhlasím a pokračovat</button></div>';
+var n = document.getElementById('aw-next');
+var legalBox = document.getElementById('aw-legal-scroll');
+var legalHint = document.getElementById('aw-legal-hint');
+if (n) { n.dataset.locked = '1'; n.classList.add('is-locked'); n.style.opacity = '0.75'; n.style.cursor = 'not-allowed'; n.setAttribute('aria-disabled', 'true'); }
+if (legalBox && n) {
+var unlockLegal = function() {
+if (n.dataset.locked !== '1') return;
+n.dataset.locked = '0';
+n.classList.remove('is-locked');
+n.style.opacity = '1';
+n.style.cursor = 'pointer';
+try { n.removeAttribute('aria-disabled'); } catch (eAr) {}
+if (legalHint) legalHint.textContent = tr('aw_legal_hint_done');
 };
-window.addEventListener('resize', onScrollOrResize);
-window.addEventListener('scroll', onScrollOrResize, true);
+var checkLegalScroll = function() {
+var maxScroll = Math.max(0, legalBox.scrollHeight - legalBox.clientHeight);
+if (maxScroll <= 2) { unlockLegal(); return; }
+if ((legalBox.scrollTop + legalBox.clientHeight) >= (legalBox.scrollHeight - 16)) unlockLegal();
+};
+legalBox.addEventListener('scroll', checkLegalScroll, { passive: true });
+requestAnimationFrame(checkLegalScroll);
+setTimeout(checkLegalScroll, 140);
+}
+if (n) n.onclick = function() {
+if (n.dataset.locked === '1') {
+flashNote(tr('aw_legal_hint_scroll'), 'var(--gold-deep)', '#0f172a');
+return;
+}
+var age = parseInt((document.getElementById('aw-age') || {}).value, 10);
+var height = parseInt((document.getElementById('aw-height') || {}).value, 10);
+var weight = parseFloat(String((document.getElementById('aw-weight') || {}).value || '').replace(',', '.'));
+var goalWeight = parseFloat(String((document.getElementById('aw-goal') || {}).value || '').replace(',', '.'));
+var gender = String((document.getElementById('aw-gender') || {}).value || '');
+if (!(age > 0 && height > 0 && weight > 0 && goalWeight > 0 && (gender === 'male' || gender === 'female'))) {
+flashNote('Vyplň prosím všechna pole.', 'var(--gold-deep)', '#0f172a');
+return;
+}
+D.age = age; D.height = height; D.start = weight; D.final = goalWeight; D.gender = gender; D.profileHeaderSaved = true;
+syncProfileCardTheme();
+sync();
+idx += 1; renderStep();
+};
+return;
+}
+panel.innerHTML = '<div class="awakening-kicker">' + escHtml(st.kicker) + '</div>' +
+'<h3 class="awakening-title">' + escHtml(st.title) + '</h3>' +
+'<p class="awakening-text">' + escHtml(st.text) + '</p>' +
+'<div class="awakening-actions">' +
+'<button id="aw-back" class="awakening-btn secondary"' + (idx <= 0 ? ' style="display:none"' : '') + '>Zpět</button>' +
+'<button id="aw-next" class="awakening-btn">' + (idx === steps.length - 1 ? 'Dokončit' : 'Další') + '</button>' +
+'</div>';
+var b = document.getElementById('aw-back');
+var n2 = document.getElementById('aw-next');
+if (b) b.onclick = function(){ if (idx > 0) { idx -= 1; renderStep(); } };
+if (n2) n2.onclick = function(){ if (idx >= steps.length - 1) completeFlow(); else { idx += 1; renderStep(); } };
+}
+var onResizeAw = function(){ setSpot((steps[idx] || {}).target || null, false); };
+var onScrollAw = function(){ setSpot((steps[idx] || {}).target || null, false); };
+window.addEventListener('resize', onResizeAw, true);
+window.addEventListener('scroll', onScrollAw, true);
 renderStep();
 }
 
@@ -5442,9 +5807,7 @@ playIntroThumpOnly();
 return;
 }
 try { introAudioUnlockFromGesture(); } catch(eR) {}
-var wm = introEl.classList.contains('has-video-overlay')
-? introEl.querySelector('.intro-overlay-title .brand-wordmark')
-: introEl.querySelector('.iron-intro-logo .brand-wordmark');
+var wm = introEl.querySelector('.iron-intro-logo .brand-wordmark');
 if(!wm) {
 playIntroLogoThumpNow();
 return;
@@ -5457,6 +5820,7 @@ done = true;
 try { clearTimeout(fallbackTimer); } catch(eC) {}
 try { wm.removeEventListener('animationstart', onAnimStart); } catch(eA) {}
 try { wm.removeEventListener('webkitAnimationStart', onAnimStart); } catch(eW) {}
+try { introEl.classList.add('impact-lock'); } catch(eI) {}
 playIntroLogoThumpNow();
 };
 var onAnimStart = function(ev) {
@@ -5520,53 +5884,11 @@ if(!navigator.vibrate) return;
 navigator.vibrate([20, 45, 35, 70, 50, 160]);
 }
 
-window.pickIntroVideo = function() {
-var inp = document.getElementById('intro-video-input');
-if(inp) inp.click();
-};
-window.clearIntroVideo = function() {
-D.introVideoData = "";
-sync();
-flashNote('Intro video smazáno.', 'var(--accent)', 'white');
-};
-function handleIntroVideoPick(ev) {
-var f = ev.target.files && ev.target.files[0];
-ev.target.value = '';
-if(!f) return;
-if(!/^video\//.test(f.type || '')) { flashNote('Vyber MP4/WebM.', 'var(--red)', 'white'); return; }
-var maxBytes = 16 * 1024 * 1024;
-if(f.size > maxBytes) { flashNote('Video je moc velké (max 16 MB).', 'var(--gold-deep)', '#0f172a'); return; }
-var reader = new FileReader();
-reader.onload = function() {
-var durl = String(reader.result || '');
-if(!/^data:video\//.test(durl)) { flashNote('Neplatný formát videa.', 'var(--red)', 'white'); return; }
-D.introVideoData = durl;
-sync();
-flashNote('Intro video uloženo.', 'var(--green-neon)', 'black');
-};
-reader.onerror = function(){ flashNote('Nelze načíst video.', 'var(--red)', 'white'); };
-reader.readAsDataURL(f);
-}
-
-function resolveIntroVideoForPlayback() {
-if(D.introVideoData && /^data:video\//.test(D.introVideoData)) {
-return { src: D.introVideoData, fromData: true };
-}
-var raw = (typeof D.introVideoExternalPath === 'string' && D.introVideoExternalPath.trim()) ? D.introVideoExternalPath.trim() : 'iron-core-intro.mp4';
-if(/^https?:\/\//i.test(raw)) {
-return { src: raw, fromData: false };
-}
-try {
-return { src: new URL(raw, window.location.href).href, fromData: false };
-} catch(e) {
-return null;
-}
-}
-
 function snapIntroResetTransforms(introEl) {
 if(!introEl) return;
 try {
-var sels = ['.iron-intro-logo .brand-wordmark', '.intro-overlay-title .brand-wordmark'];
+introEl.classList.remove('impact-lock');
+var sels = ['.iron-intro-logo .brand-wordmark'];
 for(var si = 0; si < sels.length; si++) {
 var el = introEl.querySelector(sels[si]);
 if(el) {
@@ -5583,15 +5905,9 @@ el.style.willChange = '';
 function runIntroLogoSnapToHeader(introEl, onDone) {
 onDone = onDone || function() {};
 try {
-if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-onDone();
-return;
-}
 var headerBrand = document.querySelector('.header h1 .brand-wordmark');
 if(!headerBrand || !introEl) { onDone(); return; }
-var introBrand = introEl.classList.contains('has-video-overlay')
-? introEl.querySelector('.intro-overlay-title .brand-wordmark')
-: introEl.querySelector('.iron-intro-logo .brand-wordmark');
+var introBrand = introEl.querySelector('.iron-intro-logo .brand-wordmark');
 if(!introBrand) { onDone(); return; }
 var ir = introBrand.getBoundingClientRect();
 var hr = headerBrand.getBoundingClientRect();
@@ -5666,40 +5982,20 @@ b.style.removeProperty('animation');
 });
 });
 }
-/** iOS/Safari: první klepnutí na intro odemkne zvuk videa (autoplay často jen němý). */
-function attachIntroVideoUnmuteOnFirstTouch(introEl, vEl, muteBtnEl) {
-if (!introEl || !vEl) return;
-var done = false;
-var fn = function() {
-if (done) return;
-introAudioUnlockFromGesture();
-if (vEl.muted) {
-vEl.muted = false;
-if (muteBtnEl) muteBtnEl.innerText = 'Zvuk vyp';
-try { vEl.play(); } catch (eP) {}
-}
-done = true;
-introEl.removeEventListener('pointerdown', fn, true);
-introEl.removeEventListener('touchend', fn, true);
-};
-introEl.addEventListener('pointerdown', fn, { capture: true, passive: true });
-introEl.addEventListener('touchend', fn, { capture: true, passive: true });
-}
-
-function startFirstLaunchExperience(previewMode) {
+function startFirstLaunchExperience(previewMode, forceGuideAfterIntro) {
 previewMode = !!previewMode;
-if(!previewMode && D.onboardingDone) return;
+forceGuideAfterIntro = !!forceGuideAfterIntro;
 if(window.__ironCoreIntroRunning) return;
 var intro = document.getElementById('iron-intro');
 if(!intro) { runOnboardingGuide(); return; }
+document.documentElement.classList.add('iron-intro-force-motion');
+var hadMotionLite = document.body.classList.contains('motion-lite');
+if(hadMotionLite) document.body.classList.remove('motion-lite');
 forceAppScrollTop();
 window.__ironCoreIntroRunning = true;
 __ironIntroSilentPingDone = false;
 attachDocumentIntroAudioUnlock();
-var videoEl = document.getElementById('iron-intro-video');
-var muteBtn = document.getElementById('iron-intro-mute');
-var skipBtn = document.getElementById('iron-intro-skip');
-intro.classList.remove('hold-logo', 'fade-out');
+intro.classList.remove('hold-logo', 'fade-out', 'impact-lock');
 snapIntroResetTransforms(intro);
 lockIntroScrollToTop();
 intro.style.display = '';
@@ -5723,14 +6019,12 @@ clearSafetyTimer();
 clearIntroEscalationHaptics();
 intro.classList.add('hold-logo');
 scheduleIntroLogoThumpOnBrandPop(intro);
-setTimeout(function(){
+var startFadeOutSeq = function() {
 document.body.classList.remove('app-cinematic-lock');
 document.body.classList.add('app-reveal');
-setTimeout(function(){ document.body.classList.remove('app-reveal'); }, 1300);
-}, 380);
-var startFadeOutSeq = function() {
 intro.classList.add('fade-out');
 setTimeout(function(){
+document.documentElement.classList.remove('iron-intro-force-motion');
 unlockIntroScroll();
 intro.style.display = 'none';
 intro.style.visibility = 'hidden';
@@ -5744,108 +6038,27 @@ if(hw) {
 hw.classList.add('header-brand-handoff');
 setTimeout(function(){ try { hw.classList.remove('header-brand-handoff'); } catch(eH) {} }, 1000);
 }
-if(!previewMode) setTimeout(function(){ runOnboardingGuide(); }, 3000);
+setTimeout(function(){
+document.body.classList.remove('app-reveal');
+if(hadMotionLite) document.body.classList.add('motion-lite');
+}, 120);
+if(!previewMode || forceGuideAfterIntro) setTimeout(function(){ runOnboardingGuide(); }, 900);
 }, 1050);
 };
 setTimeout(function() {
-if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-setTimeout(startFadeOutSeq, 700);
-} else {
 runIntroLogoSnapToHeader(intro, startFadeOutSeq);
-}
-}, 620);
+}, 120);
 };
-if(skipBtn) skipBtn.onclick = function(){ finishIntro(); };
-if(muteBtn && videoEl) {
-muteBtn.onclick = function(){
-videoEl.muted = !videoEl.muted;
-muteBtn.innerText = videoEl.muted ? 'Zvuk zap' : 'Zvuk vyp';
-};
-}
-var introPlay = resolveIntroVideoForPlayback();
-var hasVideo = !!introPlay;
-if(videoEl) {
-videoEl.pause();
-videoEl.onended = null;
-videoEl.onerror = null;
-videoEl.removeAttribute('src');
-videoEl.load();
-}
-intro.classList.toggle('has-video', hasVideo);
-var useOverlay = hasVideo && D.introVideoOverlayLogo !== false;
-intro.classList.toggle('has-video-overlay', useOverlay);
-var introOv = document.getElementById('iron-intro-video-overlay');
-if(introOv) {
-introOv.classList.remove('intro-overlay-pos--bottom','intro-overlay-pos--center','intro-overlay-pos--top');
-var ovPos = (D.introVideoOverlayPos === 'center' || D.introVideoOverlayPos === 'top') ? D.introVideoOverlayPos : 'bottom';
-introOv.classList.add('intro-overlay-pos--' + ovPos);
-introOv.setAttribute('aria-hidden', useOverlay ? 'false' : 'true');
-}
 intro.classList.add('active');
 primeIntroAudioOnUserGesture();
 kickIntroBubbleAnimations(intro);
-if(hasVideo && videoEl && introPlay) {
-var safetyMs = 120000;
-safetyTimer = setTimeout(function(){ finishIntro(); }, safetyMs);
-videoEl.setAttribute('playsinline', '');
-videoEl.setAttribute('webkit-playsinline', '');
-try { videoEl.playsInline = true; } catch(ePl) {}
-var vidFail = function() {
-clearSafetyTimer();
-intro.classList.remove('has-video');
-intro.classList.remove('has-video-overlay');
-try { videoEl.pause(); } catch(eP) {}
-videoEl.onerror = null;
-videoEl.onended = null;
-videoEl.removeAttribute('src');
-videoEl.load();
 setTimeout(finishIntro, 7200);
-};
-videoEl.onerror = vidFail;
-videoEl.src = introPlay.src;
-videoEl.currentTime = 0;
-var introCoarsePointer = false;
-try {
-introCoarsePointer = (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) || /iPhone|iPad|iPod/i.test(navigator.userAgent || '');
-} catch(eC) {}
-if (introCoarsePointer) {
-videoEl.muted = true;
-if(muteBtn) muteBtn.innerText = 'Zvuk zap';
-} else {
-videoEl.muted = false;
-if(muteBtn) muteBtn.innerText = 'Zvuk vyp';
-}
-videoEl.onended = function(){
-clearSafetyTimer();
-try { introAudioUnlockFromGesture(); } catch(eEnd) {}
-finishIntro();
-};
-var pIntro = videoEl.play();
-if(pIntro && pIntro.then) {
-pIntro.then(function() {
-if(muteBtn) muteBtn.innerText = videoEl.muted ? 'Zvuk zap' : 'Zvuk vyp';
-try { introAudioUnlockFromGesture(); } catch(eAud) {}
-}).catch(function() {
-if(!videoEl.muted) {
-videoEl.muted = true;
-if(muteBtn) muteBtn.innerText = 'Zvuk zap';
-var p2 = videoEl.play();
-if(p2 && p2.catch) p2.catch(vidFail);
-} else {
-vidFail();
-}
-});
-} else {
-videoEl.play().catch(vidFail);
-}
-attachIntroVideoUnmuteOnFirstTouch(intro, videoEl, muteBtn);
-} else {
-setTimeout(finishIntro, 7200);
-}
 }
 
 window.previewIntroExperience = function() {
-startFirstLaunchExperience(true);
+D.onboardingDone = false;
+try { localStorage.setItem(KEY, JSON.stringify(D)); } catch(ePrev) {}
+startFirstLaunchExperience(true, true);
 };
 
 window.toggleHistArea = function() {
@@ -6162,16 +6375,13 @@ inbodyDraft: { date: "", weight: 0, smm: 0, pbf: 0, bfm: 0, whr: 0, vfl: 0, scor
 inbodyHistory: [],
 onboardingDone: false,
 profileHeaderSaved: false,
-introVideoData: "",
-introVideoExternalPath: "",
-introVideoOverlayLogo: true,
-introVideoOverlayPos: "bottom",
 reduceMotion: false,
 logs: [],
 lastLogDate: "",
 chartScrollK: null,
 chartScrollW: null,
-uiLang: 'cs'
+uiLang: 'cs',
+lastBackupAt: ''
 };
 
 function toBool(v, fallback) {
@@ -6191,21 +6401,18 @@ D.fasting = D.fasting || { protocol: "", start: "20:00" };
 D.fasting.start = D.fasting.start || "20:00";
 D.geminiApiKey = typeof D.geminiApiKey === "string" ? D.geminiApiKey : "";
 D.onboardingDone = toBool(D.onboardingDone, false);
-D.introVideoData = typeof D.introVideoData === 'string' ? D.introVideoData : "";
-D.introVideoExternalPath = typeof D.introVideoExternalPath === 'string' ? D.introVideoExternalPath : "";
 if (D.gender !== 'male' && D.gender !== 'female') D.gender = '';
 D.profileHeaderSaved = toBool(D.profileHeaderSaved, false);
 if (!D.profileHeaderSaved) {
 if (D.gender === 'male' || D.gender === 'female') D.profileHeaderSaved = true;
 else if (Number(D.start) > 0 && Number(D.age) > 0 && Number(D.height) > 0) D.profileHeaderSaved = true;
 }
-D.introVideoOverlayLogo = toBool(D.introVideoOverlayLogo, true);
-D.introVideoOverlayPos = (D.introVideoOverlayPos === 'center' || D.introVideoOverlayPos === 'top') ? D.introVideoOverlayPos : 'bottom';
 D.metricGoalPredV2 = (D.metricGoalPredV2 && typeof D.metricGoalPredV2 === "object") ? D.metricGoalPredV2 : {};
 D.thighRefCm = Number(D.thighRefCm) || 0;
 D.bicepsRefCm = Number(D.bicepsRefCm) || 0;
 if (D.uiLang !== 'en' && D.uiLang !== 'cs') D.uiLang = 'cs';
 D.reduceMotion = toBool(D.reduceMotion, false);
+D.lastBackupAt = typeof D.lastBackupAt === 'string' ? D.lastBackupAt : '';
 applyMotionMode();
 D.lastLogDate = toDayKey(D.lastLogDate) || getD();
 var todayDate = getD();
@@ -6883,6 +7090,9 @@ var btn = document.getElementById('save-note-close');
 if(!n || !c) return;
 if (_saveNoteTimer) { clearTimeout(_saveNoteTimer); _saveNoteTimer = null; }
 n.classList.remove('save-msg--dismissible');
+var noteText = String(text || '');
+var isHealthNote = /healthkit|health|sync pohybu|apple_health/i.test(noteText);
+n.classList.toggle('save-msg--health', isHealthNote);
 if (btn) btn.style.display = 'none';
 var oldText = c.textContent;
 var oldBg = n.style.background;
@@ -6896,6 +7106,7 @@ n.style.display = 'none';
 c.textContent = oldText;
 n.style.background = oldBg;
 n.style.color = oldColor;
+n.classList.remove('save-msg--health');
 _saveNoteTimer = null;
 }, 2600);
 }
@@ -7464,13 +7675,55 @@ D.activityProfile = '';
 D.inbodyDraft = readInBodyDraftFromInputs();
 var pInbMode = document.getElementById('p-inbody-mode');
 if (pInbMode) D.bmrInBodyMode = (pInbMode.value === 'fixed') ? 'fixed' : 'adaptive';
-var pIntroX = document.getElementById('p-intro-video-external'); D.introVideoExternalPath = pIntroX ? String(pIntroX.value || '').trim() : '';
 var pReduceMotion = document.getElementById('p-reduce-motion');
 if (pReduceMotion) D.reduceMotion = !!pReduceMotion.checked;
 applyMotionMode();
 D.profileHeaderSaved = true;
 sync(); }); };
-window.askReset = function() { openModal(tr("modal_reset_all_q"), function() { try {
+window.askClearSensitiveData = function() { openModal(tr("modal_clear_sensitive_q"), function() {
+try {
+D.geminiApiKey = "";
+D.age = 0;
+D.height = 0;
+D.start = 0;
+D.final = 0;
+D.gender = "";
+D.profileHeaderSaved = false;
+D.labBmr = 0;
+D.labBmrAtKg = 0;
+D.thighRefCm = 0;
+D.bicepsRefCm = 0;
+D.inbodyDraft = { date: "", weight: 0, smm: 0, pbf: 0, bfm: 0, whr: 0, vfl: 0, score: 0 };
+D.inbodyHistory = [];
+if (D.days && typeof D.days === "object") {
+Object.keys(D.days).forEach(function(dayKey) {
+var day = D.days[dayKey];
+if (!day || typeof day !== "object") return;
+delete day.w;
+delete day.waist;
+delete day.chest;
+delete day.thigh;
+delete day.biceps;
+delete day.shoulders;
+delete day.thighRefCm;
+delete day.bicepsRefCm;
+delete day.inbody;
+delete day.bscore;
+});
+}
+sync();
+flashNote(tr('flash_sensitive_cleared'), 'var(--red)', 'white');
+} catch(e) {
+flashNote(tr('flash_sensitive_clear_failed'), 'var(--red)', 'white');
+}
+}, tr("btn_modal_delete")); };
+window.askReset = function() {
+var backupAt = formatBackupDateTime(D.lastBackupAt || '');
+if (!backupAt) {
+openModal(tr("modal_reset_backup_required"), function() {}, 'OK');
+return;
+}
+openModal(tr("modal_reset_all_q") + '\n\n' + tr('modal_reset_backup_guard', { date: backupAt }), function() { try {
 localStorage.removeItem(KEY);
 LEGACY_DATA_KEYS.forEach(function(k) { localStorage.removeItem(k); });
 localStorage.removeItem(NOTIF_KEY);
@@ -7481,14 +7734,16 @@ var rk = localStorage.key(ri);
 if (!rk) continue;
 if (/^(IRON_CORE|KETO_MASTER|MISSION_TRACKER)/.test(rk)) localStorage.removeItem(rk);
 }
-} catch(e) {} location.reload(); }, tr("btn_modal_delete")); };
+} catch(e) {} location.reload(); }, tr("btn_modal_delete"));
+};
 
 window.exportIronCoreBackup = function() {
 try {
+var exportedAtIso = new Date().toISOString();
 var pack = {
 format: IRON_BACKUP_FORMAT,
 version: 1,
-exportedAt: new Date().toISOString(),
+exportedAt: exportedAtIso,
 appVersion: APP_VERSION_TAG,
 payload: {
 main: D,
@@ -7505,7 +7760,69 @@ document.body.appendChild(a);
 a.click();
 document.body.removeChild(a);
 URL.revokeObjectURL(a.href);
+D.lastBackupAt = exportedAtIso;
+try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (eS) {}
+updateBackupStatusUi();
 flashNote(tr('backup_export_ok'), 'var(--green-neon)', '#0f172a');
+} catch (e) {
+flashNote(tr('backup_err_export'), 'var(--pink)', 'white');
+}
+};
+
+window.exportIronCoreAnonymizedBackup = function() {
+try {
+var safeMain = JSON.parse(JSON.stringify(D || {}));
+safeMain.geminiApiKey = "";
+safeMain.age = 0;
+safeMain.height = 0;
+safeMain.start = 0;
+safeMain.final = 0;
+safeMain.gender = "";
+safeMain.profileHeaderSaved = false;
+safeMain.labBmr = 0;
+safeMain.labBmrAtKg = 0;
+safeMain.thighRefCm = 0;
+safeMain.bicepsRefCm = 0;
+safeMain.inbodyDraft = { date: "", weight: 0, smm: 0, pbf: 0, bfm: 0, whr: 0, vfl: 0, score: 0 };
+safeMain.inbodyHistory = [];
+if (safeMain.days && typeof safeMain.days === 'object') {
+Object.keys(safeMain.days).forEach(function(dayKey) {
+var day = safeMain.days[dayKey];
+if (!day || typeof day !== 'object') return;
+delete day.w;
+delete day.waist;
+delete day.chest;
+delete day.thigh;
+delete day.biceps;
+delete day.shoulders;
+delete day.thighRefCm;
+delete day.bicepsRefCm;
+delete day.inbody;
+delete day.bscore;
+});
+}
+var pack = {
+format: IRON_BACKUP_FORMAT,
+version: 1,
+exportedAt: new Date().toISOString(),
+appVersion: APP_VERSION_TAG,
+anonymized: true,
+payload: {
+main: safeMain,
+favorites: MY_FAVORITES,
+notified: NOTIFIED,
+roadmapView: (typeof window.currentView === 'string' ? window.currentView : null) || localStorage.getItem(ROADMAP_VIEW_KEY) || 'day'
+}
+};
+var blob = new Blob([JSON.stringify(pack, null, 2)], { type: 'application/json;charset=utf-8' });
+var a = document.createElement('a');
+a.href = URL.createObjectURL(blob);
+a.download = 'iron-core-backup-anonymized-' + getD().replace(/-/g, '') + '.json';
+document.body.appendChild(a);
+a.click();
+document.body.removeChild(a);
+URL.revokeObjectURL(a.href);
+flashNote(tr('flash_anonymized_export_ok'), 'var(--green-neon)', '#0f172a');
 } catch (e) {
 flashNote(tr('backup_err_export'), 'var(--pink)', 'white');
 }
@@ -7524,6 +7841,19 @@ return { format: IRON_BACKUP_FORMAT, version: raw.version || 1, exportedAt: raw.
 }
 return null;
 }
+function summarizeBackupMetrics(mainObj) {
+var days = (mainObj && mainObj.days && typeof mainObj.days === 'object') ? mainObj.days : {};
+var keys = Object.keys(days);
+var stats = { totalDays: keys.length, weightDays: 0, measureDays: 0, energyDays: 0, mealDays: 0 };
+keys.forEach(function(k) {
+var d = days[k] || {};
+if (Number(d.w) > 0) stats.weightDays++;
+if (Number(d.waist) > 0 || Number(d.chest) > 0 || Number(d.thigh) > 0 || Number(d.biceps) > 0 || Number(d.shoulders) > 0) stats.measureDays++;
+if (Number(d.e) > 0 || Number(d.b) > 0) stats.energyDays++;
+if (Array.isArray(d.mealEntries) && d.mealEntries.length > 0) stats.mealDays++;
+});
+return stats;
+}
 function applyIronCoreBackupParsed(data) {
 var normalized = normalizeIronCoreBackupObject(data);
 if (!normalized) {
@@ -7531,8 +7861,19 @@ flashNote(tr('backup_err_invalid'), 'var(--pink)', 'white');
 return;
 }
 data = normalized;
+if (data.anonymized === true) {
+flashNote(tr('backup_err_anonymized_import'), 'var(--gold-deep)', '#0f172a');
+return;
+}
+var bStats = summarizeBackupMetrics((data.payload || {}).main || {});
+var importMsg = tr('backup_import_confirm') + '\n\n' +
+'Dny: ' + bStats.totalDays +
+' | Váha: ' + bStats.weightDays +
+' | Míry: ' + bStats.measureDays +
+' | Energie: ' + bStats.energyDays +
+' | Jídla: ' + bStats.mealDays;
 window._pendingIronBackup = data;
-openModal(tr('backup_import_confirm'), function() {
+openModal(importMsg, function() {
 var d = window._pendingIronBackup;
 window._pendingIronBackup = null;
 if (!d || !d.payload || typeof d.payload.main !== 'object') return;
@@ -7541,6 +7882,13 @@ localStorage.setItem(KEY, JSON.stringify(d.payload.main));
 localStorage.setItem(FAV_KEY, JSON.stringify(Array.isArray(d.payload.favorites) ? d.payload.favorites : []));
 localStorage.setItem(NOTIF_KEY, JSON.stringify(d.payload.notified && typeof d.payload.notified === 'object' ? d.payload.notified : {}));
 if (d.payload.roadmapView) localStorage.setItem(ROADMAP_VIEW_KEY, String(d.payload.roadmapView));
+try {
+var importedMain = d.payload.main || {};
+if (typeof importedMain === 'object' && importedMain !== null) {
+if (!importedMain.lastBackupAt) importedMain.lastBackupAt = d.exportedAt || new Date().toISOString();
+localStorage.setItem(KEY, JSON.stringify(importedMain));
+}
+} catch (ePatch) {}
 } catch (e2) {
 flashNote(tr('backup_err_storage'), 'var(--pink)', 'white');
 return;
@@ -7573,6 +7921,52 @@ flashNote(tr('backup_err_invalid'), 'var(--pink)', 'white');
 };
 reader.readAsText(f, 'UTF-8');
 });
+}
+
+function formatBackupDateTime(iso) {
+try {
+if (!iso) return '';
+var d = new Date(iso);
+if (!isFinite(d.getTime())) return '';
+return d.toLocaleString(getUiLang() === 'en' ? 'en-US' : 'cs-CZ');
+} catch (e) { return ''; }
+}
+
+function updateBackupStatusUi() {
+var el = document.getElementById('backup-last-status');
+if (!el) return;
+var dt = formatBackupDateTime(D.lastBackupAt || '');
+if (dt) el.textContent = tr('backup_last_at', { date: dt });
+else el.textContent = tr('backup_last_never');
+}
+
+function hasMeaningfulStoredData() {
+var keys = Object.keys(D.days || {});
+for (var i = 0; i < keys.length; i++) {
+var row = D.days[keys[i]] || {};
+if (Number(row.w) > 0 || Number(row.e) > 0 || Number(row.b) > 0) return true;
+if (Number(row.waist) > 0 || Number(row.chest) > 0 || Number(row.thigh) > 0 || Number(row.biceps) > 0 || Number(row.shoulders) > 0) return true;
+if (Array.isArray(row.mealEntries) && row.mealEntries.length > 0) return true;
+}
+return false;
+}
+
+function maybeWarnBackupNeeded() {
+try {
+if (!hasMeaningfulStoredData()) return;
+var needWarn = false;
+if (!D.lastBackupAt) needWarn = true;
+else {
+var t = new Date(D.lastBackupAt).getTime();
+if (!isFinite(t)) needWarn = true;
+else if ((Date.now() - t) > (7 * 24 * 60 * 60 * 1000)) needWarn = true;
+}
+if (!needWarn) return;
+var today = getD();
+if (localStorage.getItem(BACKUP_WARN_DAY_KEY) === today) return;
+localStorage.setItem(BACKUP_WARN_DAY_KEY, today);
+flashNote(tr('backup_guard_warn'), 'var(--gold-deep)', '#0f172a');
+} catch (e) {}
 }
 
 window.saveHistoryW = function(dt, idW, idWaist, idChest, idThigh, idBiceps, idShoulders) { 
@@ -7897,22 +8291,8 @@ if (fastStartEl && !isUserEditingField(fastStartEl)) fastStartEl.value = (D.fast
 
 var pgkEl = document.getElementById('p-gemini-key');
 if(pgkEl && !isUserEditingField(pgkEl)) pgkEl.value = D.geminiApiKey || '';
-var ivn = document.getElementById('intro-video-note');
-if(ivn) {
-if(D.introVideoData && /^data:video\//.test(D.introVideoData)) {
-ivn.innerText = tr('intro_note_own');
-} else if(D.introVideoExternalPath) {
-ivn.innerText = tr('intro_note_url');
-} else {
-ivn.innerText = tr('intro_note_default');
-}
-}
-var pIntroExt = document.getElementById('p-intro-video-external');
-if(pIntroExt && !isUserEditingField(pIntroExt)) pIntroExt.value = D.introVideoExternalPath || '';
-var iovChk = document.getElementById('intro-video-overlay-logo');
-if(iovChk && !isUserEditingField(iovChk)) iovChk.checked = D.introVideoOverlayLogo !== false;
-var iovSel = document.getElementById('intro-video-overlay-pos');
-if(iovSel && !isUserEditingField(iovSel)) iovSel.value = D.introVideoOverlayPos || 'bottom';
+updateBackupStatusUi();
+maybeWarnBackupNeeded();
 var pStartEl = document.getElementById('p-start');
 if(pStartEl && !isUserEditingField(pStartEl)) pStartEl.value = (Number(D.start) > 0) ? D.start : '';
 var pFinalEl = document.getElementById('p-final');
@@ -7960,9 +8340,14 @@ if(qAct && !isUserEditingField(qAct)) qAct.value = activityProfileForDayKey(getD
 
 var headerEl = document.querySelector('.container .header');
 var headerBg = document.querySelector('.header-bg');
+var headerStandin = document.getElementById('header-intro-standin');
+var isGenderUnset = !(D.gender === 'male' || D.gender === 'female');
 if (headerEl) {
-if (D.gender === 'male' || D.gender === 'female') headerEl.classList.remove('header--gender-unset');
-else headerEl.classList.add('header--gender-unset');
+if (isGenderUnset) headerEl.classList.add('header--gender-unset');
+else headerEl.classList.remove('header--gender-unset');
+}
+if (headerStandin) {
+headerStandin.style.display = isGenderUnset ? 'block' : 'none';
 }
 if (headerBg) {
 var headerUrlMale = "url('https://images.unsplash.com/photo-1577221084712-45b0445d2b00?fm=jpg&q=80&w=1200&auto=format&fit=crop')";
@@ -8002,13 +8387,6 @@ waistDisp.innerHTML = '<span style="display:block;font-weight:800;font-size:11px
 '<span style="display:block;font-weight:900;font-size:14px;line-height:1.2;margin-top:3px;">' + deltaStr + '</span>';
 }
 }
-var cs = computeConsistencyStats();
-var csw = document.getElementById('consistency-w-val');
-var csi = document.getElementById('consistency-i-val');
-var csm = document.getElementById('consistency-m-val');
-if (csw) csw.textContent = String(cs.wStreak);
-if (csi) csi.textContent = String(cs.iStreak);
-if (csm) csm.textContent = cs.monthLogged + '/' + cs.monthDays;
 var worstW = baselineWorstWeightKg(today);
 var worstBmi = worstW != null ? bmiFromWeightKg(worstW) : bmiStartNum;
 var eps = 0.04;
@@ -10607,18 +10985,6 @@ if(rb && rb.style.display === "block") window.hideRefeedInfoBubble();
 (function(){
 var fi = document.getElementById('food-photo-input');
 if(fi) fi.addEventListener('change', handleFoodPhotoChange);
-var iVid = document.getElementById('intro-video-input');
-if(iVid) iVid.addEventListener('change', handleIntroVideoPick);
-var iovChkEl = document.getElementById('intro-video-overlay-logo');
-if(iovChkEl) iovChkEl.addEventListener('change', function(){
-D.introVideoOverlayLogo = !!iovChkEl.checked;
-sync();
-});
-var iovSelEl = document.getElementById('intro-video-overlay-pos');
-if(iovSelEl) iovSelEl.addEventListener('change', function(){
-D.introVideoOverlayPos = iovSelEl.value || 'bottom';
-sync();
-});
 })();
 window.__missionBriefingOffset = 0;
 window.fillMissionBriefingDOM = function(data) {
@@ -10804,7 +11170,7 @@ try {
 setupIronCoreBackupImportInput();
 applyI18n();
 render();
-startFirstLaunchExperience();
+if (!D.onboardingDone) startFirstLaunchExperience();
 } catch (eBoot) {}
 }
 if (document.readyState === 'loading') {
@@ -10828,7 +11194,7 @@ navigator.serviceWorker.register('sw.js').catch(function() {});
 <button type="button" class="app-bottom-bar-sect app-bottom-bar-sect--progres" onclick="window.scrollAppToSection('section-roadmap')" data-i18n="nav_progress">Progres</button>
 <button type="button" class="app-bottom-bar-sect app-bottom-bar-sect--energy" onclick="window.scrollAppToSection('section-energy')" data-i18n="nav_energy">Energie</button>
 <button type="button" class="app-bottom-bar-sect app-bottom-bar-sect--mission" onclick="window.scrollAppToSection('section-mission')" data-i18n="nav_mission">Mise</button>
-<button type="button" class="app-bottom-bar-sect app-bottom-bar-sect--zapis" onclick="window.scrollAppToSection('section-zapis')" data-i18n="nav_log">Zápis</button>
+<button type="button" class="app-bottom-bar-sect app-bottom-bar-sect--zapis" onclick="window.scrollAppToSection('ai-food-orb', 'center')" data-i18n="nav_log">Zápis</button>
 <button type="button" class="app-bottom-bar-sect app-bottom-bar-sect--profil" onclick="window.scrollAppToSection('section-profile')" data-i18n="nav_profile">Profil</button>
 </nav>
 </div>
