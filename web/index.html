@@ -5397,6 +5397,17 @@ var d = parseDayKeyToDate(dayKey);
 d.setDate(d.getDate() + deltaDays);
 return dayKeyFromDate(d);
 }
+function pickLatestMeaningfulDayKey(daysObj) {
+var keys = Object.keys(daysObj || {}).filter(function(k) { return /^\d{4}-\d{2}-\d{2}$/.test(k); }).sort();
+for (var i = keys.length - 1; i >= 0; i--) {
+var k = keys[i];
+var d = daysObj[k] || {};
+if (Number(d.w) > 0 || Number(d.e) > 0 || Number(d.b) > 0) return k;
+if (Number(d.waist) > 0 || Number(d.chest) > 0 || Number(d.thigh) > 0 || Number(d.biceps) > 0 || Number(d.shoulders) > 0) return k;
+if (Array.isArray(d.mealEntries) && d.mealEntries.length > 0) return k;
+}
+return getD();
+}
 
 function migrateDaysData(days) {
 function pickNum(obj, keys) {
@@ -10841,7 +10852,7 @@ if(!editingHistoryNow) {
 document.getElementById('history-weight-root').innerHTML = ew; 
 document.getElementById('history-kcal-root').innerHTML = ek;
 }
-if(!window._histStartDate) window._histStartDate = dayKeyFromDate(new Date());
+if(!window._histStartDate) window._histStartDate = pickLatestMeaningfulDayKey(D.days || {});
 var hs = document.getElementById('hist-start-date');
 if(hs && !isUserEditingField(hs)) hs.value = window._histStartDate;
 renderRoutine();
