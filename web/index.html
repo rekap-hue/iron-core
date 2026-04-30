@@ -4115,9 +4115,11 @@ bottom: auto;
 <div id="hist-area" class="toggle-content">
 <div class="card" style="border:1px solid var(--orange);">
 <div class="stat-label" style="color: var(--orange)">Zobrazit starší dny</div>
-<div style="display:flex; gap:8px;">
+<div style="display:flex; gap:8px; flex-wrap:wrap;">
 <input type="date" id="hist-start-date" style="margin-bottom:0;">
 <button type="button" onclick="window.applyHistoryRange()" class="btn-save-mini" style="width:auto !important; padding:10px 12px !important;">Použít</button>
+<button type="button" onclick="window.shiftHistoryRange(-7)" class="btn-save-mini" style="width:auto !important; padding:10px 12px !important;">← 7 dní</button>
+<button type="button" onclick="window.shiftHistoryRange(7)" class="btn-save-mini" style="width:auto !important; padding:10px 12px !important;">7 dní →</button>
 </div>
 </div>
 <div class="card" style="border: 1px solid var(--pink);">
@@ -5340,6 +5342,7 @@ setTimeout(updateOffscreenAnimationPauses, 0);
 var ROADMAP_VIEW_KEY = 'KETO_MASTER_ROADMAP_VIEW';
 var FAV_KEY = 'MISSION_TRACKER_FAVORITES'; 
 var NOTIF_KEY = 'MISSION_TRACKER_NOTIFIED';
+var HIST_START_KEY = 'IRON_CORE_HIST_START_DATE';
 var BACKUP_WARN_DAY_KEY = 'IRON_CORE_BACKUP_WARN_DAY';
 var MY_FAVORITES = JSON.parse(localStorage.getItem(FAV_KEY)) || [];
 var FAV_DRAG_INDEX = -1;
@@ -6114,7 +6117,16 @@ document.getElementById('hist-arrow').innerText = area.classList.toggle('open') 
 };
 window.applyHistoryRange = function() {
 var inp = document.getElementById('hist-start-date');
-window._histStartDate = (inp && inp.value) ? toDayKey(inp.value) : getD();
+window._histStartDate = (inp && inp.value) ? toDayKey(inp.value) : pickLatestMeaningfulDayKey(D.days || {});
+try { localStorage.setItem(HIST_START_KEY, window._histStartDate || ''); } catch(eHist) {}
+render();
+};
+window.shiftHistoryRange = function(deltaDays) {
+var step = Number(deltaDays) || 0;
+if (!step) return;
+var base = window._histStartDate || pickLatestMeaningfulDayKey(D.days || {});
+window._histStartDate = dayKeyAddDays(base, step);
+try { localStorage.setItem(HIST_START_KEY, window._histStartDate || ''); } catch(eHist2) {}
 render();
 };
 
@@ -6460,6 +6472,10 @@ D.bicepsRefCm = Number(D.bicepsRefCm) || 0;
 if (D.uiLang !== 'en' && D.uiLang !== 'cs') D.uiLang = 'cs';
 D.reduceMotion = toBool(D.reduceMotion, false);
 D.lastBackupAt = typeof D.lastBackupAt === 'string' ? D.lastBackupAt : '';
+try {
+var storedHistStart = toDayKey(localStorage.getItem(HIST_START_KEY) || '');
+if (storedHistStart) window._histStartDate = storedHistStart;
+} catch(eHistLoad) {}
 applyMotionMode();
 D.lastLogDate = toDayKey(D.lastLogDate) || getD();
 var todayDate = getD();
@@ -10851,6 +10867,7 @@ document.getElementById('history-kcal-root').innerHTML = ek;
 if(!window._histStartDate) window._histStartDate = pickLatestMeaningfulDayKey(D.days || {});
 var hs = document.getElementById('hist-start-date');
 if(hs && !isUserEditingField(hs)) hs.value = window._histStartDate;
+try { localStorage.setItem(HIST_START_KEY, window._histStartDate || ''); } catch(eHistSave) {}
 renderRoutine();
 
 } catch(e){ console.error("Render Error:", e); }
