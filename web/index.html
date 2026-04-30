@@ -5399,12 +5399,48 @@ return dayKeyFromDate(d);
 }
 
 function migrateDaysData(days) {
+function pickNum(obj, keys) {
+for (var i = 0; i < keys.length; i++) {
+var v = Number(obj[keys[i]]);
+if (isFinite(v) && v > 0) return v;
+}
+return 0;
+}
+function pickArr(obj, keys) {
+for (var i = 0; i < keys.length; i++) {
+var a = obj[keys[i]];
+if (Array.isArray(a)) return a.slice();
+}
+return [];
+}
 var migrated = {};
 Object.keys(days || {}).forEach(function(rawKey) {
 var normalized = toDayKey(rawKey);
 if(!normalized) return;
-if(!migrated[normalized]) migrated[normalized] = days[rawKey];
-else migrated[normalized] = Object.assign({}, migrated[normalized], days[rawKey]);
+var src = (days[rawKey] && typeof days[rawKey] === 'object') ? days[rawKey] : {};
+var normalizedDay = Object.assign({}, src);
+var w = pickNum(src, ['w', 'weight', 'bodyWeight', 'currentWeight']);
+if (w > 0) normalizedDay.w = w;
+var waist = pickNum(src, ['waist', 'pas']);
+if (waist > 0) normalizedDay.waist = waist;
+var chest = pickNum(src, ['chest', 'hrudnik']);
+if (chest > 0) normalizedDay.chest = chest;
+var thigh = pickNum(src, ['thigh', 'stehno']);
+if (thigh > 0) normalizedDay.thigh = thigh;
+var biceps = pickNum(src, ['biceps']);
+if (biceps > 0) normalizedDay.biceps = biceps;
+var shoulders = pickNum(src, ['shoulders', 'ramena']);
+if (shoulders > 0) normalizedDay.shoulders = shoulders;
+var e = pickNum(src, ['e', 'eat', 'intake', 'kcalIn', 'caloriesIn', 'calIn']);
+if (e > 0) normalizedDay.e = e;
+var b = pickNum(src, ['b', 'burn', 'out', 'kcalOut', 'caloriesOut', 'activityKcal']);
+if (b > 0) normalizedDay.b = b;
+if (!Array.isArray(normalizedDay.mealEntries)) {
+var entries = pickArr(src, ['mealEntries', 'entries', 'meals', 'logs']);
+if (entries.length) normalizedDay.mealEntries = entries;
+}
+if(!migrated[normalized]) migrated[normalized] = normalizedDay;
+else migrated[normalized] = Object.assign({}, migrated[normalized], normalizedDay);
 });
 return migrated;
 }
