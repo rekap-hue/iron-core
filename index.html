@@ -7782,10 +7782,16 @@ flashNote(tr('flash_sensitive_clear_failed'), 'var(--red)', 'white');
 }, tr("btn_modal_delete")); };
 window.askReset = function() {
 var backupAt = formatBackupDateTime(D.lastBackupAt || '');
-var guardText = backupAt
-? (tr("modal_reset_all_q") + '\n\n' + tr('modal_reset_backup_guard', { date: backupAt }))
-: (tr("modal_reset_all_q") + '\n\n' + tr("modal_reset_backup_required"));
-if (!window.confirm(guardText)) return;
+var now = Date.now();
+if (!window.__resetArmTs || (now - window.__resetArmTs) > 7000) {
+window.__resetArmTs = now;
+var armMsg = backupAt
+? ('⚠ ' + tr("modal_reset_backup_guard", { date: backupAt }) + '\n\nKlepni znovu na "Reset Dat ⚠" do 7 sekund pro potvrzení.')
+: ('⚠ ' + tr("modal_reset_backup_required") + '\n\nKlepni znovu na "Reset Dat ⚠" do 7 sekund pro potvrzení.');
+flashNote(armMsg, 'var(--red)', 'white');
+return;
+}
+window.__resetArmTs = 0;
 try {
 localStorage.removeItem(KEY);
 LEGACY_DATA_KEYS.forEach(function(k) { localStorage.removeItem(k); });
