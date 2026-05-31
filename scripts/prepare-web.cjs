@@ -4,7 +4,7 @@ const path = require("path");
 const root = process.cwd();
 const outDir = path.join(root, "web");
 
-const filesToCopy = ["index.html", "manifest.json", "sw.js"];
+const filesToCopy = ["index.html", "manifest.json", "sw.js", "privacy.html"];
 const optionalFiles = ["app-icon.png", "favicon.ico"];
 
 function ensureDir(dir) {
@@ -48,26 +48,28 @@ const privacyHtml = `<!DOCTYPE html>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ochrana soukromí — IRON CORE (Health Connect)</title>
+  <title>Ochrana soukromí — IRON CORE (Health Connect / HealthKit)</title>
   <style>
     body { font-family: system-ui, sans-serif; line-height: 1.45; padding: 16px; max-width: 40rem; margin: 0 auto; color: #0f172a; }
     h1 { font-size: 1.15rem; }
     h2 { font-size: 1rem; margin-top: 1.5rem; }
+    a { color: #b45309; }
   </style>
 </head>
 <body>
-  <h1>Ochrana soukromí (Health Connect)</h1>
+  <h1>Ochrana soukromí (Health Connect / HealthKit)</h1>
   <p>
-    Aplikace <strong>IRON CORE</strong> z Health Connect čte pouze <strong>aktivní spálené kalorie</strong> a
-    <strong>hmotnost</strong>, které už ve svém zařízení ukládáte. Slouží to jen k doplnění denního zápisu v aplikaci.
-    Tato data se v rámci této aplikace neodesílají na náš server (běží lokálně v zařízení).
+    Aplikace <strong>IRON CORE</strong> po vašem souhlasu z Apple Health / Health Connect čte pouze
+    <strong>aktivní spálené kalorie</strong> a <strong>hmotnost</strong>, které už ve svém zařízení ukládáte.
+    Slouží to jen k doplnění denního zápisu v aplikaci. Tato data se na server provozovatele IRON CORE neodesílají.
   </p>
+  <p>Úplné zásady ochrany osobních údajů: <a href="privacy.html">privacy.html</a> (v balíčku aplikace) nebo veřejná HTTPS URL uvedená v obchodě aplikací.</p>
   <h2>Privacy policy (English)</h2>
   <p>
-    <strong>IRON CORE</strong> reads only <strong>active energy burned</strong> and <strong>body weight</strong> from
-    Health Connect that you already store on your device, to fill your daily log. This app does not send that health data
-    to our servers; it stays on your device.
+    With your permission, <strong>IRON CORE</strong> reads only <strong>active energy burned</strong> and
+    <strong>body weight</strong> from Health Connect / Apple Health to fill your daily log. This data is not sent to the IRON CORE operator’s servers.
   </p>
+  <p>Full privacy policy: <a href="privacy.html">privacy.html</a> in the app bundle or the public HTTPS URL listed in the store listing.</p>
 </body>
 </html>
 `;

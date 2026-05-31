@@ -1,5 +1,9 @@
 {
   "appId": "cz.ironcore.app",
   "appName": "IRON CORE",
-  "webDir": "web"
+  "webDir": "web",
+  "zoomEnabled": true,
+  "ios": {
+    "zoomEnabled": true
+  }
 }

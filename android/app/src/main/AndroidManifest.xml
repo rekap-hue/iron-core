@@ -9,6 +9,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <!-- Před publikací na Google Play nahraďte HTTPS URL hostovanou verzí privacypolicy.html (Health Connect). -->
+        <meta-data
+            android:name="health_connect_privacy_policy_url"
+            android:value="https://example.com/iron-core/privacypolicy.html" />
+
         <activity
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode|navigation|density"
             android:name=".MainActivity"

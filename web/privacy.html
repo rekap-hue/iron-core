@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zásady ochrany osobních údajů — IRON CORE</title>
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.5; padding: 16px 18px 32px; max-width: 42rem; margin: 0 auto; color: #0f172a; background: #f8fafc; }
+    h1 { font-size: 1.25rem; margin: 0 0 0.5rem; }
+    h2 { font-size: 1rem; margin: 1.5rem 0 0.35rem; }
+    p, li { font-size: 0.95rem; }
+    .warn { background: #fff7ed; border: 1px solid #fdba74; border-radius: 8px; padding: 12px; margin: 16px 0; font-size: 0.9rem; }
+    a { color: #b45309; }
+    footer { margin-top: 2rem; font-size: 0.8rem; color: #64748b; }
+  </style>
+</head>
+<body>
+  <h1>Zásady ochrany osobních údajů</h1>
+  <p>Aplikace <strong>IRON CORE</strong> (dále jen „aplikace“). Platnost od: <strong>[DOPLNIT: datum]</strong>.</p>
+
+  <p class="warn">
+    <strong>Před publikací doplňte</strong> údaje správce (IČO, sídlo, kontakt), případně jméno pověřence pro ochranu osobních údajů (DPO) a nahraďte zástupné texty [DOPLNIT]. Tento soubor nenahrazuje právní poradu.
+  </p>
+
+  <h2>1. Správce osobních údajů</h2>
+  <p>
+    [DOPLNIT: název / jméno podnikatele]<br>
+    [DOPLNIT: sídlo]<br>
+    IČO: [DOPLNIT]<br>
+    E-mail: <a href="mailto:[DOPLNIT]">[DOPLNIT]</a>
+  </p>
+
+  <h2>2. Jaká data zpracováváme</h2>
+  <ul>
+    <li><strong>Profil a mise</strong> — věk (18+), pohlaví, výška, váhy, cíle, aktivita, nutriční záznamy — ukládá se <strong>pouze lokálně</strong> v zařízení (localStorage / úložiště aplikace).</li>
+    <li><strong>Zdraví (volitelně)</strong> — po vašem souhlasu čte aplikace z Apple Health / Health Connect aktivní spálené kalorie a hmotnost pro doplnění denního zápisu. Tato data neodesíláme na server správce.</li>
+    <li><strong>Fotografie jídla + AI (volitelně)</strong> — pokud zadáte vlastní API klíč Google Gemini a vyfotíte jídlo, obrázek a klíč se odešlou přímo ke službě <strong>Google</strong> (generativelanguage.googleapis.com) k odhadu maker. Správce IRON CORE tyto údaje nezpracovává na vlastním serveru.</li>
+    <li><strong>Technické údaje</strong> — jazyk aplikace, nastavení; žádné účetní přihlášení ve výchozím režimu.</li>
+  </ul>
+
+  <h2>3. Účely a právní základy (GDPR)</h2>
+  <ul>
+    <li>Provoz aplikace a výpočty — plnění smlouvy / oprávněný zájem (čl. 6 odst. 1 písm. b) nebo f) GDPR).</li>
+    <li>Propojení se zdravím — souhlas (čl. 6 odst. 1 písm. a); lze kdykoli odvolat v nastavení zařízení.</li>
+    <li>Odeslání fotky do Google AI — souhlas při prvním použití funkce.</li>
+    <li>Partnerské odkazy (Withings) — přechod na web třetí strany; platí jejich zásady.</li>
+  </ul>
+
+  <h2>4. Příjemci a přenosy</h2>
+  <p>Data z profilu a deníků <strong>neprodáváme</strong> a standardně je neposíláme na náš backend. Příjemci mohou být:</p>
+  <ul>
+    <li><strong>Google LLC</strong> — analýza fotky jídla (pouze pokud funkci sami aktivujete).</li>
+    <li><strong>Apple / Google</strong> — platforma Health / Health Connect dle vašeho nastavení.</li>
+    <li><strong>Withings</strong> — pokud kliknete na partnerský odkaz (mimo aplikaci).</li>
+  </ul>
+
+  <h2>5. Doba uchování</h2>
+  <p>Data držíte v zařízení, dokud je nesmažete v aplikaci („Smazat citlivá data“, „Reset dat“) nebo neodinstalujete aplikaci.</p>
+
+  <h2>6. Vaše práva</h2>
+  <p>Máte právo na přístup, opravu, výmaz, omezení zpracování, námitku a přenositelnost (pokud se vztahuje), a právo podat stížnost u <strong>Úřadu pro ochranu osobních údajů</strong> (<a href="https://www.uoou.cz/">uoou.cz</a>). Žádosti směřujte na kontakt správce výše.</p>
+
+  <h2>7. Zabezpečení</h2>
+  <p>Doporučujeme zámek zařízení, aktualizace OS a nesdílení API klíče Gemini. Export anonymní zálohy v aplikaci neobsahuje osobní identifikátory dle popisu v aplikaci.</p>
+
+  <h2>8. Děti</h2>
+  <p>Aplikace není určena osobám mladším 18 let.</p>
+
+  <h2>9. Změny zásad</h2>
+  <p>Aktualizované znění zveřejníme na této stránce s uvedením data platnosti. U významných změn vás můžeme informovat v aplikaci.</p>
+
+  <h2>Privacy policy (English summary)</h2>
+  <p><strong>IRON CORE</strong> stores profile and diary data locally on your device. Optional Health sync reads active energy and weight from Apple Health / Health Connect — not sent to our servers. Optional meal photos are sent to <strong>Google Gemini</strong> only if you provide your API key and agree. Controller: [DOPLNIT]. Contact: [DOPLNIT]. Rights under GDPR apply; complaints to your supervisory authority.</p>
+
+  <footer>IRON CORE · šablona zásad — doplnit před odesláním do obchodů</footer>
+</body>
+</html>

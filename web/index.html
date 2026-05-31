@@ -4,11 +4,22 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5, user-scalable=yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="IRON CORE">
-<meta name="theme-color" content="#020617">
+<meta name="theme-color" content="#020617" id="meta-theme-color">
+<script>
+(function () {
+  var k = 'IRON_CORE_THEME_V1';
+  var t = 'dark';
+  try { t = localStorage.getItem(k) || 'dark'; } catch (e) {}
+  if (t !== 'light' && t !== 'dark') t = 'dark';
+  document.documentElement.setAttribute('data-theme', t);
+  var mc = document.getElementById('meta-theme-color') || document.querySelector('meta[name="theme-color"]');
+  if (mc) mc.setAttribute('content', t === 'light' ? '#d4e3f4' : '#020617');
+})();
+</script>
 <link rel="icon" type="image/png" href="app-icon.png">
 <link rel="apple-touch-icon" href="app-icon.png">
 <link rel="manifest" href="manifest.json">
@@ -51,12 +62,78 @@
 --brand-wordmark: "Bebas Neue", "Outfit", system-ui, sans-serif;
 --neon-green-filter: drop-shadow(0 0 10px var(--green-neon));
 --graph-y-axis-w: 68px;
+--surface: #0f172a;
+--surface-2: #0c1222;
+--border: #334155;
+--border-soft: #1e293b;
+--text-soft: #cbd5e1;
+--text-strong: #e2e8f0;
+--graph-axis: #94a3b8;
+--graph-axis-dim: #64748b;
+--chart-stroke-white: #ffffff;
+--modal-ink: #0f172a;
+--body-grad-mid: #0b1224;
+--bar-fade-top: rgba(2, 6, 23, 0);
+--bar-fade-mid: rgba(2, 6, 23, 0.82);
+--bar-fade-bot: rgba(2, 6, 23, 0.96);
+--card-grad-1: rgba(35, 48, 69, 0.95);
+--card-grad-2: rgba(24, 33, 52, 0.98);
+--card-grad-3: rgba(15, 23, 42, 0.99);
+--input-grad-1: rgba(30, 41, 59, 0.45);
+--overlay: rgba(0, 0, 0, 0.85);
+--graph-panel-bg: #000000;
+--graph-panel-inset: rgba(0, 0, 0, 0.8);
+--roadmap-cutout-bg: linear-gradient(rgba(2, 6, 23, 0.98), rgba(3, 7, 18, 0.98));
+color-scheme: dark;
+}
+html[data-theme="light"] {
+color-scheme: light;
+--bg: #d4e3f4;
+--card: #a8bdd4;
+--surface: #c5d7eb;
+--surface-2: #b8cce0;
+--border: #a8bfd6;
+--border-soft: #bdd0e4;
+--text: #0f172a;
+--muted: #475569;
+--text-soft: #334155;
+--text-strong: #0f172a;
+--ui-border: rgba(100, 130, 165, 0.55);
+--ui-border-focus: rgba(217, 119, 6, 0.88);
+--chrome-toggle: rgba(217, 119, 6, 0.42);
+--neon-gold-soft: rgba(245, 158, 11, 0.2);
+--neon-gold-ambient: rgba(255, 157, 0, 0.1);
+--green-neon: #15803d;
+--trend-good-neon: #047857;
+--shadow-levitate: 0 10px 22px -8px rgba(30, 58, 95, 0.12), 0 4px 10px -4px rgba(30, 58, 95, 0.07);
+--shadow-btn: 0 6px 14px -4px rgba(30, 58, 95, 0.14);
+--graph-axis: #475569;
+--graph-axis-dim: #64748b;
+--chart-stroke-white: #f5faff;
+--body-grad-mid: #c5d9ef;
+--bar-fade-top: rgba(212, 227, 244, 0);
+--bar-fade-mid: rgba(212, 227, 244, 0.9);
+--bar-fade-bot: rgba(212, 227, 244, 0.98);
+--card-grad-1: #b5c9de;
+--card-grad-2: #a8bdd4;
+--card-grad-3: #9ab0ca;
+--input-grad-1: rgba(197, 215, 235, 0.98);
+--overlay: rgba(15, 23, 42, 0.38);
+--graph-panel-bg: #ffffff;
+--graph-panel-inset: rgba(30, 58, 95, 0.06);
+--roadmap-cutout-bg: linear-gradient(165deg, rgba(30, 41, 59, 0.72), rgba(15, 23, 42, 0.95));
+--roadmap-tubes-panel-bg: linear-gradient(165deg, rgba(30, 41, 59, 0.72), rgba(15, 23, 42, 0.95));
+--motor-neon: #67e8f9;
+--motor-neon-deep: #22d3ee;
+--motor-neon-border: rgba(34, 211, 238, 0.72);
+--motor-neon-bg: rgba(34, 211, 238, 0.14);
+--motor-neon-glow: rgba(56, 189, 248, 0.45);
 }
 body {
 background: var(--bg);
 background-image:
 radial-gradient(ellipse 120% 80% at 50% -15%, rgba(245, 158, 11, 0.09), transparent 52%),
-linear-gradient(168deg, #020617 0%, #0b1224 42%, #020617 100%);
+linear-gradient(168deg, var(--bg) 0%, var(--body-grad-mid) 42%, var(--bg) 100%);
 background-attachment: fixed;
 color: var(--text);
 font-family: var(--font-ui);
@@ -77,7 +154,7 @@ bottom: 0;
 z-index: 180;
 pointer-events: none;
 padding-bottom: max(0px, env(safe-area-inset-bottom, 0px));
-background: linear-gradient(180deg, rgba(2, 6, 23, 0) 0%, rgba(2, 6, 23, 0.82) 38%, rgba(2, 6, 23, 0.96) 100%);
+background: linear-gradient(180deg, var(--bar-fade-top) 0%, var(--bar-fade-mid) 38%, var(--bar-fade-bot) 100%);
 border-top: 1px solid rgba(245, 158, 11, 0.42);
 box-shadow: 0 -10px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
 backdrop-filter: blur(14px);
@@ -96,28 +173,30 @@ pointer-events: none;
 flex-shrink: 0;
 pointer-events: auto;
 -webkit-tap-highlight-color: transparent;
-min-width: 56px;
-max-width: 64px;
-padding: 5px 6px 6px;
+min-width: 48px;
+max-width: 52px;
+min-height: 48px;
+padding: 5px;
 border-radius: 12px;
 border: 1px solid rgba(245, 158, 11, 0.58);
 background: linear-gradient(165deg, rgba(245, 158, 11, 0.22), rgba(15, 23, 42, 0.94));
 backdrop-filter: blur(12px);
 -webkit-backdrop-filter: blur(12px);
 box-shadow: 0 6px 18px rgba(245, 158, 11, 0.14), var(--shadow-btn), inset 0 1px 0 rgba(255, 255, 255, 0.12), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
-font-family: var(--font-display);
-font-size: 7.5px;
-font-weight: 900;
-letter-spacing: 0.14em;
-line-height: 1.2;
-color: rgba(255, 247, 237, 0.98);
-text-transform: uppercase;
-text-align: center;
+display: flex;
+align-items: center;
+justify-content: center;
 cursor: pointer;
-text-shadow: 0 0 12px rgba(245, 158, 11, 0.35), 0 1px 2px rgba(0, 0, 0, 0.65);
 }
 .app-bottom-bar-home:active { transform: scale(0.97); }
-.app-bottom-bar-home-line { display: block; letter-spacing: 0.18em; }
+.app-bottom-bar-home-icon {
+width: 36px;
+height: 36px;
+border-radius: 9px;
+object-fit: cover;
+display: block;
+box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.35), 0 2px 8px rgba(0, 0, 0, 0.35);
+}
 .app-bottom-bar-scroll {
 flex: 1;
 min-width: 0;
@@ -149,7 +228,7 @@ backdrop-filter: blur(10px);
 -webkit-backdrop-filter: blur(10px);
 border: 1px solid rgba(148, 163, 184, 0.38);
 background: linear-gradient(165deg, rgba(51, 65, 85, 0.42), rgba(15, 23, 42, 0.88));
-color: #f1f5f9;
+color: var(--text);
 box-shadow:
 0 4px 14px rgba(0, 0, 0, 0.42),
 inset 0 1px 0 rgba(255, 255, 255, 0.1),
@@ -272,7 +351,7 @@ overflow: hidden;
 position: relative;
 background-color: #000;
 box-shadow: var(--shadow-levitate);
-border: 1px solid #334155;
+border: 1px solid var(--border);
 perspective: 1000px;
 }
 .header-bg {
@@ -395,7 +474,7 @@ z-index: 10;
 border: 1px solid rgba(255,255,255,0.1);
 }
 .card {
-background: linear-gradient(165deg, rgba(35, 48, 69, 0.95) 0%, rgba(24, 33, 52, 0.98) 48%, rgba(15, 23, 42, 0.99) 100%);
+background: linear-gradient(165deg, var(--card-grad-1) 0%, var(--card-grad-2) 48%, var(--card-grad-3) 100%);
 border-radius: 18px;
 padding: 20px;
 margin-bottom: 18px;
@@ -406,11 +485,11 @@ transition: transform 0.3s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 .stats-grid { display: flex; gap: 8px; margin-bottom: 18px; }
 .stat-box {
 flex: 1;
-background: #0f172a;
+background: var(--surface);
 padding: 10px 6px;
 border-radius: 14px;
 text-align: center;
-border: 1px solid #1e293b;
+border: 1px solid var(--border-soft);
 box-shadow: var(--shadow-levitate);
 }
 .stat-label { font-size: 8px; color: var(--muted); font-weight: 800; text-transform: uppercase; margin-bottom: 4px; }
@@ -419,7 +498,7 @@ font-size: 10px;
 font-weight: 800;
 letter-spacing: 0.11em;
 text-transform: uppercase;
-color: #cbd5e1;
+color: var(--text-soft);
 margin: 0 0 12px;
 padding: 0 0 0 12px;
 border-left: 3px solid rgba(245, 158, 11, 0.55);
@@ -430,7 +509,7 @@ text-transform: none;
 letter-spacing: 0.02em;
 font-size: 11px;
 font-weight: 800;
-color: #e2e8f0;
+color: var(--text-strong);
 }
 .stat-val { font-size: 18px; font-weight: 900; }
 #bmi-val.bmi-val-wrap {
@@ -1577,19 +1656,21 @@ line-height: 1.2;
 min-height: 14px;
 white-space: pre-line;
 }
-@keyframes rotateStar3D {
-from { transform: rotateY(0deg); }
-to { transform: rotateY(360deg); }
-}
+/* Hvězdy: bez rotace (šetří WebKit); živost jen pulz scale+opacity + statický barevný glow. */
 @keyframes starPulse {
-0%, 100% { filter: drop-shadow(0 0 10px currentColor); transform: scale(1); }
-50% { filter: drop-shadow(0 0 20px currentColor); transform: scale(1.1); }
+0%, 100% { transform: scale(1); opacity: 1; }
+50% { transform: scale(1.42); opacity: 0.72; }
 }
-.star-3d {
-animation: rotateStar3D 8s linear infinite;
+@keyframes starPulseMega {
+0%, 100% { transform: scale(1); opacity: 1; }
+50% { transform: scale(1.28); opacity: 0.82; }
+}
+.star-3d,
+.star-counters .star-3d,
+#svg-k .star-3d {
+animation: none !important;
 transform-origin: center;
 transform-box: fill-box;
-perspective: 1000px;
 }
 .star-counters {
 display: flex;
@@ -1614,9 +1695,20 @@ box-shadow: var(--shadow-levitate);
 .mini-star { 
 width: 28px; height: 28px; margin-left: -11px; position: relative; 
 display: flex; align-items: center; justify-content: center;
-animation: starPulse 2s ease-in-out infinite;
+animation: starPulse 2.2s ease-in-out infinite;
 }
-.mini-star svg { width: 100%; height: 100%; filter: drop-shadow(0 0 5px rgba(255,255,255,0.4)); }
+.mini-star svg { width: 100%; height: 100%; filter: drop-shadow(0 0 7px currentColor); }
+@media (hover: none) and (pointer: coarse) {
+.mini-star { animation-duration: 2.4s; }
+.mini-star svg { filter: drop-shadow(0 0 8px currentColor); }
+}
+@media (prefers-reduced-motion: reduce) {
+.star-3d,
+.mini-star,
+.rank-mega-star-stage,
+.rank-mega-star-btn .rank-mega-svg { animation: none !important; }
+.mini-star { opacity: 1; transform: none; }
+}
 .mini-star .star-num { position: absolute; font-size: 10px; font-weight: 900; color: #f8fafc; text-shadow: 0 0 6px rgba(0,0,0,0.9); z-index: 10; }
 .star-legend-wrap { position: relative; width: 28px; height: 28px; flex-shrink: 0; }
 .star-legend-wrap svg { width: 100%; height: 100%; filter: drop-shadow(0 0 8px rgba(255,255,255,0.35)); }
@@ -1628,25 +1720,116 @@ box-shadow: 0 16px 40px rgba(0,0,0,0.55); font-size: 11px; font-weight: 700; dis
 .refeed-info-bubble { border-color: rgba(236, 72, 153, 0.55); box-shadow: 0 16px 44px rgba(0,0,0,0.55), 0 0 28px rgba(236, 72, 153, 0.12); }
 .meal-day-bubble-close, .star-info-bubble-close, .refeed-info-bubble-close { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border: none; border-radius: 8px; background: rgba(255,255,255,0.08); color: var(--muted); font-size: 18px; font-weight: 900; cursor: pointer; line-height: 1; }
 .star-rank-plain { font-size: 12px; font-weight: 800; color: var(--text); }
+.star-rank-val {
+color: var(--text);
+font-size: 12px;
+margin-top: 3px;
+min-height: 112px;
+padding: 4px 0 2px;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+gap: 6px;
+}
+.star-rank-sub {
+font-size: 9px;
+font-weight: 800;
+color: var(--muted);
+line-height: 1.35;
+text-align: center;
+max-width: 100%;
+}
 .rank-mega-star-btn {
 background: none; border: none; cursor: pointer; padding: 0; margin: 0;
-position: relative; width: 50px; height: 50px;
-display: inline-flex; align-items: center; justify-content: center;
-filter: drop-shadow(0 0 12px rgba(255,255,255,0.15));
+display: block;
 }
-.rank-mega-star-btn:active { transform: scale(0.96); }
-.rank-mega-star-btn .rank-mega-svg { width: 48px; height: 48px; }
-.rank-mega-star-btn .star-3d { animation: none; }
-.rank-mega-star--green .rank-mega-svg { color: var(--green-neon); }
-.rank-mega-star--gold .rank-mega-svg { color: var(--gold-deep); }
-.rank-mega-star--gold .rank-mega-svg path { stroke: currentColor; stroke-width: 1.05px; }
+.rank-mega-star-btn:active .rank-mega-star-stage { transform: scale(0.96); }
+.rank-mega-star-stage {
+position: relative;
+display: block;
+width: 96px; height: 96px;
+margin: 0 auto;
+animation: starPulseMega 2.6s ease-in-out infinite;
+transform-origin: center;
+}
+.rank-mega-star-btn .rank-mega-svg {
+display: block;
+width: 100%; height: 100%;
+pointer-events: none;
+}
+.rank-mega-star-btn .star-3d { animation: none !important; }
+.rank-mega-star--green .rank-mega-svg {
+color: var(--green-neon);
+filter:
+drop-shadow(0 0 2px rgba(57,255,20,1))
+drop-shadow(0 0 10px rgba(57,255,20,0.85))
+drop-shadow(0 0 22px rgba(57,255,20,0.55))
+drop-shadow(0 0 36px rgba(57,255,20,0.28));
+}
+.rank-mega-star--gold .rank-mega-svg {
+color: var(--gold-deep);
+filter:
+drop-shadow(0 0 2px rgba(245,158,11,1))
+drop-shadow(0 0 10px rgba(245,158,11,0.9))
+drop-shadow(0 0 22px rgba(251,191,36,0.55))
+drop-shadow(0 0 36px rgba(245,158,11,0.3));
+}
+.rank-mega-star--green .rank-mega-svg .rank-mega-star-body {
+stroke: currentColor;
+stroke-width: 0.48;
+vector-effect: non-scaling-stroke;
+paint-order: stroke fill;
+}
+.rank-mega-star--gold .rank-mega-svg .rank-mega-star-body {
+stroke: currentColor;
+stroke-width: 0.48;
+vector-effect: non-scaling-stroke;
+paint-order: stroke fill;
+}
+.rank-mega-star-stage::after {
+content: '';
+position: absolute;
+left: 14%; top: 10%; right: 28%; bottom: 38%;
+border-radius: 42% 58% 48% 52%;
+background: linear-gradient(128deg, rgba(255,255,255,0.62) 0%, rgba(255,255,255,0.18) 42%, transparent 72%);
+transform: rotate(-14deg);
+pointer-events: none;
+z-index: 1;
+mix-blend-mode: screen;
+opacity: 0.9;
+}
 .rank-mega-star-num {
-position: absolute; bottom: -2px; right: -4px;
-min-width: 18px; text-align: center;
-font-size: 11px; font-weight: 900; color: #0f172a;
-background: rgba(255,255,255,0.92); padding: 2px 5px; border-radius: 8px;
-line-height: 1.15; box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+position: absolute;
+left: 50%; top: 50%;
+transform: translate(-50%, -50%);
+z-index: 2;
+display: flex; align-items: center; justify-content: center;
+min-width: 0; padding: 0;
+background: none; box-shadow: none;
+font-family: var(--font-display);
+font-size: clamp(28px, 11vw, 40px);
+font-weight: 200;
+line-height: 1;
+letter-spacing: -0.05em;
+font-variant-numeric: tabular-nums;
+-webkit-font-smoothing: antialiased;
+pointer-events: none;
+background-clip: text;
+-webkit-background-clip: text;
+color: transparent;
+-webkit-text-fill-color: transparent;
+filter: drop-shadow(0 1px 3px rgba(0,0,0,0.75));
 }
+.rank-mega-star--green .rank-mega-star-num {
+background-image: linear-gradient(168deg, rgba(255,255,255,0.98) 0%, rgba(220,255,228,0.88) 38%, rgba(134,239,172,0.92) 100%);
+text-shadow: none;
+}
+.rank-mega-star--gold .rank-mega-star-num {
+background-image: linear-gradient(168deg, rgba(255,255,255,0.98) 0%, rgba(255,244,214,0.9) 40%, rgba(251,191,36,0.95) 100%);
+text-shadow: none;
+}
+.rank-mega-star-num--wide { font-size: clamp(22px, 9vw, 32px); letter-spacing: -0.07em; font-weight: 200; }
 .star-info-bubble h3 { margin: 0 0 8px; font-size: 12px; font-weight: 900; color: var(--gold); }
 .star-info-bubble p { margin: 0 0 8px; font-size: 10px; line-height: 1.45; color: var(--text); }
 .star-info-bubble .star-info-k { color: var(--green-neon); font-weight: 900; }
@@ -1663,7 +1846,6 @@ line-height: 1.15; box-shadow: 0 2px 6px rgba(0,0,0,0.35);
 .meal-day-line small { display: block; font-size: 9px; color: var(--muted); font-weight: 700; margin-top: 4px; }
 .star-divider { width: 80%; height: 1px; background: rgba(255,255,255,0.1); margin: 6px 0; }
 .star-rank-bottom { font-size: 9px; font-weight: 800; color: var(--muted); padding-top: 5px; }
-.star-rank-val { color: var(--text); font-size: 12px; margin-top: 3px; min-height: 52px; display: flex; align-items: center; justify-content: center; }
 @keyframes sheen {
 from { stroke-dashoffset: 1000; }
 to { stroke-dashoffset: 0; }
@@ -1678,9 +1860,9 @@ opacity: 1;
 filter: drop-shadow(0 0 8px white);
 }
 .graph-wrapper {
-position: relative; background: #000; border-radius: 14px;
-border: 1px solid #334155; overflow: hidden; margin-bottom: 12px;
-box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+position: relative; background: var(--graph-panel-bg); border-radius: 14px;
+border: 1px solid var(--border); overflow: hidden; margin-bottom: 12px;
+box-shadow: inset 0 0 20px var(--graph-panel-inset);
 }
 .graph-wrapper.graph-wrapper--kcal {
 overflow-x: hidden;
@@ -1707,10 +1889,10 @@ z-index: 8;
 }
 .y-axis-fixed {
 position: absolute; left: 0; top: 0; bottom: 0; width: var(--graph-y-axis-w);
-background: rgba(2, 6, 23, 0.98); z-index: 100; border-right: 1px solid #334155;
+background: color-mix(in srgb, var(--bg) 98%, transparent); z-index: 100; border-right: 1px solid var(--border);
 }
 #y-k .kcal-axis-gridnum {
-position: absolute; width: 100%; text-align: center; color: #94a3b8; font-size: 10px; z-index: 1;
+position: absolute; width: 100%; text-align: center; color: var(--graph-axis); font-size: 10px; z-index: 1;
 pointer-events: none; line-height: 1.1;
 }
 #y-k .kcal-axis-pill {
@@ -1725,7 +1907,12 @@ text-shadow: 0 0 8px rgba(0,0,0,0.55);
 left: 3px; right: 1px; font-size: 7px; padding: 1px 3px; max-width: 50px; line-height: 1.2;
 }
 #y-w div { font-size: 10px !important; }
-#y-w div[style*="z-index:101"] { padding: 2px 5px !important; left: 2px !important; font-size: 9px !important; }
+#y-w .roadmap-meta-pill {
+text-shadow: none !important;
+box-shadow: none !important;
+-webkit-font-smoothing: antialiased;
+}
+#y-w .roadmap-meta-pill { padding: 2px 6px !important; left: 4px !important; font-size: 10px !important; }
 }
 .graph-outer {
 width: 100%; height: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;
@@ -1796,6 +1983,13 @@ text-align: center;
 margin-bottom: 18px;
 text-shadow: 0 0 14px rgba(247, 37, 193, 0.34);
 }
+.motor-pace-line {
+margin-top: -8px;
+margin-bottom: 10px;
+text-align: center;
+color: var(--pink);
+font-weight: 900;
+}
 .toggle-btn.toggle-food-manual {
 border-color: var(--gold);
 background: rgba(245, 158, 11, 0.08);
@@ -1816,9 +2010,17 @@ transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 background: rgba(247, 37, 193, 0.26); border-color: var(--pink); color: white;
 box-shadow: 0 0 18px rgba(247, 37, 193, 0.5);
 }
+.roadmap-pink-cutout {
+margin: 0 0 12px;
+padding: 10px 10px 8px;
+border-radius: 16px;
+border: 1px solid rgba(244, 114, 182, 0.35);
+background: var(--roadmap-cutout-bg);
+box-shadow: 0 12px 24px rgba(2, 6, 23, 0.58), inset 0 1px 0 rgba(244, 114, 182, 0.12);
+}
 input, textarea, select {
-background: linear-gradient(165deg, rgba(30, 41, 59, 0.45) 0%, #0f172a 55%, #0c1222 100%);
-color: white;
+background: linear-gradient(165deg, var(--input-grad-1) 0%, var(--surface) 55%, var(--surface-2) 100%);
+color: var(--text);
 border: 2px solid var(--ui-border);
 padding: 16px; border-radius: 12px; width: 100%; font-size: 16px; box-sizing: border-box;
 margin-bottom: 12px; outline: none; -webkit-appearance: none; appearance: none;
@@ -1871,7 +2073,7 @@ display: block !important;
 .btn-save-mini.btn-hist-reset--wine:hover { filter: brightness(1.08); }
 #modal-overlay {
 position: fixed; inset: 0; width: 100%; height: 100%; max-height: 100dvh;
-background: rgba(0,0,0,0.85); display: none; z-index: 5000;
+background: var(--overlay); display: none; z-index: 5000;
 flex-direction: column; justify-content: center; align-items: center;
 padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
 box-sizing: border-box;
@@ -2081,6 +2283,23 @@ border-color: rgba(255, 45, 149, 0.8);
 color: #ffd1e8;
 text-shadow: 0 0 9px rgba(255, 45, 149, 0.35);
 }
+/* Keep pinch zoom usable on iOS despite tap optimizations on controls. */
+html,
+body {
+touch-action: pan-x pan-y pinch-zoom;
+}
+button,
+.btn,
+.mode-btn,
+.diet-btn,
+.fast-btn,
+.gender-btn,
+.toggle-btn,
+.balance-row,
+.intake-hero-pill,
+.burn-hero-orb {
+touch-action: auto !important;
+}
 body.motion-lite *,
 body.motion-lite *::before,
 body.motion-lite *::after {
@@ -2106,6 +2325,8 @@ transition: none !important;
 .anim-offscreen .roadmap-mini-val--gauge-arc-danger,
 .anim-offscreen .star-3d,
 .anim-offscreen .mini-star,
+.anim-offscreen .rank-mega-star-stage,
+.anim-offscreen .rank-mega-star-btn .rank-mega-svg,
 .anim-offscreen .intake-hero-pill--commit::before,
 .anim-offscreen .intake-hero-pill--fav::before,
 .anim-offscreen .intake-hero-pill--ai.intake-hero-pill--ai-rich::before,
@@ -2136,6 +2357,23 @@ margin-bottom: 0;
 border-color: rgba(127, 29, 29, 0.55);
 background: rgba(127, 29, 29, 0.08);
 margin-top: 12px;
+}
+.profile-legal-links {
+display: flex;
+flex-direction: column;
+gap: 8px;
+margin-top: 12px;
+}
+.profile-legal-link {
+width: 100%;
+box-sizing: border-box;
+padding: 11px 12px !important;
+font-size: 10px !important;
+font-weight: 800 !important;
+text-align: center;
+text-decoration: none;
+border-color: rgba(148, 163, 184, 0.45) !important;
+color: #cbd5e1 !important;
 }
 .profile-details-legal > .profile-details-summary {
 color: #fecaca;
@@ -2173,7 +2411,7 @@ margin-top: 10px;
 padding: 8px 9px;
 border: 1px solid rgba(51, 65, 85, 0.95);
 border-radius: 8px;
-background: #0f172a;
+background: var(--surface);
 color: #e5e7eb;
 font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 font-size: 10px;
@@ -2191,7 +2429,7 @@ inset 0 1px 0 rgba(255,255,255,0.05);
 }
 .toggle-content { display: none; }
 .toggle-content.open { display: block; }
-.balance-row { display: flex; flex-wrap: wrap; align-content: flex-start; background: #0f172a; border-radius: 10px; padding: 4px 10px; align-items: center; justify-content: space-between; border: 1px solid #1e293b; margin-bottom: 4px; box-shadow: 0 4px 8px rgba(0,0,0,0.4); cursor: pointer; }
+.balance-row { display: flex; flex-wrap: wrap; align-content: flex-start; background: var(--surface); border-radius: 10px; padding: 4px 10px; align-items: center; justify-content: space-between; border: 1px solid var(--border-soft); margin-bottom: 4px; box-shadow: 0 4px 8px rgba(0,0,0,0.4); cursor: pointer; }
 .balance-row:active { opacity: 0.92; }
 .bal-date { font-size: 10px; font-weight: 800; color: var(--muted); }
 .bal-mode-badge { display: inline-block; margin-left: 6px; padding: 1px 6px; border-radius: 4px; font-size: 8px; font-weight: 900; letter-spacing: 0.02em; vertical-align: middle; }
@@ -2897,6 +3135,35 @@ background-position: 50% 50%, 50% 50%;
 }
 .intake-hero-routines {
 margin-top: 4px;
+padding: 10px 10px 8px;
+border-radius: 16px;
+border: 1px solid rgba(148, 163, 184, 0.28);
+background:
+radial-gradient(ellipse at 20% 0%, rgba(34, 211, 238, 0.08), transparent 56%),
+radial-gradient(ellipse at 80% 0%, rgba(244, 114, 182, 0.08), transparent 56%),
+rgba(2, 6, 23, 0.38);
+}
+.btn-quick-row {
+background:
+radial-gradient(circle at 14% 0%, rgba(34, 211, 238, 0.12), transparent 44%),
+radial-gradient(circle at 86% 0%, rgba(244, 114, 182, 0.1), transparent 46%),
+linear-gradient(165deg, rgba(30, 41, 59, 0.9) 0%, #1e293b 100%);
+border: 1px solid rgba(100, 116, 139, 0.9);
+box-shadow:
+var(--shadow-levitate),
+0 0 0 1px rgba(56, 189, 248, 0.1),
+0 0 22px rgba(190, 24, 93, 0.1);
+}
+.btn-quick-row .meal-time {
+color: #c4b5fd;
+text-shadow: 0 0 12px rgba(168, 85, 247, 0.28);
+}
+.btn-quick-row .kcal-val {
+color: #fbbf24;
+text-shadow: 0 0 14px rgba(245, 158, 11, 0.28);
+}
+.btn-quick-row .info small {
+color: #94a3b8 !important;
 }
 .intake-hero-footer {
 margin-top: 16px;
@@ -3005,8 +3272,8 @@ grid-template-columns: 1fr 1fr;
 gap: 10px;
 }
 .gender-btn {
-flex: 1; padding: 14px; border-radius: 12px; background: #0f172a;
-border: 2px solid #334155; color: var(--muted); font-size: 13px;
+flex: 1; padding: 14px; border-radius: 12px; background: var(--surface);
+border: 2px solid var(--border); color: var(--muted); font-size: 13px;
 font-weight: 900; cursor: pointer; text-transform: uppercase;
 box-shadow: var(--shadow-levitate);
 }
@@ -3056,8 +3323,8 @@ text-align: center;
 width: 100%;
 padding: 7px 4px;
 border-radius: 8px;
-border: 1px solid #334155;
-background: #0f172a;
+border: 1px solid var(--border);
+background: var(--surface);
 color: var(--text);
 font-size: 9px;
 font-weight: 800;
@@ -3132,7 +3399,7 @@ text-shadow: 0 0 13px rgba(244, 114, 182, 0.5);
 .meas-grid .full { grid-column: 1 / -1; }
 .meas-grid input { margin-bottom: 0; }
 .trend-summary { display:flex; flex-wrap:wrap; gap:6px; margin-bottom: 10px; }
-.trend-pill { font-size:10px; font-weight:900; border-radius:999px; padding:5px 9px; border:1px solid #334155; background:#0f172a; }
+.trend-pill { font-size:10px; font-weight:900; border-radius:999px; padding:5px 9px; border:1px solid var(--border); background:var(--surface); }
 .trend-up { color: var(--green-neon); border-color: rgba(57, 255, 20, 0.5); }
 .trend-down { color: var(--gold); border-color: rgba(245, 158, 11, 0.6); }
 .trend-flat { color: var(--muted); }
@@ -3146,7 +3413,7 @@ font-weight: 900;
 }
 .diet-grid { display:flex; gap:8px; margin-top: 10px; }
 .diet-btn {
-flex:1; padding: 10px 6px; border-radius: 10px; border: 1px solid #334155;
+flex:1; padding: 10px 6px; border-radius: 10px; border: 1px solid var(--border);
 background: linear-gradient(165deg, rgba(15, 23, 42, 0.95), rgba(10, 18, 34, 0.98));
 color: #cbd5e1; font-size:10px; font-weight:900; text-align:center; text-transform:uppercase; cursor:pointer;
 box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 6px 14px rgba(0,0,0,0.3), 0 0 16px rgba(59,130,246,0.06);
@@ -3172,7 +3439,7 @@ text-shadow: 0 0 10px rgba(196, 181, 253, 0.45);
 }
 .fast-grid { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
 .fast-btn {
-padding: 8px 10px; border-radius: 10px; border: 1px solid #334155;
+padding: 8px 10px; border-radius: 10px; border: 1px solid var(--border);
 background: linear-gradient(165deg, rgba(15, 23, 42, 0.95), rgba(10, 18, 34, 0.98));
 color: #cbd5e1;
 font-size:10px; font-weight:900; text-transform:uppercase; cursor:pointer;
@@ -3257,7 +3524,7 @@ margin-top: 0;
 .recomp-bubble-lead { font-size: 13px; font-weight: 900; color: var(--gold); margin: 0 0 4px; line-height: 1.35; }
 .recomp-bubble-muted { font-size: 10px; font-weight: 700; color: var(--muted); margin: 0 0 8px; line-height: 1.35; }
 .history-scroll-container { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 12px; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; }
-.history-item { min-width: 150px; background: #0f172a; padding: 14px; border-radius: 14px; border: 1px solid #334155; flex-shrink: 0; scroll-snap-align: start; box-sizing: border-box; box-shadow: var(--shadow-levitate); }
+.history-item { min-width: 150px; background: var(--surface); padding: 14px; border-radius: 14px; border: 1px solid var(--border); flex-shrink: 0; scroll-snap-align: start; box-sizing: border-box; box-shadow: var(--shadow-levitate); }
 .save-msg {
 position: fixed; top: max(20px, env(safe-area-inset-top, 0px)); right: max(16px, env(safe-area-inset-right, 0px));
 background: var(--green-neon); color: black; padding: 14px 44px 14px 18px; border-radius: 18px; font-size: 13px; font-weight: 900;
@@ -3271,6 +3538,12 @@ border: 1px solid rgba(56, 189, 248, 0.35);
 box-shadow: 0 10px 24px rgba(2, 6, 23, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 backdrop-filter: blur(10px);
 -webkit-backdrop-filter: blur(10px);
+left: 50%;
+top: max(18px, env(safe-area-inset-top, 0px));
+right: auto;
+transform: translateX(-50%);
+width: min(420px, calc(100vw - 28px));
+text-align: center;
 }
 .save-msg.save-msg--dismissible { padding-top: 16px; min-width: min(300px, 100%); }
 .save-msg-close {
@@ -3574,7 +3847,7 @@ bottom: auto; top: -9px; border-top: none; border-bottom: 9px solid rgba(34,211,
 }
 .coach-title { font-size: 11px; font-weight: 900; color: #67e8f9; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 6px; }
 .coach-actions { display:flex; gap:8px; margin-top: 8px; }
-.coach-btn { flex:1; border-radius: 10px; border:1px solid #334155; background:#0f172a; color:#e2e8f0; font-size:10px; font-weight:900; padding:8px; cursor:pointer; }
+.coach-btn { flex:1; border-radius: 10px; border:1px solid var(--border); background:var(--surface); color:#e2e8f0; font-size:10px; font-weight:900; padding:8px; cursor:pointer; }
 .coach-btn.next { border-color: rgba(34,211,238,.6); color:#67e8f9; }
 .awakening-overlay {
 position: fixed;
@@ -3632,15 +3905,196 @@ bottom: auto;
 .awakening-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .awakening-field.full { grid-column: 1 / -1; }
 .awakening-field label { display: block; margin: 0 0 3px; font-size: 10px; font-weight: 800; color: #94a3b8; }
-.awakening-field input, .awakening-field select { width: 100%; padding: 8px 10px; border-radius: 10px; border: 1px solid #334155; background: #0f172a; color: #e2e8f0; font-size: 16px; font-weight: 700; }
+.awakening-field input, .awakening-field select { width: 100%; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); color: #e2e8f0; font-size: 16px; font-weight: 700; }
 .awakening-actions { display: flex; gap: 8px; margin-top: 8px; position: relative; background: transparent; padding-top: 0; }
 .awakening-btn { flex: 1; border-radius: 10px; border: 1px solid rgba(56,189,248,.6); background: #082f49; color: #67e8f9; padding: 10px; font-size: 11px; font-weight: 900; cursor: pointer; transition: background .2s ease, color .2s ease, border-color .2s ease, opacity .2s ease; }
-.awakening-btn.secondary { border-color: #334155; background: #0f172a; color: #cbd5e1; }
+.awakening-btn.secondary { border-color: #334155; background: var(--surface); color: #cbd5e1; }
 .awakening-btn.is-locked { background: rgba(51,65,85,0.3); border-color: rgba(148,163,184,0.45); color: #94a3b8; }
 @media (max-width: 420px) {
 .awakening-panel { width: calc(100vw - 16px); padding: 12px; border-radius: 14px; }
 .awakening-grid { grid-template-columns: 1fr 1fr; }
 .awakening-btn { font-size: 16px; }
+}
+html[data-theme="light"] body {
+background-image:
+radial-gradient(ellipse 120% 80% at 50% -15%, rgba(56, 189, 248, 0.12), transparent 52%),
+linear-gradient(168deg, var(--bg) 0%, var(--body-grad-mid) 42%, var(--bg) 100%);
+}
+html[data-theme="light"] .header { border-color: var(--border); }
+html[data-theme="light"] .card {
+border-color: rgba(130, 155, 185, 0.45);
+box-shadow: var(--shadow-levitate), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+html[data-theme="light"] .card-section-title { color: var(--text-soft); }
+html[data-theme="light"] .card-section-title--long { color: var(--text-strong); }
+html[data-theme="light"] .stat-sub { border-top-color: var(--border-soft); }
+html[data-theme="light"] .gender-btn.active { color: var(--text-strong); }
+html[data-theme="light"] #profile-card.profile-hero--male #g-male.gender-btn.active { color: #0369a1; }
+html[data-theme="light"] #profile-card.profile-hero--female #g-female.gender-btn.active { color: #9d174d; }
+html[data-theme="light"] .profile-hero-card,
+html[data-theme="light"] .profile-hero-card.profile-hero--unset,
+html[data-theme="light"] .profile-hero-card.profile-hero--male,
+html[data-theme="light"] .profile-hero-card.profile-hero--female {
+background: linear-gradient(165deg, var(--card-grad-1), var(--card-grad-3)) !important;
+border-color: var(--border) !important;
+box-shadow: var(--shadow-levitate), inset 0 1px 0 rgba(255, 255, 255, 0.55) !important;
+}
+html[data-theme="light"] .profile-hero-card.profile-hero--male {
+background: linear-gradient(165deg, rgba(186, 230, 253, 0.55), var(--surface)) !important;
+border-color: rgba(56, 189, 248, 0.45) !important;
+}
+html[data-theme="light"] .profile-hero-card.profile-hero--female {
+background: linear-gradient(165deg, rgba(251, 207, 232, 0.45), var(--surface)) !important;
+border-color: rgba(244, 114, 182, 0.42) !important;
+}
+html[data-theme="light"] .mode-btn {
+background: linear-gradient(165deg, var(--card-grad-1), var(--surface-2));
+border-color: var(--border);
+color: var(--text-soft);
+box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 4px 12px rgba(30, 58, 95, 0.08);
+}
+html[data-theme="light"] .mode-train-activity-select,
+html[data-theme="light"] .roadmap-pink-cutout {
+background: var(--roadmap-cutout-bg);
+border-color: rgba(34, 211, 238, 0.42);
+box-shadow: 0 12px 24px rgba(30, 58, 95, 0.2), inset 0 1px 0 rgba(34, 211, 238, 0.16);
+}
+html[data-theme="light"] .motor-box {
+color: var(--motor-neon);
+text-shadow: 0 0 14px var(--motor-neon-glow), 0 0 22px rgba(34, 211, 238, 0.28);
+background: var(--motor-neon-bg);
+border-color: var(--motor-neon-border);
+}
+html[data-theme="light"] .motor-pace-line {
+color: var(--motor-neon);
+text-shadow: 0 0 10px var(--motor-neon-glow);
+}
+html[data-theme="light"] .btn-ctrl {
+color: var(--motor-neon);
+border-color: rgba(34, 211, 238, 0.48);
+background: rgba(34, 211, 238, 0.08);
+}
+html[data-theme="light"] .btn-ctrl.active {
+color: #f0fdfa;
+background: rgba(34, 211, 238, 0.24);
+border-color: var(--motor-neon-deep);
+box-shadow: 0 0 18px rgba(34, 211, 238, 0.48);
+}
+html[data-theme="light"] .toggle-btn.toggle-measure {
+color: var(--motor-neon);
+text-shadow: 0 0 16px var(--motor-neon-glow), 0 0 24px rgba(34, 211, 238, 0.32);
+background: var(--motor-neon-bg);
+border-color: var(--motor-neon-border);
+box-shadow:
+0 8px 22px rgba(34, 211, 238, 0.22),
+0 0 30px rgba(34, 211, 238, 0.28),
+inset 0 1px 0 rgba(255,255,255,0.5);
+}
+html[data-theme="light"] #roadmap-graph-wrap.graph-wrapper,
+html[data-theme="light"] .roadmap-graph-block .graph-wrapper {
+background: var(--graph-panel-bg);
+border-color: var(--border-soft);
+box-shadow: inset 0 0 12px var(--graph-panel-inset);
+}
+html[data-theme="light"] #roadmap-graph-wrap .y-axis-fixed {
+background: color-mix(in srgb, #ffffff 98%, transparent);
+border-right-color: var(--border-soft);
+}
+html[data-theme="light"] #roadmap-graph-wrap .fat-barometer {
+background: linear-gradient(165deg, rgba(245, 158, 11, 0.14), rgba(255, 255, 255, 0.96));
+border-color: rgba(217, 119, 6, 0.45);
+}
+html[data-theme="light"] .roadmap-tubes-card {
+background: var(--roadmap-tubes-panel-bg);
+border-color: rgba(148, 163, 184, 0.26);
+box-shadow: var(--shadow-levitate), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+html[data-theme="light"] .history-item,
+html[data-theme="light"] .balance-row,
+html[data-theme="light"] .log-entry,
+html[data-theme="light"] .coach-btn,
+html[data-theme="light"] .stat-box,
+html[data-theme="light"] .save-msg,
+html[data-theme="light"] .modal-box {
+background: var(--surface);
+border-color: var(--border);
+color: var(--text-soft);
+}
+html[data-theme="light"] #roadmap-graph-wrap #y-w div:not(.roadmap-meta-pill) { color: var(--graph-axis) !important; }
+html[data-theme="light"] #roadmap-graph-wrap #y-w .roadmap-meta-pill {
+background: #ffffff !important;
+box-shadow: none !important;
+text-shadow: none !important;
+}
+html[data-theme="light"] .recomp-bubble,
+html[data-theme="light"] .star-info-bubble,
+html[data-theme="light"] .refeed-info-bubble,
+html[data-theme="light"] .mission-briefing-panel.card {
+background: linear-gradient(165deg, var(--card-grad-1), var(--surface-2));
+border-color: var(--border);
+box-shadow: var(--shadow-levitate);
+}
+html[data-theme="light"] .recomp-bubble-section,
+html[data-theme="light"] .recomp-bubble-fat,
+html[data-theme="light"] .meal-day-line { border-top-color: var(--border); }
+html[data-theme="light"] .app-bottom-bar-home {
+background: linear-gradient(165deg, rgba(245, 158, 11, 0.18), var(--surface));
+}
+html[data-theme="light"] .app-bottom-bar-sect {
+background: linear-gradient(165deg, rgba(148, 163, 184, 0.2), var(--surface));
+color: var(--text-strong);
+text-shadow: none;
+box-shadow: 0 2px 10px rgba(30, 58, 95, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+html[data-theme="light"] .app-bottom-bar-sect--progres {
+background: linear-gradient(165deg, rgba(236, 72, 153, 0.2), var(--surface));
+color: #9d174d;
+}
+html[data-theme="light"] .app-bottom-bar-sect--energy {
+background: linear-gradient(165deg, rgba(34, 197, 94, 0.18), var(--surface));
+color: #166534;
+}
+html[data-theme="light"] .app-bottom-bar-sect--mission {
+background: linear-gradient(165deg, rgba(34, 211, 238, 0.2), var(--surface));
+color: #0e7490;
+}
+html[data-theme="light"] .app-bottom-bar-sect--zapis {
+background: linear-gradient(165deg, rgba(251, 191, 36, 0.28), var(--surface));
+color: #92400e;
+}
+html[data-theme="light"] .app-bottom-bar-sect--profil {
+background: linear-gradient(165deg, rgba(167, 139, 250, 0.22), var(--surface));
+color: #5b21b6;
+}
+html[data-theme="light"] .mission-briefing-close,
+html[data-theme="light"] .mission-briefing-pill {
+background: var(--surface-2);
+border-color: var(--border);
+color: var(--text-soft);
+}
+html[data-theme="light"] input::placeholder,
+html[data-theme="light"] textarea::placeholder { color: rgba(71, 85, 105, 0.65); }
+html[data-theme="light"] .btn-modal-cancel { background: var(--surface-2); color: var(--text-soft); border-color: var(--border); }
+html[data-theme="light"] .profile-details-legal { background: rgba(254, 226, 226, 0.35); }
+html[data-theme="light"] .awakening-panel {
+background: linear-gradient(165deg, var(--card-grad-1), var(--surface-2));
+border-color: rgba(14, 165, 233, 0.45);
+}
+html[data-theme="light"] .awakening-title { color: var(--text-strong); }
+html[data-theme="light"] .awakening-text { color: var(--text-soft); }
+html[data-theme="light"] .awakening-field label { color: var(--muted); }
+html[data-theme="light"] .awakening-field input,
+html[data-theme="light"] .awakening-field select,
+html[data-theme="light"] .awakening-btn.secondary {
+background: var(--surface);
+border-color: var(--border);
+color: var(--text);
+}
+html[data-theme="light"] .macro-tube-shell {
+background: linear-gradient(165deg, var(--surface-2), var(--surface));
+}
+html[data-theme="light"] .macro-tube-inner {
+background: linear-gradient(180deg, var(--surface-2), var(--surface));
 }
 </style>
 </head>
@@ -3817,13 +4271,15 @@ bottom: auto;
 </div>
 <div class="card" id="section-roadmap">
 <div class="card-section-title card-section-title--long" data-i18n="card_roadmap_title">Roadmapa váhy & proporcí (Body Recomp)</div>
+<div class="roadmap-pink-cutout">
 <div id="prediction" class="motor-box" data-i18n="motor_computing"> MOTOR: Výpočet...</div>
-<div id="prediction-pace" class="stat-sub" style="margin-top:-8px;margin-bottom:10px;text-align:center;color:var(--pink);font-weight:900;">Tempo: —</div>
+<div id="prediction-pace" class="stat-sub motor-pace-line">Tempo: —</div>
 <div id="recomp-summary" class="trend-summary"></div>
 <div class="graph-controls">
 <button type="button" class="btn-ctrl active" onclick="window.setGraphView(this, 'day')" data-i18n="graph_day">Denní</button>
 <button type="button" class="btn-ctrl" onclick="window.setGraphView(this, 'week')" data-i18n="graph_week">Týdenní</button>
 <button type="button" class="btn-ctrl" onclick="window.setGraphView(this, 'month')" data-i18n="graph_month">Měsíční</button>
+<button type="button" class="btn-ctrl" onclick="window.setGraphView(this, 'year')" data-i18n="graph_year">Roční</button>
 </div>
 <div class="roadmap-graph-block">
 <div id="roadmap-graph-wrap" class="graph-wrapper" style="height: 440px;">
@@ -3857,9 +4313,11 @@ bottom: auto;
 <span data-i18n="measure_toggle">Zapsat váhu a měření</span>
 <span id="measure-arrow">▼</span>
 </div>
+</div>
 <div id="measure-area" class="toggle-content">
 <div class="meas-grid">
-<input class="full" type="number" id="in-w" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_in_w" placeholder="Váha doma (kg, stále stejně — např. ráno nacisto)">
+<input class="full" type="number" id="in-w" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_in_w" placeholder="Váha (kg)">
+<p id="weight-entry-hint" style="grid-column:1/-1;font-size:9px;font-weight:700;color:#94a3b8;line-height:1.35;margin:-4px 0 6px;" data-i18n="weight_entry_hint">Zadej váhu ručně — stejné podmínky (např. ráno nacisto). Když máš váhu v Apple Zdraví nebo Health Connect, doplní se sama na pozadí.</p>
 <input type="number" id="in-waist" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_waist" placeholder="Pas (cm)" style="border-color: var(--pink);">
 <input type="number" id="in-chest" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_chest" placeholder="Hrudník (cm)" style="border-color: #f472b6;">
 <div style="border:1px solid rgba(217,70,239,0.6); border-radius:12px; background:linear-gradient(160deg, rgba(217,70,239,0.1), rgba(15,23,42,0.92)); padding:8px 8px 7px;">
@@ -4150,7 +4608,7 @@ bottom: auto;
 </div>
 </div>
 <p style="font-size:8px;color:var(--muted);text-align:center;margin:10px 0 0;line-height:1.35;font-weight:700;" data-i18n="macro_legend_red_line">Červená čára = strop (u makro g shodné s číslem nahoře; u KCAL cílový příjem). Žlutooranžová = doporučené minimum (dno) u bílkovin a tuků — pod ní hrozí ztráta svalů / nedostatek ketopaliva. Plnění od spodu = snědeno vůči stropu/cíli. Uprostřed u B/T/S i u KCAL = kolik ještě zbývá do stropu/cíle (záporně = překročení). Nad čárou = překročení (červené sklo).</p>
-<div class="card mode-selector-card">
+<div class="card mode-selector-card" id="section-day-controls">
 <span class="mode-label" data-i18n="mode_day_label">Režim dne (Dnešní mise)</span>
 <div class="mode-grid">
 <div id="mode-0" class="mode-btn mode-rest" onclick="window.setDayMode(0)"><span class="mode-btn-title" data-i18n="mode_couch_title">Gaučing</span><span class="mode-btn-rule" aria-hidden="true"></span><span class="mode-btn-sub" data-i18n="mode_couch_sub">rest day</span></div>
@@ -4284,11 +4742,11 @@ bottom: auto;
 <div id="profile-card" class="card profile-hero-card profile-hero--unset">
 <div class="profile-hero-kicker" data-i18n="profile_kicker">Profil &amp; nastavení</div>
 <p class="profile-hero-hint" data-i18n="profile_hint">BMI, BMR, hvězdy a AI — data zůstávají v tomto prohlížeči.</p>
-<div class="profile-inset-block profile-inset-block--loose" style="border:1px solid rgba(52,211,153,0.4);">
+<div class="profile-inset-block profile-inset-block--loose" style="border:1px solid rgba(190,24,93,0.52);">
 <div class="profile-hero-section-label" data-i18n="backup_block_title">Záloha a obnova dat</div>
 <p style="font-size:9px;color:var(--muted);margin:0 0 10px;line-height:1.35;font-weight:700;" data-i18n="backup_intro">Kompletní kopie deníku (váha, dny, jídla, profil…). Ulož si ji bezpečně — při čištění úložiště nebo na jiném zařízení by jinak data zmizela.</p>
 <div style="display:flex;flex-wrap:wrap;gap:8px;">
-<button type="button" onclick="window.exportIronCoreBackup()" class="btn btn-outline" style="flex:1;min-width:132px;border-color:rgba(52,211,153,0.65);color:#6ee7b7;font-weight:900;padding:11px;font-size:11px;" data-i18n="backup_export">Stáhnout zálohu (JSON)</button>
+<button type="button" id="backup-export-btn" onclick="window.exportIronCoreBackupInteractive()" class="btn btn-outline" style="flex:1;min-width:132px;border-color:rgba(52,211,153,0.65);color:#6ee7b7;font-weight:900;padding:11px;font-size:11px;" data-i18n="backup_export">Stáhnout zálohu (JSON)</button>
 <label for="backup-file-input" class="btn btn-outline" style="flex:1;min-width:132px;border-color:rgba(251,191,36,0.65);color:#fcd34d;font-weight:900;padding:11px;font-size:11px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;margin:0;box-sizing:border-box;" data-i18n="backup_import">Nahrát zálohu…</label>
 </div>
 <input type="file" id="backup-file-input" class="iron-backup-file-input" accept="application/json,.json,text/json,text/plain,*/*" title="JSON záloha Iron Core" onchange="window.handleIronCoreBackupFileChange(event)">
@@ -4297,8 +4755,8 @@ bottom: auto;
 <label class="motion-toggle-row backup-auto-row" style="margin-top:10px;">
 <input type="checkbox" id="backup-auto-weekly" onchange="window.setBackupAutoWeekly(this.checked)">
 <span class="motion-toggle-text">
-<span data-i18n="backup_auto_weekly_label">Automatická pondělní záloha</span>
-<span class="motion-toggle-hint" data-i18n="backup_auto_weekly_hint">Když appku v pondělí otevřeš, vytvoří JSON zálohu sama.</span>
+<span data-i18n="backup_auto_weekly_label">Automatická denní záloha (10 dní)</span>
+<span class="motion-toggle-hint" data-i18n="backup_auto_weekly_hint">Při otevření appky se vytvoří záloha; starší než 10 dní se automaticky smaže.</span>
 <span id="backup-auto-weekly-state" class="motion-toggle-state">○ VYPNUTO</span>
 </span>
 </label>
@@ -4312,6 +4770,12 @@ bottom: auto;
 <div class="profile-hero-section-label" style="margin-top:14px;" data-i18n="pwa_card_title">Aplikace na ploše (PWA)</div>
 <p style="font-size:9px;color:var(--muted);margin:0;line-height:1.35;font-weight:700;" data-i18n="pwa_hint">Na mobilu použij v prohlížeči „Přidat na plochu“ / Install. Na PC ikonu instalace v adresním řádku. Vyžaduje otevření přes webový server (ne přímo soubor z disku).</p>
 </div>
+<div class="profile-hero-section-label" data-i18n="profile_theme">Vzhled</div>
+<div class="gender-grid" style="margin-bottom:10px;">
+<button type="button" id="theme-dark" class="gender-btn" onclick="window.setUiTheme('dark')" data-i18n="theme_dark">Tmavý</button>
+<button type="button" id="theme-light" class="gender-btn" onclick="window.setUiTheme('light')" data-i18n="theme_light">Světlý</button>
+</div>
+<p style="font-size:9px;color:var(--muted);margin:-4px 0 10px;line-height:1.4;font-weight:700;" data-i18n="profile_theme_hint">Světlý režim je čitelnější na slunci. Uloží se v zařízení.</p>
 <div class="profile-hero-section-label" data-i18n="profile_lang">Jazyk rozhraní</div>
 <div class="gender-grid" style="margin-bottom:10px;">
 <button type="button" id="lang-cs" class="gender-btn" onclick="window.setUiLang('cs')" data-i18n="lang_cs">Čeština</button>
@@ -4334,7 +4798,7 @@ bottom: auto;
 <div class="profile-grid-2">
 <input type="number" id="p-start" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_start_w" placeholder="Start váha">
 <input type="number" id="p-final" step="0.1" inputmode="decimal" data-i18n-placeholder="ph_target_w" placeholder="Cílová váha">
-<input type="number" id="p-age" inputmode="numeric" data-i18n-placeholder="ph_age" placeholder="Věk">
+<input type="number" id="p-age" inputmode="numeric" min="18" max="99" step="1" data-i18n-placeholder="ph_age" placeholder="Věk">
 <input type="number" id="p-height" inputmode="numeric" data-i18n-placeholder="ph_height" placeholder="Výška">
 </div>
 <div class="profile-inset-block">
@@ -4345,7 +4809,7 @@ bottom: auto;
 <input type="number" id="p-lab-bmr-kg" step="0.1" inputmode="decimal" placeholder="Váha u měření BMR (kg)">
 </div>
 <label style="display:block;margin-top:10px;font-size:9px;font-weight:800;color:var(--muted);margin-bottom:4px;">Úroveň aktivity</label>
-<select id="p-activity" style="width:100%;padding:12px;border-radius:12px;border:2px solid var(--ui-border);background:#0f172a;color:var(--text);font-size:12px;font-weight:800;" onchange="window.setQuickActivity(this.value)">
+<select id="p-activity" style="width:100%;padding:12px;border-radius:12px;border:2px solid var(--ui-border);background:var(--surface);color:var(--text);font-size:12px;font-weight:800;" onchange="window.setQuickActivity(this.value)">
 <option value="">— vyber úroveň —</option>
 <option value="sedentary">Sedavé (1,20×) — doma/PC, minimum kroků</option>
 <option value="light">Lehká (1,38×) — procházka ~3 km, lehký úklid</option>
@@ -4380,7 +4844,7 @@ bottom: auto;
 </div>
 <div id="inbody-adv-area" class="toggle-content">
 <label style="display:block;margin-top:8px;font-size:9px;font-weight:800;color:var(--muted);margin-bottom:4px;">Režim BMR z InBody</label>
-<select id="p-inbody-mode" style="width:100%;padding:12px;border-radius:12px;border:2px solid var(--ui-border);background:#0f172a;color:var(--text);font-size:12px;font-weight:800;" onchange="window.setInBodyMode(this.value)">
+<select id="p-inbody-mode" style="width:100%;padding:12px;border-radius:12px;border:2px solid var(--ui-border);background:var(--surface);color:var(--text);font-size:12px;font-weight:800;" onchange="window.setInBodyMode(this.value)">
 <option value="adaptive">Adaptivní InBody (auto, ±10 %)</option>
 <option value="fixed">Fixní InBody (stálý BMR)</option>
 </select>
@@ -4396,14 +4860,6 @@ bottom: auto;
 <input type="password" id="p-gemini-key" autocomplete="off" placeholder="API klíč (aistudio.google.com)" style="border-color: var(--orange); margin-bottom: 6px;">
 <p style="font-size: 9px; color: var(--muted); margin: 0; line-height: 1.35">Uložen lokálně v prohlížeči. Pro „Vyfotit jídlo“.</p>
 </div>
-<div class="profile-inset-block profile-inset-block--loose">
-<p style="font-size:10px;color:var(--muted);margin:0;line-height:1.45;font-weight:700;">Intro běží čistě jako CSS/JS animace loga a reveal efekt.</p>
-</div>
-<div class="profile-inset-block profile-inset-block--loose" style="border:1px dashed rgba(148,163,184,0.4);border-radius:14px;padding:12px;background:rgba(15,23,42,0.45);">
-<div class="stat-label" style="color:#67e8f9;margin-bottom:6px;">Test — úvodní intro</div>
-<p style="font-size:9px;color:var(--muted);margin:0 0 10px;line-height:1.45;font-weight:700;">Stejné intro jako při prvním spuštění včetně průvodce a právního ujednání. Po přehrání data zůstávají netknutá.</p>
-<button type="button" onclick="window.previewIntroExperience()" class="btn btn-outline" style="width:100%;border-color:rgba(56,189,248,0.55);color:#67e8f9;font-weight:900;padding:12px;font-size:11px">Přehrát intro</button>
-</div>
 <button onclick="window.saveProfile()" class="btn btn-gold" style="margin-top:10px" data-i18n="btn_save_profile">Uložit profil</button>
 <details class="profile-details-advanced profile-details-legal" id="profile-legal-details">
 <summary class="profile-details-summary" data-i18n="profile_legal_summary">Celé znění právního ujednání</summary>
@@ -4411,6 +4867,11 @@ bottom: auto;
 <p class="profile-legal-consent" data-i18n="aw_consent_notice">Kliknutím na pokračovat souhlasíte…</p>
 <div class="profile-legal-scroll" data-i18n="aw_legal_body" data-i18n-html="1"></div>
 <div class="profile-legal-support" data-i18n="aw_legal_support" data-i18n-html="1"></div>
+<div class="profile-legal-links">
+<a href="privacy.html" target="_blank" rel="noopener noreferrer" class="btn btn-outline profile-legal-link" data-i18n="profile_privacy_full">Zásady ochrany osobních údajů (soubor v aplikaci)</a>
+<a href="privacypolicy.html" target="_blank" rel="noopener noreferrer" class="btn btn-outline profile-legal-link" data-i18n="profile_privacy_health">Health Connect / HealthKit — stručné info</a>
+<a id="profile-privacy-public-link" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-outline profile-legal-link" style="display:none;" data-i18n="profile_privacy_public">Zásady na webu (App Store / Play)</a>
+</div>
 </div>
 </details>
 <button onclick="window.askClearSensitiveData()" class="btn btn-outline" style="margin-top:14px;border-color:rgba(248,113,113,0.7);color:#fecaca;" data-i18n="btn_clear_sensitive">Smazat citlivá data</button>
@@ -4421,9 +4882,87 @@ bottom: auto;
 <p style="font-size:9px;color:#fca5a5;margin:6px 0 0;line-height:1.45;font-weight:700;" data-i18n="hint_reset_data">Tovární reset: smaže vše v této aplikaci v prohlížeči/zařízení. Jako čistá instalace — bez obnovy.</p>
 </div>
 </div>
+<div class="card" id="section-partner-gear" style="margin-top:12px;border:1px solid rgba(167,139,250,0.38);box-shadow:0 10px 28px rgba(0,0,0,0.28);">
+<div class="card-section-title" data-i18n="partner_gear_title">Doporučené vybavení</div>
+<p style="font-size:9px;color:var(--muted);margin:0 0 10px;line-height:1.4;font-weight:700;" data-i18n="partner_gear_intro">Spolehlivá domácí váha pomáhá držet stejné podmínky vážení (např. ráno nacisto) a díky synchronizaci méně zapomeneš zapsat hmotnost. Níže je partnerský odkaz — podporuje vývoj IRON CORE.</p>
+<a id="withings-shop-link" href="https://www.withings.com/eu/en/" target="_blank" rel="noopener noreferrer sponsored" class="btn btn-outline" style="display:flex;width:100%;justify-content:center;align-items:center;box-sizing:border-box;padding:12px 14px;font-weight:900;font-size:11px;border-color:rgba(245,158,11,0.6);color:var(--gold);text-decoration:none;" data-i18n="partner_withings_cta" data-i18n-aria="partner_withings_aria">Withings — chytré váhy (partnerský odkaz)</a>
+<p style="font-size:8px;color:var(--muted);margin:8px 0 0;line-height:1.35;font-weight:700;" data-i18n="partner_disclosure">Partnerský odkaz. Z nákupu může jít provize; cena pro tebe je stejná jako u obchodníka. Kód nebo slevu stanovuje Withings podle jejich pravidel.</p>
+<p style="font-size:8px;color:var(--muted);margin:6px 0 0;line-height:1.35;font-weight:700;opacity:0.92;" data-i18n="partner_region_hint">Odkaz na obchod se přizpůsobí jazyku aplikace, prohlížeče a časové zóny (EU × USA), aby seděl region a měna.</p>
+</div>
 </div>
 <script>
 var KEY = 'IRON_CORE_DATA_V95_4_2';
+/** Partnerské odkazy Withings — vlož celé URL vč. kódu/UTM. EU = bez USD výchozího košíku; US = americký obchod. */
+var IRON_PARTNER_WITHINGS_URL_EU = 'https://www.withings.com/eu/en/';
+var IRON_PARTNER_WITHINGS_URL_US = 'https://www.withings.com/us/en/';
+var IRON_PARTNER_WITHINGS_URL = 'https://www.withings.com/eu/en/';
+/** Veřejná HTTPS URL úplných zásad (App Store / Play) — před publikací doplň, např. https://example.com/iron-core/privacy.html */
+var IRON_PUBLIC_PRIVACY_URL = '';
+var IRON_GEMINI_AI_ACK_KEY = 'IRON_CORE_GEMINI_AI_ACK_V1';
+var IRON_THEME_KEY = 'IRON_CORE_THEME_V1';
+function cssThemeVar(name, fallback) {
+try {
+var v = getComputedStyle(document.documentElement).getPropertyValue(name);
+if (v && String(v).trim()) return String(v).trim();
+} catch (e) {}
+return fallback;
+}
+function chartAxisColor() { return cssThemeVar('--graph-axis', '#94a3b8'); }
+function chartAxisDim() { return cssThemeVar('--graph-axis-dim', '#64748b'); }
+function chartStrokeWhite() { return cssThemeVar('--chart-stroke-white', '#ffffff'); }
+function chartModalInk() { return cssThemeVar('--modal-ink', '#0f172a'); }
+function chartHexNorm(hex) {
+var h = String(hex || '').replace('#', '').trim();
+if (h.length === 3) return h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+return h.length === 6 ? h : '';
+}
+function chartColorDarken(hex, amt) {
+var h = chartHexNorm(hex);
+if (!h) return '#0f172a';
+amt = amt == null ? 0.42 : amt;
+var r = parseInt(h.slice(0, 2), 16), g = parseInt(h.slice(2, 4), 16), b = parseInt(h.slice(4, 6), 16);
+r = Math.max(0, Math.min(255, Math.round(r * (1 - amt))));
+g = Math.max(0, Math.min(255, Math.round(g * (1 - amt))));
+b = Math.max(0, Math.min(255, Math.round(b * (1 - amt))));
+return '#' + [r, g, b].map(function(x) { return x.toString(16).padStart(2, '0'); }).join('');
+}
+function chartColorAlpha(hex, a) {
+var h = chartHexNorm(hex);
+if (!h) return 'rgba(15,23,42,' + a + ')';
+return 'rgba(' + parseInt(h.slice(0, 2), 16) + ',' + parseInt(h.slice(2, 4), 16) + ',' + parseInt(h.slice(4, 6), 16) + ',' + a + ')';
+}
+function chartWeightLabelStroke() {
+return getUiTheme() === 'light' ? chartModalInk() : 'rgba(248,250,252,0.9)';
+}
+function getUiTheme() {
+try {
+var t = localStorage.getItem(IRON_THEME_KEY);
+if (t === 'light' || t === 'dark') return t;
+} catch (e) {}
+return document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+}
+function applyUiTheme(theme, persist) {
+var t = (theme === 'light') ? 'light' : 'dark';
+document.documentElement.setAttribute('data-theme', t);
+var mc = document.getElementById('meta-theme-color') || document.querySelector('meta[name="theme-color"]');
+if (mc) mc.setAttribute('content', t === 'light' ? '#d4e3f4' : '#020617');
+if (persist !== false) {
+try { localStorage.setItem(IRON_THEME_KEY, t); } catch (e2) {}
+}
+syncThemeToggle();
+}
+function syncThemeToggle() {
+var d = document.getElementById('theme-dark');
+var l = document.getElementById('theme-light');
+if (!d || !l) return;
+var cur = getUiTheme();
+d.classList.toggle('active', cur === 'dark');
+l.classList.toggle('active', cur === 'light');
+}
+window.setUiTheme = function(theme) {
+applyUiTheme(theme, true);
+if (typeof render === 'function') try { render(); } catch (eR) {}
+};
 var IRON_BACKUP_FORMAT = 'iron-core-backup';
 var LEGACY_DATA_KEYS = ['KETO_MASTER_V92_2'];
 function hardResetAllStorageNow() {
@@ -4464,6 +5003,7 @@ doc_title: 'Mise — Iron Core',
 app_info_clean: 'čistá data',
 nav_home_aria: 'Domů — začátek aplikace',
 nav_sections_aria: 'Sekce aplikace',
+weight_entry_hint: 'Zadej váhu ručně — stejné podmínky (např. ráno nacisto). Když máš váhu v Apple Zdraví nebo Health Connect, doplní se sama na pozadí.',
 nav_progress: 'Progres',
 nav_energy: 'Energie',
 nav_mission: 'Mise',
@@ -4490,6 +5030,13 @@ motor_computing: ' MOTOR: Výpočet…',
 graph_day: 'Denní',
 graph_week: 'Týdenní',
 graph_month: 'Měsíční',
+graph_year: 'Roční',
+partner_gear_title: 'Doporučené vybavení',
+partner_gear_intro: 'Spolehlivá domácí váha pomáhá držet stejné podmínky vážení (např. ráno nacisto) a díky synchronizaci méně zapomeneš zapsat hmotnost. Níže je partnerský odkaz — podporuje vývoj IRON CORE.',
+partner_withings_cta: 'Withings — chytré váhy (partnerský odkaz)',
+partner_withings_aria: 'Otevřít obchod Withings na nové kartě — partnerský odkaz',
+partner_disclosure: 'Partnerský odkaz. Z nákupu může jít provize; cena pro tebe je stejná jako u obchodníka. Kód nebo slevu stanovuje Withings podle jejich pravidel.',
+partner_region_hint: 'Odkaz na obchod se přizpůsobí jazyku aplikace, prohlížeče a časové zóny (EU × USA), aby seděl region a měna.',
 fat_burn_title_html: 'Spalování<br>tuku',
 fat_barometer_aria: 'Klikni pro detail signálu a rozpočet tuku / svalů',
 roadmap_kicker: 'Roadmap válce do cíle',
@@ -4560,6 +5107,10 @@ hist_kcal_edit: 'Historie kalorií úprava',
 profile_toggle: 'Profil & nastavení (Hvězdy, BMI, BMR)',
 profile_kicker: 'Profil & nastavení',
 profile_hint: 'BMI, BMR, hvězdy a AI — data zůstávají v tomto prohlížeči.',
+profile_theme: 'Vzhled',
+theme_dark: 'Tmavý',
+theme_light: 'Světlý',
+profile_theme_hint: 'Světlý režim je čitelnější na slunci. Uloží se v zařízení.',
 profile_lang: 'Jazyk rozhraní',
 profile_motion_title: 'Plynulost / baterie',
 profile_motion_toggle: 'Úsporný režim animací (méně zahřívání)',
@@ -4577,6 +5128,12 @@ ph_age: 'Věk',
 ph_height: 'Výška',
 btn_save_profile: 'Uložit profil',
 profile_legal_summary: 'Celé znění právního ujednání',
+profile_privacy_full: 'Zásady ochrany osobních údajů (soubor v aplikaci)',
+profile_privacy_health: 'Health Connect / HealthKit — stručné info',
+profile_privacy_public: 'Zásady na webu (App Store / Play)',
+ai_photo_ack_title: 'Odeslání fotky do Google AI',
+ai_photo_ack_body: 'Fotka jídla a váš API klíč se odešlou ke službě Google Gemini (generativelanguage.googleapis.com) k odhadu kcal a maker. Neodesíláme je na server provozovatele IRON CORE. Výsledek může být nepřesný — nejde o lékařskou radu. Pokračováním souhlasíte s tímto odesláním.',
+ai_photo_ack_btn: 'Souhlasím a pokračovat',
 btn_clear_sensitive: 'Smazat citlivá data',
 hint_clear_sensitive: 'Profil, biometrie, InBody a případný lokální AI klíč. Zůstane historie dnů a většina nastavení — není to úplný reset.',
 btn_export_anonymized: 'Export anonymní zálohy',
@@ -4592,16 +5149,16 @@ backup_import_ok: 'Obnovit zálohu',
 backup_export_ok: 'Záloha stažena.',
 backup_last_never: 'Poslední záloha: zatím nikdy.',
 backup_last_at: 'Poslední záloha: {date}',
-backup_auto_weekly_label: 'Automatická pondělní záloha',
-backup_auto_weekly_hint: 'Když appku v pondělí otevřeš, vytvoří JSON zálohu sama.',
-backup_auto_weekly_on: '● AUTO PONDĚLÍ ZAPNUTO',
-backup_auto_weekly_off: '○ AUTO PONDĚLÍ VYPNUTO',
+backup_auto_weekly_label: 'Automatická denní záloha (10 dní)',
+backup_auto_weekly_hint: 'Při otevření appky se vytvoří záloha; starší než 10 dní se automaticky smaže.',
+backup_auto_weekly_on: '● DENNÍ ZÁLOHA ZAPNUTA',
+backup_auto_weekly_off: '○ DENNÍ ZÁLOHA VYPNUTA',
 backup_overwrite_label: 'Přepisovat poslední soubor (latest)',
 backup_overwrite_hint: 'Zapnuto: ukládá pořád iron-core-backup-latest.json. Vypnuto: vytváří historii dle data.',
-backup_auto_done: 'Automatická pondělní záloha vytvořena.',
-backup_auto_fail: 'Automatická pondělní záloha selhala. Zkus ruční export.',
-backup_auto_pref_on: 'Automatická pondělní záloha zapnuta.',
-backup_auto_pref_off: 'Automatická pondělní záloha vypnuta.',
+backup_auto_done: 'Denní záloha vytvořena ✓',
+backup_auto_fail: 'Denní záloha selhala. Zkus ruční export.',
+backup_auto_pref_on: 'Denní záloha zapnuta (posledních 10 dní).',
+backup_auto_pref_off: 'Denní záloha vypnuta.',
 backup_overwrite_pref_on: 'Režim latest zapnut (přepis jednoho souboru).',
 backup_overwrite_pref_off: 'Režim historie zapnut (nové soubory).',
 backup_guard_warn: 'Data jsou jen lokálně v appce. Udělej zálohu JSON (aspoň 1x týdně), jinak při smazání appky o ně přijdeš.',
@@ -4645,7 +5202,7 @@ stat_bmr_line: 'Bazál {bmr} · režim {tdee} + pohyb {move}',
 macro_title_base: 'Monitoring Maker',
 macro_tail_targets: ' • cíle z {w}',
 macro_weight_missing: '— (doplň profil / váhu)',
-ph_in_w: 'Váha doma (kg, stále stejně — např. ráno nacisto)',
+ph_in_w: 'Váha (kg)',
 ph_waist: 'Pas (cm)',
 ph_chest: 'Hrudník (cm)',
 ph_thigh: 'Stehno (cm)',
@@ -4668,6 +5225,7 @@ placeholder_kcal: 'kcal',
 placeholder_food: 'Název jídla…',
 legend_elite: 'Legendární elita (',
 star_rank_plain: '0 velká',
+star_rank_sub: '{small} malých · {big}× velká',
 burn_hint_couch: 'Režim <strong style="color:#e2e8f0">gaučing</strong>: výdej počítáme jako velmi nízký NEAT (vaření, základní chůze v bytě). Sem zapisuj jen <strong style="color:var(--green-neon)">kcal navíc</strong> za skutečný pohyb (procházka, kardio…).',
 burn_hint_train: '<strong style="color:var(--green-neon)">Trénink</strong>: základ výdeje ~1,38× bazál (úroveň aktivity pod tlačítkem to jemně posouvá); sem přidej kcal za sport a pohyb navíc.',
 burn_hint_refeed: '<strong style="color:#f472b6">Refeed</strong>: výdej mírně nad gaučingem; jídelní plán řídí sacharidy — klepni na <strong>?</strong> u tlačítka Refeed.',
@@ -4718,8 +5276,8 @@ aw_step_energy_kicker: 'PŘÍJEM / VÝDEJ / DEFICIT',
 aw_step_energy_text: 'Energetické sloupce se přepočítávají v reálném čase.',
 aw_consent_notice: 'Kliknutím na pokračovat souhlasíte se zpracováním zadaných údajů pro výpočet metrik aplikace (BMR/TDEE, bilance, progres) a berete na vědomí, že data jsou ukládána lokálně ve vašem zařízení.',
 aw_legal_title: 'PRÁVNÍ OCHRANA',
-aw_legal_body: '&gt; 1. GDPR (zjednodušeně): Údaje zadávané do aplikace zpracovává váš prohlížeč/zařízení pro výpočty v aplikaci. Tento text nenahrazuje samostatnou informaci o zpracování osobních údajů tam, kde ji zákon vyžaduje. Práva související s údaji můžete uplatnit mj. smazáním dat v aplikaci nebo v nastavení zařízení.<br><br>2. MEDICAL DISCLAIMER: IRON | CORE není lékařská aplikace. Všechny výpočty (BMR, TDEE, deficit) jsou založeny na matematických vzorcích a nenahrazují konzultaci s lékařem. Použití je na vlastní nebezpečí. Systém není určen pro těhotné a kojící ženy, osoby s poruchami příjmu potravy nebo osoby mladší 18 let.<br><br>3. VÁHA: Data z diagnostické váhy jsou interpretována systémem jako pomocné metriky.<br><br>4. POUŽITÍ NA VLASTNÍ NEBEZPEČÍ: Veškeré navržené nutriční cíle, limity bílkovin a kalorické deficity jsou generovány algoritmem. Před zahájením jakékoli mise (diety) konzultujte svůj zdravotní stav s kvalifikovaným lékařem.<br><br>5. ODPOVĚDNOST: V rozsahu přípustném zákonem autor aplikace nenese odpovědnost za zdravotní komplikace, zranění nebo škody vzniklé používáním nebo výkladem dat v IRON | CORE. Žádný text v aplikaci nezakládá odbornou radu.<br><br>6. OCHRANA SOUKROMÍ: Biometrické a zdravotně související údaje v této verzi aplikace neukládáme na cloud provozovatele; zůstávají v lokální paměti prohlížeče/zařízení. Smazáním mezipaměti nebo dat stránky můžete přijít o data nenávratně. Zálohování je na vás. Svá data můžete kdykoliv smazat resetováním aplikace nebo smazáním mezipaměti prohlížeče.<br><br>7. PŘESNOST VSTUPU: Výstupy závisí na tom, co zadáte vy. Nepřebíráme odpovědnost za chyby, nepřesnosti ani opomenutí ve vašich zápisech.<br><br>8. AI A TŘETÍ STRANY: Funkce založené na umělé inteligenci nebo externích API mohou vracet nepřesné nebo neúplné informace — ověřte si kritické údaje. Napojení na služby zařízení (např. Health Connect, HealthKit) se řídí také pravidly příslušného systému; tato aplikace je nenahrazuje.<br><br>9. SLUŽBA „TAK JAK JE“: Aplikace může být měněna, omezena nebo ukončena. Nezaručujeme nepřetržitý provoz ani bezchybnost výpočtů.<br><br>10. SHODA: Kliknutím na tlačítko "Pokračovat" potvrzujete, že jste starší 18 let a plně rozumíte výše uvedeným rizikům.<br><br>11. ZÁVĚREČNÁ USTANOVENÍ: Tato aplikace je poskytována „tak jak je“ (as is). Uživatel bere na vědomí, že veškeré metriky jsou odvozeny z matematických průměrů a nemusí reflektovat individuální zdravotní specifika. V případě pochybností o zdravotním stavu okamžitě ukončete používání systému a vyhledejte odbornou pomoc.',
-aw_legal_support: '<strong>KONTAKT A PODPORA:</strong> E-mail: <a href="mailto:support@example.com" style="color:#93c5fd;text-decoration:underline">support@example.com</a> · Web: <a href="https://example.com" style="color:#93c5fd;text-decoration:underline" target="_blank" rel="noopener noreferrer">example.com</a>',
+aw_legal_body: '&gt; 1. GDPR (zjednodušeně): Údaje zadávané do aplikace zpracovává váš prohlížeč/zařízení pro výpočty v aplikaci. Tento text nenahrazuje samostatnou informaci o zpracování osobních údajů tam, kde ji zákon vyžaduje. Práva související s údaji můžete uplatnit mj. smazáním dat v aplikaci nebo v nastavení zařízení.<br><br>2. MEDICAL DISCLAIMER: IRON | CORE není lékařská aplikace. Všechny výpočty (BMR, TDEE, deficit) jsou založeny na matematických vzorcích a nenahrazují konzultaci s lékařem. Použití je na vlastní nebezpečí. Systém není určen pro těhotné a kojící ženy, osoby s poruchami příjmu potravy nebo osoby mladší 18 let.<br><br>3. VÁHA: Data z diagnostické váhy jsou interpretována systémem jako pomocné metriky.<br><br>4. POUŽITÍ NA VLASTNÍ NEBEZPEČÍ: Veškeré navržené nutriční cíle, limity bílkovin a kalorické deficity jsou generovány algoritmem. Před zahájením jakékoli mise (diety) konzultujte svůj zdravotní stav s kvalifikovaným lékařem.<br><br>5. ODPOVĚDNOST: V rozsahu přípustném zákonem autor aplikace nenese odpovědnost za zdravotní komplikace, zranění nebo škody vzniklé používáním nebo výkladem dat v IRON | CORE. Žádný text v aplikaci nezakládá odbornou radu.<br><br>6. OCHRANA SOUKROMÍ: Biometrické a zdravotně související údaje v této verzi aplikace neukládáme na cloud provozovatele; zůstávají v lokální paměti prohlížeče/zařízení. Smazáním mezipaměti nebo dat stránky můžete přijít o data nenávratně. Zálohování je na vás. Svá data můžete kdykoliv smazat resetováním aplikace nebo smazáním mezipaměti prohlížeče.<br><br>7. PŘESNOST VSTUPU: Výstupy závisí na tom, co zadáte vy. Nepřebíráme odpovědnost za chyby, nepřesnosti ani opomenutí ve vašich zápisech.<br><br>8. AI A TŘETÍ STRANY: Funkce založené na umělé inteligenci nebo externích API mohou vracet nepřesné nebo neúplné informace — ověřte si kritické údaje. Napojení na služby zařízení (např. Health Connect, HealthKit) se řídí také pravidly příslušného systému; tato aplikace je nenahrazuje.<br><br>9. SLUŽBA „TAK JAK JE“: Aplikace může být měněna, omezena nebo ukončena. Nezaručujeme nepřetržitý provoz ani bezchybnost výpočtů.<br><br>10. SHODA: Kliknutím na tlačítko "Pokračovat" potvrzujete, že jste starší 18 let a plně rozumíte výše uvedeným rizikům.<br><br>11. ZÁVĚREČNÁ USTANOVENÍ: Tato aplikace je poskytována „tak jak je“ (as is). Uživatel bere na vědomí, že veškeré metriky jsou odvozeny z matematických průměrů a nemusí reflektovat individuální zdravotní specifika. V případě pochybností o zdravotním stavu okamžitě ukončete používání systému a vyhledejte odbornou pomoc.<br><br><strong>12. LIMITACE ODPOVĚDNOSTI (AI / EXPERIMENTÁLNÍ CHARAKTER):</strong><br><strong>12.1 Experimentální status:</strong> Iron Core může využívat modely umělé inteligence (LLM). Veškeré výstupy včetně odhadů nutričních hodnot a složení jídel jsou generovány algoritmem a mohou obsahovat chyby nebo nepřesnosti. Tyto funkce používáte na vlastní nebezpečí.<br><strong>12.2 Nezdravotnický charakter:</strong> Provozovatel není zdravotnickým zařízením ani nutriční poradnou. Iron Core neposkytuje lékařské diagnózy, doporučení k léčbě ani odborné výživové poradenství. Výstupy nenahrazují konzultaci s lékařem ani certifikovaným nutričním specialistou. O zdraví nerozhodujte výhradně na základě této aplikace.<br><strong>12.3 Alergeny a bezpečnost potravin:</strong> Systém není schopen spolehlivě detekovat stopové množství alergenů, toxické látky ani mikrobiální kontaminaci. Identifikace „jedlých“ položek (např. hub, lesních plodů) je pouze orientační a nesmí být použita k ověření bezpečnosti konzumace ani k rozlišení jedovatých druhů.<br><strong>12.4 Vyložení škod:</strong> V rozsahu přípustném právními předpisy provozovatel neodpovídá za jakékoli přímé či nepřímé škody na zdraví, majetku nebo datech uživatele vzniklé v důsledku používání aplikace, spoléhání se na výstupy AI či nesprávné interpretaci výsledků. <strong>STATUS: používáte službu na vlastní riziko.</strong>',
+aw_legal_support: '<strong>KONTAKT A PODPORA:</strong> Repozitář / hlášení problémů: <a href="https://github.com/rekap-hue/iron-core/issues" style="color:#93c5fd;text-decoration:underline" target="_blank" rel="noopener noreferrer">github.com/rekap-hue/iron-core/issues</a> · Provozní e‑mail a IČ zveřejněte na webu BullStack (doplňte odkaz, až bude hotový).',
 aw_legal_hint_scroll: 'Pro pokračování sjeďte právní text až dolů.',
 aw_legal_hint_done: 'Právní text potvrzen. Můžete pokračovat.',
 aw_import_backup: 'Nahrát ze zálohy',
@@ -4904,6 +5462,7 @@ doc_title: 'Mission — Iron Core',
 app_info_clean: 'clean data',
 nav_home_aria: 'Home — top of app',
 nav_sections_aria: 'App sections',
+weight_entry_hint: 'Enter weight manually — same conditions (e.g. morning, fasted). If weight is in Apple Health or Health Connect, it fills in automatically in the background.',
 nav_progress: 'Progress',
 nav_energy: 'Energy',
 nav_mission: 'Mission',
@@ -4930,6 +5489,13 @@ motor_computing: ' ENGINE: Calculating…',
 graph_day: 'Day',
 graph_week: 'Week',
 graph_month: 'Month',
+graph_year: 'Year',
+partner_gear_title: 'Recommended gear',
+partner_gear_intro: 'A reliable home scale helps keep weigh‑in conditions consistent (e.g. morning, same routine) and sync means fewer missed logs. The link below is a partner link and supports IRON CORE development.',
+partner_withings_cta: 'Withings — smart scales (partner link)',
+partner_withings_aria: 'Open Withings store in a new tab — partner link',
+partner_disclosure: 'Partner link. Purchases may earn a commission; your price is the same as from the merchant. Any discount code is set by Withings under their rules.',
+partner_region_hint: 'The store link follows your app language, browser language, and time zone (EU vs United States) so pricing and storefront match when possible.',
 fat_burn_title_html: 'Fat<br>burn',
 fat_barometer_aria: 'Tap for fat / muscle signal detail',
 roadmap_kicker: 'Roadmap tubes to goal',
@@ -5000,6 +5566,10 @@ hist_kcal_edit: 'Calorie history edit',
 profile_toggle: 'Profile & settings (Stars, BMI, BMR)',
 profile_kicker: 'Profile & settings',
 profile_hint: 'BMI, BMR, stars & AI — data stays in this browser.',
+profile_theme: 'Appearance',
+theme_dark: 'Dark',
+theme_light: 'Light',
+profile_theme_hint: 'Light mode is easier to read in sunlight. Saved on this device.',
 profile_lang: 'Interface language',
 profile_motion_title: 'Smoothness / battery',
 profile_motion_toggle: 'Animation saver mode (less device heating)',
@@ -5017,6 +5587,12 @@ ph_age: 'Age',
 ph_height: 'Height',
 btn_save_profile: 'Save profile',
 profile_legal_summary: 'Full legal agreement',
+profile_privacy_full: 'Privacy policy (in-app file)',
+profile_privacy_health: 'Health Connect / HealthKit — brief info',
+profile_privacy_public: 'Privacy policy on the web (App Store / Play)',
+ai_photo_ack_title: 'Sending photo to Google AI',
+ai_photo_ack_body: 'Your meal photo and API key are sent to Google Gemini (generativelanguage.googleapis.com) for macro/kcal estimates. They are not sent to the IRON CORE operator’s servers. Results may be wrong — not medical advice. By continuing you agree to this transfer.',
+ai_photo_ack_btn: 'Agree and continue',
 btn_clear_sensitive: 'Clear sensitive data',
 hint_clear_sensitive: 'Profile, biometrics, InBody, and any locally stored AI API key. Day history and most settings stay — not a full reset.',
 btn_export_anonymized: 'Export anonymized backup',
@@ -5032,16 +5608,16 @@ backup_import_ok: 'Restore backup',
 backup_export_ok: 'Backup downloaded.',
 backup_last_never: 'Last backup: never.',
 backup_last_at: 'Last backup: {date}',
-backup_auto_weekly_label: 'Automatic Monday backup',
-backup_auto_weekly_hint: 'When you open the app on Monday, it creates a JSON backup automatically.',
-backup_auto_weekly_on: '● MONDAY AUTO BACKUP ON',
-backup_auto_weekly_off: '○ MONDAY AUTO BACKUP OFF',
+backup_auto_weekly_label: 'Automatic daily backup (10 days)',
+backup_auto_weekly_hint: 'Creates a backup when you open the app; files older than 10 days are deleted automatically.',
+backup_auto_weekly_on: '● DAILY BACKUP ON',
+backup_auto_weekly_off: '○ DAILY BACKUP OFF',
 backup_overwrite_label: 'Overwrite latest file (latest)',
 backup_overwrite_hint: 'On: keeps writing iron-core-backup-latest.json. Off: creates dated history files.',
-backup_auto_done: 'Automatic Monday backup created.',
-backup_auto_fail: 'Automatic Monday backup failed. Try manual export.',
-backup_auto_pref_on: 'Automatic Monday backup enabled.',
-backup_auto_pref_off: 'Automatic Monday backup disabled.',
+backup_auto_done: 'Daily backup created ✓',
+backup_auto_fail: 'Daily backup failed. Try manual export.',
+backup_auto_pref_on: 'Daily backup enabled (last 10 days kept).',
+backup_auto_pref_off: 'Daily backup disabled.',
 backup_overwrite_pref_on: 'Latest mode enabled (overwrite one file).',
 backup_overwrite_pref_off: 'History mode enabled (new files).',
 backup_guard_warn: 'Data is local-only in the app. Create a JSON backup (at least weekly), otherwise uninstalling the app can erase it.',
@@ -5085,7 +5661,7 @@ stat_bmr_line: 'BMR {bmr} · mode {tdee} + activity {move}',
 macro_title_base: 'Macro monitor',
 macro_tail_targets: ' • targets from {w}',
 macro_weight_missing: '— (fill profile / weight)',
-ph_in_w: 'Home weight (kg — same conditions, e.g. morning)',
+ph_in_w: 'Weight (kg)',
 ph_waist: 'Waist (cm)',
 ph_chest: 'Chest (cm)',
 ph_thigh: 'Thigh (cm)',
@@ -5108,6 +5684,7 @@ placeholder_kcal: 'kcal',
 placeholder_food: 'Food name…',
 legend_elite: 'Legend elite (',
 star_rank_plain: '0 large',
+star_rank_sub: '{small} small · {big}× large',
 burn_hint_couch: '<strong style="color:#e2e8f0">Rest day</strong>: burn is a very low NEAT baseline. Log only <strong style="color:var(--green-neon)">extra kcal</strong> from real activity (walk, cardio…).',
 burn_hint_train: '<strong style="color:var(--green-neon)">Training</strong>: base burn ~1.38× BMR (activity level nudges this); add kcal from workouts here.',
 burn_hint_refeed: '<strong style="color:#f472b6">Refeed</strong>: burn slightly above rest; carbs drive the plan — tap <strong>?</strong> on Refeed.',
@@ -5158,8 +5735,8 @@ aw_step_energy_kicker: 'INTAKE / BURN / DEFICIT',
 aw_step_energy_text: 'Energy columns are recalculated in real time.',
 aw_consent_notice: 'By clicking Continue, you agree to processing of entered data for app metrics (BMR/TDEE, balance, progress) and acknowledge that data is stored locally on your device.',
 aw_legal_title: 'LEGAL PROTECTION',
-aw_legal_body: '&gt; 1. GDPR (summary): Data you enter is processed on your browser/device for in-app calculations. This screen is not a substitute for a full privacy notice where the law requires one. You may exercise rights related to your data partly by deleting data in the app or in device settings.<br><br>2. MEDICAL DISCLAIMER: IRON | CORE is not a medical application. All calculations (BMR, TDEE, deficit) are based on mathematical formulas and do not replace consultation with a physician. Use at your own risk. The system is not intended for people who are pregnant or breastfeeding, people with eating disorders, or anyone under 18.<br><br>3. WEIGHT: Data from diagnostic scales is interpreted by the system as auxiliary metrics.<br><br>4. USE AT YOUR OWN RISK: All suggested nutritional goals, protein limits, and calorie deficits are generated by an algorithm. Before starting any mission (diet), consult your health status with a qualified physician.<br><br>5. LIABILITY: To the extent permitted by law, the app author is not liable for health complications, injuries, or damages from using or interpreting data in IRON | CORE. Nothing in the app is professional advice.<br><br>6. PRIVACY: In this version we do not store your biometric or health-related inputs on the operator’s cloud; they stay in local browser/device storage. Clearing site data or cache can destroy data permanently. Backup is your responsibility. You may delete your data at any time by resetting the app or clearing your browser cache / site data.<br><br>7. INPUT ACCURACY: Outputs depend on what you enter. We are not responsible for mistakes, omissions, or inaccuracies in your logs.<br><br>8. AI & THIRD PARTIES: AI or external API features may return incomplete or wrong information — verify anything critical. Device integrations (e.g. Health Connect, HealthKit) are also governed by the platform’s rules; this app does not replace them.<br><br>9. “AS IS”: The app may change, be limited, or be discontinued. We do not warrant uninterrupted operation or error-free calculations.<br><br>10. CONSENT: By clicking "Continue", you confirm you are over 18 years old and fully understand the risks above.<br><br>11. FINAL PROVISIONS: This application is provided “as is.” You acknowledge that all metrics are derived from mathematical averages and may not reflect individual health specifics. If you have any doubt about your health, stop using the system immediately and seek professional help.',
-aw_legal_support: '<strong>CONTACT & SUPPORT:</strong> Email: <a href="mailto:support@example.com" style="color:#93c5fd;text-decoration:underline">support@example.com</a> · Web: <a href="https://example.com" style="color:#93c5fd;text-decoration:underline" target="_blank" rel="noopener noreferrer">example.com</a>',
+aw_legal_body: '&gt; 1. GDPR (summary): Data you enter is processed on your browser/device for in-app calculations. This screen is not a substitute for a full privacy notice where the law requires one. You may exercise rights related to your data partly by deleting data in the app or in device settings.<br><br>2. MEDICAL DISCLAIMER: IRON | CORE is not a medical application. All calculations (BMR, TDEE, deficit) are based on mathematical formulas and do not replace consultation with a physician. Use at your own risk. The system is not intended for people who are pregnant or breastfeeding, people with eating disorders, or anyone under 18.<br><br>3. WEIGHT: Data from diagnostic scales is interpreted by the system as auxiliary metrics.<br><br>4. USE AT YOUR OWN RISK: All suggested nutritional goals, protein limits, and calorie deficits are generated by an algorithm. Before starting any mission (diet), consult your health status with a qualified physician.<br><br>5. LIABILITY: To the extent permitted by law, the app author is not liable for health complications, injuries, or damages from using or interpreting data in IRON | CORE. Nothing in the app is professional advice.<br><br>6. PRIVACY: In this version we do not store your biometric or health-related inputs on the operator’s cloud; they stay in local browser/device storage. Clearing site data or cache can destroy data permanently. Backup is your responsibility. You may delete your data at any time by resetting the app or clearing your browser cache / site data.<br><br>7. INPUT ACCURACY: Outputs depend on what you enter. We are not responsible for mistakes, omissions, or inaccuracies in your logs.<br><br>8. AI & THIRD PARTIES: AI or external API features may return incomplete or wrong information — verify anything critical. Device integrations (e.g. Health Connect, HealthKit) are also governed by the platform’s rules; this app does not replace them.<br><br>9. “AS IS”: The app may change, be limited, or be discontinued. We do not warrant uninterrupted operation or error-free calculations.<br><br>10. CONSENT: By clicking "Continue", you confirm you are over 18 years old and fully understand the risks above.<br><br>11. FINAL PROVISIONS: This application is provided “as is.” You acknowledge that all metrics are derived from mathematical averages and may not reflect individual health specifics. If you have any doubt about your health, stop using the system immediately and seek professional help.<br><br><strong>12. LIMITATION OF LIABILITY (AI / EXPERIMENTAL NATURE):</strong><br><strong>12.1 Experimental status:</strong> Iron Core may use large language models (LLM). All outputs, including nutritional estimates and meal composition, are algorithm-generated and may be wrong or incomplete. You use these features at your own risk.<br><strong>12.2 Non-medical nature:</strong> The operator is not a medical facility or a nutrition practice. Iron Core does not provide medical diagnosis, treatment advice, or professional dietary counselling. Outputs do not replace a physician or a certified nutrition specialist. Do not make health decisions based solely on this app.<br><strong>12.3 Allergens and food safety:</strong> The system cannot reliably detect trace allergens, toxic substances, or microbial contamination. Identification of “edible” items (e.g. mushrooms, wild plants) is indicative only and must not be used to verify food safety or distinguish poisonous species.<br><strong>12.4 Exclusion of damages:</strong> To the extent permitted by law, the operator is not liable for any direct or indirect harm to health, property, or data arising from use of the app, reliance on AI outputs, or misinterpretation of results. <strong>STATUS: you proceed at your own risk.</strong>',
+aw_legal_support: '<strong>CONTACT & SUPPORT:</strong> Repository / issues: <a href="https://github.com/rekap-hue/iron-core/issues" style="color:#93c5fd;text-decoration:underline" target="_blank" rel="noopener noreferrer">github.com/rekap-hue/iron-core/issues</a> · Publish your operational email and company ID on the BullStack website (add link when ready).',
 aw_legal_hint_scroll: 'To continue, scroll the legal text to the bottom.',
 aw_legal_hint_done: 'Legal text confirmed. You can continue.',
 aw_import_backup: 'Load from backup',
@@ -5405,6 +5982,57 @@ svgEl.innerHTML =
 '<path fill="none" stroke="' + strokeColor + '" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="' + d + '"/>' +
 '<polygon points="' + tipX.toFixed(2) + ',' + tipY.toFixed(2) + ' ' + a1x.toFixed(2) + ',' + a1y.toFixed(2) + ' ' + a2x.toFixed(2) + ',' + a2y.toFixed(2) + '" fill="' + strokeColor + '"/>';
 }
+function resolveIronPartnerWithingsUrl() {
+var eu = (typeof IRON_PARTNER_WITHINGS_URL_EU === 'string') ? IRON_PARTNER_WITHINGS_URL_EU.trim() : '';
+var us = (typeof IRON_PARTNER_WITHINGS_URL_US === 'string') ? IRON_PARTNER_WITHINGS_URL_US.trim() : '';
+var fallback = (typeof IRON_PARTNER_WITHINGS_URL === 'string') ? IRON_PARTNER_WITHINGS_URL.trim() : '';
+var pickEu = eu || fallback;
+var pickUs = us || fallback;
+var ui = 'cs';
+try { if (typeof getUiLang === 'function') ui = getUiLang(); } catch (eUi) {}
+var low = [];
+try {
+var arr = (navigator.languages && navigator.languages.length) ? navigator.languages : (navigator.language ? [navigator.language] : []);
+for (var li = 0; li < arr.length; li++) low.push(String(arr[li] || '').toLowerCase());
+} catch (eL) {}
+var tz = '';
+try { tz = String(Intl.DateTimeFormat().resolvedOptions().timeZone || ''); } catch (eTz) {}
+var tzAm = /^America\//.test(tz);
+var tzEu = /^Europe\//.test(tz) || /^Atlantic\/(Azores|Canary|Madeira|Reykjavik|Jan_Mayen|Faroe)/.test(tz) || tz === 'Arctic/Longyearbyen';
+function langHits(prefixes) {
+for (var i = 0; i < low.length; i++) {
+for (var j = 0; j < prefixes.length; j++) {
+var p = prefixes[j];
+if (low[i] === p || low[i].indexOf(p + '-') === 0) return true;
+}
+}
+return false;
+}
+if (ui === 'cs') return pickEu;
+if (langHits(['en-us', 'es-us', 'pt-br', 'en-ca', 'es-mx', 'es-ar', 'es-co', 'es-cl', 'es-pe', 'es-ve', 'es-cr', 'es-pa', 'es-do', 'es-ec', 'es-gt', 'es-hn', 'es-ni', 'es-pr', 'es-py', 'es-sv', 'es-uy', 'es-bo'])) return pickUs;
+if (tzAm) return pickUs;
+if (langHits(['cs', 'sk', 'en-gb', 'en-ie', 'de', 'fr', 'pl', 'it', 'es-es', 'ca', 'eu', 'gl', 'nl', 'fy', 'pt-pt', 'sv', 'da', 'fi', 'is', 'no', 'nb', 'nn', 'ro', 'bg', 'hr', 'sr', 'bs', 'sl', 'mk', 'sq', 'el', 'tr', 'uk', 'be', 'ru-ua', 'et', 'lv', 'lt', 'mt', 'ga', 'cy', 'lb', 'hu'])) return pickEu;
+if (tzEu) return pickEu;
+if (ui === 'en') return pickUs || pickEu;
+return pickEu || pickUs;
+}
+function applyPartnerShopLinks() {
+var a = document.getElementById('withings-shop-link');
+if (!a) return;
+var u = resolveIronPartnerWithingsUrl();
+if (u && /^https?:\/\//i.test(u)) a.setAttribute('href', u);
+}
+function applyLegalPrivacyLinks() {
+var pub = document.getElementById('profile-privacy-public-link');
+if (!pub) return;
+var url = (typeof IRON_PUBLIC_PRIVACY_URL === 'string') ? IRON_PUBLIC_PRIVACY_URL.trim() : '';
+if (url && /^https:\/\//i.test(url)) {
+pub.setAttribute('href', url);
+pub.style.display = '';
+} else {
+pub.style.display = 'none';
+}
+}
 function applyI18n() {
 var lg = getUiLang();
 try {
@@ -5430,6 +6058,9 @@ document.querySelectorAll('[data-i18n-aria]').forEach(function(el) {
 var k = el.getAttribute('data-i18n-aria');
 if (k) el.setAttribute('aria-label', tr(k));
 });
+applyPartnerShopLinks();
+applyLegalPrivacyLinks();
+syncThemeToggle();
 refreshActivitySelectI18n();
 syncLangToggle();
 }
@@ -5530,15 +6161,30 @@ try {
 if (!D || !D.backupPrefs || !D.backupPrefs.autoWeekly) return;
 if (!hasMeaningfulStoredData()) return;
 var now = new Date();
-if (now.getDay() !== 1) return;
-var weekKey = getIsoWeekKey(now);
-if (D.backupPrefs.lastAutoWeek === weekKey) return;
-var ok = window.exportIronCoreBackup({ auto: true, silent: true });
-if (!ok) return;
-D.backupPrefs.lastAutoWeek = weekKey;
+var dayKey = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+if (D.backupPrefs.lastAutoDay === dayKey) return;
+D.backupPrefs.lastAutoDay = dayKey;
 try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (eSaveAuto) {}
-flashNote(tr('backup_auto_done'), '#ff2d95', 'white');
+window.exportIronCoreBackup({ auto: true, silent: false, rollingDayKey: dayKey });
+cleanOldRollingBackups(10);
 } catch (eAuto) {}
+}
+function cleanOldRollingBackups(keepCount) {
+try {
+var isNative = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Filesystem;
+if (!isNative) return;
+var Fs = window.Capacitor.Plugins.Filesystem;
+Fs.readdir({ path: 'IronCore-Backups', directory: 'DOCUMENTS' }).then(function(res) {
+var files = (res && res.files) ? res.files : [];
+var backups = files.filter(function(f) { return (f.name || f).match(/^iron-core-backup-\d{4}-\d{2}-\d{2}\.json$/); });
+backups.sort(function(a, b) { return (a.name || a).localeCompare(b.name || b); });
+if (backups.length <= keepCount) return;
+var toDelete = backups.slice(0, backups.length - keepCount);
+toDelete.forEach(function(f) {
+Fs.deleteFile({ path: 'IronCore-Backups/' + (f.name || f), directory: 'DOCUMENTS' }).catch(function() {});
+});
+}).catch(function() {});
+} catch (e) {}
 }
 function setupBackupAutoWatchers() {
 if (window.__backupAutoWatchersBound) return;
@@ -5583,7 +6229,7 @@ try { el.scrollIntoView(true); } catch(e2) {}
 };
 var __sectionAnimationObserver = null;
 function updateOffscreenAnimationPauses() {
-var targets = ['app-section-home', 'section-home-stats', 'section-roadmap', 'section-energy', 'section-mission', 'section-zapis', 'section-intake', 'section-profile'];
+var targets = ['app-section-home', 'section-home-stats', 'section-roadmap', 'section-energy', 'aw-macro-mission-anchor', 'section-day-controls', 'section-zapis', 'section-intake', 'profile-area'];
 if (__sectionAnimationObserver) {
 try { __sectionAnimationObserver.disconnect(); } catch (eObs) {}
 }
@@ -5628,7 +6274,7 @@ var MISSION_START_KEY = '2026-03-09';
 var NOTIFIED = JSON.parse(localStorage.getItem(NOTIF_KEY) || '{}');
 (function initRoadmapView() {
 var rv = localStorage.getItem(ROADMAP_VIEW_KEY);
-window.currentView = (rv === 'day' || rv === 'week' || rv === 'month') ? rv : 'day';
+window.currentView = (rv === 'day' || rv === 'week' || rv === 'month' || rv === 'year') ? rv : 'day';
 })();
 
 function dayKeyFromDate(date) {
@@ -5906,7 +6552,7 @@ panel.innerHTML = '<div class="awakening-kicker">' + escHtml(st.kicker) + '</div
 '<h3 class="awakening-title">' + escHtml(st.title) + '</h3>' +
 '<p class="awakening-text">' + escHtml(st.text) + '</p>' +
 '<div class="awakening-grid">' +
-'<div class="awakening-field"><label>Věk</label><input id="aw-age" type="number" inputmode="numeric" pattern="[0-9]*" min="14" max="99" step="1" value="' + (Number(D.age) || '') + '"></div>' +
+'<div class="awakening-field"><label>Věk</label><input id="aw-age" type="number" inputmode="numeric" pattern="[0-9]*" min="18" max="99" step="1" value="' + (Number(D.age) || '') + '"></div>' +
 '<div class="awakening-field"><label>Výška (cm)</label><input id="aw-height" type="number" inputmode="numeric" pattern="[0-9]*" min="120" max="240" step="1" value="' + (Number(D.height) || '') + '"></div>' +
 '<div class="awakening-field"><label>Aktuální váha (kg)</label><input id="aw-weight" type="number" inputmode="decimal" min="30" max="300" step="0.1" value="' + ((Number(D.start) > 0 ? Number(D.start) : '') || '') + '"></div>' +
 '<div class="awakening-field"><label>Cíl váha (kg)</label><input id="aw-goal" type="number" inputmode="decimal" min="30" max="300" step="0.1" value="' + ((Number(D.final) > 0 ? Number(D.final) : '') || '') + '"></div>' +
@@ -5916,7 +6562,7 @@ panel.innerHTML = '<div class="awakening-kicker">' + escHtml(st.kicker) + '</div
 '</div>' +
 '<div style="margin-top:8px;border:1px solid rgba(71,85,105,0.85);border-radius:10px;background:linear-gradient(180deg, rgba(15,23,42,0.96), rgba(2,6,23,0.98));padding:7px 8px;">' +
 '<div style="font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:10px;font-weight:900;letter-spacing:.06em;color:#93c5fd;text-transform:uppercase;margin-bottom:6px;">' + tr('aw_legal_title') + '</div>' +
-'<div id="aw-legal-scroll" style="max-height:118px;overflow:auto;border:1px solid rgba(51,65,85,0.95);border-radius:8px;background:#111827;color:#e5e7eb;padding:7px 8px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:10px;line-height:1.45;white-space:normal;">' +
+'<div id="aw-legal-scroll" style="max-height:200px;overflow:auto;border:1px solid rgba(51,65,85,0.95);border-radius:8px;background:#111827;color:#e5e7eb;padding:7px 8px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:10px;line-height:1.45;white-space:normal;">' +
 tr('aw_legal_body') + '<br><br>' + tr('aw_legal_support') +
 '</div>' +
 '<div id="aw-legal-hint" style="margin-top:6px;font-size:9px;font-weight:800;color:#fca5a5;">' + tr('aw_legal_hint_scroll') + '</div>' +
@@ -6387,12 +7033,6 @@ kickIntroBubbleAnimations(intro);
 setTimeout(finishIntro, 7200);
 }
 
-window.previewIntroExperience = function() {
-D.onboardingDone = false;
-try { localStorage.setItem(KEY, JSON.stringify(D)); } catch(ePrev) {}
-startFirstLaunchExperience(true, true);
-};
-
 window.toggleHistArea = function() {
 var area = document.getElementById('hist-area');
 document.getElementById('hist-arrow').innerText = area.classList.toggle('open') ? '▲' : '▼';
@@ -6459,6 +7099,15 @@ if(ink) ink.value = '';
 sync();
 }
 
+function persistAppStateQuiet() {
+try {
+pruneMissionBriefingData();
+localStorage.setItem(KEY, JSON.stringify(D));
+localStorage.setItem(NOTIF_KEY, JSON.stringify(NOTIFIED));
+} catch (e) {}
+try { render(); } catch (eR) {}
+}
+
 /**
  * Native sync hook (iOS/Android): expects cumulative active kcal for the day.
  * Writes only positive delta vs last synced total to avoid duplicate entries.
@@ -6477,11 +7126,20 @@ if (!dayObj.externalMoveSync || typeof dayObj.externalMoveSync !== 'object') day
 var prevStored = Math.max(0, Math.round(Number(dayObj.externalMoveSync[source]) || 0));
 var prevFromLogs = 0;
 var matchedIdx = [];
+function isLegacyAutoHealthLabel(n) {
+var s = String(n || '');
+if (s.indexOf('Auto pohyb (') !== 0) return false;
+if (s === srcLabel) return true;
+if (source === 'apple_health' && (s === 'Auto pohyb (health_sync)' || s === 'Auto pohyb (device_health)' || s === 'Auto pohyb (health_connect)')) return true;
+if (source === 'health_connect' && (s === 'Auto pohyb (apple_health)' || s === 'Auto pohyb (health_sync)' || s === 'Auto pohyb (device_health)')) return true;
+if ((source === 'health_sync' || source === 'device_health') && (s === 'Auto pohyb (apple_health)' || s === 'Auto pohyb (health_connect)')) return true;
+return false;
+}
 if (Array.isArray(dayObj.mealEntries)) {
 for (var li = 0; li < dayObj.mealEntries.length; li++) {
 var it = dayObj.mealEntries[li] || {};
 if (String(it.type || '') !== 'out') continue;
-if (String(it.n || '') !== srcLabel) continue;
+if (!isLegacyAutoHealthLabel(it.n)) continue;
 matchedIdx.push(li);
 prevFromLogs += Math.max(0, Math.round(Number(it.v) || 0));
 }
@@ -6506,33 +7164,60 @@ if (String(be.type || '') === 'out') burn += Number(be.v) || 0;
 }
 dayObj.b = Math.max(0, Math.round(burn));
 }
+function finishPersist() {
+if (dayKey === getD()) D.logs = dayObj.mealEntries.slice();
+if (p.silent) persistAppStateQuiet();
+else sync();
+}
 var prev = Math.max(prevStored, prevFromLogs);
+var fromHealth = !!p.fromHealth;
+var logAligned = !!(matchedIdx.length === 1 && Math.round(Number((dayObj.mealEntries[matchedIdx[0]] || {}).v) || 0) === prev);
+if (fromHealth && p.silent && total > 0 && (!logAligned || total !== prev || matchedIdx.length > 1)) {
+dayObj.externalMoveSync[source] = total;
+upsertAutoSyncEntry(total);
+recalcDayBurnTotal();
+finishPersist();
+return;
+}
 if (total <= prev) {
 dayObj.externalMoveSync[source] = prev;
 if (matchedIdx.length > 1 || (matchedIdx.length === 1 && Math.round(Number((dayObj.mealEntries[matchedIdx[0]] || {}).v) || 0) !== prev)) {
 upsertAutoSyncEntry(prev);
 recalcDayBurnTotal();
-if (dayKey === getD()) D.logs = dayObj.mealEntries.slice();
-sync();
+finishPersist();
 return;
 }
-flashNote('Sync pohybu: bez změny (' + source + ').', 'var(--muted)', '#0f172a');
+if (!p.silent) flashNote('Sync pohybu: bez změny (' + source + ').', 'var(--muted)', '#0f172a');
 return;
 }
 dayObj.externalMoveSync[source] = total;
 upsertAutoSyncEntry(total);
 recalcDayBurnTotal();
-if (dayKey === getD()) D.logs = dayObj.mealEntries.slice();
-sync();
+finishPersist();
 } catch (e) {
 console.error(e);
-flashNote('Sync pohybu selhal.', 'var(--red)', 'white');
+if (!(payload || {}).silent) flashNote('Sync pohybu selhal.', 'var(--red)', 'white');
 }
 };
 
+function ensureGeminiAiAcknowledged(cb) {
+try {
+if (localStorage.getItem(IRON_GEMINI_AI_ACK_KEY) === '1') { cb(true); return; }
+} catch (e) {}
+var mt = document.getElementById('modal-text');
+var ackHtml = '<strong style="display:block;margin-bottom:8px;">' + tr('ai_photo_ack_title') + '</strong>' + tr('ai_photo_ack_body');
+openModal('', function() {
+try { localStorage.setItem(IRON_GEMINI_AI_ACK_KEY, '1'); } catch (e2) {}
+cb(true);
+}, tr('ai_photo_ack_btn'));
+if (mt) mt.innerHTML = ackHtml;
+}
 window.pickFoodPhoto = function() {
+ensureGeminiAiAcknowledged(function(ok) {
+if (!ok) return;
 var fi = document.getElementById('food-photo-input');
-if(fi) fi.click();
+if (fi) fi.click();
+});
 };
 
 function runGeminiFoodAnalysis(apiKey, base64, mime) {
@@ -6594,8 +7279,9 @@ reader.readAsDataURL(f);
 }
 
 window.setGraphView = function(btn, view) {
-var nextView = (view === 'week' || view === 'month') ? view : 'day';
+var nextView = (view === 'week' || view === 'month' || view === 'year') ? view : 'day';
 window.currentView = nextView;
+try { D.chartScrollW = null; } catch (eCw) {}
 try { localStorage.setItem(ROADMAP_VIEW_KEY, nextView); } catch (e) {}
 document.querySelectorAll('.graph-controls .btn-ctrl').forEach(function(b) { b.classList.remove('active'); });
 if (btn && btn.classList) btn.classList.add('active');
@@ -6726,7 +7412,8 @@ lastBackupAt: '',
 backupPrefs: {
 autoWeekly: false,
 overwriteLatest: false,
-lastAutoWeek: ''
+lastAutoWeek: '',
+lastAutoDay: ''
 }
 };
 
@@ -6763,6 +7450,7 @@ D.backupPrefs = (D.backupPrefs && typeof D.backupPrefs === 'object') ? D.backupP
 D.backupPrefs.autoWeekly = toBool(D.backupPrefs.autoWeekly, false);
 D.backupPrefs.overwriteLatest = toBool(D.backupPrefs.overwriteLatest, false);
 D.backupPrefs.lastAutoWeek = typeof D.backupPrefs.lastAutoWeek === 'string' ? D.backupPrefs.lastAutoWeek : '';
+D.backupPrefs.lastAutoDay = typeof D.backupPrefs.lastAutoDay === 'string' ? D.backupPrefs.lastAutoDay : '';
 try {
 var storedHistStart = toDayKey(localStorage.getItem(HIST_START_KEY) || '');
 if (storedHistStart) window._histStartDate = storedHistStart;
@@ -6779,7 +7467,7 @@ D.lastLogDate = todayDate;
 D.logs = (ensureDay(todayDate).mealEntries || []).slice();
 
 if (typeof D.chartScrollK !== 'number' || isNaN(D.chartScrollK)) D.chartScrollK = null;
-if (typeof D.chartScrollW !== 'number' || isNaN(D.chartScrollW)) D.chartScrollW = null;
+D.chartScrollW = null;
 if (typeof D.labBmr !== 'number' || isNaN(D.labBmr)) D.labBmr = 0;
 if (typeof D.labBmrAtKg !== 'number' || isNaN(D.labBmrAtKg)) D.labBmrAtKg = 0;
 if (typeof D.activityProfile !== 'string') D.activityProfile = '';
@@ -7524,8 +8212,47 @@ flashNoteImportant(title, body, "var(--gold-deep)", "#0f172a");
 
 var _healthAutoSyncDay = '';
 var _healthAutoSyncAt = 0;
+var _healthCatchUpAt = 0;
 var _healthAuthOk = false;
-var HEALTH_AUTO_SYNC_INTERVAL_MS = 45 * 1000;
+var _healthMidnightTimer = null;
+/** Lehký poll: jen dnešek (+ občas krátký catch-up). Delší interval šetří HealthKit / bridge / baterii. */
+var HEALTH_AUTO_SYNC_INTERVAL_MS = 120 * 1000;
+/** Plný historický sync jen zřídka — ne každou minutu 8 dní × 2 dotazy. */
+var HEALTH_CATCHUP_INTERVAL_MS = 30 * 60 * 1000;
+var HEALTH_CATCHUP_DAYS = 8;
+/** Periodické / „resume“ doplňování — stačí nedávné dny; snižuje zátěž na iOS (log spam, unsafeForcedSync, teplotu). */
+var HEALTH_LIGHT_CATCHUP_DAYS = 2;
+var _healthCatchUpLock = false;
+var HEALTH_MIDNIGHT_SYNC_HOUR = 23;
+var HEALTH_MIDNIGHT_SYNC_MINUTE = 55;
+var HEALTH_MIDNIGHT_SYNC_LS = 'iron_health_midnight_sync_day';
+function healthRecentDayKeys(numDays) {
+var n = Math.max(1, Math.min(31, numDays || HEALTH_CATCHUP_DAYS));
+var keys = [];
+var base = new Date();
+base.setHours(12, 0, 0, 0);
+for (var i = 0; i < n; i++) {
+var d = new Date(base);
+d.setDate(d.getDate() - i);
+keys.push(dayKeyFromDate(d));
+}
+return keys;
+}
+function healthNativePlatform() {
+try {
+if (!window.Capacitor || typeof window.Capacitor.getPlatform !== 'function') return null;
+var p = window.Capacitor.getPlatform();
+return (p === 'ios' || p === 'android') ? p : null;
+} catch (e) {
+return null;
+}
+}
+function healthExternalSourceKey() {
+var p = healthNativePlatform();
+if (p === 'android') return 'health_connect';
+if (p === 'ios') return 'apple_health';
+return 'device_health';
+}
 function healthPluginBridge() {
 try {
 if (!window.Capacitor || !window.Capacitor.Plugins) return null;
@@ -7538,8 +8265,8 @@ function healthTodayIsoRange(dayKeyOpt) {
 var dk = toDayKey(dayKeyOpt || getD());
 var d = parseDayKeyToDate(dk);
 var start = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
-var end = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59, 999);
-return { dayKey: dk, startIso: start.toISOString(), endIso: end.toISOString() };
+var endExclusive = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1, 0, 0, 0, 0);
+return { dayKey: dk, startIso: start.toISOString(), endIso: endExclusive.toISOString() };
 }
 window.healthAuthorizeAppleRead = async function(opts) {
 var hp = healthPluginBridge();
@@ -7551,7 +8278,7 @@ if (!av || !av.available) {
 if (!silent) flashNote('HealthKit není dostupný: ' + ((av && av.reason) || 'unknown'), 'var(--gold-deep)', '#0f172a');
 return { ok: false, reason: av && av.reason };
 }
-if (!_healthAuthOk) await hp.requestAuthorization({ read: ['calories'], write: [] });
+if (!_healthAuthOk) await hp.requestAuthorization({ read: ['calories', 'weight'], write: [] });
 _healthAuthOk = true;
 if (!silent) flashNote('HealthKit přístup povolen.', 'var(--green-neon)', '#0f172a');
 return { ok: true };
@@ -7561,10 +8288,10 @@ if (!silent) flashNote('HealthKit autorizace selhala.', 'var(--red)', 'white');
 return { ok: false, error: String(e && e.message || e) };
 }
 };
-window.healthSyncAppleMovement = async function(dayKeyOpt, sourceOpt) {
+window.healthSyncAppleMovement = async function(dayKeyOpt, sourceOpt, silent) {
 var hp = healthPluginBridge();
-if (!hp) { flashNote('HealthKit plugin není dostupný.', 'var(--gold-deep)', '#0f172a'); return { ok: false }; }
-var src = sourceOpt || 'apple_health';
+if (!hp) { if (!silent) flashNote('HealthKit plugin není dostupný.', 'var(--gold-deep)', '#0f172a'); return { ok: false }; }
+var src = sourceOpt || healthExternalSourceKey();
 try {
 var r = healthTodayIsoRange(dayKeyOpt);
 var total = 0;
@@ -7580,7 +8307,9 @@ aggregation: 'sum'
 var agg = (aggRes && aggRes.samples) ? aggRes.samples : [];
 for (var ai = 0; ai < agg.length; ai++) total += Number(agg[ai].value) || 0;
 sampleCount = agg.length;
-} else {
+}
+var needsRawSamples = (typeof hp.queryAggregated !== 'function') || (sampleCount === 0 && total === 0);
+if (needsRawSamples && typeof hp.readSamples === 'function') {
 var readRes = await hp.readSamples({
 dataType: 'calories',
 startDate: r.startIso,
@@ -7589,54 +8318,173 @@ limit: 5000,
 ascending: true
 });
 var samples = (readRes && readRes.samples) ? readRes.samples : [];
+total = 0;
 for (var i = 0; i < samples.length; i++) total += Number(samples[i].value) || 0;
 sampleCount = samples.length;
 }
 total = Math.max(0, Math.round(total));
-window.syncExternalMovementKcal({ source: src, totalKcal: total, dayKey: r.dayKey });
+window.syncExternalMovementKcal({ source: src, totalKcal: total, dayKey: r.dayKey, silent: !!silent, fromHealth: true });
 return { ok: true, dayKey: r.dayKey, totalKcal: total, sampleCount: sampleCount };
 } catch (e) {
 console.error(e);
-flashNote('HealthKit sync selhal.', 'var(--red)', 'white');
+if (!silent) flashNote('HealthKit sync selhal.', 'var(--red)', 'white');
 return { ok: false, error: String(e && e.message || e) };
 }
 };
-window.healthAutoSyncTodayOnce = async function(force) {
+window.healthSyncAppleWeight = async function(dayKeyOpt, sourceOpt, silentW) {
+var hp = healthPluginBridge();
+if (!hp) return { ok: false };
+var src = sourceOpt || healthExternalSourceKey();
+var silentWt = !!silentW;
 try {
-if (!window.Capacitor || typeof window.Capacitor.getPlatform !== 'function') return;
-if (window.Capacitor.getPlatform() !== 'ios') return;
-var dk = getD();
-var now = Date.now();
-if (_healthAutoSyncDay !== dk) {
-_healthAutoSyncDay = dk;
-_healthAutoSyncAt = 0;
-_healthAuthOk = false;
+var r = healthTodayIsoRange(dayKeyOpt);
+var readRes = await hp.readSamples({
+dataType: 'weight',
+startDate: r.startIso,
+endDate: r.endIso,
+limit: 100,
+ascending: false
+});
+var samples = (readRes && readRes.samples) ? readRes.samples : [];
+if (!samples.length) return { ok: true, dayKey: r.dayKey, weight: null, reason: 'no_samples' };
+var latest = Number(samples[0].value) || 0;
+if (latest <= 0) return { ok: true, dayKey: r.dayKey, weight: null, reason: 'invalid_value' };
+var dayObj = ensureDay(r.dayKey);
+var prev = dayObj.externalWeightSync[src];
+if (prev && prev.kg === latest) return { ok: true, dayKey: r.dayKey, weight: latest, reason: 'no_change' };
+var manuallyEdited = dayObj.w > 0 && (!dayObj.externalWeightSync[src]);
+if (manuallyEdited && !prev) {
+dayObj.externalWeightSync[src] = { kg: latest, ts: Date.now(), skipped: true };
+return { ok: true, dayKey: r.dayKey, weight: latest, reason: 'manual_present' };
 }
-if (!force && _healthAutoSyncAt && (now - _healthAutoSyncAt) < HEALTH_AUTO_SYNC_INTERVAL_MS) return;
-var auth = await window.healthAuthorizeAppleRead({ silent: true });
-if (!auth || !auth.ok) return;
-await window.healthSyncAppleMovement(dk, 'apple_health');
-_healthAutoSyncAt = now;
+dayObj.w = latest;
+dayObj.externalWeightSync[src] = { kg: latest, ts: Date.now() };
+if (silentWt) persistAppStateQuiet(); else sync();
+return { ok: true, dayKey: r.dayKey, weight: latest };
 } catch (e) {
-console.error(e);
+console.error('healthSyncAppleWeight error:', e);
+return { ok: false, error: String(e && e.message || e) };
 }
 };
-document.addEventListener('visibilitychange', function() {
-if (document.visibilityState === 'visible') {
-try { window.healthAutoSyncTodayOnce(true); } catch (e) {}
+window.healthAutoSyncCatchUp = async function(opts) {
+opts = opts || {};
+if (_healthCatchUpLock) return { ok: false, busy: true };
+_healthCatchUpLock = true;
+try {
+if (!healthNativePlatform()) return { ok: false };
+var silent = opts.silent !== false;
+var days = opts.days || HEALTH_CATCHUP_DAYS;
+var src = healthExternalSourceKey();
+var auth = await window.healthAuthorizeAppleRead({ silent: true });
+if (!auth || !auth.ok) return { ok: false };
+var keys = healthRecentDayKeys(days);
+for (var i = 0; i < keys.length; i++) {
+await window.healthSyncAppleMovement(keys[i], src, true);
+await window.healthSyncAppleWeight(keys[i], src, true);
 }
+try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (eSave) {}
+if (!silent) sync();
+else { try { render(); } catch (eR) {} }
+return { ok: true, days: keys.length };
+} catch (e) {
+console.error('healthAutoSyncCatchUp', e);
+return { ok: false };
+} finally {
+_healthCatchUpLock = false;
+}
+};
+function scheduleHealthMidnightSync() {
+if (!healthNativePlatform()) return;
+if (_healthMidnightTimer) {
+clearTimeout(_healthMidnightTimer);
+_healthMidnightTimer = null;
+}
+var now = new Date();
+var target = new Date(now.getFullYear(), now.getMonth(), now.getDate(), HEALTH_MIDNIGHT_SYNC_HOUR, HEALTH_MIDNIGHT_SYNC_MINUTE, 0, 0);
+if (target.getTime() <= now.getTime()) target.setDate(target.getDate() + 1);
+var ms = target.getTime() - now.getTime();
+_healthMidnightTimer = setTimeout(async function() {
+_healthMidnightTimer = null;
+try {
+var dk = getD();
+var last = '';
+try { last = localStorage.getItem(HEALTH_MIDNIGHT_SYNC_LS) || ''; } catch (eLs) {}
+if (last !== dk) {
+await window.healthAutoSyncCatchUp({ silent: true, days: HEALTH_CATCHUP_DAYS });
+try { localStorage.setItem(HEALTH_MIDNIGHT_SYNC_LS, dk); } catch (eLs2) {}
+}
+} catch (eMid) {
+console.error('health midnight sync', eMid);
+}
+scheduleHealthMidnightSync();
+}, ms);
+}
+var _healthTodayOnceLock = false;
+window.healthAutoSyncTodayOnce = async function(force) {
+if (_healthTodayOnceLock) return;
+_healthTodayOnceLock = true;
+try {
+if (!healthNativePlatform()) return;
+var dk = getD();
+var now = Date.now();
+var src = healthExternalSourceKey();
+var dayChanged = _healthAutoSyncDay !== dk;
+if (dayChanged) {
+_healthAutoSyncDay = dk;
+_healthAutoSyncAt = 0;
+_healthCatchUpAt = 0;
+_healthAuthOk = false;
+}
+if (force || dayChanged) {
+await window.healthAutoSyncCatchUp({ silent: true, days: HEALTH_CATCHUP_DAYS });
+_healthAutoSyncAt = now;
+_healthCatchUpAt = now;
+return;
+}
+if (_healthAutoSyncAt && (now - _healthAutoSyncAt) < HEALTH_AUTO_SYNC_INTERVAL_MS) {
+if (!_healthCatchUpAt || (now - _healthCatchUpAt) >= HEALTH_CATCHUP_INTERVAL_MS) {
+await window.healthAutoSyncCatchUp({ silent: true, days: HEALTH_LIGHT_CATCHUP_DAYS });
+_healthCatchUpAt = now;
+}
+return;
+}
+var auth = await window.healthAuthorizeAppleRead({ silent: true });
+if (!auth || !auth.ok) return;
+await window.healthSyncAppleMovement(dk, src, true);
+await window.healthSyncAppleWeight(dk, src, true);
+_healthAutoSyncAt = now;
+if (!_healthCatchUpAt || (now - _healthCatchUpAt) >= HEALTH_CATCHUP_INTERVAL_MS) {
+await window.healthAutoSyncCatchUp({ silent: true, days: HEALTH_LIGHT_CATCHUP_DAYS });
+_healthCatchUpAt = now;
+}
+} catch (e) {
+console.error(e);
+} finally {
+_healthTodayOnceLock = false;
+}
+};
+window.healthAuthorizeRead = window.healthAuthorizeAppleRead;
+var _healthResumeDebounce = null;
+function scheduleHealthResumeSync() {
+if (_healthResumeDebounce) clearTimeout(_healthResumeDebounce);
+_healthResumeDebounce = setTimeout(function() {
+_healthResumeDebounce = null;
+try { window.healthAutoSyncTodayOnce(false); } catch (e) {}
+}, 650);
+}
+document.addEventListener('visibilitychange', function() {
+if (document.visibilityState === 'visible') scheduleHealthResumeSync();
 });
-window.addEventListener('focus', function() {
-try { window.healthAutoSyncTodayOnce(true); } catch (e) {}
-});
+window.addEventListener('focus', scheduleHealthResumeSync);
 
 function ensureDay(dayKey) {
 if(!D.days[dayKey]) D.days[dayKey] = {};
-var base = { w: 0, e: 0, b: 0, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "", mealEntries: [], externalMoveSync: {} };
+var base = { w: 0, e: 0, b: 0, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, p: 0, f: 0, c: 0, mode: 0, dietStyle: "", mealEntries: [], externalMoveSync: {}, externalWeightSync: {} };
 D.days[dayKey] = Object.assign(base, D.days[dayKey]);
 if(!D.days[dayKey].dietStyle) D.days[dayKey].dietStyle = D.dietStyle || "standard";
 if(!Array.isArray(D.days[dayKey].mealEntries)) D.days[dayKey].mealEntries = [];
 if(!D.days[dayKey].externalMoveSync || typeof D.days[dayKey].externalMoveSync !== 'object') D.days[dayKey].externalMoveSync = {};
+if(!D.days[dayKey].externalWeightSync || typeof D.days[dayKey].externalWeightSync !== 'object') D.days[dayKey].externalWeightSync = {};
 return D.days[dayKey];
 }
 
@@ -8103,13 +8951,8 @@ return;
 }, true);
 }
 
-window.exportIronCoreBackup = function(opts) {
-opts = opts || {};
-var isAuto = !!opts.auto;
-var isSilent = !!opts.silent;
-try {
-var exportedAtIso = new Date().toISOString();
-var pack = {
+function buildIronCoreBackupPayload(exportedAtIso) {
+return {
 format: IRON_BACKUP_FORMAT,
 version: 1,
 exportedAt: exportedAtIso,
@@ -8121,23 +8964,117 @@ notified: NOTIFIED,
 roadmapView: (typeof window.currentView === 'string' ? window.currentView : null) || localStorage.getItem(ROADMAP_VIEW_KEY) || 'day'
 }
 };
-var blob = new Blob([JSON.stringify(pack, null, 2)], { type: 'application/json;charset=utf-8' });
+}
+function getIronCoreBackupFilename() {
+var useLatestFile = !!(D.backupPrefs && D.backupPrefs.overwriteLatest);
+return useLatestFile ? 'iron-core-backup-latest.json' : ('iron-core-backup-' + getD().replace(/-/g, '') + '.json');
+}
+function persistIronCoreBackupStamp(exportedAtIso) {
+D.lastBackupAt = exportedAtIso;
+try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (eS) {}
+updateBackupStatusUi();
+}
+window.exportIronCoreBackup = function(opts) {
+opts = opts || {};
+var isAuto = !!opts.auto;
+var isSilent = !!opts.silent;
+try {
+var exportedAtIso = new Date().toISOString();
+var pack = buildIronCoreBackupPayload(exportedAtIso);
+var jsonStr = JSON.stringify(pack, null, 2);
+var filename = opts.rollingDayKey ? ('iron-core-backup-' + opts.rollingDayKey + '.json') : getIronCoreBackupFilename();
+var isNative = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Filesystem;
+if (isNative) {
+window.Capacitor.Plugins.Filesystem.writeFile({
+path: 'IronCore-Backups/' + filename,
+data: btoa(unescape(encodeURIComponent(jsonStr))),
+directory: 'DOCUMENTS',
+recursive: true
+}).then(function(res) {
+persistIronCoreBackupStamp(exportedAtIso);
+if (!isSilent) flashNote(tr(isAuto ? 'backup_auto_done' : 'backup_export_ok') + ' → Documents/IronCore-Backups/', isAuto ? '#ff2d95' : 'var(--green-neon)', isAuto ? 'white' : '#0f172a');
+}).catch(function(e) {
+console.error('Filesystem write failed:', e);
+if (!isSilent) flashNote(tr(isAuto ? 'backup_auto_fail' : 'backup_err_export'), 'var(--pink)', 'white');
+});
+return true;
+}
+var blob = new Blob([jsonStr], { type: 'application/json;charset=utf-8' });
 var a = document.createElement('a');
 a.href = URL.createObjectURL(blob);
-var useLatestFile = !!(D.backupPrefs && D.backupPrefs.overwriteLatest);
-a.download = useLatestFile ? 'iron-core-backup-latest.json' : ('iron-core-backup-' + getD().replace(/-/g, '') + '.json');
+a.download = filename;
 document.body.appendChild(a);
 a.click();
 document.body.removeChild(a);
 URL.revokeObjectURL(a.href);
-D.lastBackupAt = exportedAtIso;
-try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (eS) {}
-updateBackupStatusUi();
+persistIronCoreBackupStamp(exportedAtIso);
 if (!isSilent) flashNote(tr(isAuto ? 'backup_auto_done' : 'backup_export_ok'), isAuto ? '#ff2d95' : 'var(--green-neon)', isAuto ? 'white' : '#0f172a');
 return true;
 } catch (e) {
 if (!isSilent) flashNote(tr(isAuto ? 'backup_auto_fail' : 'backup_err_export'), 'var(--pink)', 'white');
 return false;
+}
+};
+window.exportIronCoreBackupInteractive = async function() {
+try {
+var exportedAtIso = new Date().toISOString();
+var filename = getIronCoreBackupFilename();
+var pack = buildIronCoreBackupPayload(exportedAtIso);
+var jsonStr = JSON.stringify(pack, null, 2);
+var blob = new Blob([jsonStr], { type: 'application/json;charset=utf-8' });
+var isNative = window.Capacitor && window.Capacitor.Plugins;
+if (isNative && isNative.Filesystem && isNative.Share) {
+try {
+var writeRes = await window.Capacitor.Plugins.Filesystem.writeFile({
+path: 'IronCore-Backups/' + filename,
+data: btoa(unescape(encodeURIComponent(jsonStr))),
+directory: 'CACHE',
+recursive: true
+});
+await window.Capacitor.Plugins.Share.share({
+title: 'IRON CORE backup',
+url: writeRes.uri,
+dialogTitle: 'Uložit zálohu'
+});
+persistIronCoreBackupStamp(exportedAtIso);
+flashNote(tr('backup_export_ok'), 'var(--green-neon)', '#0f172a');
+return;
+} catch (eNative) {
+if (eNative && (eNative.message || '').indexOf('cancel') !== -1) return;
+}
+}
+if (window.showSaveFilePicker && location.protocol && (location.protocol === 'https:' || location.protocol === 'http:')) {
+try {
+var handle = await window.showSaveFilePicker({
+suggestedName: filename,
+types: [{ description: 'JSON backup', accept: { 'application/json': ['.json'] } }]
+});
+var writable = await handle.createWritable();
+await writable.write(blob);
+await writable.close();
+persistIronCoreBackupStamp(exportedAtIso);
+flashNote(tr('backup_export_ok'), 'var(--green-neon)', '#0f172a');
+return;
+} catch (ePicker) {
+if (ePicker && ePicker.name === 'AbortError') return;
+}
+}
+if (navigator.share && navigator.canShare && typeof File !== 'undefined') {
+try {
+var file = new File([blob], filename, { type: 'application/json' });
+if (navigator.canShare({ files: [file] })) {
+await navigator.share({ files: [file], title: 'IRON CORE backup' });
+persistIronCoreBackupStamp(exportedAtIso);
+flashNote(tr('backup_export_ok'), 'var(--green-neon)', '#0f172a');
+return;
+}
+} catch (eShare) {
+if (eShare && eShare.name === 'AbortError') return;
+}
+}
+window.exportIronCoreBackup();
+} catch (eInt) {
+flashNote(tr('backup_err_export'), 'var(--pink)', 'white');
 }
 };
 
@@ -8692,12 +9629,25 @@ el.classList.remove('profile-hero--male', 'profile-hero--female', 'profile-hero-
 if (D.gender === 'male') el.classList.add('profile-hero--male');
 else if (D.gender === 'female') el.classList.add('profile-hero--female');
 else el.classList.add('profile-hero--unset');
+var backupBtn = document.getElementById('backup-export-btn');
+if (backupBtn) {
+if (D.gender === 'female') {
+backupBtn.style.borderColor = 'rgba(190, 24, 93, 0.82)';
+backupBtn.style.color = '#f9a8d4';
+backupBtn.style.background = 'linear-gradient(160deg, rgba(76, 5, 25, 0.74), rgba(30, 12, 30, 0.92))';
+backupBtn.style.boxShadow = '0 0 18px rgba(190, 24, 93, 0.28), inset 0 1px 0 rgba(244, 114, 182, 0.16)';
+} else {
+backupBtn.style.borderColor = 'rgba(52,211,153,0.65)';
+backupBtn.style.color = '#6ee7b7';
+backupBtn.style.background = '';
+backupBtn.style.boxShadow = '';
+}
+}
 }
 
 function render() {
 try {
 var today = getD();
-window.healthAutoSyncTodayOnce();
 reconcileTodayJournalAggregatesQuiet();
 var curDayData = D.days[today] || {e:0, b:0, mode: 0, waist: 0, p:0, f:0, c:0};
 D.lastLogDate = today;
@@ -9046,6 +9996,11 @@ var d = recompDayDiffFromAnchor(anchor, pDate);
 if (d < 0) return 0;
 return Math.floor(d / 30);
 }
+function recompYearBlockIndex(pDate, anchor) {
+var d = recompDayDiffFromAnchor(anchor, pDate);
+if (d < 0) return 0;
+return Math.floor(d / 365);
+}
 function recompWeekKeyFromPt(p, anchor) {
 if (!p || !p.s) return "";
 return "wk" + recompWeekBlockIndex(p.s, anchor);
@@ -9055,8 +10010,8 @@ if (!p || !p.s) return "";
 return "mo" + recompMonthBlockIndex(p.s, anchor);
 }
 function recompGraphPointIsPeriodSnap(p, view, anchor) {
-if (!p || !p.s || !anchor || (view !== 'week' && view !== 'month')) return false;
-var step = view === 'week' ? 7 : 30;
+if (!p || !p.s || !anchor || (view !== 'week' && view !== 'month' && view !== 'year')) return false;
+var step = view === 'week' ? 7 : (view === 'month' ? 30 : 365);
 var idx = Math.floor(Math.max(0, recompDayDiffFromAnchor(anchor, p.s)) / step);
 var snap = recompAddDays(anchor, idx * step);
 return dayKeyFromDate(recompDateMidnight(p.s)) === dayKeyFromDate(recompDateMidnight(snap));
@@ -9071,6 +10026,11 @@ if (!p || !p.s || !endAnchor) return false;
 var daysFromEnd = Math.round((recompDateMidnight(endAnchor).getTime() - recompDateMidnight(p.s).getTime()) / 864e5);
 return daysFromEnd >= 0 && daysFromEnd % 7 === 0;
 }
+function recompGraphPointIsYearGridSnap(p, endAnchor) {
+if (!p || !p.s || !endAnchor) return false;
+var daysFromEnd = Math.round((recompDateMidnight(endAnchor).getTime() - recompDateMidnight(p.s).getTime()) / 864e5);
+return daysFromEnd >= 0 && daysFromEnd % 365 === 0;
+}
 function recompGraphAnchorFromPtsList(ptsList) {
 var arr = (ptsList || []).filter(function(p) { return p && p.s && isFinite(new Date(p.s).getTime()); });
 if (!arr.length) return recompDateMidnight(parseDayKeyToDate(MISSION_START_KEY));
@@ -9080,6 +10040,7 @@ return recompDateMidnight(arr[0].s);
 function recompRollingSpanDays(view) {
 if (view === 'week') return 7;
 if (view === 'month') return 30;
+if (view === 'year') return 365;
 return 0;
 }
 function recompLatestDateOrToday(sortedPts) {
@@ -9191,8 +10152,8 @@ return out.sort(function(a, b) { return a.s - b.s; });
 }
 function recompAggregateGraphPointsSorted(sorted, view) {
 if (view === 'day' || !sorted || !sorted.length) return sorted ? sorted.slice() : [];
-if (view === 'week' || view === 'month') {
-var step = view === 'week' ? 7 : 30;
+if (view === 'week' || view === 'month' || view === 'year') {
+var step = view === 'week' ? 7 : (view === 'month' ? 30 : 365);
 var anchor = recompDateMidnight(sorted[0].s);
 return recompAggregateGraphPointsSortedWithStep(sorted, step, anchor);
 }
@@ -9207,6 +10168,11 @@ function recompGraphMonthMilestoneKey(p, anchor) {
 if (!p || !p.s) return "";
 var a = (anchor && isFinite(anchor.getTime())) ? anchor : recompDateMidnight(p.s);
 return "m:" + recompMonthBlockIndex(p.s, a);
+}
+function recompGraphYearMilestoneKey(p, anchor) {
+if (!p || !p.s) return "";
+var a = (anchor && isFinite(anchor.getTime())) ? anchor : recompDateMidnight(p.s);
+return "y:" + recompYearBlockIndex(p.s, a);
 }
 function recompApplyWPlot(arr) {
 var carry = Number(D.start) > 0 ? Number(D.start) : 0;
@@ -9272,7 +10238,7 @@ ptsList.sort(function(a, b) { return a.s.getTime() - b.s.getTime(); });
 return ptsList;
 }
 function recompRollingCalendarBounds(view) {
-if (view !== 'week' && view !== 'month') return null;
+if (view !== 'week' && view !== 'month' && view !== 'year') return null;
 var daily = recompMissionDailySortedForRolling();
 if (!daily.length) return null;
 var end = recompLatestDateOrToday(daily);
@@ -9283,6 +10249,10 @@ return { start: start, end: end };
 if (view === 'week') {
 var startWk = recompAddDays(end, -7);
 return { start: startWk, end: end };
+}
+if (view === 'year') {
+var startY = recompAddDays(end, -365);
+return { start: startY, end: end };
 }
 return null;
 }
@@ -9393,8 +10363,9 @@ if (t <= tMs && t >= bestT) { bestT = t; best = Number(p.w); }
 return best;
 }
 var endD = recompDateMidnight(recompLatestDateOrToday(sortedDaily));
-var floatStart = recompAddDays(endD, -30);
 var startMission = recompDateMidnight(sortedDaily[0].s);
+/* Metriky: celá viditelná osa (jako váha), ne jen posledních 30 dní. */
+var floatStart = startMission;
 var gridDesc = [];
 for (var kg = 0; kg < 500; kg++) {
 var dt = recompAddDays(endD, -kg * 30);
@@ -9489,6 +10460,61 @@ if (allMetricW.length) recompMergeMetricPicksOntoGraph(outW, allMetricW, carryWA
 outW.sort(function(a, b) { return a.s - b.s; });
 return recompApplyWPlot(outW);
 }
+function recompBuildYearGridGraphPts(sortedDaily) {
+if (!sortedDaily || !sortedDaily.length) return null;
+function carryWAtOrBeforeGridY(tMs) {
+var best = 0, bestT = -Infinity;
+for (var i = 0; i < sortedDaily.length; i++) {
+var p = sortedDaily[i];
+if (!p || !p.s || Number(p.w) <= 0) continue;
+var t = recompDateMidnight(p.s).getTime();
+if (t <= tMs && t >= bestT) { bestT = t; best = Number(p.w); }
+}
+return best;
+}
+var endD = recompDateMidnight(recompLatestDateOrToday(sortedDaily));
+var startMission = recompDateMidnight(sortedDaily[0].s);
+/* Metriky: celá viditelná osa (jako váha), ne jen posledního roku. */
+var floatStart = startMission;
+var gridDesc = [];
+for (var ky = 0; ky < 500; ky++) {
+var dt = recompAddDays(endD, -ky * 365);
+if (dt.getTime() < startMission.getTime()) break;
+gridDesc.push(new Date(dt.getTime()));
+}
+if (!gridDesc.length) return null;
+gridDesc.reverse();
+var outY = [];
+var sk0y = dayKeyFromDate(startMission);
+var firstGky = dayKeyFromDate(gridDesc[0]);
+if (firstGky !== sk0y) {
+var wsy = carryWAtOrBeforeGridY(startMission.getTime());
+if (wsy <= 0) wsy = Number(D.start) || 0;
+if (wsy > 0) {
+outY.push({ key: sk0y, d: displayDayKey(sk0y), w: wsy, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, s: new Date(startMission.getTime()) });
+}
+}
+for (var giy = 0; giy < gridDesc.length; giy++) {
+var gdy = gridDesc[giy];
+var dky = dayKeyFromDate(gdy);
+var dupY = false;
+for (var oiy = 0; oiy < outY.length; oiy++) {
+if (dayKeyFromDate(recompDateMidnight(outY[oiy].s)) === dky) { dupY = true; break; }
+}
+if (dupY) continue;
+var wgy = carryWAtOrBeforeGridY(gdy.getTime());
+if (wgy <= 0 && outY.length) wgy = Number(outY[outY.length - 1].w) || 0;
+if (wgy <= 0) wgy = Number(D.start) || 0;
+outY.push({ key: dky, d: displayDayKey(dky), w: wgy, waist: 0, chest: 0, thigh: 0, biceps: 0, shoulders: 0, s: new Date(gdy.getTime()) });
+}
+if (!outY.length) return null;
+var metricPicksY = recompPickMetricAnchorsInFloat(sortedDaily, floatStart, endD);
+if (metricPicksY.length) recompMergeMetricPicksOntoGraph(outY, metricPicksY, carryWAtOrBeforeGridY);
+var allMetricY = recompAllMetricRowsInFloatWindow(sortedDaily, floatStart, endD);
+if (allMetricY.length) recompMergeMetricPicksOntoGraph(outY, allMetricY, carryWAtOrBeforeGridY);
+outY.sort(function(a, b) { return a.s - b.s; });
+return recompApplyWPlot(outY);
+}
 function getRoadmapPtsListForView(cvGraph) {
 var ptsListBase = Object.keys(D.days || {}).map(function(dt) {
 var day = D.days[dt] || {};
@@ -9499,6 +10525,10 @@ if (Number(D.start) > 0 && (!ptsList.length || ptsList[0].key !== MISSION_START_
 ptsList.sort(function(a, b) { return a.s.getTime() - b.s.getTime(); });
 var graphAnchorDate = recompGraphAnchorFromPtsList(ptsList);
 var view = cvGraph || 'day';
+if (view === 'year') {
+var yearG = recompBuildYearGridGraphPts(ptsList);
+if (yearG && yearG.length) return yearG;
+}
 if (view === 'month') {
 var monthG = recompBuildMonthGridGraphPts(ptsList);
 if (monthG && monthG.length) return monthG;
@@ -9511,7 +10541,7 @@ return recompBuildPtsListForGraphView(ptsList, view, graphAnchorDate);
 }
 function recompSlicePtsToActiveViewWindow(points, view, anchor) {
 if (!points || !points.length) return [];
-if (view !== 'week' && view !== 'month') return points.slice();
+if (view !== 'week' && view !== 'month' && view !== 'year') return points.slice();
 var sorted = points.slice().filter(function(p) { return p && p.s && isFinite(p.s.getTime()); }).sort(function(a, b) { return a.s - b.s; });
 var bounds = recompRollingCalendarBounds(view);
 if (!bounds || !sorted.length) return sorted;
@@ -9638,7 +10668,7 @@ var el = document.getElementById('mission-goal-sub');
 if (!el) return;
 var view = window.currentView || 'day';
 var rangeStart, rangeEnd, dWkg, evalPts, rawPts;
-if (view === 'week' || view === 'month') {
+if (view === 'week' || view === 'month' || view === 'year') {
 var cal = recompRollingCalendarBounds(view);
 if (!cal) {
 el.innerHTML = '<span style="display:block;font-size:10px;font-weight:700;color:var(--muted);line-height:1.3;">' + tr('stat_goal_recomp_need_data') + '</span>';
@@ -9681,7 +10711,7 @@ var cmusc = formatRecompKgSigned(fin.muscleDisp, 2);
 var colFat = fin.fatDisp < 0 ? 'var(--green-neon)' : '#f87171';
 var colMus = (conf === 'low' && Math.abs(fin.muscleDisp) < 0.12) ? '#fbbf24' : (fin.muscleDisp >= 0 ? 'var(--green-neon)' : '#f87171');
 var showRecompLowHint = (conf === 'low' && evalPts.length < 4);
-if (view === 'week') showRecompLowHint = false;
+if (view === 'week' || view === 'year') showRecompLowHint = false;
 else if (showRecompLowHint && evalPts.some(recompDayHasMetric)) showRecompLowHint = false;
 var hint = showRecompLowHint ? '<span style="display:block;font-size:8px;font-weight:700;color:var(--muted);margin-top:5px;line-height:1.25;">' + tr('stat_recomp_low_hint') + '</span>' : '';
 el.innerHTML = '<span style="display:block;font-weight:800;font-size:11px;line-height:1.25;">' + tr('stat_goal_fat') + ': <span style="color:' + colFat + '">' + cfat + '</span></span>' +
@@ -9692,7 +10722,7 @@ function drawW() {
 try {
 var _gs = null;
 try { _gs = localStorage.getItem(ROADMAP_VIEW_KEY); } catch (eRv) {}
-if (_gs === 'day' || _gs === 'week' || _gs === 'month') window.currentView = _gs;
+if (_gs === 'day' || _gs === 'week' || _gs === 'month' || _gs === 'year') window.currentView = _gs;
 } catch (eSyncV) {}
 var dW = 55, sH = 440;
 var rawPtsList = Object.keys(D.days).map(function(dt) {
@@ -9762,6 +10792,15 @@ function monthBlockKeyFromPoint(p, anchor) {
     if (!p || !p.s) return "";
     return "mo" + monthBlockIndex(p.s, anchor);
 }
+function yearBlockIndex(pDate, anchor) {
+    var d = dayDiffFromAnchor(anchor, pDate);
+    if (d < 0) return 0;
+    return Math.floor(d / 365);
+}
+function yearBlockKeyFromPoint(p, anchor) {
+    if (!p || !p.s) return "";
+    return "yr" + yearBlockIndex(p.s, anchor);
+}
 
 function applyWPlot(arr) {
     var carry = Number(D.start) > 0 ? Number(D.start) : 0;
@@ -9773,7 +10812,7 @@ function applyWPlot(arr) {
     return arr;
 }
 
-/** Denní = celá osa; týden/měsíc = mřížka po 7 / 30 dnech od kotvy + start mise + 3 měřicí kotvy v plovoucím okně (konec−7 / konec−30 … konec). */
+/** Denní = celá osa; týden/měsíc/rok = mřížka po 7 / 30 / 365 dnech od kotvy + start mise + měřicí kotvy v plovoucím okně. */
 function buildPtsListForGraphView(points, view, anchor) {
     return recompBuildPtsListForGraphView(points, view, anchor);
 }
@@ -9788,6 +10827,10 @@ else ptsList = buildPtsListForGraphView(ptsList, cvGraph, graphAnchorDate);
 var weekDraw = recompBuildWeekGridGraphPts(ptsList);
 if (weekDraw && weekDraw.length) ptsList = weekDraw;
 else ptsList = buildPtsListForGraphView(ptsList, cvGraph, graphAnchorDate);
+} else if (cvGraph === 'year') {
+var yearDraw = recompBuildYearGridGraphPts(ptsList);
+if (yearDraw && yearDraw.length) ptsList = yearDraw;
+else ptsList = buildPtsListForGraphView(ptsList, cvGraph, graphAnchorDate);
 } else {
 ptsList = buildPtsListForGraphView(ptsList, cvGraph, graphAnchorDate);
 }
@@ -9800,7 +10843,7 @@ window._recompBubbleHtml = '<p style="margin:0 0 8px;">Signál hubnutí tuku: p�
 var fbf0 = document.getElementById("fat-barometer-fat");
 if(fbf0) fbf0.innerText = "\u2014";
 var fbs = document.getElementById("fat-barometer-svg");
-if(fbs) fbs.innerHTML = '<text x="46" y="34" text-anchor="middle" fill="#94a3b8" font-size="10" font-weight="800">—</text>';
+if(fbs) fbs.innerHTML = '<text x="46" y="34" text-anchor="middle" fill="' + chartAxisColor() + '" font-size="10" font-weight="800">—</text>';
 var fbsub0 = document.getElementById("fat-barometer-sub"); if(fbsub0) fbsub0.innerText = "málo dat";
 var _svgWEmpty = document.getElementById("svg-w");
 if (_svgWEmpty) _svgWEmpty.innerHTML = "";
@@ -10015,9 +11058,13 @@ var periodAnchor = graphAnchorDate;
 if (cvGraph === 'week') {
 var _rbAnch = recompRollingCalendarBounds(cvGraph);
 if (_rbAnch) periodAnchor = recompDateMidnight(_rbAnch.start);
+} else if (cvGraph === 'year') {
+var _ryAnch = recompRollingCalendarBounds(cvGraph);
+if (_ryAnch) periodAnchor = recompDateMidnight(_ryAnch.start);
 }
 var monthGridEndAnchor = null;
 var weekGridEndAnchor = null;
+var yearGridEndAnchor = null;
 if (cvGraph === 'month') {
 var _mdEnd = recompMissionDailySortedForRolling();
 if (_mdEnd.length) monthGridEndAnchor = recompDateMidnight(recompLatestDateOrToday(_mdEnd));
@@ -10026,9 +11073,14 @@ if (cvGraph === 'week') {
 var _wdEnd = recompMissionDailySortedForRolling();
 if (_wdEnd.length) weekGridEndAnchor = recompDateMidnight(recompLatestDateOrToday(_wdEnd));
 }
+if (cvGraph === 'year') {
+var _ydEnd = recompMissionDailySortedForRolling();
+if (_ydEnd.length) yearGridEndAnchor = recompDateMidnight(recompLatestDateOrToday(_ydEnd));
+}
 var weekMilestoneHit = {};
 var monthMilestoneHit = {};
-if (cvGraph === 'week' || cvGraph === 'month') {
+var yearMilestoneHit = {};
+if (cvGraph === 'week' || cvGraph === 'month' || cvGraph === 'year') {
     for (var si = 0; si < ptsList.length; si++) {
         var sp = ptsList[si];
         if (sp.w <= 0) continue;
@@ -10036,7 +11088,8 @@ if (cvGraph === 'week' || cvGraph === 'month') {
         var hitM = mstones.find(function(m) { return sp.w <= m && prevWStar > m; });
         if (hitM !== undefined) {
             if (cvGraph === 'week') weekMilestoneHit[recompGraphWeekMilestoneKey(sp, periodAnchor)] = hitM;
-            else monthMilestoneHit[recompGraphMonthMilestoneKey(sp, periodAnchor)] = hitM;
+            else if (cvGraph === 'month') monthMilestoneHit[recompGraphMonthMilestoneKey(sp, periodAnchor)] = hitM;
+            else yearMilestoneHit[recompGraphYearMilestoneKey(sp, periodAnchor)] = hitM;
         }
     }
 }
@@ -10127,7 +11180,7 @@ if(hMax - hMin < 0.35) { hMin -= 0.5; hMax += 0.5; }
 var hubDelta = hubScores.length ? (hubScores[hubScores.length - 1] - hubScores[0]) : 0;
 var hubColor = (hubDelta >= -0.05) ? "var(--green-neon)" : "var(--gold-deep)";
 var stripMsg = "Signál hubnutí tuku: ";
-if(hubScores.length < 2) stripMsg += "potřebuji aspoň 2 body v aktuálním náhledu (den / týden / měsíc).";
+if(hubScores.length < 2) stripMsg += "potřebuji aspoň 2 body v aktuálním náhledu (den / týden / měsíc / rok).";
 else {
 stripMsg += (hubDelta > 0.12 ? "trend vypadá jako rekompenzace (váha může stát, tuk jde dolů)." : (hubDelta < -0.12 ? "spíš opačný signál — zkontroluj příjem a pas." : "drž linii a doplň měření pasu pro jistotu."));
 stripMsg += " Δ " + (hubDelta > 0 ? "+" : "") + hubDelta.toFixed(2) + ".";
@@ -10135,7 +11188,7 @@ stripMsg += " Δ " + (hubDelta > 0 ? "+" : "") + hubDelta.toFixed(2) + ".";
 var recompPts = recompSlicePtsToActiveViewWindow(ptsList, cvGraph, periodAnchor);
 if (!recompPts || recompPts.length < 2) recompPts = ptsList;
 var rangeStart = recompPts[0].s, rangeEnd = recompPts[recompPts.length - 1].s;
-if (cvGraph === 'week' || cvGraph === 'month') {
+if (cvGraph === 'week' || cvGraph === 'month' || cvGraph === 'year') {
 var calR = recompRollingCalendarBounds(cvGraph);
 if (calR) {
 rangeStart = calR.start;
@@ -10147,7 +11200,7 @@ var recompEvalPts = (recompRawPts && recompRawPts.length) ? recompRawPts : recom
 var defMeta = sumEnergyBalanceForRange(rangeStart, rangeEnd);
 var d0 = displayDayKey(dayKeyFromDate(rangeStart)), d1 = displayDayKey(dayKeyFromDate(rangeEnd));
 var w0, w1, dWkg;
-if ((cvGraph === 'week' || cvGraph === 'month') && recompEvalPts && recompEvalPts.length) {
+if ((cvGraph === 'week' || cvGraph === 'month' || cvGraph === 'year') && recompEvalPts && recompEvalPts.length) {
 var wR = recompEvalPts.filter(function(p) { return Number(p.w) > 0; });
 if (wR.length >= 2) {
 w0 = Number(wR[0].w);
@@ -10241,9 +11294,10 @@ var fbf = document.getElementById("fat-barometer-fat");
 if(!svg) return;
 var vm = window.currentView || "day";
 var endD, startD;
-    if (vm === "week" || vm === "month") {
+    if (vm === "week" || vm === "month" || vm === "year") {
     var endMid = recompLatestDateOrToday(rawPtsList);
     if (vm === "month") startD = addDays(endMid, -30);
+    else if (vm === "year") startD = addDays(endMid, -365);
     else startD = addDays(endMid, -7);
     endD = new Date(endMid.getTime());
 } else {
@@ -10254,7 +11308,7 @@ var endD, startD;
 var viewMeta = sumEnergyBalanceForRange(startD, endD);
 if(viewMeta.daysCounted < 1) {
 if(fbf) fbf.innerText = "—";
-svg.innerHTML = '<text x="46" y="34" text-anchor="middle" fill="#94a3b8" font-size="10" font-weight="800">—</text>';
+svg.innerHTML = '<text x="46" y="34" text-anchor="middle" fill="' + chartAxisColor() + '" font-size="10" font-weight="800">—</text>';
 if(sub) sub.innerText = "málo dat";
 return;
 }
@@ -10271,19 +11325,20 @@ var nCol = Math.abs(norm) < 0.08 ? "#fbbf24" : (norm > 0 ? "var(--green-neon)" :
 var subTxt = Math.abs(norm) < 0.08 ? "neutrál" : (norm > 0 ? "deficit" : "přebytek");
 if(vm === "week") subTxt += " • posledních 7 dní";
 if(vm === "month") subTxt += " • posledních 30 dní";
+if(vm === "year") subTxt += " • posledních 365 dní";
 if(sub) sub.innerText = subTxt;
 var uid = "fb" + Math.floor(Math.random() * 1e9);
 svg.innerHTML = '<defs><filter id="' + uid + 'Glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><linearGradient id="' + uid + 'Arc" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="rgba(57,255,20,0.5)"/><stop offset="50%" stop-color="rgba(245,158,11,0.4)"/><stop offset="100%" stop-color="rgba(249,115,22,0.5)"/></linearGradient></defs>' +
 '<path d="M 16 50 A 30 30 0 1 1 76 50" fill="none" stroke="url(#' + uid + 'Arc)" stroke-width="5.5" stroke-linecap="round" opacity="0.95"/>' +
 '<g transform="rotate(' + needleDeg + ',46,50)">' +
-'<line x1="46" y1="50" x2="46" y2="23" stroke="#f8fafc" stroke-width="5" stroke-linecap="round" opacity="1"/>' +
+'<line x1="46" y1="50" x2="46" y2="23" stroke="' + chartStrokeWhite() + '" stroke-width="5" stroke-linecap="round" opacity="1"/>' +
 '<line x1="46" y1="50" x2="46" y2="23" stroke="' + nCol + '" stroke-width="3" stroke-linecap="round" filter="url(#' + uid + 'Glow)"/>' +
 '</g>' +
-'<circle cx="46" cy="50" r="5.2" fill="#0f172a" stroke="#fbbf24" stroke-width="1.6"/>';
+'<circle cx="46" cy="50" r="5.2" fill="' + chartModalInk() + '" stroke="#fbbf24" stroke-width="1.6"/>';
 })();
 
-var yL = ""; for(var v=Math.floor(minV); v<=maxV; v+=2) yL += '<div style="position:absolute; top:' + (fy(v)-8) + 'px; width:100%; text-align:center; color:#94a3b8; font-size:11px;">' + v + ' kg</div>';
-mstones.forEach(function(m, idx) { var c = m===D.final?mCols[5]:mCols[idx%5]; yL += '<div style="position:absolute; top:' + (fy(m)-15) + 'px; left:5px; color:' + c + '; font-size:11px; font-weight:900; background:#000; padding:2px 6px; border-radius:4px; border:1px solid ' + c + '; z-index:101; white-space:nowrap;">META ' + m + '</div>'; });
+var yL = ""; for(var v=Math.floor(minV); v<=maxV; v+=2) yL += '<div style="position:absolute; top:' + (fy(v)-8) + 'px; width:100%; text-align:center; color:' + chartAxisColor() + '; font-size:11px;">' + v + ' kg</div>';
+mstones.forEach(function(m, idx) { var c = m===D.final?mCols[5]:mCols[idx%5]; yL += '<div class="roadmap-meta-pill" style="position:absolute; top:' + (fy(m)-15) + 'px; left:5px; color:' + c + '; font-size:11px; font-weight:900; background:var(--surface); padding:2px 6px; border-radius:4px; border:1px solid ' + c + '; z-index:101; white-space:nowrap;">META ' + m + '</div>'; });
 document.getElementById('y-w').innerHTML = yL;
 
 var gk="", periodDropLines="", weightSegments="", waistPath="", chestPath="", thighPath="", bicepsPath="", shouldersPath="", pt="", pr="", pill="", predGoalTxt="", waistFillPath="", chestFillPath="", thighFillPath="", bicepsFillPath="", shouldersFillPath="";
@@ -10307,7 +11362,7 @@ function colorAtMetaKg(mk) {
             return (Number(mstones[mi]) === Number(D.final)) ? mCols[5] : mCols[mi % 5];
         }
     }
-    return "#f8fafc";
+    return chartStrokeWhite();
 }
 
 var descMetaUnique = [];
@@ -10375,7 +11430,7 @@ function drawPart(pColor, pPath, pFill, pKey, startY, idx, x, shortLabel) {
         }
         var isLastMetricPoint = (idx === lastMetricIdx);
         var valueLabel = String(p[pKey]);
-        pt += '<circle cx="' + x + '" cy="' + yw + '" r="3.6" fill="' + pColor + '" stroke="#fff" stroke-width="1.25"/>';
+        pt += '<circle cx="' + x + '" cy="' + yw + '" r="3.6" fill="' + pColor + '" stroke="' + chartStrokeWhite() + '" stroke-width="1.25"/>';
         pt += '<text x="' + x + '" y="' + (yw+19) + '" fill="' + pColor + '" font-size="11" font-weight="900" text-anchor="middle">' + valueLabel + '</text>';
         if(isLastMetricPoint) pt += '<text x="' + (x+17) + '" y="' + (yw+19) + '" fill="' + pColor + '" font-size="11" font-weight="900" text-anchor="start">' + shortLabel + '</text>';
     }
@@ -10386,12 +11441,13 @@ ptsList.forEach(function(p, i) {
     var wY = p.wPlot != null ? p.wPlot : p.w;
     var x = fx(i), y = fy(wY);
     var drawPeriodV = (cvGraph === 'week' && weekGridEndAnchor && recompGraphPointIsWeekGridSnap(p, weekGridEndAnchor)) ||
-        (cvGraph === 'month' && monthGridEndAnchor && recompGraphPointIsMonthGridSnap(p, monthGridEndAnchor));
+        (cvGraph === 'month' && monthGridEndAnchor && recompGraphPointIsMonthGridSnap(p, monthGridEndAnchor)) ||
+        (cvGraph === 'year' && yearGridEndAnchor && recompGraphPointIsYearGridSnap(p, yearGridEndAnchor));
     if (drawPeriodV) {
     var yDropTop = y + 12;
     var yDropBot = recompDayHasMetric(p) ? (sH - 12) : (sH - 24);
     if (yDropBot <= yDropTop) yDropBot = Math.min(sH - 4, yDropTop + 10);
-    periodDropLines += '<line x1="' + x + '" y1="' + yDropTop + '" x2="' + x + '" y2="' + yDropBot + '" stroke="#64748b" stroke-width="1" stroke-dasharray="5,5" opacity="0.45"/>';
+    periodDropLines += '<line x1="' + x + '" y1="' + yDropTop + '" x2="' + x + '" y2="' + yDropBot + '" stroke="' + chartAxisDim() + '" stroke-width="1" stroke-dasharray="5,5" opacity="0.45"/>';
     }
     if(i > 0) { 
         var prev = ptsList[i-1], x0 = fx(i-1);
@@ -10415,9 +11471,13 @@ ptsList.forEach(function(p, i) {
     var lastInMonth = (cvGraph === 'month')
         ? ((i === ptsList.length - 1) || (recompGraphMonthMilestoneKey(ptsList[i], periodAnchor) !== recompGraphMonthMilestoneKey(ptsList[i + 1], periodAnchor)))
         : ((i === ptsList.length - 1) || (monthBlockKeyFromPoint(ptsList[i], periodAnchor) !== monthBlockKeyFromPoint(ptsList[i + 1], periodAnchor)));
+    var lastInYear = (cvGraph === 'year')
+        ? ((i === ptsList.length - 1) || (recompGraphYearMilestoneKey(ptsList[i], periodAnchor) !== recompGraphYearMilestoneKey(ptsList[i + 1], periodAnchor)))
+        : ((i === ptsList.length - 1) || (yearBlockKeyFromPoint(ptsList[i], periodAnchor) !== yearBlockKeyFromPoint(ptsList[i + 1], periodAnchor)));
     var starPeriod = (cvGraph === 'week' && lastInWeek && weekMilestoneHit[recompGraphWeekMilestoneKey(p, periodAnchor)] !== undefined) ||
-        (cvGraph === 'month' && lastInMonth && monthMilestoneHit[recompGraphMonthMilestoneKey(p, periodAnchor)] !== undefined);
-    var starM = reachedMilestone !== undefined ? reachedMilestone : (starPeriod ? (cvGraph === 'week' ? weekMilestoneHit[recompGraphWeekMilestoneKey(p, periodAnchor)] : monthMilestoneHit[recompGraphMonthMilestoneKey(p, periodAnchor)]) : undefined);
+        (cvGraph === 'month' && lastInMonth && monthMilestoneHit[recompGraphMonthMilestoneKey(p, periodAnchor)] !== undefined) ||
+        (cvGraph === 'year' && lastInYear && yearMilestoneHit[recompGraphYearMilestoneKey(p, periodAnchor)] !== undefined);
+    var starM = reachedMilestone !== undefined ? reachedMilestone : (starPeriod ? (cvGraph === 'week' ? weekMilestoneHit[recompGraphWeekMilestoneKey(p, periodAnchor)] : (cvGraph === 'month' ? monthMilestoneHit[recompGraphMonthMilestoneKey(p, periodAnchor)] : yearMilestoneHit[recompGraphYearMilestoneKey(p, periodAnchor)])) : undefined);
     var lastWColor = '#f97316';
     var nPts = ptsList.length;
     if (nPts === 1 || i === 0) {
@@ -10437,10 +11497,20 @@ ptsList.forEach(function(p, i) {
     var wFill = weightValueFill(wY, i);
     weightGradDefs += wFill.defs;
     var wLbl = (p.w > 0) ? p.w.toFixed(1) : (wY > 0 ? '~' + wY.toFixed(1) : '—');
-    pt += '<text x="' + x + '" y="' + (y-22) + '" fill="' + wFill.fill + '" font-size="15" font-weight="900" text-anchor="middle" style="text-shadow:0 1px 3px rgba(0,0,0,0.88)">' + wLbl + '</text><text x="' + x + '" y="' + (sH-14) + '" fill="#94a3b8" font-size="12" text-anchor="middle">' + p.d + '</text>';
+    var wLblColor = nearestMetaColor(wY);
+    var wLblStroke = chartWeightLabelStroke();
+    pt += '<text x="' + x + '" y="' + (y-22) + '" fill="' + wLblColor + '" font-size="16" font-weight="900" text-anchor="middle" stroke="' + wLblStroke + '" stroke-width="0.5" paint-order="stroke fill" style="text-rendering:geometricPrecision;paint-order:stroke fill">' + wLbl + '</text>';
+    if (cvGraph === 'year') {
+    var _dkY = (p.key && /^\d{4}-\d{2}-\d{2}$/.test(p.key)) ? p.key : dayKeyFromDate(p.s);
+    var _yrY = (/^\d{4}-\d{2}-\d{2}$/.test(_dkY)) ? _dkY.slice(0, 4) : String(recompDateMidnight(p.s).getFullYear());
+    pt += '<text x="' + x + '" y="' + (sH - 26) + '" fill="' + chartAxisColor() + '" font-size="12" font-weight="800" text-anchor="middle">' + p.d + '<tspan x="' + x + '" dy="14" fill="' + chartAxisDim() + '" font-size="10" font-weight="800">' + _yrY + '</tspan></text>';
+    } else {
+    pt += '<text x="' + x + '" y="' + (sH-14) + '" fill="' + chartAxisColor() + '" font-size="12" text-anchor="middle">' + p.d + '</text>';
+    }
     if (cvGraph !== 'day' && recompDayHasMetric(p)) {
     var mDate = displayDayKey(p.key || dayKeyFromDate(p.s));
-    pt += '<text x="' + x + '" y="' + (sH - 2) + '" fill="#cbd5e1" font-size="10" font-weight="800" text-anchor="middle">M: ' + mDate + '</text>';
+    var mY = (cvGraph === 'year') ? (sH + 2) : (sH - 2);
+    pt += '<text x="' + x + '" y="' + mY + '" fill="#cbd5e1" font-size="10" font-weight="800" text-anchor="middle">M: ' + mDate + '</text>';
     }
     if(starM !== undefined) {
     var sIdx = mstones.findIndex(function(mm) { return Math.abs(Number(mm) - Number(starM)) < 0.02; });
@@ -10516,11 +11586,28 @@ lockWeightScroll = !(innerW > (outerW + 1));
 }
 if (lockWeightScroll) scrollWEl.classList.add("graph-outer--locked");
 var savedW = D.chartScrollW;
+var cwScroll = scrollWEl.clientWidth || scrollWEl.getBoundingClientRect().width || 0;
+var idxTodayScroll = -1;
+for (var _ri = 0; _ri < ptsList.length; _ri++) {
+if (dayKeyFromDate(recompDateMidnight(ptsList[_ri].s)) === today) { idxTodayScroll = _ri; break; }
+}
+if (idxTodayScroll < 0) {
+var _todayMs = recompDateMidnight(parseDayKeyToDate(today)).getTime();
+idxTodayScroll = 0;
+for (var _rj = 0; _rj < ptsList.length; _rj++) {
+if (recompDateMidnight(ptsList[_rj].s).getTime() <= _todayMs) idxTodayScroll = _rj;
+else break;
+}
+}
+if (idxTodayScroll < 0) idxTodayScroll = ptsList.length - 1;
+var xTodayScroll = fx(idxTodayScroll);
+var marginScroll = 96;
+/* Výchozí náhled = dnešní bod u pravé strany; ne špička predikce do cílové váhy (ta může být roky daleko). */
+var roadmapScrollToToday = cwScroll ? Math.max(0, xTodayScroll - cwScroll + marginScroll) : 0;
 if (!lockWeightScroll && savedW !== null && typeof savedW === 'number' && !isNaN(savedW)) {
 scrollWEl.scrollLeft = savedW;
-} else if (!lockWeightScroll && predEndXForScroll > 0) {
-var cw = scrollWEl.clientWidth || scrollWEl.getBoundingClientRect().width || 0;
-scrollWEl.scrollLeft = cw ? Math.max(0, predEndXForScroll - cw + 120) : 0;
+} else if (!lockWeightScroll) {
+scrollWEl.scrollLeft = roadmapScrollToToday;
 } else {
 scrollWEl.scrollLeft = 0;
 }
@@ -10913,7 +12000,7 @@ updateRoadmapMini("shoulders", " cm");
 drawW();
 (function syncRoadmapViewButtons() {
 var v = window.currentView || 'day';
-var order = ['day', 'week', 'month'];
+var order = ['day', 'week', 'month', 'year'];
 var ix = order.indexOf(v);
 if (ix < 0) ix = 0;
 var wrap = document.querySelector('.graph-controls');
@@ -11025,7 +12112,7 @@ var g = "";
 var cx = xLeft + wT / 2;
 g += '<rect x="' + xLeft + '" y="' + yTop + '" width="' + wT + '" height="' + H + '" rx="5" fill="rgba(15,23,42,0.82)" stroke="rgba(148,163,184,0.45)" stroke-width="0.7"/>';
 if(!isFinite(tgtN) || tgtN <= 0) {
-g += '<text x="' + cx + '" y="' + (yTop + H / 2) + '" fill="#94a3b8" font-size="9" font-weight="900" text-anchor="middle" dominant-baseline="middle">—</text>';
+g += '<text x="' + cx + '" y="' + (yTop + H / 2) + '" fill="' + chartAxisColor() + '" font-size="9" font-weight="900" text-anchor="middle" dominant-baseline="middle">—</text>';
 return g;
 }
 var goodH = Math.min(stp * H, (cur / tgtN) * stp * H);
@@ -11033,7 +12120,7 @@ g += '<line x1="' + xLeft + '" y1="' + stY + '" x2="' + (xLeft + wT) + '" y2="' 
 if(cur > tgtN) {
 g += '<text x="' + cx + '" y="' + (yTop - 20) + '" fill="#b91c1c" font-size="21" font-weight="900" text-anchor="middle" dominant-baseline="middle" style="filter:drop-shadow(0 0 7px rgba(248,113,113,0.95));text-shadow:0 0 14px rgba(127,29,29,0.95)">!</text>';
 }
-g += '<text x="' + cx + '" y="' + (yTop - 4) + '" fill="#94a3b8" font-size="8" font-weight="900" text-anchor="middle">' + tgtN + '</text>';
+g += '<text x="' + cx + '" y="' + (yTop - 4) + '" fill="' + chartAxisColor() + '" font-size="8" font-weight="900" text-anchor="middle">' + tgtN + '</text>';
 g += '<rect x="' + xLeft + '" y="' + (yBot - goodH) + '" width="' + wT + '" height="' + Math.max(1, goodH) + '" fill="url(#' + fillId + ')" stroke="' + strokeCol + '" stroke-width="0.5" rx="3"/>';
 if(cur > tgtN) {
 var overH = Math.min((1 - stp) * H, (cur / tgtN - 1) * stp * H);
@@ -11062,7 +12149,7 @@ for(mii = 0; mii < kWindowDays; mii++) {
     gMacro += '<text x="' + (baseXM + bwM / 2) + '" y="' + (macroBottom + 6) + '" fill="#a78bfa" font-size="8" font-weight="900" text-anchor="middle">B</text>';
     gMacro += '<text x="' + (baseXM + bwM + gapM + bwM / 2) + '" y="' + (macroBottom + 6) + '" fill="#f59e0b" font-size="8" font-weight="900" text-anchor="middle">T</text>';
     gMacro += '<text x="' + (baseXM + 2 * (bwM + gapM) + bwM / 2) + '" y="' + (macroBottom + 6) + '" fill="#ec4899" font-size="8" font-weight="900" text-anchor="middle">S</text>';
-    gMacro += '<text x="' + xMacro + '" y="' + (macroBottom + 22) + '" fill="#64748b" font-size="7" font-weight="800" text-anchor="middle">' + dsMacroFull + '</text>';
+    gMacro += '<text x="' + xMacro + '" y="' + (macroBottom + 22) + '" fill="' + chartAxisDim() + '" font-size="7" font-weight="800" text-anchor="middle">' + dsMacroFull + '</text>';
 }
 
 eatFillPath += " L " + (kStartX + (kLastOffset * kStepX)) + "," + kH + " L " + kStartX + "," + kH + " Z";
@@ -11108,32 +12195,63 @@ function renderSmallProgressStack(id, smallTotal, color) {
         return;
     }
     var rem = smallTotal % 10;
-    if(rem === 0) {
-        box.innerHTML = '<span style="color:var(--muted); font-size:9px; line-height:1.35;">' + tr('stack_10') + '</span>';
-        return;
-    }
+    if(rem === 0) rem = 10;
     var h = "";
     var j;
     for(j = 0; j < rem; j++) {
-        h += '<div class="mini-star" style="color:' + color + ';"><svg class="star-3d" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.18" stroke-linejoin="round" d="' + starPath + '"/></svg>' + ((j === rem - 1) ? '<span class="star-num">' + rem + '</span>' : '') + '</div>';
+        h += '<div class="mini-star" style="color:' + color + ';"><svg class="star-3d" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.18" stroke-linejoin="round" d="' + starPath + '"/></svg>' + ((j === rem - 1) ? '<span class="star-num">' + rem + '</span>' : '') + '</div>';
+    }
+    if(smallTotal >= 10 && smallTotal % 10 === 0) {
+        h += '<span style="flex:1 1 100%;font-size:8px;font-weight:800;color:var(--muted);line-height:1.3;margin-top:2px;">' + tr('stack_10') + '</span>';
     }
     box.innerHTML = h;
+}
+function renderRankMegaStar(el, bigCount, smallTotal, variant) {
+    if(!el) return;
+    if(bigCount < 1) {
+        el.innerHTML = '<span class="star-rank-plain">' + tr('star_rank_plain') + '</span>';
+        return;
+    }
+    var cls = variant === 'gold' ? 'rank-mega-star--gold' : 'rank-mega-star--green';
+    var bubble = variant === 'gold' ? 'gold' : 'green';
+    var aria = String(variant === 'gold' ? tr('aria_star_gold') : tr('aria_star_neon')).replace(/"/g, '&quot;');
+    var numCls = 'rank-mega-star-num' + (bigCount >= 10 ? ' rank-mega-star-num--wide' : '');
+    var gid = variant === 'gold' ? 'rankGlassGold' : 'rankGlassGreen';
+    var gShine = variant === 'gold' ? 'rankShineGold' : 'rankShineGreen';
+    var gStroke = variant === 'gold' ? 'rankStrokeGold' : 'rankStrokeGreen';
+    var svgDefs = '<defs>' +
+        '<linearGradient id="' + gid + '" x1="8%" y1="4%" x2="92%" y2="96%">' +
+        '<stop offset="0%" stop-color="rgba(255,255,255,0.38)"/>' +
+        '<stop offset="42%" stop-color="' + (variant === 'gold' ? 'rgba(251,191,36,0.22)' : 'rgba(57,255,20,0.2)') + '"/>' +
+        '<stop offset="100%" stop-color="rgba(15,23,42,0.62)"/>' +
+        '</linearGradient>' +
+        '<linearGradient id="' + gShine + '" x1="18%" y1="0%" x2="78%" y2="88%">' +
+        '<stop offset="0%" stop-color="rgba(255,255,255,0.55)"/>' +
+        '<stop offset="55%" stop-color="rgba(255,255,255,0.1)"/>' +
+        '<stop offset="100%" stop-color="rgba(255,255,255,0)"/>' +
+        '</linearGradient>' +
+        '<linearGradient id="' + gStroke + '" x1="0%" y1="0%" x2="0%" y2="100%">' +
+        '<stop offset="0%" stop-color="rgba(255,255,255,0.85)"/>' +
+        '<stop offset="100%" stop-color="currentColor"/>' +
+        '</linearGradient>' +
+        '</defs>';
+    var svgPaths =
+        '<path class="rank-mega-star-body" fill="url(#' + gid + ')" stroke="url(#' + gStroke + ')" d="' + starPath + '"/>' +
+        '<path fill="url(#' + gShine + ')" opacity="0.85" d="' + starPath + '"/>';
+    el.innerHTML =
+        '<button type="button" class="rank-mega-star-btn ' + cls + '" onclick="window.showStarInfoBubble(\'' + bubble + '\')" aria-label="' + aria + '">' +
+        '<span class="rank-mega-star-stage">' +
+        '<svg class="rank-mega-svg" viewBox="0 0 24 24" aria-hidden="true">' + svgDefs + svgPaths + '</svg>' +
+        '<span class="' + numCls + '" aria-hidden="true">' + bigCount + '</span></span></button>' +
+        '<div class="star-rank-sub">' + tr('star_rank_sub', { small: smallTotal, big: bigCount }) + '</div>';
 }
 
 renderSmallProgressStack('stack-green', greenTotal, 'var(--green-neon)');
 renderSmallProgressStack('stack-gold', goldTotal, 'var(--gold-deep)');
 
 var bigNeon = Math.floor(greenTotal / 10), bigGold = Math.floor(goldTotal / 10);
-var rg = document.getElementById('rank-green');
-if(rg) {
-    if(bigNeon < 1) rg.innerHTML = '<span class="star-rank-plain">' + tr('star_rank_plain') + '</span>';
-    else rg.innerHTML = '<button type="button" class="rank-mega-star-btn rank-mega-star--green" onclick="window.showStarInfoBubble(\'green\')" aria-label="' + String(tr('aria_star_neon')).replace(/"/g, '&quot;') + '"><svg class="star-3d rank-mega-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.18" stroke-linejoin="round" d="' + starPath + '"/></svg><span class="rank-mega-star-num">' + bigNeon + '</span></button>';
-}
-var rgo = document.getElementById('rank-gold');
-if(rgo) {
-    if(bigGold < 1) rgo.innerHTML = '<span class="star-rank-plain">' + tr('star_rank_plain') + '</span>';
-    else rgo.innerHTML = '<button type="button" class="rank-mega-star-btn rank-mega-star--gold" onclick="window.showStarInfoBubble(\'gold\')" aria-label="' + String(tr('aria_star_gold')).replace(/"/g, '&quot;') + '"><svg class="star-3d rank-mega-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.18" stroke-linejoin="round" d="' + starPath + '"/></svg><span class="rank-mega-star-num">' + bigGold + '</span></button>';
-}
+renderRankMegaStar(document.getElementById('rank-green'), bigNeon, greenTotal, 'green');
+renderRankMegaStar(document.getElementById('rank-gold'), bigGold, goldTotal, 'gold');
 document.getElementById('bal-list').innerHTML = bl;
 
 /* Zesílený barevný přechod pod křivkami + skleněné makro sloupce */
@@ -11607,6 +12725,10 @@ try {
 setupIronCoreBackupImportInput();
 setupCriticalButtonGuards();
 setupBackupAutoWatchers();
+try { scheduleHealthMidnightSync(); } catch (eHealthSched) {}
+setTimeout(function() {
+try { window.healthAutoSyncTodayOnce(true); } catch (eHealthBoot) {}
+}, 2500);
 var skipOnboardingOnce = false;
 try { skipOnboardingOnce = localStorage.getItem(ONBOARDING_SKIP_ONCE_KEY) === '1'; } catch (eSkipRead) {}
 if (skipOnboardingOnce) {
@@ -11628,6 +12750,7 @@ document.addEventListener('DOMContentLoaded', bootApp);
 bootApp();
 }
 setInterval(function() { try { render(); } catch(e){} }, 60000);
+setInterval(function() { try { window.healthAutoSyncTodayOnce(false); } catch(e){} }, 120000);
 (function registerIronCoreServiceWorker() {
 if (!('serviceWorker' in navigator)) return;
 if (location.protocol !== 'http:' && location.protocol !== 'https:') return;
@@ -11638,7 +12761,7 @@ navigator.serviceWorker.register('sw.js').catch(function() {});
 </script>
 <div id="app-bottom-bar" class="app-bottom-bar">
 <div class="app-bottom-bar-inner">
-<button type="button" class="app-bottom-bar-home" onclick="window.scrollAppToTop()" data-i18n-aria="nav_home_aria" aria-label="Domů — začátek aplikace"><span class="app-bottom-bar-home-line">IRON</span><span class="app-bottom-bar-home-line">CORE</span></button>
+<button type="button" class="app-bottom-bar-home" onclick="window.scrollAppToTop()" data-i18n-aria="nav_home_aria" aria-label="Domů — začátek aplikace"><img class="app-bottom-bar-home-icon" src="app-icon.png" alt="" width="36" height="36" decoding="async"></button>
 <nav class="app-bottom-bar-scroll" data-i18n-aria="nav_sections_aria" aria-label="Sekce aplikace">
 <button type="button" class="app-bottom-bar-sect app-bottom-bar-sect--progres" onclick="window.scrollAppToSection('section-roadmap')" data-i18n="nav_progress">Progres</button>
 <button type="button" class="app-bottom-bar-sect app-bottom-bar-sect--energy" onclick="window.scrollAppToSection('section-energy')" data-i18n="nav_energy">Energie</button>
